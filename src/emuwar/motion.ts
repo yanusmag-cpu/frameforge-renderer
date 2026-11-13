@@ -130,7 +130,7 @@ export function emuPose(e:Emu,t:number,eye:V3):EmuPose{const m=e.mover,s=e.s,f=f
  if(mood==='graze')head[1]=Math.max(head[1],(m.floor??ground)(head[0],head[2])+.12*s+peck*s);
  if(look>0&&(mood==='peer'||mood==='alert'||mood==='proud'||mood==='smug')){const lean2=scale(norm([toCam[0],0,toCam[2]]),.12*s*look);head=add(head,lean2);}
  const c1=add(add(base,scale(fwdH,.14*s)),[0,(hu>.3?.26:.02)*s,0]),c2=add(add(head,scale(hFwd0,-.16*s)),[0,(hu>.3?-.14:.12)*s,0]);const neck:V3[]=[];for(let i=0;i<=6;i++)neck.push(bez3(base,c1,c2,head,i/6));
- let headFwd=norm(add(scale(hFwd0,1),[0,mood==='graze'?-1.2:mood==='run'?-.15:-.05,0]));if(look>0)headFwd=norm(mix(headFwd,toCam,look*.85));
+ let headFwd=norm(add(scale(hFwd0,1),[0,mood==='graze'?-1.2:mood==='run'?-.15:-.05,0]));if(look>0)headFwd=norm(mix(headFwd,toCam,look*.5));
  const headUp=norm(cross(cross(headFwd,[0,1,0]),headFwd));
  const beak=e.beak?e.beak(t):mood==='run'?.12+.1*Math.max(0,Math.sin(ph*.5)):0;const lid=e.lid?e.lid(t):(((t+e.tone*4)%3.4)<.12?1:0);
  return {id:e.id,s,tone:e.tone,body,fwd,up,right,feet:[f.l,f.r],neck,head,headFwd,headUp,beak,lid,brow:e.brow?e.brow(t):0,gaze:look>.5?eye:null,hat:e.hat?e.hat(t):false,stalk:e.stalk?e.stalk(t):false,speed:v,phase:f.phase,contact:f.contact};}

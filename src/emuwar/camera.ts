@@ -28,7 +28,7 @@ export function cameraPose(t:number):CameraPose{const s=shotAt(t),P=PADDOCK;let 
  case'E12':{const G=GUN_PADDOCK;const gy=gunAt(t).yaw;const dir:V3=[Math.cos(gy),0,-Math.sin(gy)];c={eye:g(G[0]-2.5,G[2]+1.35,1.15),target:add(g(G[0]+1,G[2],.6),scale(dir,8)),fov:58,roll:0,blur:0,blurDir:0};
   for(const sw of EV.swings){const w=whip(sw,.18,t);if(w.blur>0){c.blur=w.blur*.8;c.blurDir=1;}}shake=.2;break;}
  case'E13':{const G=GUN_PADDOCK;const w=whip(EV.whip,.17,t);const pk=emuPose(emuMover('peeker','paddock'),t,g(G[0],G[2],1.6));
-  const majorShot={eye:g(G[0]+.75,G[2]-1.35,1.58),target:g(G[0]-.9,G[2]-1.5,1.52)};const peekShot={eye:add(pk.head,[-.6,-.05,-1.45]),target:add(pk.head,[0,-.18,0])};
+  const majorShot={eye:g(G[0]+.75,G[2]-1.35,1.58),target:g(G[0]-.9,G[2]-1.5,1.52)};const peekShot={eye:add(pk.head,[-1.0,-.1,-1.6]),target:add(pk.head,[0,-.25,0])};
   c={eye:mix(majorShot.eye,peekShot.eye,w.u),target:mix(majorShot.target,peekShot.target,w.u),fov:lerp(40,36,w.u),roll:0,blur:w.blur,blurDir:1};shake=.06;break;}
  case'E14':{const G:V3=[DAM[0]+1.8,0,DAM[2]+21.2];const k=ease(21.6,23.5,t);c={eye:mix(g(G[0]-.9,G[2]+5.6,2.4),g(G[0]-.7,G[2]+4.7,2.1),k),target:g(G[0]+.3,G[2]-9,.2),fov:46,roll:0,blur:0,blurDir:0};break;}
  case'E15':{const G:V3=[DAM[0]+1.8,0,DAM[2]+21.2];const push=smooth(EV.jam,EV.jam+.35,t);c={eye:mix(g(G[0]+2.3,G[2]-1.4,.95),g(G[0]+2.0,G[2]-.7,.9),push),target:mix(g(G[0]-.1,G[2]+.45,.45),g(G[0]-.05,G[2]+.95,.5),push),fov:lerp(42,36,push),roll:0,blur:0,blurDir:0};
@@ -40,7 +40,7 @@ export function cameraPose(t:number):CameraPose{const s=shotAt(t),P=PADDOCK;let 
  case'E20':case'E21':case'E22':{const sd=SKY.sunset.sunDir,sx=sd[0]/Math.hypot(sd[0],sd[2]),sz=sd[2]/Math.hypot(sd[0],sd[2]);const top:V3=[SUMMIT[0],summitY(),SUMMIT[2]];
   if(s.id==='E20'){const k=ease(34.2,35.7,t);c={eye:add(g(OUTCROP[0]-sx*30+6,OUTCROP[2]-sz*30+4,0),[0,5.5-1.2*k,0]),target:add(top,[sx*5,.4,sz*5]),fov:lerp(36,32,k),roll:0,blur:0,blurDir:0};}
   else if(s.id==='E21'){const k=ease(35.7,37.4,t);const d=lerp(10,5.8,k);c={eye:add(top,[-sx*d+1.2,-1.6+.5*k,-sz*d+1.0]),target:add(top,[0,1.75,0]),fov:lerp(40,36,k),roll:-.02,blur:0,blurDir:0};}
-  else{const vic=emuPose(emuMover('victor','hill'),t,add(top,[-1.2,2.0,1.45]));const k=smooth(37.4,38.1,t);const st=pop2(EV.stamp,t);c={eye:add(top,[-1.7+.3*k,2.0,2.1-.3*k]),target:add(vic.head,[0,-.22,0]),fov:lerp(34,30,k)-2*st,roll:0,blur:0,blurDir:0};}
+  else{const vic=emuPose(emuMover('victor','hill'),t,add(top,[-1.2,2.0,1.45]));const k=smooth(37.4,38.1,t);const st=pop2(EV.stamp,t);c={eye:add(top,[-2.3+.35*k,1.95,2.7-.35*k]),target:add(vic.head,[0,-.3,0]),fov:lerp(32,28,k)-2*st,roll:0,blur:0,blurDir:0};}
   break;}
  }
  const imp=impact(t),amp=shake*.035+imp*.06;c.eye=add(c.eye,[noise(t*13)*amp,noise(t*15+4)*amp,noise(t*14+8)*amp*.7]);c.target=add(c.target,[noise(t*11+2)*amp*.5,noise(t*12+6)*amp*.5,0]);c.roll+=noise(t*9+2)*amp*.5;
