@@ -73,7 +73,8 @@ export function ik2(a: V2, target: V2, l1: number, l2: number, bend: number): { 
  * Returns lid closure 0..1. Fast close (70 ms), slower open (110 ms).
  */
 export function blink(t: number, seed: number): number {
-  let n = Math.floor(t / 3.6) - 1, best = 0;
+  const n = Math.floor(t / 3.6) - 1;
+  let best = 0;
   for (let i = n; i < n + 3; i++) {
     const s0 = i * 3.6 + hash(i * 7 + seed) * 2.4;
     for (const off of hash(i * 13 + seed) > .78 ? [0, .32] : [0]) {
