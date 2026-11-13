@@ -63,7 +63,7 @@ export function EmuLayer({poses,eye,time,rim='#ffd9a8',hiDist=9,nearDist=26}:{po
  for(const e of poses){const d=dist(eye,e.body);const near=d<nearDist,hi=d<hiDist,s=e.s;tone(e.tone,col);
   const fh=norm([e.fwd[0],0,e.fwd[2]]);
   (hi?B.bodyHi:B.bodyLo).push(mX(M0,e.body,e.fwd,e.up,[s,s,s]),col);
-  for(let i=0;i<6;i++){const a=e.neck[i],b=e.neck[i+1],L=Math.max(.01,dist(a,b)),r=s*lerp(1.35,.9,i/5);B.neck.push(mY(M0,a,sub(b,a),fh,[r,L/.1,r]),col);}
+  for(let i=0;i<6;i++){const a=e.neck[i],b=e.neck[i+1],L=Math.max(.01,dist(a,b)),r=s*lerp(1.35,.9,i/5);B.neck.push(mY(M0,a,sub(b,a),fh,[r,L*1.08/.1,r]),col);}
   const hs=s*HEAD;mX(HM,e.head,e.headFwd,e.headUp,[hs,hs,hs]);B.head.push(HM,col);
   M1.makeRotationZ(-(.06+e.beak*.62));M2.makeTranslation(.05,-.006,0).multiply(M1);B.jaw.push(M0.copy(HM).multiply(M2));
   if(near){IH.copy(HM).invert();lidC.setRGB(lerp(.9,1.05,e.tone),lerp(.95,1.05,e.tone),1);

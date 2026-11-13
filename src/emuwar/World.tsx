@@ -63,7 +63,7 @@ function Clone({part,pos,rot=[0,0,0],s=1}:{part:Part|undefined;pos:V3;rot?:[numb
 /** fixed scenery placements */
 const GUMS:[number,number,string,number,number][]=[[-162,-140,'GumA',.3,1],[-139,-118,'GumB',2.1,.9],[-196,-104,'GumC',1,1.1],[-40,-120,'GumB',4,1],[-30,70,'GumA',5,1.05],[30,30,'GumC',2,.95],[60,-60,'GumA',1.2,1],[175,-48,'GumB',.4,1.1],[160,35,'GumC',3.3,1],[85,-38,'GumB',2.7,.9],
  [300,-75,'GumA',2.5,1],[362,-12,'GumC',.8,1.05],[300,5,'GumB',1.9,.95],[470,-40,'GumA',.2,1],[560,40,'GumC',1.4,1],[650,-45,'GumB',3,1],[742,26,'GumA',.9,1.15],[700,60,'GumC',2.2,1],[770,-70,'GumB',5.2,1],[860,10,'GumA',1.7,.9],[-100,60,'GumC',.5,1],[-240,-60,'GumA',2,1],[105,8,'GumB',5,1]];
-const CLEAR:[number,number,number][]=[[REST[0]+1,REST[2]+3,11],[PADDOCK[0]-30,PADDOCK[2]+2,9],[PADDOCK[0]+3,PADDOCK[2]+2,7],[DAM[0]+1.8,DAM[2]+21,7],[-69.5,12.8,5]];
+const CLEAR:[number,number,number][]=[[440,-4,16],[465,-4,16],[490,-4,16],[515,-4,16],[REST[0]+1,REST[2]+3,11],[PADDOCK[0]-30,PADDOCK[2]+2,9],[PADDOCK[0]+3,PADDOCK[2]+2,7],[DAM[0]+1.8,DAM[2]+21,7],[-69.5,12.8,5]];
 function scatter(eye:V3,set:SetId){const out:{t:Record<string,Matrix4[]>}={t:{TussockA:[],TussockB:[],Rock0:[],Rock1:[],Rock2:[],GrassTree:[],FencePost:[]}};const C=6,R=110,cx=Math.round(eye[0]/C),cz=Math.round(eye[2]/C);
  for(let i=-R/C;i<=R/C;i++)for(let j=-R/C;j<=R/C;j++){const gx=(cx+i)*C,gz=(cz+j)*C;const h=hash(gx*.731+gz*1.913);const x=gx+(hash(h*7.1)-.5)*C,z=gz+(hash(h*3.7)-.5)*C;
   if(CLEAR.some(([cx,cz,r])=>(x-cx)**2+(z-cz)**2<r*r)||inField(x,z)||Math.abs(z-roadZ(x))<5||dist([x,0,z],[DAM[0],0,DAM[2]])<DAM_R+3||dist([x,0,z],[OUTCROP[0],0,OUTCROP[2]])<6)continue;
@@ -144,7 +144,7 @@ export function WorldSet({time,eye,sky,poses}:{time:number;eye:V3;sky:Sky;poses:
    {mill&&<group position={[FARM.mill[0],ground(FARM.mill[0],FARM.mill[2]),FARM.mill[2]]} rotation={[0,-.6,0]}><Clone part={mill} pos={[mill.pivot.x,mill.pivot.y,mill.pivot.z]} rot={[time*2.4,0,0]}/></group>}
    <Clone part={farm.get('Trough')} pos={[FARM.mill[0]+3,ground(FARM.mill[0]+3,FARM.mill[2]+2),FARM.mill[2]+2]} rot={[0,.3,0]}/><Clone part={farm.get('Gate')} pos={[-47,ground(-47,10),10]} rot={[0,Math.PI/2,0]}/>
    {[[-176,-112,.2],[-174,-110.5,.3],[-178,-110,1.4]].map(([x,z,r],i)=><Clone key={i} part={farm.get('Bale')} pos={[x,ground(x,z),z]} rot={[0,r,0]}/>)}<FenceWires/></>}
-  {set==='dam'&&<Water time={time} sky={sky}/>}
+  {set==='dam'&&<Water time={time} sky={sky}/>}{set==='hill'&&<directionalLight color="#ffc9a0" intensity={1.1} position={[eye[0],eye[1]+2,eye[2]]}/>}
   {set==='dam'&&kit&&[-.9,-.1,.7,1.5,2.3].map((x,i)=><Clone key={i} part={kit.get('Sandbag')} pos={[DAMG[0]+x-.6,ground(DAMG[0]+x-.6,DAMG[2]-.75)+(i%2)*.02,DAMG[2]-.75]} rot={[0,.1*i,0]}/>)}
   {set==='rest'&&kit&&<><Clone part={kit.get('AmmoBoxOpen')} pos={[REST[0]+.6,ground(REST[0]+.6,REST[2]+2.9),REST[2]+2.9]} rot={[0,.5,0]}/><Clone part={kit.get('AmmoBox')} pos={[REST[0]+2.3,ground(REST[0]+2.3,REST[2]+2.5),REST[2]+2.5]} rot={[0,-.3,0]}/>
    <Clone part={kit.get('AmmoBoxOpen')} pos={[REST[0]-1.8,ground(REST[0]-1.8,REST[2]+2.4),REST[2]+2.4]} rot={[0,2.4,0]}/><Clone part={kit.get('Canteen')} pos={[REST[0]-.2,ground(REST[0]-.2,REST[2]+2.1),REST[2]+2.1]} rot={[0,0,1.4]}/>
@@ -155,6 +155,6 @@ export function WorldSet({time,eye,sky,poses}:{time:number;eye:V3;sky:Sky;poses:
   <Dust time={time} puffs={dustPuffs(time,eye,tr,poses.map(p=>({id:p.id,mover:emuMover(p.id,set).mover,s:p.s})))} sky={sky} eye={eye}/></>;}
 /** E18: the empty pan magazine in the gunner's hands and the single cartridge case that drops out. */
 function RestPan({gun,t}:{gun:Map<string,Part>;t:number}){const o:V3=[REST[0]+1.2,0,REST[2]+2.2];const gy=ground(o[0],o[2]);const shake=t>29.75&&t<30.2?.06*Math.sin(t*40):0;
- const pan:V3=[o[0]-.13,gy+.55+.65+shake,o[2]+.4];const drop=t-EV.casing;const cy=drop<0?pan[1]-.03:Math.max(gy+.01,pan[1]-.03-4.9*drop*drop);const bounce=drop>.4?.06*Math.abs(Math.sin((drop-.4)*14))*Math.exp(-(drop-.4)*5):0;
+ const pan:V3=[o[0]-.13,gy+.55+.33+shake,o[2]+.45];const drop=t-EV.casing;const cy=drop<0?pan[1]-.03:Math.max(gy+.01,pan[1]-.03-4.9*drop*drop);const bounce=drop>.4?.06*Math.abs(Math.sin((drop-.4)*14))*Math.exp(-(drop-.4)*5):0;
  return <><Clone part={gun.get('Pan')} pos={pan} rot={[Math.PI*smooth(29.4,29.7,t),0,.2]}/>{t>EV.casing-.4&&<Clone part={gun.get('Casing')} pos={[pan[0]+.02,cy+bounce,pan[2]+.02]} rot={[0,1,drop>0?drop*12:0]} s={1.3}/>}</>;}
 export {clamp};

@@ -111,7 +111,7 @@ export function emusAt(t:number):Emu[]{const s=shotAt(t);return flock(s.set).fil
 /** Full articulated pose for one emu. */
 export interface EmuPose{id:string;s:number;tone:number;body:V3;fwd:V3;up:V3;right:V3;feet:[V3,V3];neck:V3[];head:V3;headFwd:V3;headUp:V3;beak:number;lid:number;brow:number;gaze:V3|null;hat:boolean;stalk:boolean;speed:number;phase:number;contact:[boolean,boolean]}
 export const EMU={hipY:-.12,hipX:-.04,neckBase:[.4,.17,0] as V3,stand:1.12,thigh:.5,tarsus:.55};
-function bez(a:V3,b:V3,c:V3,u:number):V3{const v=1-u;return [a[0]*v*v+2*b[0]*u*v+c[0]*u*u,a[1]*v*v+2*b[1]*u*v+c[1]*u*u,a[2]*v*v+2*b[2]*u*v+c[2]*u*u];}
+function bez3(a:V3,b:V3,c:V3,d:V3,u:number):V3{const v=1-u,k0=v*v*v,k1=3*v*v*u,k2=3*v*u*u,k3=u*u*u;return [a[0]*k0+b[0]*k1+c[0]*k2+d[0]*k3,a[1]*k0+b[1]*k1+c[1]*k2+d[1]*k3,a[2]*k0+b[2]*k1+c[2]*k2+d[2]*k3];}
 export function emuPose(e:Emu,t:number,eye:V3):EmuPose{const m=e.mover,s=e.s,f=feet(m,t,1),v=f.speed,mood=e.mood(t,v);const p=m.at(t);const gy=(m.floor??ground)(p[0],p[1]);
  const run=clamp(v/(9*s)),lean=.06+.2*run;const fwdH=f.fwd;const fwd=norm(add(scale(fwdH,Math.cos(lean)),[0,-Math.sin(lean),0]));const right=f.right;const up=norm(cross(right,fwd));
  const crouch=mood==='graze'?.05:0;const bodyY=gy+(EMU.stand-.1*run-crouch)*s-(.05+.06*run)*s*f.bob+.02*s*Math.sin(t*2.1+e.tone*9)*(1-run);
@@ -129,7 +129,7 @@ export function emuPose(e:Emu,t:number,eye:V3):EmuPose{const m=e.mover,s=e.s,f=f
  let head=add(add(add([body[0],gy+(EMU.stand)*s,body[2]],scale(hFwd0,hf*s)),[0,hu*s,0]),scale(hRight,side*s));
  if(mood==='graze')head[1]=Math.max(head[1],(m.floor??ground)(head[0],head[2])+.12*s+peck*s);
  if(look>0&&(mood==='peer'||mood==='alert'||mood==='proud'||mood==='smug')){const lean2=scale(norm([toCam[0],0,toCam[2]]),.12*s*look);head=add(head,lean2);}
- const ctrl=add(base,[0,(hu>.3?.32:.05)*s,0]);const neck:V3[]=[];for(let i=0;i<=6;i++)neck.push(bez(base,ctrl,head,i/6));
+ const c1=add(add(base,scale(fwdH,.14*s)),[0,(hu>.3?.26:.02)*s,0]),c2=add(add(head,scale(hFwd0,-.16*s)),[0,(hu>.3?-.14:.12)*s,0]);const neck:V3[]=[];for(let i=0;i<=6;i++)neck.push(bez3(base,c1,c2,head,i/6));
  let headFwd=norm(add(scale(hFwd0,1),[0,mood==='graze'?-1.2:mood==='run'?-.15:-.05,0]));if(look>0)headFwd=norm(mix(headFwd,toCam,look*.85));
  const headUp=norm(cross(cross(headFwd,[0,1,0]),headFwd));
  const beak=e.beak?e.beak(t):mood==='run'?.12+.1*Math.max(0,Math.sin(ph*.5)):0;const lid=e.lid?e.lid(t):(((t+e.tone*4)%3.4)<.12?1:0);

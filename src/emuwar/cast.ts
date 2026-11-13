@@ -134,7 +134,7 @@ function chase(id:ActorId,t:number):Pose{const tr=truckAt(t);const air=tr.air,jo
 // ---------------------------------------------------------------- aftermath under the gum tree
 function rest(id:ActorId,t:number):Pose{const W:V3=[0,0,1];
  if(shotAt(t).id==='E18'&&id==='gunner'){const o:V3=[REST[0]+1.2,0,REST[2]+2.2];const p=base('gunner',t,[o[0],gY(o[0],o[2])+.55,o[2]],[-.3,0,1]);p.lFoot=at([o[0],gY(o[0],o[2]),o[2]],[-.3,0,1],-.15,0,.55);p.rFoot=at([o[0],gY(o[0],o[2]),o[2]],[-.3,0,1],.18,0,.5);p.kneeBias=1;
-  const shake=t>29.75&&t<30.2?.06*Math.sin(t*40):0;const pan=at(p.hip,[-.3,0,1],0,.62+shake,.42);p.lHand=add(pan,[-.13,0,0]);p.rHand=add(pan,[.13,0,0]);p.fist={l:true,r:true};
+  const shake=t>29.75&&t<30.2?.06*Math.sin(t*40):0;const pan=at(p.hip,[-.3,0,1],0,.3+shake,.45);p.lHand=add(pan,[-.13,0,0]);p.rHand=add(pan,[.13,0,0]);p.fist={l:true,r:true};
   p.emotion=t<30.25?'sad':'exhausted';p.lookUp=-.06;return withHead(p,[0,-.1,.12]);}
  const spot:Record<string,V3>={major:[REST[0]-.9,0,REST[2]+1.1],sarge:[REST[0]+.5,0,REST[2]+1.3],gunner:[REST[0]+1.6,0,REST[2]+.7]};const o=spot[id];const face:V3=id==='gunner'?[.6,0,1]:[0,0,1];
  const up=smooth(EV.standUp,EV.standUp+.45,t)*(id==='major'?1:smooth(33.85,34.2,t));

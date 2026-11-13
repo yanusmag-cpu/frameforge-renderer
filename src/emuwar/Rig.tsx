@@ -89,7 +89,7 @@ class Paper{
   if(e==='scream'||e==='shocked'||e==='afraid'||e==='shout'){const o=(e==='scream'?1.35:e==='shout'?.75+.5*p.mouthOpen:e==='afraid'?.7:1)*(.7+.3*Math.max(p.mouthOpen,.5));
    this.ellipse(INK,p.head,f,.066*s*o,.078*s*o*(1+.08*Math.sin(time*25)),z,18,x,y);this.ellipse('#c4505a',p.head,f,.046*s*o,.026*s*o,z+.003,12,x,y-.035*s*o);return;}
   if(e==='strain'||e==='grin'){const wd=e==='grin'?.1:.09;this.shape(INK,p.head,f,[[x-wd*s,y+.04*s],[x+wd*s,y+.04*s],[x+wd*.8*s,y-.05*s],[x-wd*.8*s,y-.05*s]],z);this.shape(WHITE,p.head,f,[[x-(wd-.015)*s,y+.027*s],[x+(wd-.015)*s,y+.027*s],[x+(wd*.8-.012)*s,y-.037*s],[x-(wd*.8-.012)*s,y-.037*s]],z+.002);
-   this.seg(INK,this.at(p.head,f,x-(wd-.015)*s,y-.005*s,z+.004),this.at(p.head,f,x+(wd-.015)*s,y-.005*s,z+.004),.008*s,0,false);if(e==='strain')for(const k of [-.04,0,.04])this.seg(INK,this.at(p.head,f,x+k*s,y+.022*s,z+.004),this.at(p.head,f,x+k*s,y-.032*s,z+.004),.006*s,0,false);return;}
+   this.seg(INK,this.at(p.head,f,x-(wd-.015)*s,y-.005*s,z+.004),this.at(p.head,f,x+(wd-.015)*s,y-.005*s,z+.004),.008*s,0,false);return;}
   if(e==='smile'){this.arc(INK,p.head,f,x,y+.06*s,.075*s,-Math.PI+.5,-.5,.02*s,z,8);return;}
   if(e==='whisper'){this.ellipse(INK,p.head,f,.022*s,.02*s,z,10,x,y);return;}
   const curve=e==='exhausted'||e==='sad'||e==='angry'?-.025:e==='determined'||e==='focused'?0:.006;for(let j=0;j<5;j++){const a=j/5,b=(j+1)/5,yy=(q:number)=>y+curve*s*(1-(q*2-1)**2);this.seg(INK,this.at(p.head,f,x+(-.065+a*.13)*s,yy(a),z),this.at(p.head,f,x+(-.065+b*.13)*s,yy(b),z),.018*s);}}

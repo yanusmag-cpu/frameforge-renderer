@@ -187,7 +187,7 @@ def emu():
     for i in range(16):
         a = random.uniform(0, math.tau); y = random.uniform(0, .1); n = (math.cos(a), .25, math.sin(a)); p = (math.cos(a) * .045, y, math.sin(a) * .045)
         L2 = random.uniform(.05, .09); ps.append([p, addv(addv(p, n, L2 * .6), (0, -1, 0), L2 * .5)]); ws.append([.022, .006]); ns.append(nrm((math.cos(a + 1.5), 0, math.sin(a + 1.5))))
-    keep('EmuNeck', [loft('neck', [(0, -.012, 0), (0, .05, 0), (0, .112, 0)], [.039, .04, .038], skin, sides=12)])
+    keep('EmuNeck', [loft('neck', [(0, -.02, 0), (0, .05, 0), (0, .12, 0)], [.039, .04, .039], skin, sides=14, cap=False)])
     # head: pivot at the top of the neck; beak toward +x
     hp, hw, hn = [], [], []
     for i in range(30):
