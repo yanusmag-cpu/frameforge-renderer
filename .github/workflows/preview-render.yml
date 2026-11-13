@@ -119,7 +119,7 @@ jobs:
           else cp out/silent.mp4 out/joined/preview.mp4; fi
           ffmpeg -v error -i out/silent.mp4 -vf "fps=1,scale=180:320,tile=10x$N" -frames:v 1 -q:v 3 out/joined/contact-sheet.jpg
           cp out/parts/still-*.jpg out/joined/
-          n=$(ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of csv=p=0 out/silent.mp4)
+          n=$(ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of default=nw=1:nk=1 out/silent.mp4 | tr -dc 0-9)
           echo "Preview frames: $n"; test "$n" = $((N*300))
       - uses: actions/upload-artifact@v4
         with:

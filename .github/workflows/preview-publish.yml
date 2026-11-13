@@ -1,0 +1,68 @@
+name: Publish an existing preview (manual)
+# Re-joins the segment artifacts of an earlier preview run and pushes them to review/<branch>. Renders nothing.
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Preview run whose segment artifacts to join
+        required: true
+      prefix:
+        description: Artifact prefix without -chunk (e.g. claude-emuwar)
+        required: true
+      chunks:
+        description: Number of 10-second segments
+        required: true
+        default: '4'
+      soundtrack:
+        description: Soundtrack path (optional)
+        required: false
+        default: ''
+permissions:
+  contents: write
+  actions: read
+jobs:
+  join:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    env:
+      SOUND: ${{ inputs.soundtrack }}
+      N: ${{ inputs.chunks }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure FFmpeg
+        run: command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null)
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: preview-${{ inputs.prefix }}-${{ inputs.run_id }}-*
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+          path: out/parts
+          merge-multiple: true
+      - name: Join the 60-second preview, add the soundtrack, build a contact sheet
+        run: |
+          mkdir -p out/joined; for i in $(seq 0 $((N-1))); do echo "file '$PWD/out/parts/seg-$i.mp4'"; done > out/list.txt
+          ffmpeg -v error -f concat -safe 0 -i out/list.txt -c copy out/silent.mp4
+          if [ -n "$SOUND" ] && [ -f "$SOUND" ]; then
+            ffmpeg -v error -i out/silent.mp4 -i "$SOUND" -map 0:v -map 1:a -c:v copy -c:a aac -b:a 160k -shortest out/joined/preview.mp4
+          else cp out/silent.mp4 out/joined/preview.mp4; fi
+          ffmpeg -v error -i out/silent.mp4 -vf "fps=1,scale=180:320,tile=10x$N" -frames:v 1 -q:v 3 out/joined/contact-sheet.jpg
+          cp out/parts/still-*.jpg out/joined/
+          n=$(ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of default=nw=1:nk=1 out/silent.mp4 | tr -dc 0-9)
+          echo "Preview frames: $n"; test "$n" = $((N*300))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: preview-${{ inputs.prefix }}-${{ inputs.run_id }}-joined
+          path: out/joined/
+          retention-days: 14
+      - name: Push the review media to an orphan review branch
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          case "$BRANCH" in main) echo 'No review branch for main'; exit 0;; esac
+          cd out/joined && git init -q && git checkout -q -b review
+          git config user.name 'FrameForge Renderer'; git config user.email 'frameforge-renderer@users.noreply.github.com'
+          echo "Source ${{ github.sha }} run ${{ github.run_id }}" > SOURCE.txt
+          git add . && git commit -qm "Preview of ${{ github.sha }}"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "review:review/$BRANCH"
