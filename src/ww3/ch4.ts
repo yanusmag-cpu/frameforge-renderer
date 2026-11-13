@@ -24,7 +24,7 @@ function card1945(t: number, lt: number) {
 }
 
 /** Balcony witness shot: hero at the railing, city below, distant light → flash → (later) pressure wave. */
-function balcony(t: number, lt: number) {
+function balcony(t: number) {
   const pre = range(t, S[47] + 1.0, FLASH); // horizon begins to glow ("begins with a light")
   const fl = t >= FLASH ? Math.exp(-(t - FLASH) * 1.4) : 0;
   const wave = t >= WAVE ? 1 : 0, wk = range(t, WAVE, WAVE + .5);
@@ -60,7 +60,7 @@ function silence(t: number, lt: number) {
   return cityScape(t, { sky: 'night', cam: { x: 1300, y: 520 - lt * 10, zoom: 1.05 + lt * .02 }, lit: .25, cloud: { t0: FLASH, x: 1500, sc: 150 }, stars: .3 }) + glow([1500, 400], 900, '#ff8a3b', .25) + grade({ vig: .6 });
 }
 
-function strikeMap(t: number, lt: number) {
+function strikeMap(t: number) {
   const F = fictionalWorld(7), P = (p: V2): V2 => [960 + p[0] * 1000, 580 + p[1] * 640];
   let s = `<rect width="${W}" height="${H}" fill="#08121e"/><path d="M${F.blocA.map(p => P(p).map(n).join(' ')).join('L')}Z" fill="#24384a" stroke="#4a6a8a" stroke-width="4"/><path d="M${F.blocB.map(p => P(p).map(n).join(' ')).join('L')}Z" fill="#3a2a2a" stroke="#8a5a4a" stroke-width="4"/>`;
   const marks: [number, number, 'base' | 'cmd' | 'city', number][] = [];
@@ -80,7 +80,7 @@ function strikeMap(t: number, lt: number) {
   return s + badge('fiction', 90, 80, 1) + grade({ vig: .5 });
 }
 
-function departures(t: number, lt: number) {
+function departures(t: number) {
   let s = `<defs>${lin('apw', [[0, '#1d2433'], [1, '#0e121b']])}</defs><rect width="${W}" height="${H}" fill="url(#apw)"/>`;
   s += `<rect x="120" y="90" width="1680" height="640" rx="14" fill="#0a0c10" stroke="#2a303c" stroke-width="10"/>` + txt(170, 160, 'DEPARTURES', 48, { fill: '#ffcf3b', ls: 6 });
   const rows = ['LONDON', 'TOKYO', 'NEW YORK', 'DUBAI', 'SYDNEY', 'PARIS', 'SINGAPORE', 'TORONTO'];
@@ -153,12 +153,12 @@ function firstHour(t: number, lt: number) {
 
 export const CH4: Shot[] = [
   { a: at(46), tr: 'black', r: (t, lt) => card1945(t, lt) },
-  { a: at(47), r: (t, lt) => balcony(t, lt) },
+  { a: at(47), r: t => balcony(t) },
   { a: at(49), r: (t, lt) => silence(t, lt) },
-  { a: at(50), r: (t, lt) => balcony(t, lt) },
-  { a: at(51), r: (t, lt) => strikeMap(t, lt) },
+  { a: at(50), r: t => balcony(t) },
+  { a: at(51), r: t => strikeMap(t) },
   { a: at(52), r: (t, lt) => cityScape(t, { sky: 'night', cam: { x: 960, y: 640 - lt * 20, zoom: 1.2 }, lit: .55, blackout: { t0: S[52] + 1.6, dur: 1.6 }, stars: .8 }) + kinetic(t, [[S[52] + 1.7, 'REGIONS'], [S[52] + 2.1, 'GO'], [S[52] + 2.3, 'DARK']], 960, 180, 64, { anchor: 'middle', hold: .6 }) + grade({ vig: .55 }) },
-  { a: at(53), r: (t, lt) => departures(t, lt) },
+  { a: at(53), r: t => departures(t) },
   { a: at(54), r: (t, lt) => highway(t, lt) },
   { a: at(55), r: (t, lt) => crews(t, lt) },
   { a: at(56), r: (t, lt) => dispatch(t, lt) },

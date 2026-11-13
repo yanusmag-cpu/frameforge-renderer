@@ -58,7 +58,7 @@ function barter(t: number, lt: number) {
   return s + kinetic(t, [[S[111] + .2, 'MONEY'], [S[111] + .55, 'MEANS'], [S[111] + .85, 'LITTLE']], 960, 160, 64, { anchor: 'middle', hold: 1.2 }) + glow([960, 400], 900, '#ffb35c', .2) + grade({ vig: .55 });
 }
 
-function restorePower(t: number, lt: number) {
+function restorePower(t: number) {
   let s = cityScape(t, { sky: 'night', cam: { x: 960, y: 560, zoom: 1.15 }, lit: .5, blackout: { t0: -10, dur: .01 }, restore: { t0: S[112] + 1.2, dur: 2.4 }, ruins: .3, stars: .7 });
   s += `<rect y="900" width="${W}" height="180" fill="#07090f"/><path d="M200 900 V520 M140 560 H260 M150 600 H250" stroke="#2a2e38" stroke-width="16"/><path d="M200 520 C700 640 1200 600 1900 560" stroke="#1a1d26" stroke-width="6" fill="none"/>`;
   const cheer = outBack(range(t, S[112] + 1.6, S[112] + 2.0)) * (1 - range(t, S[112] + 3.4, S[112] + 3.8));
@@ -132,7 +132,7 @@ export const CH8: Shot[] = [
   { a: at(108), tr: 'black', r: (t, lt) => dawnRidge(t, lt) },
   { a: at(109), r: (t, lt) => camp(t, lt) },
   { a: at(111), r: (t, lt) => barter(t, lt) },
-  { a: at(112), r: (t, lt) => restorePower(t, lt) },
+  { a: at(112), r: t => restorePower(t) },
   { a: at(113), r: (t, lt) => farmer(t, lt) },
   { a: at(114), r: (t, lt) => radioRoom(t, lt) },
   { a: at(115), r: (t, lt) => cityScape(t, { sky: 'dawn', cam: { x: 960, y: 560, zoom: 1.1 + lt * .03 }, ruins: .5, haze: .2 }) + rays([1500, 420], t, '#ffe0b0', .12, 8, 1600, 1.4, Math.PI * .75) + kinetic(t, [[S[115] + .3, 'SOMETHING'], [S[115] + .8, 'REMARKABLE']], 960, 540, 72, { anchor: 'middle', hold: .5 }) + grade({ vig: .5 }) },

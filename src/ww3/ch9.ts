@@ -18,7 +18,7 @@ const SEPIA = (a = .45) => `<rect width="${W}" height="${H}" fill="#c9a86a" opac
 const PETROV: Look = { outfit: 'uniform', color: '#4c5a3c', pants: '#3a4430', shoe: '#2a2018', hat: 'officer', hair: '#3c4a2a' };
 const dateTag = (t: number, t0: number, s: string) => { const k = outCubic(range(t, t0, t0 + .35)); return `<g transform="translate(${n(1830 + (1 - k) * 200)} 90)" opacity="${n(k)}"><rect x="-${s.length * 22 + 40}" y="-44" width="${s.length * 22 + 40}" height="64" rx="8" fill="#0b0f16" fill-opacity=".85"/>${txt(-20, 2, s, 34, { anchor: 'end', fill: '#ffcf3b' })}</g>`; };
 
-function computerRoom1979(t: number, lt: number) {
+function computerRoom1979(t: number) {
   let s = `<rect width="${W}" height="${H}" fill="#2a2620"/><rect y="820" width="${W}" height="260" fill="#3a3228"/>`;
   for (let i = 0; i < 4; i++) {
     const x = 120 + i * 260;
@@ -93,7 +93,7 @@ function cloudGlint(t: number, lt: number) {
   return s + badge('history', 90, 80, 1, right > 0 ? undefined : 'Sunlight glinting off high clouds fooled the satellite') + grade({ vig: .55 });
 }
 
-function debateHistory(t: number, lt: number) {
+function debateHistory(t: number) {
   let s = infoBg(t, '#14100a', '#2e2614');
   for (let i = 0; i < 6; i++) s += `<g transform="translate(${260 + i * 110} ${n(760 - (i % 2) * 20)}) rotate(${(i - 3) * 2})"><rect x="-44" y="-240" width="88" height="260" fill="${['#6a3a2a', '#2a4a6a', '#4a6a3a', '#6a5a2a', '#3a2a5a', '#5a2a3a'][i]}" stroke="#111" stroke-width="5"/></g>`;
   const checks = outBack(range(t, S[133] + 3.0, S[133] + 3.4));
@@ -119,7 +119,7 @@ function rocket1995(t: number, lt: number) {
   return s + dateTag(t, S[135] + .2, '25 JAN 1995 · RUSSIA') + badge('history', 90, 80, 1) + grade({ vig: .5 });
 }
 
-function hawaii2018(t: number, lt: number) {
+function hawaii2018(t: number) {
   let s = `<rect width="${W}" height="${H}" fill="#0e1a24"/>`;
   s += `<g transform="translate(700 560) rotate(-5)"><rect x="-230" y="-440" width="460" height="880" rx="60" fill="#15171c" stroke="#111" stroke-width="9"/><rect x="-206" y="-414" width="412" height="828" rx="44" fill="#c4161c"/>`;
   s += txt(0, -260, 'EMERGENCY ALERT', 40, { anchor: 'middle' }) + txt(0, -170, 'BALLISTIC MISSILE', 32, { anchor: 'middle' }) + txt(0, -126, 'THREAT INBOUND', 32, { anchor: 'middle' }) + txt(0, -40, 'THIS IS NOT A DRILL.', 28, { anchor: 'middle' }) + `</g>`;
@@ -150,7 +150,7 @@ function doomsday(t: number, lt: number) {
 function lastWatch(t: number, lt: number) {
   // One operator, quiet room, single blip — leans in to check again.
   const lean = inOut(range(t, S[141] + 2.0, S[141] + 3.4));
-  let s = commandCenter(t, { theme: 'teal', alert: 0, noOfficer: true, blips: [[-.8, .5, S[140] + 1]], rightText: ['SECTOR 4  NOMINAL', 'TRACKS    1', 'VERIFY'], cam: { x: mix(960, 760, inOut(range(lt, 0, 6))), y: mix(540, 560, inOut(range(lt, 0, 6))), zoom: mix(1.1, 1.7, inOut(range(lt, 0, 7))) } });
+  const s = commandCenter(t, { theme: 'teal', alert: 0, noOfficer: true, blips: [[-.8, .5, S[140] + 1]], rightText: ['SECTOR 4  NOMINAL', 'TRACKS    1', 'VERIFY'], cam: { x: mix(960, 760, inOut(range(lt, 0, 6))), y: mix(540, 560, inOut(range(lt, 0, 6))), zoom: mix(1.1, 1.7, inOut(range(lt, 0, 7))) } });
   const p: Pose = { ...STAND, turn: .35, crouch: .35, lean: .08 + lean * .25, handA: [.6, -1.95], handB: [.95, -2.0], bendA: 2, bendB: 2, headLift: lean * .03 };
   const r = stickman(p, { outfit: 'uniform', color: '#2f4a3a', pants: '#2a3326', hat: 'headset' }, { id: 'lw', t, seed: 130, face: { ...expr('focused', 'curious', lean), gx: .8, gy: -.4 } });
   return s + `<g opacity="${n(range(lt, 0, .4))}">${place(r.svg, 520, 1200, 210)}</g>` + `<rect y="${n(1000)}" width="${W}" height="80" fill="#0b1117"/>`;
@@ -158,14 +158,14 @@ function lastWatch(t: number, lt: number) {
 
 export const CH9: Shot[] = [
   { a: at(122), tr: 'white', r: (t, lt) => radarScreen(t, lt, [[-.8, .5, 0]], 0, 'EARLY WARNING · SINGLE TRACK') + glitchBars(t, 1 - range(lt, 0, .4)) + chapterTitle(lt, 9, 'The Final Reveal', 2.6) + badge(t < S[124] + .3 ? 'fiction' : 'history', 1400, 1000, t < S[124] + .3 ? 1 : outBack(range(t, S[124] + .3, S[124] + .6))) },
-  { a: at(125), r: (t, lt) => computerRoom1979(t, lt) },
+  { a: at(125), r: t => computerRoom1979(t) },
   { a: at(126), r: (t, lt) => chip1980(t, lt) },
   { a: at(127), r: (t, lt) => bunker1983(t, lt, 'alarm') },
   { a: at(129), r: (t, lt) => bunker1983(t, lt, 'think') },
   { a: at(131), r: (t, lt) => cloudGlint(t, lt) },
-  { a: at(133), r: (t, lt) => debateHistory(t, lt) },
+  { a: at(133), r: t => debateHistory(t) },
   { a: at(135), r: (t, lt) => rocket1995(t, lt) },
-  { a: at(136), r: (t, lt) => hawaii2018(t, lt) },
+  { a: at(136), r: t => hawaii2018(t) },
   { a: at(137), r: (t, lt) => nearMissTimeline(t, lt) },
   { a: at(138), r: (t, lt) => doomsday(t, lt) },
   // callback: the same quiet room as the opening, a minute earlier

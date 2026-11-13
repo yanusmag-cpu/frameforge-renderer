@@ -81,7 +81,7 @@ function climateCharts(t: number) {
   return s + txt(960, 900, 'Model illustration — severity depends on how much smoke reaches the stratosphere', 28, { anchor: 'middle', weight: 600, fill: '#c9d2e0' }) + grade({ vig: .45 });
 }
 
-function winterField(t: number, lt: number) {
+function winterField(t: number) {
   let s = `<defs>${lin('wf', [[0, '#5a5e66'], [1, '#8a8a84']])}</defs><rect width="${W}" height="${H}" fill="url(#wf)"/>`;
   s += `<circle cx="1400" cy="230" r="70" fill="#c9c6b8" opacity=".55"/>` + rays([1400, 230], t, '#d8d4c4', .05, 6, 900, 1.2, Math.PI * .6);
   s += `<rect y="720" width="${W}" height="360" fill="#6a6450"/>`;
@@ -142,7 +142,7 @@ export const CH7: Shot[] = [
   { a: at(96), r: (t, lt) => layers(t, lt) },
   { a: at(97), r: (t, lt) => sootGlobe(t, lt, inOut(range(lt, .3, 4))) + txt(1100, 1030, `WEEK ${Math.min(8, 1 + Math.floor(range(lt, .3, 4) * 7))}`, 40, { anchor: 'middle', fill: '#c9d2e0' }) + kinetic(t, [[S[97] + 2.6, 'LESS'], [S[97] + 2.9, 'SUNLIGHT']], 380, 160, 54, { anchor: 'middle', hold: 1.5 }) + grade({ vig: .5 }) },
   { a: at(98), r: t => climateCharts(t) },
-  { a: at(101), r: (t, lt) => winterField(t, lt) },
+  { a: at(101), r: t => winterField(t) },
   { a: at(102), r: (t, lt) => studyCard(t, lt) },
   { a: at(103), r: t => peopleField(t, S[103], 50, 'MORE THAN 5 BILLION', 'could die from famine — worst case: war between the two largest nuclear powers') },
   { a: at(104), r: t => peopleField(t, S[104] - .6, 20, 'OVER 2 BILLION', 'at risk — even in a smaller regional war') },

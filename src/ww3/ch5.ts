@@ -59,7 +59,7 @@ function marketCrash(t: number, lt: number) {
   return s + grade({ vig: .5 });
 }
 
-function atm(t: number, lt: number) {
+function atm(t: number) {
   let s = `<rect width="${W}" height="${H}" fill="#14161c"/><rect x="460" y="80" width="1000" height="1000" rx="30" fill="#3a3f4a" stroke="#111" stroke-width="10"/>`;
   s += `<rect x="560" y="180" width="800" height="460" rx="12" fill="#0b1626" stroke="#111" stroke-width="8"/>`;
   const sus = range(t, S[63] + .2, S[63] + .3);
@@ -82,7 +82,7 @@ function cardDeclined(t: number, lt: number) {
   return s + glow([960, 360], 600, dec > 0 ? '#ff3b30' : '#3a8dff', .2) + grade({ vig: .6 });
 }
 
-function netGlobe(t: number, lt: number) {
+function netGlobe(t: number) {
   const g = ortho([960, 560], 360, 10 + t * 4, 20);
   let s = infoBg(t) + `<circle cx="960" cy="560" r="360" fill="#0f2c48"/>` + globeLand(g, '#1f4a6a', '#0b2236', 2);
   const hubs: V2[] = [[-74, 40], [0, 51], [139, 35], [103, 1], [-46, -23], [28, -26], [77, 19], [151, -33], [-122, 37], [55, 25]];
@@ -179,9 +179,9 @@ export const CH5: Shot[] = [
   { a: at(58), tr: 'black', r: (t, lt) => kitchen(t, lt, 'dead') },
   { a: at(60), r: (t, lt) => kitchen(t, lt, 'cta') },
   { a: at(62), r: (t, lt) => marketCrash(t, lt) },
-  { a: at(63), r: (t, lt) => atm(t, lt) },
+  { a: at(63), r: t => atm(t) },
   { a: at(64), r: (t, lt) => cardDeclined(t, lt) },
-  { a: at(65), r: (t, lt) => netGlobe(t, lt) },
+  { a: at(65), r: t => netGlobe(t) },
   { a: at(66), r: (t, lt, d) => dominoes(t, T1, 100, 700, inOut(lt / d)) },
   { a: at(68), r: (t, lt) => shelves(t, lt) },
   { a: at(70), r: (t, lt) => dominoes(t, S[72] - .1 > t ? T2 : T3, 200, 900, inOut(range(lt, 0, S[72] - S[70]))) },

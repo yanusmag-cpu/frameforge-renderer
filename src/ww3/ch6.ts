@@ -125,7 +125,7 @@ function radioRumours(t: number, lt: number) {
   return s + glow([1180, 600], 600, '#ffb35c', .3) + grade({ vig: .6 });
 }
 
-function hospital(t: number, lt: number) {
+function hospital(t: number) {
   let s = `<defs>${lin('hs', [[0, '#3a3e48'], [1, '#6a6e72']])}</defs><rect width="${W}" height="${H}" fill="url(#hs)"/>`;
   s += `<rect x="300" y="120" width="1400" height="660" fill="#c9cdd1" stroke="#111" stroke-width="7"/><rect x="700" y="420" width="600" height="360" fill="#2a3a4a" stroke="#111" stroke-width="7"/>` + txt(1000, 260, 'EMERGENCY', 84, { anchor: 'middle', fill: '#c8282d' });
   for (let i = 0; i < 4; i++) s += `<rect x="${360 + i * 340}" y="300" width="220" height="80" fill="${Math.sin(t * 3 + i) > -.6 ? '#e8f0f4' : '#4a5058'}" stroke="#111" stroke-width="5"/>`;
@@ -162,6 +162,6 @@ export const CH6: Shot[] = [
   { a: at(86), r: t => sevenTen(t) },
   { a: at(89), r: (t, lt) => subwayShelter(t, lt) },
   { a: at(90), r: (t, lt) => radioRumours(t, lt) },
-  { a: at(91), r: (t, lt) => hospital(t, lt) },
+  { a: at(91), r: t => hospital(t) },
   { a: at(92), r: (t, lt) => greyStreet(t, lt) },
 ];
