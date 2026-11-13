@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "profile": "youtube-short-60s",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "durationSeconds": 60,
+  "frames": 1800,
+  "chunks": 6,
+  "chunkFrames": 300,
+  "maxParallelChunks": 2,
+  "workersPerChunk": 1,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "absoluteTimeline": true,
+  "addCompleteAudioAtAssembly": true,
+  "reuseVerifiedChunksAcrossRuns": true,
+  "cancelInProgress": false,
+  "sixtyFpsRequiresExplicitUserRequest": true,
+  "workflowTemplate": ".github/workflows/black-hole-chunked.yml"
+}

@@ -1,0 +1,138 @@
+name: Render 60-second short (six chunks)
+# Free standard GitHub-hosted Linux runners only. Manual start only: no push triggers, no duplicate runs.
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: Render project file (production/<name>/render-project.json)
+        required: true
+        default: production/ba5390/render-project.json
+      force_chunk:
+        description: Normally reuse every verified chunk; force one chunk only if it must be redone
+        type: choice
+        options: [none, '0', '1', '2', '3', '4', '5']
+        default: none
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: render-${{ inputs.project }}
+  cancel-in-progress: false
+env:
+  FRAMEFORGE_RENDER_PROJECT: ${{ inputs.project }}
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    outputs:
+      fingerprint: ${{ steps.contract.outputs.fingerprint }}
+      prefix: ${{ steps.contract.outputs.prefix }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate project file path
+        run: |
+          case "$FRAMEFORGE_RENDER_PROJECT" in production/*/render-project.json) test -f "$FRAMEFORGE_RENDER_PROJECT";; *) echo "Invalid project path"; exit 1;; esac
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npx eslint src
+      - run: npm test
+      - id: contract
+        run: |
+          echo "fingerprint=$(python3 scripts/pipeline/pipeline.py fingerprint)" >> "$GITHUB_OUTPUT"
+          echo "prefix=$(python3 -c "import json,os;print(json.load(open(os.environ['FRAMEFORGE_RENDER_PROJECT']))['artifactPrefix'])")" >> "$GITHUB_OUTPUT"
+  chunks:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        index: [0, 1, 2, 3, 4, 5]
+    env:
+      CHUNK: ${{ matrix.index }}
+      KEY: ${{ needs.plan.outputs.fingerprint }}
+      FORCE_CHUNK: ${{ inputs.force_chunk }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure FFmpeg
+        run: command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+      - name: Reuse a verified chunk if one already exists
+        id: reuse
+        run: |
+          FORCE=()
+          if [ "$FORCE_CHUNK" = "$CHUNK" ]; then FORCE=(--force); fi
+          python3 scripts/pipeline/pipeline.py reuse --index "$CHUNK" --key "$KEY" --folder out/chunk "${FORCE[@]}"
+      - uses: actions/setup-node@v4
+        if: steps.reuse.outputs.reused != 'true'
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install renderer (missing chunks only)
+        if: steps.reuse.outputs.reused != 'true'
+        run: |
+          npm ci
+          npx remotion browser ensure
+      - name: Render exactly 300 frames at the absolute timeline position
+        if: steps.reuse.outputs.reused != 'true'
+        run: python3 scripts/pipeline/render.py --index "$CHUNK" --folder out/chunk
+      - name: Verify format, every decoded frame and boundary frames
+        if: steps.reuse.outputs.reused != 'true'
+        run: python3 scripts/pipeline/pipeline.py verify --index "$CHUNK" --key "$KEY" --folder out/chunk
+      - name: Save the verified chunk
+        if: steps.reuse.outputs.reused != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ needs.plan.outputs.prefix }}-${{ env.KEY }}-${{ matrix.index }}
+          path: |
+            out/chunk/chunk.mp4
+            out/chunk/manifest.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Save the reused chunk for assembly
+        if: steps.reuse.outputs.reused == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: reused-${{ github.run_id }}-${{ matrix.index }}
+          path: |
+            out/chunk/chunk.mp4
+            out/chunk/manifest.json
+          if-no-files-found: error
+          retention-days: 1
+  assemble:
+    needs: [plan, chunks]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure FFmpeg
+        run: command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: ${{ needs.plan.outputs.prefix }}-${{ needs.plan.outputs.fingerprint }}-*
+          path: out/segments
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: reused-${{ github.run_id }}-*
+          path: out/segments
+      - name: Join six verified chunks, add the soundtrack once, verify the complete MP4
+        env:
+          KEY: ${{ needs.plan.outputs.fingerprint }}
+        run: python3 scripts/pipeline/pipeline.py assemble --key "$KEY" --folder out/segments --output out/complete
+      - name: Upload ONE verified complete movie
+        uses: actions/upload-artifact@v4
+        with:
+          name: complete-${{ needs.plan.outputs.prefix }}-${{ github.run_number }}
+          path: out/complete/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Summary
+        run: |
+          echo '## Verified complete 60-second short' >> "$GITHUB_STEP_SUMMARY"
+          echo '1080x1920, 30 FPS, 1800 frames, H.264/AAC. Download the complete-* artifact, unzip it in the Files app.' >> "$GITHUB_STEP_SUMMARY"
+          cat out/complete/assembly.json >> "$GITHUB_STEP_SUMMARY"

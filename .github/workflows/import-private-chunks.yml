@@ -1,0 +1,53 @@
+name: One-time import of four verified BA5390 chunks
+# Temporary. Copies chunk artifacts only (no source code) using a read-only, Actions-only token kept as a secret.
+# Deleted from the repository right after the import succeeds.
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  import:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: true
+      matrix:
+        index: [0, 1, 2, 3]
+    env:
+      FRAMEFORGE_RENDER_PROJECT: production/ba5390/render-project.json
+      SOURCE_KEY: 82297f8a1020ff7307681e42
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure FFmpeg
+        run: command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+      - name: Download the finished chunk (artifact only)
+        uses: actions/download-artifact@v4
+        with:
+          name: claude-ba5390-chunk-82297f8a1020ff7307681e42-${{ matrix.index }}
+          path: in/chunk
+          github-token: ${{ secrets.FRAMEFORGE_IMPORT_TOKEN }}
+          repository: ${{ secrets.FRAMEFORGE_IMPORT_REPO }}
+          run-id: 43316538885
+      - name: Prove integrity against the original manifest, then re-key for this repository
+        id: rekey
+        run: |
+          python3 - <<'PY'
+          import os,sys
+          sys.path.insert(0,'scripts/pipeline')
+          import pipeline as p
+          i=int(os.environ['INDEX']);key=p.fingerprint()
+          p.verify_segment('in/chunk',i,os.environ['SOURCE_KEY'])          # same file sha256 + all 300 decoded frame hashes
+          p.verify_segment('in/chunk',i,key,create=True)                     # manifest for this repo's fingerprint
+          p.verify_segment('in/chunk',i,key)
+          open(os.environ['GITHUB_OUTPUT'],'a').write(f'key={key}\n')
+          print(f'Chunk {i} verified and re-keyed')
+          PY
+        env:
+          INDEX: ${{ matrix.index }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: claude-ba5390-chunk-${{ steps.rekey.outputs.key }}-${{ matrix.index }}
+          path: |
+            in/chunk/chunk.mp4
+            in/chunk/manifest.json
+          if-no-files-found: error
+          retention-days: 30
