@@ -1,11 +1,11 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: fonts-inter
-Upstream-Contact: The Inter Project Authors <rasmus@notion.se>
+Upstream-Contact: The Inter Project Authors
 Source: https://github.com/rsms/inter
 Files-Excluded: docs/font-files/*.woff* docs/lab docs/samples
 
 Files: *
-Copyright: 2016-2023 The Inter Project Authors <rasmus@notion.se>
+Copyright: 2016-2023 The Inter Project Authors
 License: OFL-1.1 and Apache-2.0
 
 License: OFL-1.1
@@ -114,7 +114,7 @@ License: Apache-2.0
  be found in the file `/usr/share/common-licenses/Apache-2.0'.
 
 Files: debian/*
-Copyright: 2019-2023 Gürkan Myczko <tar@debian.org>
+Copyright: 2019-2023 Gürkan Myczko
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
