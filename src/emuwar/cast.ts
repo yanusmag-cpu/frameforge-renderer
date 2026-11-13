@@ -52,7 +52,7 @@ function hook(id:ActorId,t:number):Pose{
  // gunner: runs, trips (anticipation hop), face-plants, slides, legs kick
  if(t<EV.trip){const p=run('gunner',HOOK.gunner,t,{flail:.2});p.emotion=t>EV.trip-.25?'afraid':'determined';return p;}
  const g=HOOK.gunner.at(t),gy=gY(g[0],g[1]);const fall=smooth(EV.trip,EV.faceplant,t),slam=t>EV.faceplant?pop(EV.faceplant,.12,t):0;
- const tilt=lerp(.05,1.45,ease(EV.trip,EV.faceplant,t));const fwd:V3=[-1,0,0];const up=norm([-Math.sin(tilt),Math.cos(tilt),0]);
+ const tilt=lerp(.05,1.45,ease(EV.trip,EV.faceplant,t));const up=norm([-Math.sin(tilt),Math.cos(tilt),0]);
  const hip:V3=[g[0],lerp(gy+.84,gy+.2,fall)+(t<EV.faceplant?.18*Math.sin(clamp((t-EV.trip)/(EV.faceplant-EV.trip))*Math.PI):0),g[1]];const p=base('gunner',t,hip,[1,0,.25],up);p.face=[1,0,.25];
  p.squash=t>EV.faceplant?.35*Math.exp(-(t-EV.faceplant)*6):0;
  const kick=t>EV.faceplant+.35?Math.sin((t-EV.faceplant)*11):0;p.lFoot=add(hip,[.55+.2*fall,lerp(-.8,.25+.18*Math.max(0,kick),fall),-.12]);p.rFoot=add(hip,[.6+.2*fall,lerp(-.75,.3+.18*Math.max(0,-kick),fall),.12]);p.kneeBias=-1;

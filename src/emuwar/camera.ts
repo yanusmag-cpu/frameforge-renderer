@@ -9,7 +9,7 @@ const IMPACTS:[number,number,number][]=[[EV.faceplant,1,.5],[VO.lost,.5,.35],[EV
 export function impact(t:number){let v=0;for(const [a,k,d] of IMPACTS){const u=t-a;if(u>=0&&u<d*3)v=Math.max(v,k*Math.exp(-u/d*2.2));}return v;}
 /** whip pan: returns 0..1 progress and a blur amount peaking mid-whip */
 const whip=(a:number,d:number,t:number)=>{const u=smooth(a,a+d,t);return {u,blur:t>a&&t<a+d?Math.sin(Math.PI*(t-a)/d):0};};
-export function cameraPose(t:number):CameraPose{const s=shotAt(t),u=smooth(s.start,s.end,t),P=PADDOCK;let c:CameraPose={eye:[0,2,5],target:[0,1,0],fov:45,roll:0,blur:0,blurDir:0};let shake=0;
+export function cameraPose(t:number):CameraPose{const s=shotAt(t),P=PADDOCK;let c:CameraPose={eye:[0,2,5],target:[0,1,0],fov:45,roll:0,blur:0,blurDir:0};let shake=0;
  switch(s.id){
  case'E01':{const back=smooth(.7,1.6,t);c={eye:g(P[0]+5-2.2*back,P[2]+2.0,.3+.1*back),target:g(P[0]+14,P[2]+1.4,1.0),fov:64,roll:-.04,blur:0,blurDir:0};
   const near=Math.max(0,1-Math.abs(t-.55)*4)+Math.max(0,1-Math.abs(t-.98)*4);shake=.35+.6*near;break;}
