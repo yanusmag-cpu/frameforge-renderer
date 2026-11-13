@@ -5,7 +5,7 @@ import { AbsoluteFill, continueRender, delayRender, staticFile, useCurrentFrame,
 const FONTS: [string, string][] = [['900', 'Inter-Black.otf'], ['700', 'Inter-Bold.otf'], ['400', 'Inter-Regular.otf'], ['300', 'Inter-Light.otf']];
 let fontsReady: Promise<void> | null = null;
 const loadFonts = () => fontsReady ??= Promise.all(FONTS.map(([w, f]) =>
-  new FontFace('Inter', `url(${staticFile('ff2d/fonts/' + f)}) format('opentype')`, { weight: w }).load().then(ff => { document.fonts.add(ff); }))).then(() => undefined);
+  new FontFace('Inter', `url(${staticFile('ff2d/fonts/' + f)}) format('opentype')`, { weight: w }).load().then(ff => { (document.fonts as unknown as { add: (f: FontFace) => void }).add(ff); }))).then(() => undefined);
 
 export function SvgScene({ render }: { render: (t: number) => string }) {
   const frame = useCurrentFrame(), { fps, width } = useVideoConfig();
