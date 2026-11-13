@@ -77,10 +77,10 @@ jobs:
       - run: |
           npm ci
           npx remotion browser ensure
-      - name: Render 10 s of real motion at 360x640 (absolute timeline position)
+      - name: Render 10 s of real motion at 540x960 (absolute timeline position)
         run: |
           s=$(( I * 300 )); e=$(( s + 299 )); mkdir -p out/preview
-          npx remotion render src/index.ts "$COMP" "out/preview/seg-$I.mp4" --frames=$s-$e --scale=0.3333333 --muted --gl=swangle --concurrency=2 --codec=h264 --crf=22 --log=error
+          npx remotion render src/index.ts "$COMP" "out/preview/seg-$I.mp4" --frames=$s-$e --scale=0.5 --muted --gl=swangle --concurrency=2 --codec=h264 --crf=22 --log=error
       - name: Render three full-HD key stills from this segment
         run: |
           for o in 30 150 270; do f=$(( I * 300 + o ))
