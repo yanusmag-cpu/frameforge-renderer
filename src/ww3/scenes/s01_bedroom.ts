@@ -2,7 +2,7 @@
 import { EXPR, expr } from '../../ff2d/face.ts';
 import { blend, clamp, hash, inOut, mix, outBack, outCubic, range, settle, track, type V2 } from '../../ff2d/motion.ts';
 import { HERO, type Pose, STAND, stickman } from '../../ff2d/rig.ts';
-import { type Cam, glow, grade, grain, H, layer, lin, place, rad, svgDoc, txt, W } from '../../ff2d/stage.ts';
+import { type Cam, glow, grade, H, layer, lin, place, rad, txt, W } from '../../ff2d/stage.ts';
 
 const U = 150;                       // px per head unit in world
 const HX = 880, HO = 975;            // hero origin (ground point under hips, chair-seated)
@@ -75,7 +75,7 @@ ${lin('desk', [[0, '#5d3e2a'], [1, '#3e291d']])}${lin('duvet', [[0, '#5b6f9c'], 
   return s;
 }
 
-function desk(t: number, alert: number, phoneHeld: boolean) {
+function desk(t: number, alert: number, phoneHeld: boolean, clockText = '10:24') {
   let s = '';
   s += `<rect x="955" y="${DESK}" width="820" height="28" rx="4" fill="url(#deskTop)" stroke="#111" stroke-width="5"/>`;
   s += `<rect x="1380" y="${DESK + 28}" width="370" height="${FLOOR - DESK - 28}" fill="url(#desk)" stroke="#111" stroke-width="5"/>`;
@@ -93,6 +93,8 @@ function desk(t: number, alert: number, phoneHeld: boolean) {
   s += `<path d="M1650 ${DESK - 10} L1690 ${DESK - 150} L1610 ${DESK - 230}" fill="none" stroke="#111" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M1650 ${DESK - 10} L1690 ${DESK - 150} L1610 ${DESK - 230}" fill="none" stroke="#3a404d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>`;
   s += `<circle cx="1690" cy="${DESK - 150}" r="9" fill="#555" stroke="#111" stroke-width="3"/>`;
   s += `<g transform="translate(1610 ${DESK - 230}) rotate(38)"><path d="M-14 -10 L14 -10 L48 62 L-48 62Z" fill="#e0b04a" stroke="#111" stroke-width="5" stroke-linejoin="round"/><ellipse cy="62" rx="48" ry="11" fill="#fff4cf" stroke="#111" stroke-width="4"/></g>`;
+  // bedside digital clock (callback anchor: 10:24 PM)
+  s += `<rect x="1300" y="${DESK - 58}" width="118" height="54" rx="10" fill="#1a1d24" stroke="#111" stroke-width="4"/><text x="1359" y="${DESK - 20}" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="30" fill="#ff5a4a" text-anchor="middle">${clockText}</text>`;
   if (!phoneHeld) s += phoneSide(PHONE, alert, t, 0);
   return s;
 }
@@ -107,7 +109,7 @@ function phoneHeld(p: V2, rot: number, alert: number) {
 }
 
 /** Insert (1.2): top-down desk, phone screen erupts with an emergency alert. lt = local time from shot start. */
-function insertPhone(lt: number) {
+export function insertPhone(lt: number, lineT: number[] = [.55, .67, .79, .91, 1.03, 1.15], pick = 99) {
   const on = range(lt, .25, .32);
   const vib = lt > .25 ? Math.sin(lt * 95) * 3.5 * (Math.sin(lt * 10) > -.2 ? 1 : 0) : 0;
   const zoom = mix(1.06, 1.0, outBack(range(lt, 0, .35))) + lt * .025;
@@ -120,7 +122,8 @@ function insertPhone(lt: number) {
   for (let r = 0; r < 4; r++) for (let c = 0; c < 9; c++) s += `<rect x="${1460 + c * 64}" y="${60 + r * 66}" width="54" height="54" rx="8" fill="#2c2f36"/>`;
   s += `<circle cx="300" cy="880" r="150" fill="#e9e4d8" stroke="#111" stroke-width="7"/><circle cx="300" cy="880" r="112" fill="#3a2418"/>`;
   // phone
-  s += `<g transform="translate(${n(W / 2 - 40 + vib)} ${H / 2 + 20}) rotate(${n(8 + vib * .3)})">`;
+  const up = inOut(range(lt, pick + .15, pick + .75));
+  s += `<g transform="translate(${n(W / 2 - 40 + vib * (1 - up) - up * 60)} ${n(H / 2 + 20 - up * 40)}) rotate(${n(8 + vib * .3 - up * 10)}) scale(${n(1 + up * .22)})">`;
   s += `<rect x="-215" y="-410" width="430" height="820" rx="58" fill="#15171c" stroke="#111" stroke-width="8"/>`;
   const sc = on > 0 ? '#c4161c' : '#0e1424';
   s += `<rect x="-192" y="-386" width="384" height="772" rx="42" fill="${sc}"/>`;
@@ -132,67 +135,59 @@ function insertPhone(lt: number) {
     const pop = outBack(range(lt, .3, .6));
     s += `<g transform="translate(0 -170) scale(${n(pop)})"><path d="M0 -78 L72 50 H-72Z" fill="none" stroke="#fff" stroke-width="12" stroke-linejoin="round"/><rect x="-6" y="-32" width="12" height="46" rx="6" fill="#fff"/><circle cy="32" r="8" fill="#fff"/></g>`;
     const lines: [string, number, number][] = [['EMERGENCY ALERT', 40, -30], ['BALLISTIC MISSILE', 34, 50], ['THREAT INBOUND.', 34, 92], ['SEEK IMMEDIATE', 34, 160], ['SHELTER.', 34, 202], ['THIS IS NOT A DRILL.', 31, 270]];
-    lines.forEach(([l, sz, y], i) => { const a = clamp((lt - .55 - i * .12) / .12); s += txt(0, y, l, sz, { anchor: 'middle', op: a, ls: i === 0 ? 2 : 0 }); });
+    lines.forEach(([l, sz, y], i) => { const a = clamp((lt - lineT[i]) / .14); s += txt(0, y, l, sz, { anchor: 'middle', op: a, ls: i === 0 ? 2 : 0 }); });
   }
-  s += `<rect x="-60" y="-372" width="120" height="26" rx="13" fill="#000"/></g>`;
+  s += `<rect x="-60" y="-372" width="120" height="26" rx="13" fill="#000"/>`;
+  // hero's mitten hands grip the phone edges as it is lifted
+  const hk = outCubic(range(lt, pick - .3, pick + .15));
+  if (hk > 0) for (const sd of [-1, 1]) s += `<g transform="translate(${n(sd * (255 + (1 - hk) * 500))} ${n(160 + (1 - hk) * 300)})"><path d="M${sd * 60} 120 L${sd * 260} 520" stroke="#111" stroke-width="118" stroke-linecap="round"/><path d="M${sd * 60} 120 L${sd * 260} 520" stroke="#d8262b" stroke-width="96" stroke-linecap="round"/><circle r="72" fill="#fff" stroke="#111" stroke-width="9"/></g>`;
+  s += '</g>';
   s += glow([W / 2 - 40, H / 2 + 20], 900, '#ff2b2b', on * (.35 + .1 * Math.sin(lt * 14)));
   s += '</g>';
   s += grade({ tint: '#9aa6d0', tintA: on > 0 ? .25 : .55, vig: .55 });
   return s;
 }
 
-type Beat = { cam: Cam; pose: Pose; face: ReturnType<typeof expr>; phone: 'desk' | 'hand'; phonePos?: V2; alert: number };
+export type BedMode = { kind: 'wide' | 'react' | 'calm'; lt: number; alert?: number; clock?: string; cam?: Cam; shockAt?: number };
 
-/** hero acting for the room shots (absolute shot-time) */
-function heroBeat(t: number): Beat {
-  const typing = (k: number): Pose => {
-    const tp = (s: number) => Math.max(0, Math.sin(t * 13 + s)) * .05 * k;
-    return { ...STAND, turn: .42, lean: .1, crouch: 0, hipX: 0, headTilt: .05, headTurn: .25, headLift: 0,
-      handA: [1.0, -2.3 - tp(0)], handB: [1.32, -2.28 - tp(2.1)], bendA: -1, bendB: -1, shapeA: 'fist', shapeB: 'fist',
-      footA: [.78, -.56], footB: [1.02, -.55], kneeDir: 1, frontA: 0, frontB: 1 };
-  };
-  const base = typing(1);
-  if (t < 5) return { cam: { x: mix(1010, 1000, inOut(t / 3.5)), y: mix(530, 515, inOut(t / 3.5)), zoom: mix(1.0, 1.09, inOut(t / 3.5)) }, pose: base,
-    face: { ...expr('calm', 'happy', clamp(Math.sin(t * .8) * .4 + .1)), gx: .8, gy: .35 }, phone: 'desk', alert: t > 3.6 ? 1 : 0 };
-  // 1.3 reaction (shot-local lt)
-  const lt = t - 5;
-  const look = outCubic(range(lt, .12, .32));            // eyes lead
-  const headK = outBack(range(lt, .25, .6), 1.2);         // head follows
-  const reach = inOut(range(lt, .55, 1.15));
-  const lift = inOut(range(lt, 1.15, 1.75));
-  const antic = range(lt, 1.9, 2.05) - range(lt, 2.05, 2.15); // tiny squash before shock
-  const shock = settle(Math.max(0, lt - 2.12), 1.6, 4.5);
-  const recoil = outBack(range(lt, 2.12, 2.5), 2.2) * (1 - range(lt, 3.2, 4));
-  const tremble = lt > 2.3 ? Math.sin(lt * 37) * .012 : 0;
-  // poses
-  const sitTurn: Pose = { ...base, turn: mix(.42, .2, headK * .8), headTurn: mix(.25, -.45, headK) + .45 * lift, lean: mix(.1, -.05, lift) - recoil * .12 };
-  const deskHand: V2 = [(PHONE[0] - HX) / U, (PHONE[1] - HO) / U - .05];
-  const faceHand: V2 = [.8, -2.72 - recoil * .1 + tremble];
-  let handB: V2 = base.handB;
-  if (lt < 1.15) handB = [mix(base.handB[0], deskHand[0], reach), mix(base.handB[1], deskHand[1], reach) - Math.sin(reach * Math.PI) * .25];
-  else handB = [mix(deskHand[0], faceHand[0], lift), mix(deskHand[1], faceHand[1], lift)];
-  const handA: V2 = [mix(base.handA[0], handB[0] - .2, lift), mix(base.handA[1], handB[1] + .28, lift)];
-  const pose: Pose = { ...sitTurn, handB, handA, shapeB: lt > 1.0 ? 'hold' : 'open', bendB: lt > 1.15 ? 2 : -1, bendA: 2, frontA: lt > 1.2 ? 1 : 0, headLift: recoil * .08 - antic * .05 };
-  let face = expr('calm', 'curious', look);
-  face = blend(face, expr('worried'), range(lt, 1.6, 1.9));
-  face = blend(face, { ...EXPR.terror, gx: .3, gy: .1 }, clamp(shock));
-  face = { ...face, gx: mix(face.gx, -.9, look * (1 - lift)) + lift * .7, gy: mix(face.gy, .6, look * (1 - lift)), sweat: range(lt, 2.6, 3.0) };
-  const cam: Cam = { x: track(lt, [[0, 990], [1.2, 960], [2.2, 935]]), y: track(lt, [[0, 520], [2.2, 470]]), zoom: track(lt, [[0, 1.75], [2.1, 2.0], [2.35, 2.12, outBack], [4, 2.18]]) };
-  return { cam, pose, face, phone: lt > 1.15 ? 'hand' : 'desk', alert: 1 };
+function typingPose(t: number, k = 1): Pose {
+  const tp = (sft: number) => Math.max(0, Math.sin(t * 13 + sft)) * .05 * k;
+  return { ...STAND, turn: .42, lean: .1, crouch: 0, hipX: 0, headTilt: .05, headTurn: .25, headLift: 0,
+    handA: [1.0, -2.3 - tp(0)], handB: [1.32, -2.28 - tp(2.1)], bendA: -1, bendB: -1, shapeA: 'fist', shapeB: 'fist',
+    footA: [.78, -.56], footB: [1.02, -.55], kneeDir: 1, frontA: 0, frontB: 1 };
 }
 
-export function bedroom(t: number): string {
-  if (t >= 3.5 && t < 5) return svgDoc(insertPhone(t - 3.5) + grain(t, .04));
-  const b = heroBeat(t);
-  const alertPulse = b.alert ? .65 + .35 * Math.sin(t * 14) : 0;
-  const hero = stickman(b.pose, HERO, { id: 'h', t, seed: 3, face: b.face });
-  const chair = `<path d="M${HX - 105} ${HO - 1.6 * U - 250} q-12 120 6 250 h40 q-18 -125 -4 -250Z" fill="#2c3038" stroke="#111" stroke-width="5"/><rect x="${HX - 110}" y="${HO - 1.6 * U - 4}" width="230" height="30" rx="12" fill="#2c3038" stroke="#111" stroke-width="5"/><path d="M${HX} ${HO - 1.6 * U + 26}V${FLOOR - 30}M${HX - 90} ${FLOOR - 18}H${HX + 90}" stroke="#2c3038" stroke-width="16"/><path d="M${HX} ${HO - 1.6 * U + 26}V${FLOOR - 30}M${HX - 90} ${FLOOR - 18}H${HX + 90}" fill="none" stroke="#111" stroke-width="3" opacity=".6"/>` +
+/** Bedroom shot. t = absolute film time (drives idle/blinks); m.lt = time since shot start. */
+export function bedroomShot(t: number, m: BedMode): string {
+  const lt = m.lt;
+  let pose: Pose, face, cam: Cam, held = false, alert = m.alert ?? 0;
+  if (m.kind === 'react') {
+    // already holding the phone (picked up in the insert); reads, then the words land.
+    const sa = m.shockAt ?? .45;
+    const antic = range(lt, sa - .12, sa) - range(lt, sa, sa + .08);
+    const shock = settle(Math.max(0, lt - sa), 1.6, 4.5);
+    const recoil = outBack(range(lt, sa, sa + .35), 2.2) * (1 - range(lt, sa + 1.2, sa + 2));
+    const tremble = lt > sa + .2 ? Math.sin(t * 37) * .012 : 0;
+    const handB: V2 = [.8, -2.72 - recoil * .1 + tremble];
+    pose = { ...typingPose(t, 0), turn: .2, headTurn: .25, lean: -.05 - recoil * .12, handB, handA: [handB[0] - .2, handB[1] + .28],
+      shapeB: 'hold', bendB: 2, bendA: 2, frontA: 1, headLift: recoil * .08 - antic * .05 };
+    face = blend(expr('worried'), { ...EXPR.terror, gx: .3, gy: .1 }, clamp(shock));
+    face = { ...face, gx: .7, gy: .25 + shock * -.15, sweat: range(lt, sa + .4, sa + .8) };
+    cam = m.cam ?? { x: 950 - lt * 6, y: 475, zoom: track(lt, [[0, 1.95], [sa, 2.0], [sa + .25, 2.14, outBack], [3, 2.2]]) };
+    held = true; alert = 1;
+  } else {
+    pose = typingPose(t);
+    face = { ...expr('calm', 'happy', clamp(Math.sin(t * .8) * .4 + .1)), gx: .8, gy: .35 };
+    cam = m.cam ?? { x: mix(1010, 1000, inOut(lt / 3)), y: mix(530, 515, inOut(lt / 3)), zoom: mix(1.0, 1.06, inOut(lt / 3)) };
+  }
+  const alertPulse = alert ? .65 + .35 * Math.sin(t * 14) : 0;
+  const hero = stickman(pose, HERO, { id: 'h', t, seed: 3, face });
+  const chair = `<path d="M${HX - 105} ${HO - 1.6 * U - 250} q-12 120 6 250 h40 q-18 -125 -4 -250Z" fill="#2c3038" stroke="#111" stroke-width="5"/><rect x="${HX - 110}" y="${HO - 1.6 * U - 4}" width="230" height="30" rx="12" fill="#2c3038" stroke="#111" stroke-width="5"/><path d="M${HX} ${HO - 1.6 * U + 26}V${FLOOR - 30}M${HX - 90} ${FLOOR - 18}H${HX + 90}" stroke="#2c3038" stroke-width="16"/>` +
     [-90, 0, 90].map(d => `<circle cx="${HX + d}" cy="${FLOOR - 8}" r="10" fill="#111"/>`).join('');
-  const phoneLayer = b.phone === 'hand' ? phoneHeld([HX + hero.j.handB[0] * U, HO + hero.j.handB[1] * U - 30], -8, alertPulse) : '';
-  const world = room(t, b.alert ? alertPulse : 0) + chair + place(hero.svg, HX, HO, U) + desk(t, b.alert ? alertPulse : 0, b.phone === 'hand') + phoneLayer;
-  const lightPhone: V2 = b.phone === 'hand' ? [HX + hero.j.handB[0] * U, HO + hero.j.handB[1] * U - 30] : PHONE;
-  const lights = glow([1200, DESK - 110], 360, '#8fc6ff', .26 * (1 - (b.alert ? .5 : 0))) + glow([1565, DESK - 165], 160, '#fff1c4', .45) + glow([1520, DESK - 40], 520, '#ffb35c', .3, .8) + glow([1500, DESK + 10], 360, '#ffb35c', .22, .35) +
-    (b.alert ? glow(lightPhone, 620, '#ff2b2b', .5 * alertPulse) + glow(lightPhone, 180, '#ff6b5b', .45 * alertPulse) : '');
-  return svgDoc(layer(b.cam, 1, t, world) + grade({ tint: '#8794c4', tintA: .5 }) + layer(b.cam, 1, t, lights) + grade({ vig: .6 }) + grain(t, .04));
+  const hp: V2 = [HX + hero.j.handB[0] * U, HO + hero.j.handB[1] * U - 30];
+  const world = room(t, alert ? alertPulse : 0) + chair + place(hero.svg, HX, HO, U) + desk(t, alert ? alertPulse : 0, held, m.clock) + (held ? phoneHeld(hp, -8, alertPulse) : '');
+  const lp: V2 = held ? hp : PHONE;
+  const lights = glow([1200, DESK - 110], 360, '#8fc6ff', .26 * (1 - (alert ? .5 : 0))) + glow([1359, DESK - 30], 60, '#ff5a4a', .35) + glow([1565, DESK - 165], 160, '#fff1c4', .45) + glow([1520, DESK - 40], 520, '#ffb35c', .3, .8) + glow([1500, DESK + 10], 360, '#ffb35c', .22, .35) +
+    (alert ? glow(lp, 620, '#ff2b2b', .5 * alertPulse) + glow(lp, 180, '#ff6b5b', .45 * alertPulse) : '');
+  return layer(cam, 1, t, world) + grade({ tint: '#8794c4', tintA: .5 }) + layer(cam, 1, t, lights) + grade({ vig: .6 });
 }
-export const BEDROOM_DURATION = 9;

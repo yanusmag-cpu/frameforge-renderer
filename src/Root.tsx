@@ -3,7 +3,7 @@ import {FINAL_SHORT} from './renderDefaults';
 import {BA5390Film} from './ba5390/Film';
 import {EmuWarFilm} from './emuwar/Film';
 /** Public FrameForge renderer: only the compositions that are being rendered here. */
-import {WW3Test} from './ww3/Test';
+import {WW3Film} from './ww3/Film';
 export function Root(){return <><Composition id="ClaudeBA5390Film" component={BA5390Film} durationInFrames={FINAL_SHORT.frames} fps={FINAL_SHORT.fps} width={FINAL_SHORT.width} height={FINAL_SHORT.height}/><Composition id="ClaudeBA5390Review" component={BA5390Film} defaultProps={{audio:false}} durationInFrames={1800} fps={30} width={360} height={640}/>
  <Composition id="ClaudeEmuWarFilm" component={EmuWarFilm} durationInFrames={1200} fps={FINAL_SHORT.fps} width={FINAL_SHORT.width} height={FINAL_SHORT.height}/>
- <Composition id="ClaudeWW3Test" component={WW3Test} durationInFrames={300} fps={30} width={1920} height={1080}/></>;}
+ <Composition id="ClaudeWW3Film" component={WW3Film} durationInFrames={11940} fps={30} width={1920} height={1080}/></>;}

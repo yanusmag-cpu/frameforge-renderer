@@ -1,7 +1,7 @@
 // FrameForge 2D engine — articulated flat stickman (head 1 · body 1.6 · legs 1.6 units).
 // Local space: origin on the ground under the hips, +x right, +y DOWN (SVG). All units = head diameter.
 import { type Face, drawEmanata, drawFace, EXPR } from './face.ts';
-import { blink, clamp, ik2, mix, saccade, type V2 } from './motion.ts';
+import { blink, clamp, ik2, mix, saccade, type V2, walk } from './motion.ts';
 
 export type Hand = 'fist' | 'open' | 'point' | 'hold';
 export type Pose = {
@@ -23,7 +23,7 @@ export type Look = {
   outfit: 'hoodie' | 'suit' | 'uniform' | 'lab' | 'jacket' | 'dress';
   color: string; pants: string; shoe?: string;
   hat?: 'helmet' | 'headset' | 'cap' | 'officer' | 'bun' | 'hood';
-  glasses?: boolean; tie?: string; hair?: string;
+  glasses?: boolean; tie?: string; hair?: string; mask?: boolean;
 };
 export const HERO: Look = { outfit: 'hoodie', color: '#d8262b', pants: '#151515' };
 
@@ -169,6 +169,7 @@ export function stickman(p: Pose, L: Look, o: DrawOpts): { svg: string; j: Joint
   if (L.hat === 'bun') hd += `<circle cx="${n(-fturn * .1)}" cy="-.56" r=".17" fill="${L.hair ?? '#d9d5cc'}" stroke="${OUT}" stroke-width="${LW}"/>`;
   hd += `<circle r=".5" fill="#fff" stroke="${OUT}" stroke-width="${LW}"/>`;
   if (!back) hd += drawFace(F, fturn, lid, id, LW);
+  if (L.mask && !back) hd += `<path d="M${n(fturn * .3 - .3)} .02 Q${n(fturn * .3)} -.04 ${n(fturn * .3 + .3)} .02 L${n(fturn * .3 + .24)} .3 Q${n(fturn * .3)} .4 ${n(fturn * .3 - .24)} .3Z" fill="#e9eef2" stroke="${OUT}" stroke-width="${LW * .8}"/><path d="M${n(fturn * .3 - .2)} .12 H${n(fturn * .3 + .2)} M${n(fturn * .3 - .18)} .22 H${n(fturn * .3 + .18)}" stroke="#b8c2cc" stroke-width=".02"/>`;
   hd += hat(L, fturn, back);
   if (!back) hd += drawEmanata(F, fturn, LW);
   hd += '</g>';
@@ -191,8 +192,9 @@ function hat(L: Look, turn: number, back: boolean): string {
     case 'cap': return `<path d="M-.5 -.12 Q-.5 -.62 0 -.6 Q.5 -.62 .5 -.12 Z" fill="${L.hair ?? '#222'}" ${o}/><path d="M${turn >= 0 ? '.3' : '-.3'} -.14 h${turn >= 0 ? '.42' : '-.42'}" ${o} stroke-width=".09" stroke-linecap="round"/>`;
     case 'officer': return `<path d="M-.5 -.3 L-.62 -.62 Q0 -.85 .62 -.62 L.5 -.3 Z" fill="${L.hair ?? '#3c4a2a'}" ${o}/><path d="M-.52 -.27 H.52" stroke="#111" stroke-width=".1" stroke-linecap="round"/><circle cy="-.55" r=".07" fill="#e3b341" stroke="#111" stroke-width=".02"/>`;
     case 'headset': {
-      const ex = turn * .1 + (back ? 0 : -.47 * (1 - Math.abs(turn) * .3));
-      return `<path d="M-.47 -.05 Q-.5 -.62 0 -.62 Q.5 -.62 .47 -.05" fill="none" stroke="#222" stroke-width=".07"/><rect x="${n(ex - .08)}" y="-.17" width=".16" height=".26" rx=".06" fill="#333" ${o}/>` + (back ? '' : `<path d="M${n(ex)} .07 Q${n(ex + .05)} .3 ${n(turn * .3 - .02)} .27" fill="none" stroke="#222" stroke-width=".03"/><circle cx="${n(turn * .3 - .02)}" cy=".27" r=".035" fill="#222"/>`);
+      if (back) return `<path d="M-.5 0 Q-.52 -.64 0 -.64 Q.52 -.64 .5 0" fill="none" stroke="#222" stroke-width=".07"/>` + [-1, 1].map(sd => `<rect x="${n(sd * .5 - .07)}" y="-.15" width=".14" height=".26" rx=".06" fill="#333" ${o}/>`).join('');
+      const ex = turn * .1 - .47 * (1 - Math.abs(turn) * .3);
+      return `<path d="M-.47 -.05 Q-.5 -.62 0 -.62 Q.5 -.62 .47 -.05" fill="none" stroke="#222" stroke-width=".07"/><rect x="${n(ex - .08)}" y="-.17" width=".16" height=".26" rx=".06" fill="#333" ${o}/>` + `<path d="M${n(ex)} .07 Q${n(ex + .05)} .3 ${n(turn * .3 - .02)} .27" fill="none" stroke="#222" stroke-width=".03"/><circle cx="${n(turn * .3 - .02)}" cy=".27" r=".035" fill="#222"/>`;
     }
     default: break;
   }
@@ -203,4 +205,15 @@ function hat(L: Look, turn: number, back: boolean): string {
 export function idle(t: number, seed = 1, amt = 1): Partial<Pose> {
   const s = Math.sin(t * .9 + seed * 2) * amt;
   return { hipX: s * .025, lean: s * .012, headTilt: Math.sin(t * .63 + seed) * .03 * amt };
+}
+
+/** Foot-planted walk pose. dist = units travelled (body x = start + dist*dir). Feet never slide while planted. */
+export function walkPose(dist: number, dir: number, o: { step?: number; carryB?: V2; turn?: number } = {}): Pose {
+  const w = walk(dist, o.step ?? .55);
+  const f = (ft: { x: number; lift: number }): V2 => [(ft.x - dist) * dir, -.08 - ft.lift];
+  const sw = w.swing * .26;
+  const handA: V2 = [-.08 * dir - sw * dir, -1.66 + Math.abs(sw) * .12];
+  const handB: V2 = o.carryB ?? [.08 * dir + sw * dir, -1.66 + Math.abs(sw) * .12];
+  return { ...STAND, turn: (o.turn ?? .78) * dir, lean: .05 * dir, crouch: -w.bob + .03, hipX: 0, headTilt: 0, headTurn: 0, headLift: 0,
+    footA: f(w.L), footB: f(w.R), handA, handB, kneeDir: dir, bendA: -1, bendB: -1 };
 }

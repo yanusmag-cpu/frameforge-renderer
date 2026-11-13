@@ -1,0 +1,20 @@
+{
+ "composition": "ClaudeWW3Film",
+ "artifactPrefix": "claude-ww3-chunk",
+ "frames": 11940,
+ "width": 1920,
+ "height": 1080,
+ "parallel": 4,
+ "concurrency": 3,
+ "assetDirectories": [
+  "public/ff2d",
+  "public/ww3"
+ ],
+ "sourceDirectories": [
+  "src/ff2d",
+  "src/ww3"
+ ],
+ "soundtrack": "public/ww3/bed.flac",
+ "outputFilename": "FrameForge-What-If-World-War-3-Happened-Final.mp4",
+ "audioScript": "scripts/ww3/make-audio.py"
+}
