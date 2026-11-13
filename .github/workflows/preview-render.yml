@@ -9,9 +9,8 @@ on:
         description: Render project file (production/<name>/render-project.json)
         required: true
       segments:
-        description: Which 10-second segments to preview (all also builds the joined preview with sound)
-        type: choice
-        options: [all, '0', '1', '2', '3', '4', '5']
+        description: "Segments to preview: all (also builds the joined preview with sound), one index (3) or a range (0-5)"
+        required: true
         default: all
 permissions:
   contents: read
@@ -30,6 +29,7 @@ jobs:
       prefix: ${{ steps.cfg.outputs.prefix }}
       soundtrack: ${{ steps.cfg.outputs.soundtrack }}
       chunks: ${{ steps.cfg.outputs.chunks }}
+      frames: ${{ steps.cfg.outputs.frames }}
     steps:
       - uses: actions/checkout@v4
       - id: cfg
@@ -43,10 +43,14 @@ jobs:
           comp=d['composition'];prefix=d['artifactPrefix'].removesuffix('-chunk');snd=d.get('soundtrack','')
           if not re.fullmatch(r'[A-Za-z0-9-]+',comp) or not re.fullmatch(r'[a-z0-9-]+',prefix):raise SystemExit('Invalid composition/prefix')
           if snd and not re.fullmatch(r'public/[a-z0-9-]+/[A-Za-z0-9._-]+',snd):raise SystemExit('Invalid soundtrack path')
-          n=int(d.get('chunks',6))
-          if not 1<=n<=6 or (seg!='all' and int(seg)>=n):raise SystemExit('Invalid segment for this project')
-          m=list(range(n)) if seg=='all' else [int(seg)]
-          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write(f'matrix={json.dumps(m)}\ncomposition={comp}\nprefix={prefix}\nsoundtrack={snd}\nchunks={n}\n')
+          frames=int(d['frames']) if d.get('frames') else int(d.get('chunks',6))*300
+          n=-(-frames//300)
+          if seg=='all':m=list(range(n))
+          elif re.fullmatch(r'\d+',seg):m=[int(seg)]
+          elif re.fullmatch(r'\d+-\d+',seg):a,b=map(int,seg.split('-'));m=list(range(a,b+1))
+          else:raise SystemExit('Invalid segments value')
+          if not 1<=n<=80 or not m or max(m)>=n or len(m)>40:raise SystemExit('Invalid segment for this project')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write(f'matrix={json.dumps(m)}\ncomposition={comp}\nprefix={prefix}\nsoundtrack={snd}\nchunks={n}\nframes={frames}\n')
           PY
       - uses: actions/setup-node@v4
         with:
@@ -68,6 +72,7 @@ jobs:
     env:
       COMP: ${{ needs.plan.outputs.composition }}
       I: ${{ matrix.index }}
+      FRAMES: ${{ needs.plan.outputs.frames }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -79,11 +84,11 @@ jobs:
           npx remotion browser ensure
       - name: Render 10 s of real motion at 540x960 (absolute timeline position)
         run: |
-          s=$(( I * 300 )); e=$(( s + 299 )); mkdir -p out/preview
+          s=$(( I * 300 )); e=$(( s + 299 )); [ $e -ge $FRAMES ] && e=$(( FRAMES - 1 )); mkdir -p out/preview
           npx remotion render src/index.ts "$COMP" "out/preview/seg-$I.mp4" --frames=$s-$e --scale=0.5 --muted --gl=swangle --concurrency=2 --codec=h264 --crf=22 --log=error
       - name: Render three full-HD key stills from this segment
         run: |
-          for o in 30 150 270; do f=$(( I * 300 + o ))
+          for o in 30 150 270; do f=$(( I * 300 + o )); [ $f -ge $FRAMES ] && continue
             npx remotion still src/index.ts "$COMP" "out/preview/still-$(printf %04d $f).jpg" --frame=$f --gl=swangle --image-format=jpeg --jpeg-quality=82 --log=error
           done
       - uses: actions/upload-artifact@v4
@@ -101,6 +106,7 @@ jobs:
     env:
       SOUND: ${{ needs.plan.outputs.soundtrack }}
       N: ${{ needs.plan.outputs.chunks }}
+      FRAMES: ${{ needs.plan.outputs.frames }}
     steps:
       - uses: actions/checkout@v4
       - name: Ensure FFmpeg
@@ -117,10 +123,11 @@ jobs:
           if [ -n "$SOUND" ] && [ -f "$SOUND" ]; then
             ffmpeg -v error -i out/silent.mp4 -i "$SOUND" -map 0:v -map 1:a -c:v copy -c:a aac -b:a 160k -shortest out/joined/preview.mp4
           else cp out/silent.mp4 out/joined/preview.mp4; fi
-          ffmpeg -v error -i out/silent.mp4 -vf "fps=1,scale=180:320,tile=10x$N" -frames:v 1 -q:v 3 out/joined/contact-sheet.jpg
+          W=$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0 out/silent.mp4 | awk -F, '{print ($1>$2)?"320:180":"180:320"}')
+          ffmpeg -v error -i out/silent.mp4 -vf "fps=1,scale=$W,tile=10x$(( (FRAMES/30+9)/10 ))" -frames:v 1 -q:v 3 out/joined/contact-sheet.jpg
           cp out/parts/still-*.jpg out/joined/
           n=$(ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of default=nw=1:nk=1 out/silent.mp4 | tr -dc 0-9)
-          echo "Preview frames: $n"; test "$n" = $((N*300))
+          echo "Preview frames: $n"; test "$n" = "$FRAMES"
       - uses: actions/upload-artifact@v4
         with:
           name: preview-${{ needs.plan.outputs.prefix }}-${{ github.run_id }}
