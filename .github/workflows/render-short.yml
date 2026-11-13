@@ -27,6 +27,7 @@ jobs:
     outputs:
       fingerprint: ${{ steps.contract.outputs.fingerprint }}
       prefix: ${{ steps.contract.outputs.prefix }}
+      matrix: ${{ steps.contract.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
       - name: Validate project file path
@@ -44,6 +45,7 @@ jobs:
         run: |
           echo "fingerprint=$(python3 scripts/pipeline/pipeline.py fingerprint)" >> "$GITHUB_OUTPUT"
           echo "prefix=$(python3 -c "import json,os;print(json.load(open(os.environ['FRAMEFORGE_RENDER_PROJECT']))['artifactPrefix'])")" >> "$GITHUB_OUTPUT"
+          echo "matrix=$(python3 -c "import json,os;d=json.load(open(os.environ['FRAMEFORGE_RENDER_PROJECT']));n=int(d.get('chunks',6));assert 1<=n<=6;print(json.dumps(list(range(n))))")" >> "$GITHUB_OUTPUT"
   chunks:
     needs: plan
     runs-on: ubuntu-24.04
@@ -52,7 +54,7 @@ jobs:
       fail-fast: false
       max-parallel: 2
       matrix:
-        index: [0, 1, 2, 3, 4, 5]
+        index: ${{ fromJSON(needs.plan.outputs.matrix) }}
     env:
       CHUNK: ${{ matrix.index }}
       KEY: ${{ needs.plan.outputs.fingerprint }}
@@ -138,6 +140,6 @@ jobs:
           retention-days: 14
       - name: Summary
         run: |
-          echo '## Verified complete 60-second short' >> "$GITHUB_STEP_SUMMARY"
-          echo '1080x1920, 30 FPS, 1800 frames, H.264/AAC. Download the complete-* artifact, unzip it in the Files app.' >> "$GITHUB_STEP_SUMMARY"
+          echo '## Verified complete short' >> "$GITHUB_STEP_SUMMARY"
+          echo '1080x1920, 30 FPS, H.264/AAC (frame count in the report below). Download the complete-* artifact, unzip it in the Files app.' >> "$GITHUB_STEP_SUMMARY"
           cat out/complete/assembly.json >> "$GITHUB_STEP_SUMMARY"

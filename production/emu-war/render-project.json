@@ -1,0 +1,10 @@
+{
+  "composition": "ClaudeEmuWarFilm",
+  "artifactPrefix": "claude-emuwar-chunk",
+  "chunks": 4,
+  "assetDirectories": ["public/emuwar"],
+  "sourceDirectories": ["src/emuwar"],
+  "soundtrack": "public/emuwar/mix.wav",
+  "outputFilename": "Great-Emu-War-1932-40s.mp4",
+  "blenderScript": "scripts/emuwar/build-assets.py"
+}

@@ -5,10 +5,12 @@ ROOT=Path(__file__).resolve().parents[2]
 DEFAULTS=json.loads((ROOT/'production/render-defaults.json').read_text())
 PROJECT=json.loads((ROOT/os.environ['FRAMEFORGE_RENDER_PROJECT']).read_text()) if os.environ.get('FRAMEFORGE_RENDER_PROJECT') else {}
 ARTIFACT_PREFIX=PROJECT.get('artifactPrefix','frameforge-chunk')
-CONTRACT={'version':1,'composition':PROJECT['composition'],'width':DEFAULTS['width'],'height':DEFAULTS['height'],'fps':DEFAULTS['fps'],'frames':DEFAULTS['frames'],'chunkFrames':DEFAULTS['chunkFrames'],'chunks':DEFAULTS['chunks'],'codec':'h264','crf':18,'preset':'fast','gl':'swangle','audio':'muted-segments/full-soundtrack-once'}
+# Projects may set their own chunk count (e.g. 4 x 300 frames = 40 s); 60-second defaults otherwise.
+CHUNKS=int(PROJECT.get('chunks',DEFAULTS['chunks']));FRAMES=CHUNKS*DEFAULTS['chunkFrames'];SECONDS=FRAMES/DEFAULTS['fps']
+CONTRACT={'version':1,'composition':PROJECT['composition'],'width':DEFAULTS['width'],'height':DEFAULTS['height'],'fps':DEFAULTS['fps'],'frames':FRAMES,'chunkFrames':DEFAULTS['chunkFrames'],'chunks':CHUNKS,'codec':'h264','crf':18,'preset':'fast','gl':'swangle','audio':'muted-segments/full-soundtrack-once'}
 def run(args,**kw):return subprocess.check_output(args,**kw)
 def spec(index):
- if index not in range(6):raise ValueError('Chunk index must be 0–5')
+ if index not in range(CHUNKS):raise ValueError(f'Chunk index must be 0–{CHUNKS-1}')
  return {'index':index,'startFrame':index*300,'endFrame':index*300+299,'frames':300,'seconds':10}
 def fingerprint():
  h=hashlib.sha256(json.dumps(CONTRACT,sort_keys=True).encode())
@@ -44,7 +46,7 @@ def verify_segment(folder,index,key,create=False):
  if len(hashes)!=300:raise ValueError('Segment failed complete 300-frame decode')
  boundaries={'first':boundary_metrics(path,0),'last':boundary_metrics(path,299)}
  for which,m in boundaries.items():
-  if index==5 and which=='last':continue # intentional final fade to black
+  if index==CHUNKS-1 and which=='last':continue # intentional final fade to black
   if m['maximum']<24 or m['mean']<.75:raise ValueError(f'Blank boundary frame: chunk {index} {which}')
  record={**s,'fingerprint':key,'contract':CONTRACT,'fileSha256':hashlib.sha256(path.read_bytes()).hexdigest(),'decodedFrameHashes':hashes,'boundaries':boundaries}
  if create:manifest.write_text(json.dumps(record,indent=2)+'\n')
@@ -105,28 +107,28 @@ def assemble(root,key,output,final_audio=None,narrated=False):
   d=json.loads(file.read_text());i=d['index']
   if i in records:raise ValueError('Duplicate segment index')
   records[i]=verify_segment(file.parent,i,key);folders[i]=file.parent
- if sorted(records)!=list(range(6)):raise ValueError('All six verified segments are required')
+ if sorted(records)!=list(range(CHUNKS)):raise ValueError(f'All {CHUNKS} verified segments are required')
  concat=output/'segments.txt'
  # Paths originate in the runner workspace. Reject shell/concat escaping characters.
- paths=[str((folders[i]/'chunk.mp4').resolve()) for i in range(6)]
+ paths=[str((folders[i]/'chunk.mp4').resolve()) for i in range(CHUNKS)]
  if any("'" in p or '\n' in p for p in paths):raise ValueError('Unsafe segment path')
  concat.write_text(''.join("file '"+p+"'\n" for p in paths))
  raw=output/'joined-video.mp4'
  subprocess.run(['ffmpeg','-v','error','-y','-f','concat','-safe','0','-i',str(concat),'-map','0:v:0','-c:v','copy',str(raw)],check=True)
- verify_video(raw,1800,60)
- expected=[v for i in range(6) for v in records[i]['decodedFrameHashes']]
+ verify_video(raw,FRAMES,SECONDS)
+ expected=[v for i in range(CHUNKS) for v in records[i]['decodedFrameHashes']]
  if frame_hashes(raw)!=expected:raise ValueError('Joined decoded frame order differs from six source segments')
  final=output/PROJECT['outputFilename']
  audio=Path(final_audio) if final_audio else ROOT/PROJECT['soundtrack']
- subprocess.run([sys.executable,str(ROOT/'scripts/pipeline/package-video.py'),str(raw),str(audio),str(final),'--fps','30']+(['--narration'] if narrated else []),check=True)
- subprocess.run([sys.executable,str(ROOT/'scripts/pipeline/verify-film.py'),str(final),'--mode','final-30'],check=True)
+ subprocess.run([sys.executable,str(ROOT/'scripts/pipeline/package-video.py'),str(raw),str(audio),str(final),'--fps','30','--seconds',str(SECONDS)]+(['--narration'] if narrated else []),check=True)
+ subprocess.run([sys.executable,str(ROOT/'scripts/pipeline/verify-film.py'),str(final),'--mode','final-30','--seconds',str(SECONDS)],check=True)
  if frame_hashes(final)!=expected:raise ValueError('Final mux dropped or duplicated a decoded frame')
  joins=[]
- for n in [299,300,599,600,899,900,1199,1200,1499,1500]:
+ for n in [x for i in range(1,CHUNKS) for x in (i*300-1,i*300)]:
   m=boundary_metrics(final,n)
   if m['maximum']<24 or m['mean']<.75:raise ValueError(f'Black frame at final join {n}')
   joins.append({'frame':n,**m})
- report={'fingerprint':key,'chunks':6,'decodedFramesIdenticalAndOrdered':True,'dimensions':[1080,1920],'fps':30,'frames':1800,'seconds':60,'audioAddedOnce':True,'joinFrames':joins,'narrationIncluded':narrated}
+ report={'fingerprint':key,'chunks':CHUNKS,'decodedFramesIdenticalAndOrdered':True,'dimensions':[1080,1920],'fps':30,'frames':FRAMES,'seconds':SECONDS,'audioAddedOnce':True,'joinFrames':joins,'narrationIncluded':narrated}
  (output/'assembly.json').write_text(json.dumps(report,indent=2)+'\n')
  raw.unlink();concat.unlink()
  print('::notice title=Verified complete FrameForge movie::'+json.dumps(report))
