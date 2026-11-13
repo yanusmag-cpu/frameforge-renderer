@@ -1,0 +1,47 @@
+name: Public repository privacy audit
+# Runs on every push and on demand. Read-only, renders nothing. Never prints emails, secrets or matched text:
+# only commit IDs and file names, so a finding is not re-exposed in this public log.
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: audit-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Every commit uses a no-reply identity
+        run: |
+          git fetch -q origin '+refs/heads/*:refs/remotes/origin/*'
+          ok='^([A-Za-z0-9._+-]+@users\.noreply\.github\.com|noreply@anthropic\.com|noreply@github\.com)$'
+          bad=$(git log --remotes --format='%h %ae %ce' | while read -r h a c; do
+            { echo "$a" | grep -Eq "$ok" && echo "$c" | grep -Eq "$ok"; } || echo "$h"; done)
+          if [ -n "$bad" ]; then echo "Commits with a non-no-reply author or committer: $bad"; exit 1; fi
+          echo 'All commits use no-reply identities.'
+      - name: No personal emails, tokens or keys in tracked files
+        run: |
+          fail=0
+          emails=$(git grep -I -l -E '[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}' -- . ':!package-lock.json' | while read -r f; do
+            git grep -I -h -o -E '[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}' -- "$f" | grep -Evq '^([A-Za-z0-9._+-]+@users\.noreply\.github\.com|noreply@(anthropic|github)\.com)$' && echo "$f"; done | sort -u)
+          [ -n "$emails" ] && { echo "Email addresses found in: $emails"; fail=1; }
+          tokens=$(git grep -I -l -E 'gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|xox[abp]-[A-Za-z0-9-]{10,}' || true)
+          [ -n "$tokens" ] && { echo "Possible credentials found in: $tokens"; fail=1; }
+          exit $fail
+      - name: Temporary import secrets are gone
+        env:
+          S0: ${{ secrets.FRAMEFORGE_CHUNK_URL_0 }}
+          S1: ${{ secrets.FRAMEFORGE_CHUNK_URL_1 }}
+          S2: ${{ secrets.FRAMEFORGE_CHUNK_URL_2 }}
+          S3: ${{ secrets.FRAMEFORGE_CHUNK_URL_3 }}
+          S4: ${{ secrets.FRAMEFORGE_CHUNK_URL_4 }}
+          S5: ${{ secrets.FRAMEFORGE_CHUNK_URL_5 }}
+        run: |
+          left=0; for i in 0 1 2 3 4 5; do v="S$i"; if [ -n "${!v}" ]; then echo "FRAMEFORGE_CHUNK_URL_$i still exists"; left=1; else echo "FRAMEFORGE_CHUNK_URL_$i: absent"; fi; done
+          exit $left

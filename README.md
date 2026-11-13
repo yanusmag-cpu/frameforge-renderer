@@ -10,19 +10,28 @@ Current project: *British Airways Flight 5390* (`src/ba5390`, `public/ba5390`).
 
 © FrameForge Studio. All rights reserved. Source is visible for rendering transparency only; no licence is granted.
 
-## BA5390 imported chunks and safe retries
+## Workflows (all manual except the audit; free standard `ubuntu-24.04` runners only)
 
-The first four chunks (frames 0–1199) were imported and fully verified in
-[import run 43347999624](https://github.com/yanusmag-cpu/frameforge-renderer/actions/runs/43347999624).
-The public renderer's BA5390 source and assets match the source used for these chunks.
-Only chunks 4 and 5 (frames 1200–1799) need rendering. Leave `force_chunk` at `none`.
-If an imported chunk cannot be verified, the workflow stops instead of rerendering it.
-Retry failed jobs; successful chunks are also reusable across workflow runs while their artifacts remain available.
+| Workflow | What it does |
+|---|---|
+| *Render 60-second short (six chunks)* | Final 1080×1920 render. Reuses every verified chunk; only missing chunks render. |
+| *Build Blender assets (manual)* | Runs the project's `blenderScript` in Blender 4.2.3 and commits the GLBs to the film branch (never `main`). |
+| *Preview render (manual, low-res)* | 360×640 motion preview of the real timeline, full-HD key stills, a contact sheet and a joined preview with sound. Artifacts only. |
+| *Keep a finished video permanently* | Copies a verified `complete-*` artifact into a draft release, which does not expire and is visible only to collaborators. |
+| *Public repository privacy audit* | On every push: no-reply commit identities only, no emails/tokens/keys in files, temporary import secrets absent. |
 
-The one-time import used four expiring, read-only artifact URLs stored as secrets.
-No private-repository personal token or App token was installed in this repository.
-The transfer grants are removed after import. The importer requires fresh grants to run again.
-Only the intended movie segments and integrity manifests were published.
+### Adding a film
+1. Add `src/<film>/`, `public/<film>/`, `scripts/<film>/` and register the composition in `src/Root.tsx`.
+2. Add `production/<film>/render-project.json` with `composition`, a unique `artifactPrefix` (`claude-<film>-chunk`),
+   `assetDirectories`, `sourceDirectories: ["src/<film>"]`, `soundtrack`, `outputFilename` and optionally `blenderScript`.
+   `sourceDirectories` keeps each film's chunk key independent of other films.
+3. Build assets → preview → final render, each started manually on the film branch.
+
+## BA5390 history
+
+Chunks 0–3 were imported and verified in [run 43347999624](https://github.com/yanusmag-cpu/frameforge-renderer/actions/runs/43347999624);
+chunks 4–5 rendered and the film was assembled and verified in [run 43348256215](https://github.com/yanusmag-cpu/frameforge-renderer/actions/runs/43348256215).
+The one-time importer and its expiring artifact-URL secrets have been removed. No personal access token was ever installed here.
 
 The renderer uses standard `ubuntu-24.04` runners in this public repository,
 with at most two chunk jobs running together. No paid runner or paid service is enabled.

@@ -1,0 +1,93 @@
+name: Build Blender assets (manual)
+# Free standard GitHub-hosted Linux runner. Manual start only. Commits rebuilt GLBs to the selected film branch,
+# never to main, with the FrameForge Renderer no-reply identity. Renders nothing.
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: Render project file (production/<name>/render-project.json) with a blenderScript field
+        required: true
+      force:
+        description: Rebuild even if the Blender script is unchanged
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: blender-${{ github.ref }}-${{ inputs.project }}
+  cancel-in-progress: false
+env:
+  PROJECT: ${{ inputs.project }}
+  FORCE: ${{ inputs.force }}
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Refuse main
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo 'Run this on the film branch (claude/<film>), not main.'
+          exit 1
+      - uses: actions/checkout@v4
+      - name: Read and validate the project file
+        id: cfg
+        run: |
+          case "$PROJECT" in production/*/render-project.json) test -f "$PROJECT";; *) echo 'Invalid project path'; exit 1;; esac
+          python3 - <<'PY'
+          import json,os,re
+          d=json.load(open(os.environ['PROJECT']))
+          script=d.get('blenderScript','');out=d['assetDirectories'][0]
+          if not re.fullmatch(r'scripts/[a-z0-9-]+/[A-Za-z0-9_-]+\.py',script) or not os.path.isfile(script):raise SystemExit('blenderScript missing or invalid')
+          if not re.fullmatch(r'public/[a-z0-9-]+',out):raise SystemExit('assetDirectories[0] invalid')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write(f'script={script}\nout={out}\n')
+          PY
+      - name: Decide whether a rebuild is needed
+        id: need
+        env:
+          SCRIPT: ${{ steps.cfg.outputs.script }}
+          OUT: ${{ steps.cfg.outputs.out }}
+        run: |
+          want=$(sha256sum "$SCRIPT" | cut -c1-64)
+          have=$(cat "$OUT/blender-source.sha256" 2>/dev/null || true)
+          build=false; { [ "$want" != "$have" ] || [ "$FORCE" = true ]; } && build=true
+          echo "build=$build" >> "$GITHUB_OUTPUT"; echo "want=$want" >> "$GITHUB_OUTPUT"
+          echo "Rebuild needed: $build"
+      - name: Install Blender 4.2.3 LTS (checksum verified)
+        if: steps.need.outputs.build == 'true'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libxkbcommon0 libsm6 libegl1 >/dev/null
+          cd "$RUNNER_TEMP"
+          curl -sSLO https://download.blender.org/release/Blender4.2/blender-4.2.3-linux-x64.tar.xz
+          curl -sSL https://download.blender.org/release/Blender4.2/blender-4.2.3.sha256 | grep linux-x64.tar.xz | sha256sum -c -
+          tar -xJf blender-4.2.3-linux-x64.tar.xz
+          echo "$RUNNER_TEMP/blender-4.2.3-linux-x64" >> "$GITHUB_PATH"
+      - name: Build the film's Blender sets and props
+        if: steps.need.outputs.build == 'true'
+        env:
+          SCRIPT: ${{ steps.cfg.outputs.script }}
+          OUT: ${{ steps.cfg.outputs.out }}
+          WANT: ${{ steps.need.outputs.want }}
+        run: |
+          blender -b --factory-startup -P "$SCRIPT" 2>&1 | tee blender.log | grep -E "exported|ALL ASSETS|Error|Traceback" || true
+          grep -q 'ALL ASSETS DONE' blender.log
+          echo "$WANT" > "$OUT/blender-source.sha256"
+          ls -la "$OUT"
+      - name: Commit rebuilt assets to this branch
+        if: steps.need.outputs.build == 'true'
+        env:
+          OUT: ${{ steps.cfg.outputs.out }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          git config user.name 'FrameForge Renderer'
+          git config user.email 'frameforge-renderer@users.noreply.github.com'
+          git add "$OUT"
+          git commit -m "Rebuild Blender assets for $OUT [assets-bot]" || { echo 'Assets unchanged'; exit 0; }
+          for i in 1 2 3; do git pull --rebase -q origin "$BRANCH" && git push -q origin "HEAD:$BRANCH" && break; sleep 5; done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: blender-log-${{ github.run_id }}
+          path: blender.log
+          if-no-files-found: ignore
+          retention-days: 7

@@ -1,0 +1,121 @@
+name: Preview render (manual, low-res)
+# Free standard GitHub-hosted Linux runners. Manual start only. Renders a 360x640/30 FPS motion preview of the
+# real 1,800-frame timeline plus full-HD key stills. Artifacts only: never touches final chunks or branches.
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: Render project file (production/<name>/render-project.json)
+        required: true
+      segments:
+        description: Which 10-second segments to preview (all also builds the joined preview with sound)
+        type: choice
+        options: [all, '0', '1', '2', '3', '4', '5']
+        default: all
+permissions:
+  contents: read
+concurrency:
+  group: preview-${{ github.ref }}-${{ inputs.project }}
+  cancel-in-progress: false
+env:
+  PROJECT: ${{ inputs.project }}
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    outputs:
+      matrix: ${{ steps.cfg.outputs.matrix }}
+      composition: ${{ steps.cfg.outputs.composition }}
+      prefix: ${{ steps.cfg.outputs.prefix }}
+      soundtrack: ${{ steps.cfg.outputs.soundtrack }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: cfg
+        env:
+          SEGMENTS: ${{ inputs.segments }}
+        run: |
+          case "$PROJECT" in production/*/render-project.json) test -f "$PROJECT";; *) echo 'Invalid project path'; exit 1;; esac
+          python3 - <<'PY'
+          import json,os,re
+          d=json.load(open(os.environ['PROJECT']));seg=os.environ['SEGMENTS']
+          comp=d['composition'];prefix=d['artifactPrefix'].removesuffix('-chunk');snd=d.get('soundtrack','')
+          if not re.fullmatch(r'[A-Za-z0-9-]+',comp) or not re.fullmatch(r'[a-z0-9-]+',prefix):raise SystemExit('Invalid composition/prefix')
+          if snd and not re.fullmatch(r'public/[a-z0-9-]+/[A-Za-z0-9._-]+',snd):raise SystemExit('Invalid soundtrack path')
+          m=list(range(6)) if seg=='all' else [int(seg)]
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write(f'matrix={json.dumps(m)}\ncomposition={comp}\nprefix={prefix}\nsoundtrack={snd}\n')
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npx eslint src
+      - run: npm test
+  segment:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        index: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      COMP: ${{ needs.plan.outputs.composition }}
+      I: ${{ matrix.index }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: |
+          npm ci
+          npx remotion browser ensure
+      - name: Render 10 s of real motion at 360x640 (absolute timeline position)
+        run: |
+          s=$(( I * 300 )); e=$(( s + 299 )); mkdir -p out/preview
+          npx remotion render src/index.ts "$COMP" "out/preview/seg-$I.mp4" --frames=$s-$e --scale=0.3333333 --muted --gl=swangle --concurrency=2 --codec=h264 --crf=22 --log=error
+      - name: Render three full-HD key stills from this segment
+        run: |
+          for o in 30 150 270; do f=$(( I * 300 + o ))
+            npx remotion still src/index.ts "$COMP" "out/preview/still-$(printf %04d $f).jpg" --frame=$f --gl=swangle --image-format=jpeg --jpeg-quality=82 --log=error
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: preview-${{ needs.plan.outputs.prefix }}-${{ github.run_id }}-${{ matrix.index }}
+          path: out/preview/
+          retention-days: 7
+  join:
+    needs: [plan, segment]
+    if: inputs.segments == 'all'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      SOUND: ${{ needs.plan.outputs.soundtrack }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure FFmpeg
+        run: command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null)
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: preview-${{ needs.plan.outputs.prefix }}-${{ github.run_id }}-*
+          path: out/parts
+          merge-multiple: true
+      - name: Join the 60-second preview, add the soundtrack, build a contact sheet
+        run: |
+          mkdir -p out/joined; for i in 0 1 2 3 4 5; do echo "file '$PWD/out/parts/seg-$i.mp4'"; done > out/list.txt
+          ffmpeg -v error -f concat -safe 0 -i out/list.txt -c copy out/silent.mp4
+          if [ -n "$SOUND" ] && [ -f "$SOUND" ]; then
+            ffmpeg -v error -i out/silent.mp4 -i "$SOUND" -map 0:v -map 1:a -c:v copy -c:a aac -b:a 160k -shortest out/joined/preview.mp4
+          else cp out/silent.mp4 out/joined/preview.mp4; fi
+          ffmpeg -v error -i out/silent.mp4 -vf "fps=1,scale=180:320,tile=10x6" -frames:v 1 -q:v 3 out/joined/contact-sheet.jpg
+          cp out/parts/still-*.jpg out/joined/
+          n=$(ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames -of csv=p=0 out/silent.mp4)
+          echo "Preview frames: $n"; test "$n" = 1800
+      - uses: actions/upload-artifact@v4
+        with:
+          name: preview-${{ needs.plan.outputs.prefix }}-${{ github.run_id }}
+          path: out/joined/
+          retention-days: 14

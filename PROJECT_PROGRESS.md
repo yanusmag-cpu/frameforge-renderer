@@ -12,14 +12,11 @@
 - Full original 60-second stereo 48 kHz soundtrack present: measured −15.98 LUFS, −1.87 dBTP before AAC encoding.
 - Only standard public Ubuntu runners, bounded concurrency 2; no paid service enabled or spending limit changed.
 
-## Running / pending — do not restart completed chunks
+## Completed — BA5390 delivered
 
-[Render and assembly run 43348256215](https://github.com/yanusmag-cpu/frameforge-renderer/actions/runs/43348256215)
-
-This run renders only chunks 4 and 5 (frames 1200–1799). Then the existing assembly job automatically joins all six segments, adds the soundtrack once, verifies every decoded frame and all joins, and uploads one complete movie.
-
-The final movie has **not yet been verified or delivered** at this checkpoint. Check this run before dispatching anything else. If a job fails, inspect its error and retry failed jobs; do not force rerender imported chunks.
-
-Expected final file: `British-Airways-Flight-5390-60s.mp4` in the run's `complete-*` artifact. On iPhone, download the ZIP from Actions → run → Artifacts, then unzip in Files.
+[Render and assembly run 43348256215](https://github.com/yanusmag-cpu/frameforge-renderer/actions/runs/43348256215) succeeded:
+chunks 0–3 reused, chunks 4–5 rendered, all 1,800 frames decoded and verified, 60 s, 30 FPS, −16.28 LUFS, −1.92 dBTP.
+Final artifact: `complete-claude-ba5390-chunk-1` containing `British-Airways-Flight-5390-60s.mp4`.
+The one-time import workflow has been removed. Do not rerender BA5390 chunks.
 
 The missing private-run jobs were never started because GitHub reported billing/spending restrictions. This public run avoids private-runner minutes without raising any spending limit.

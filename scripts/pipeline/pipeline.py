@@ -12,7 +12,10 @@ def spec(index):
  return {'index':index,'startFrame':index*300,'endFrame':index*300+299,'frames':300,'seconds':10}
 def fingerprint():
  h=hashlib.sha256(json.dumps(CONTRACT,sort_keys=True).encode())
- files=[*ROOT.joinpath('src').rglob('*.ts'),*ROOT.joinpath('src').rglob('*.tsx'),*[f for directory in PROJECT['assetDirectories'] for f in ROOT.joinpath(directory).rglob('*')],ROOT/'package.json',ROOT/'package-lock.json']
+ # Films that list sourceDirectories hash only their own code plus shared entry files, so adding a new film
+ # never invalidates another film's verified chunks. Projects without the field keep the original key.
+ src=[ROOT.joinpath(d) for d in PROJECT['sourceDirectories']]+[ROOT/'src/index.ts',ROOT/'src/renderDefaults.ts'] if PROJECT.get('sourceDirectories') else [ROOT/'src']
+ files=[*(f for d in src for f in ([d] if d.is_file() else [*d.rglob('*.ts'),*d.rglob('*.tsx')])),*[f for directory in PROJECT['assetDirectories'] for f in ROOT.joinpath(directory).rglob('*')],ROOT/'package.json',ROOT/'package-lock.json']
  for f in sorted(set(f for f in files if f.is_file())):h.update(str(f.relative_to(ROOT)).encode()+b'\0'+f.read_bytes())
  return h.hexdigest()[:24]
 def probe(path):return json.loads(run(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(path)]))

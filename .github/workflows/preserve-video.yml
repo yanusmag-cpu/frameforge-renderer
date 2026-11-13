@@ -1,0 +1,44 @@
+name: Keep a finished video permanently (draft release)
+# Manual only. Copies a verified complete-* artifact into a DRAFT release, which never expires and is visible only
+# to people with write access to this repository. Renders nothing, deletes nothing, never overwrites a release.
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: ID of the render run that produced the complete-* artifact
+        required: true
+      tag:
+        description: Release tag to create (e.g. ba5390-final)
+        required: true
+permissions:
+  contents: write
+  actions: read
+jobs:
+  preserve:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RUN_ID: ${{ inputs.run_id }}
+      TAG: ${{ inputs.tag }}
+    steps:
+      - name: Validate inputs
+        run: |
+          echo "$RUN_ID" | grep -Eq '^[0-9]+$' && echo "$TAG" | grep -Eq '^[a-z0-9][a-z0-9.-]{1,60}$' || { echo 'Invalid input'; exit 1; }
+          if gh release view "$TAG" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then echo 'Release already exists; not overwriting.'; exit 1; fi
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+          pattern: complete-*
+          path: out
+          merge-multiple: true
+      - name: Check the video before keeping it
+        run: |
+          command -v ffprobe >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null)
+          ls -la out; v=$(ls out/*.mp4 | head -1); test -n "$v"
+          ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,nb_frames -show_entries format=duration -of compact "$v"
+      - name: Create the draft release with the video and its verification report
+        run: |
+          gh release create "$TAG" out/* -R "$GITHUB_REPOSITORY" --draft --target "$GITHUB_SHA" \
+            --title "$TAG" --notes "Verified complete video from render run $RUN_ID. Draft: visible only to repository collaborators."
