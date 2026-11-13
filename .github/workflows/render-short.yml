@@ -68,6 +68,11 @@ jobs:
           FORCE=()
           if [ "$FORCE_CHUNK" = "$CHUNK" ]; then FORCE=(--force); fi
           python3 scripts/pipeline/pipeline.py reuse --index "$CHUNK" --key "$KEY" --folder out/chunk "${FORCE[@]}"
+      - name: Protect the four completed BA5390 chunks from accidental rerender
+        if: inputs.project == 'production/ba5390/render-project.json' && matrix.index < 4 && steps.reuse.outputs.reused != 'true' && inputs.force_chunk == 'none'
+        run: |
+          echo 'Required imported chunk is unavailable or invalid. Restore its artifact before retrying.'
+          exit 1
       - uses: actions/setup-node@v4
         if: steps.reuse.outputs.reused != 'true'
         with:

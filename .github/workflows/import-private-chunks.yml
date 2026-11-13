@@ -1,6 +1,6 @@
 name: One-time import of four verified BA5390 chunks
-# Temporary. Copies chunk artifacts only (no source code) using a read-only, Actions-only token kept as a secret.
-# Deleted from the repository right after the import succeeds.
+# One-time import using short-lived, read-only URLs for exactly four artifact ZIPs.
+# No private-repository token is provided to this public runner.
 on: workflow_dispatch
 permissions:
   contents: read
@@ -19,14 +19,28 @@ jobs:
       - uses: actions/checkout@v4
       - name: Ensure FFmpeg
         run: command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
-      - name: Download the finished chunk (artifact only)
-        uses: actions/download-artifact@v4
-        with:
-          name: claude-ba5390-chunk-82297f8a1020ff7307681e42-${{ matrix.index }}
-          path: in/chunk
-          github-token: ${{ secrets.FRAMEFORGE_IMPORT_TOKEN }}
-          repository: ${{ secrets.FRAMEFORGE_IMPORT_REPO }}
-          run-id: 43316538885
+      - name: Download only the authorized artifact using its expiring URL
+        env:
+          CHUNK_URL: ${{ secrets[format('FRAMEFORGE_CHUNK_URL_{0}', matrix.index)] }}
+        run: |
+          python3 - <<'PYTHON'
+          import io,os,sys,urllib.request,urllib.parse,zipfile
+          from pathlib import Path
+          url=os.environ.pop('CHUNK_URL','')
+          if urllib.parse.urlparse(url).scheme!='https':
+              sys.exit('Missing or invalid short-lived artifact URL; refresh the import grant.')
+          try:
+              with urllib.request.urlopen(url,timeout=120) as response:
+                  data=response.read(100_000_001)
+              if len(data)>100_000_000: raise ValueError('Artifact exceeds limit')
+              with zipfile.ZipFile(io.BytesIO(data)) as archive:
+                  folder=Path('in/chunk');folder.mkdir(parents=True,exist_ok=True)
+                  for name in ['chunk.mp4','manifest.json']:
+                      if archive.getinfo(name).file_size>100_000_000: raise ValueError('Entry exceeds limit')
+                      (folder/name).write_bytes(archive.read(name))
+          except Exception:
+              sys.exit('Artifact download failed. Refresh the expiring grant; no credentials were logged.')
+          PYTHON
       - name: Prove integrity against the original manifest, then re-key for this repository
         id: rekey
         run: |
