@@ -30,8 +30,8 @@ function Terrain({set}:{set:SetId}){const [cx,cz]=CENTRE[set];
 // ---------------------------------------------------------------- wheat: dense instanced stalk cards that sway in travelling gusts
 function Wheat({time,eye,sky}:{time:number;eye:V3;sky:Sky}){const MAXW=26000;
  const geo=useMemo(()=>{const g=new InstancedBufferGeometry();const a=new PlaneGeometry(.5,1.1,1,4).translate(0,.55,0),b=a.clone().rotateY(Math.PI/2);
-  const pos=[...(a.getAttribute('position').array as Float32Array),...(b.getAttribute('position').array as Float32Array)],uv=[...(a.getAttribute('uv').array as Float32Array),...(b.getAttribute('uv').array as Float32Array)];
-  const ia=[...(a.index!.array as ArrayLike<number>)],ib=[...(b.index!.array as ArrayLike<number>)].map(i=>i+a.getAttribute('position').count);
+  const pos=[...Array.from(a.getAttribute('position').array),...Array.from(b.getAttribute('position').array)],uv=[...Array.from(a.getAttribute('uv').array),...Array.from(b.getAttribute('uv').array)];
+  const ia=Array.from(a.index!.array),ib=Array.from(b.index!.array).map(i=>i+a.getAttribute('position').count);
   g.setAttribute('position',new BufferAttribute(new Float32Array(pos),3));g.setAttribute('uv',new BufferAttribute(new Float32Array(uv),2));g.setIndex([...ia,...ib]);
   g.setAttribute('aP',new InstancedBufferAttribute(new Float32Array(MAXW*4),4));g.instanceCount=0;return g;},[]);
  useEffect(()=>()=>geo.dispose(),[geo]);
@@ -70,9 +70,9 @@ function scatter(eye:V3,set:SetId){const out:{t:Record<string,Matrix4[]>}={t:{Tu
   if(h<.38)out.t[h<.2?'TussockA':'TussockB'].push(mat4(x,z,yaw,s));else if(h<.45)out.t['Rock'+Math.floor(hash(h*9)*3)].push(mat4(x,z,yaw,.4+.9*hash(h*2.2),-.05));else if(h<.475&&set!=='farm')out.t.GrassTree.push(mat4(x,z,yaw,.8+.5*hash(h*4)));}
  for(let x=-260;x<=-48;x+=3.2)if(Math.abs(x-eye[0])<260)out.t.FencePost.push(mat4(x,-97,x,1));for(let z=-96;z<=38;z+=3.2)if(Math.abs(z-eye[2])<260&&Math.abs(z-10)>2)out.t.FencePost.push(mat4(-47,z,z,1));
  return out.t;}
-function FenceWires({eye}:{eye:V3}){const geo=useMemo(()=>{const pts:number[]=[];const run=(a:[number,number],b:[number,number],n:number)=>{for(let i=0;i<n;i++){const p=a[0]+(b[0]-a[0])*i/n,q=a[1]+(b[1]-a[1])*i/n,p2=a[0]+(b[0]-a[0])*(i+1)/n,q2=a[1]+(b[1]-a[1])*(i+1)/n;
+function FenceWires(){const geo=useMemo(()=>{const pts:number[]=[];const run=(a:[number,number],b:[number,number],n:number)=>{for(let i=0;i<n;i++){const p=a[0]+(b[0]-a[0])*i/n,q=a[1]+(b[1]-a[1])*i/n,p2=a[0]+(b[0]-a[0])*(i+1)/n,q2=a[1]+(b[1]-a[1])*(i+1)/n;
   for(const h of [.45,.8,1.12])pts.push(p,ground(p,q)+h,q,p2,ground(p2,q2)+h-.02,q2);}};run([-260,-97],[-48,-97],70);run([-47,-96],[-47,8],34);run([-47,12],[-47,38],9);const g=new BufferGeometry();g.setAttribute('position',new BufferAttribute(new Float32Array(pts),3));return g;},[]);
- useEffect(()=>()=>geo.dispose(),[geo]);void eye;return <lineSegments geometry={geo}><lineBasicMaterial color="#4a4038" transparent opacity={.7}/></lineSegments>;}
+ useEffect(()=>()=>geo.dispose(),[geo]);return <lineSegments geometry={geo}><lineBasicMaterial color="#4a4038" transparent opacity={.7}/></lineSegments>;}
 
 // ---------------------------------------------------------------- dam water
 function Water({time,sky}:{time:number;sky:Sky}){const y=useMemo(()=>{let a=0;for(let i=0;i<12;i++){const t=i/12*Math.PI*2;a+=ground(DAM[0]+Math.cos(t)*(DAM_R+1),DAM[2]+Math.sin(t)*(DAM_R+1));}return a/12-.22;},[]);
@@ -98,7 +98,7 @@ function Gun({g,parts,t}:{g:GunState;parts:Map<string,Part>;t:number}){if(!g.vis
   {g.casings.map((c,i)=><Clone key={i} part={parts.get('Casing')} pos={c.pos} rot={c.rot}/>)}<Flash pos={muzzle} k={g.flash} seed={Math.floor(t*30)}/></group>;}
 
 // ---------------------------------------------------------------- dust sources
-export function dustPuffs(t:number,eye:V3,poses:EmuPose[],tr:TruckState,emuIds:{id:string;mover:Mover;s:number}[]):Puff[]{const out:Puff[]=[];const set=shotAt(t).set;
+export function dustPuffs(t:number,eye:V3,tr:TruckState,emuIds:{id:string;mover:Mover;s:number}[]):Puff[]{const out:Puff[]=[];const set=shotAt(t).set;
  const col=set==='farm'?'#c79a5e':'#c0683c';
  for(const e of emuIds){const p=e.mover.at(t);if((p[0]-eye[0])**2+(p[1]-eye[2])**2>85*85)continue;
   for(const f of footfalls(e.mover,t-1.6,t)){const ft=feet(e.mover,f.t),v=ft.speed;if(v<2.5)continue;const foot=f.side<0?ft.l:ft.r;const k=Math.min(1,v/11)*e.s;
@@ -110,7 +110,7 @@ export function dustPuffs(t:number,eye:V3,poses:EmuPose[],tr:TruckState,emuIds:{
  for(const h of EV.hop)burst(h+.33,[-8.6+((h*7)%3),ground(-8,roadZ(-8)-2)+.05,roadZ(-8)-2.2],8,.6,.35);burst(EV.tripodClank,add(gunAt(EV.tripodClank).pos,[0,-.6,0]),10,.5,.35);
  if(set==='chase'){burst(EV.land,truckToWorld(truckAt(EV.land),[0,0,0]),36,1.6,.4);}
  if(set==='rest'&&tr.visible){for(let i=0;i<40;i++){const tb=t-i*.06;const h=hash(i*3.1+Math.floor(t*16));out.push({tb,o:truckToWorld(tr,[2.0,1.5,0]),v:[.4*(h-.5),1.2+h*.6,.4*(hash(h*4)-.5)],life:2.4,r0:.15,r1:1.0,a:.18,c:'#f4f1ea',k:.6,rise:.2});}}
- void poses;return out;}
+ return out;}
 
 // ---------------------------------------------------------------- the world for the current shot
 export function WorldSet({time,eye,sky,poses}:{time:number;eye:V3;sky:Sky;poses:EmuPose[]}){const {camera}=useThree();const shot=shotAt(time),set=shot.set;
@@ -120,7 +120,7 @@ export function WorldSet({time,eye,sky,poses}:{time:number;eye:V3;sky:Sky;poses:
  const d=norm(sky.sunDir);sun.color.set(sky.sun);sun.intensity=set==='hill'?2.6:3.1;sun.position.set(...add(focus,scale(d,90)));sun.target.position.set(...focus);sun.target.updateMatrixWorld();
  const big=['E04','E06','E11','E20'].includes(shot.id);const S=big?70:26;const sc=sun.shadow.camera;sc.left=-S;sc.right=S;sc.top=S;sc.bottom=-S;sc.near=1;sc.far=260;sc.updateProjectionMatrix();
  const tr=truckAt(time),g=gunAt(time);
- const placements=useMemo(()=>scatter([Math.round(eye[0]/24)*24,0,Math.round(eye[2]/24)*24],set),[Math.round(eye[0]/24),Math.round(eye[2]/24),set]);// eslint-disable-line react-hooks/exhaustive-deps
+ const placements=useMemo(()=>scatter([Math.round(eye[0]/24)*24,0,Math.round(eye[2]/24)*24],set),[Math.round(eye[0]/24),Math.round(eye[2]/24),set]);
  const gums=GUMS.filter(([x,z])=>dist([x,0,z],eye)<420);
  const mill=farm?.get('WindmillRotor');const hatemu=poses.find(p=>p.hat),victor=poses.find(p=>p.stalk);
  const hm=new Matrix4(),hat=new Matrix4(),stalk=new Matrix4();if(hatemu){headMatrix(hatemu,hm);hat.copy(hm).multiply(new Matrix4().compose(new Vector3(-.01,.07,0),new Quaternion().setFromAxisAngle(new Vector3(0,0,1),.25),new Vector3(.62,.62,.62)));}
@@ -142,7 +142,7 @@ export function WorldSet({time,eye,sky,poses}:{time:number;eye:V3;sky:Sky;poses:
    <Clone part={farm.get('Tank')} pos={[FARM.tank[0],ground(FARM.tank[0],FARM.tank[2]),FARM.tank[2]]}/><Clone part={farm.get('WindmillTower')} pos={[FARM.mill[0],ground(FARM.mill[0],FARM.mill[2]),FARM.mill[2]]} rot={[0,-.6,0]}/>
    {mill&&<group position={[FARM.mill[0],ground(FARM.mill[0],FARM.mill[2]),FARM.mill[2]]} rotation={[0,-.6,0]}><Clone part={mill} pos={[mill.pivot.x,mill.pivot.y,mill.pivot.z]} rot={[time*2.4,0,0]}/></group>}
    <Clone part={farm.get('Trough')} pos={[FARM.mill[0]+3,ground(FARM.mill[0]+3,FARM.mill[2]+2),FARM.mill[2]+2]} rot={[0,.3,0]}/><Clone part={farm.get('Gate')} pos={[-47,ground(-47,10),10]} rot={[0,Math.PI/2,0]}/>
-   {[[-176,-112,.2],[-174,-110.5,.3],[-178,-110,1.4]].map(([x,z,r],i)=><Clone key={i} part={farm.get('Bale')} pos={[x,ground(x,z),z]} rot={[0,r,0]}/>)}<FenceWires eye={eye}/></>}
+   {[[-176,-112,.2],[-174,-110.5,.3],[-178,-110,1.4]].map(([x,z,r],i)=><Clone key={i} part={farm.get('Bale')} pos={[x,ground(x,z),z]} rot={[0,r,0]}/>)}<FenceWires/></>}
   {set==='dam'&&<Water time={time} sky={sky}/>}
   {set==='dam'&&kit&&[-.9,-.1,.7,1.5,2.3].map((x,i)=><Clone key={i} part={kit.get('Sandbag')} pos={[DAMG[0]+x-.6,ground(DAMG[0]+x-.6,DAMG[2]-.75)+(i%2)*.02,DAMG[2]-.75]} rot={[0,.1*i,0]}/>)}
   {set==='rest'&&kit&&<><Clone part={kit.get('AmmoBoxOpen')} pos={[REST[0]+.6,ground(REST[0]+.6,REST[2]+2.9),REST[2]+2.9]} rot={[0,.5,0]}/><Clone part={kit.get('AmmoBox')} pos={[REST[0]+2.3,ground(REST[0]+2.3,REST[2]+2.5),REST[2]+2.5]} rot={[0,-.3,0]}/>
@@ -151,7 +151,7 @@ export function WorldSet({time,eye,sky,poses}:{time:number;eye:V3;sky:Sky;poses:
   {kit&&hatemu&&<primitive object={(()=>{const o=kit.get('Hat')!.node.clone(true);o.matrixAutoUpdate=false;o.matrix.copy(hat);return o;})()}/>}
   {kit&&flying&&<Clone part={kit.get('Hat')} pos={flying.pos} rot={[flying.spin*.4,flying.spin,flying.spin*.2]} s={.95}/>}
   {truck&&<Truck tr={tr} parts={truck}/>}{gun&&<Gun g={g} parts={gun} t={time}/>}
-  <Dust time={time} puffs={dustPuffs(time,eye,poses,tr,poses.map(p=>({id:p.id,mover:emuMover(p.id,set).mover,s:p.s})))} sky={sky} eye={eye}/></>;}
+  <Dust time={time} puffs={dustPuffs(time,eye,tr,poses.map(p=>({id:p.id,mover:emuMover(p.id,set).mover,s:p.s})))} sky={sky} eye={eye}/></>;}
 /** E18: the empty pan magazine in the gunner's hands and the single cartridge case that drops out. */
 function RestPan({gun,t}:{gun:Map<string,Part>;t:number}){const o:V3=[REST[0]+1.2,0,REST[2]+2.2];const gy=ground(o[0],o[2]);const shake=t>29.75&&t<30.2?.06*Math.sin(t*40):0;
  const pan:V3=[o[0]-.13,gy+.55+.65+shake,o[2]+.4];const drop=t-EV.casing;const cy=drop<0?pan[1]-.03:Math.max(gy+.01,pan[1]-.03-4.9*drop*drop);const bounce=drop>.4?.06*Math.abs(Math.sin((drop-.4)*14))*Math.exp(-(drop-.4)*5):0;

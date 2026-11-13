@@ -1,5 +1,5 @@
 /** Locomotion (foot-planted gaits), the emu flocks, the truck and the Lewis gun. Pure functions of absolute time. */
-import {CHASE,DAM,EV,OUTCROP,PADDOCK,REST,FARM,VO,add,clamp,cross,dist,ease,ground,hash,lerp,mix,noise,norm,pop,roadZ,scale,shotAt,smooth,sub,type SetId,type V3} from './story';
+import {CHASE,DAM,EV,OUTCROP,PADDOCK,REST,FARM,VO,add,clamp,cross,ground,hash,lerp,mix,noise,norm,pop,roadZ,scale,shotAt,smooth,sub,type SetId,type V3} from './story';
 
 // ================================================================ gait: phase from integrated distance; feet planted exactly on the terrain
 export interface Mover{key:string;t0:number;t1:number;at:(t:number)=>[number,number];phase0:number;hip:number;cycle:(v:number)=>number;stance:(v:number)=>number;lift:number;face0:[number,number];floor?:(x:number,z:number)=>number}

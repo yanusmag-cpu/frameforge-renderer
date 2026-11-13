@@ -59,7 +59,7 @@ export function EmuLayer({poses,eye,time,hiDist=9,nearDist=26}:{poses:EmuPose[];
    thigh:new Batch(p('EmuThigh'),N*2,true),tarsus:new Batch(p('EmuTarsus'),120,false),foot:new Batch(p('EmuFoot'),120,false),tarsusLo:new Batch([{geometry:simpleTarsus,material:legMat}],N*2,false),footLo:new Batch([{geometry:simpleFoot,material:footMat}],N*2,false)};},[parts]);
  useEffect(()=>()=>{if(batches)Object.values(batches).forEach(b=>b.meshes.forEach(m=>m.dispose()));},[batches]);
  U.uTime.value=time;
- if(!batches)return null;const B=batches;Object.values(B).forEach(b=>b.begin());const col=new Color(),white=new Color(1,1,1),lidC=new Color();
+ if(!batches)return null;const B=batches;Object.values(B).forEach(b=>b.begin());const col=new Color(),lidC=new Color();
  for(const e of poses){const d=dist(eye,e.body);const near=d<nearDist,hi=d<hiDist,s=e.s;tone(e.tone,col);
   const fh=norm([e.fwd[0],0,e.fwd[2]]);
   (hi?B.bodyHi:B.bodyLo).push(mX(M0,e.body,e.fwd,e.up,[s,s,s]),col);
@@ -79,8 +79,7 @@ export function EmuLayer({poses,eye,time,hiDist=9,nearDist=26}:{poses:EmuPose[];
    B.thigh.push(mY(M0,hip,sub(hip,ik.joint),fh,[s,dist(hip,ik.joint)/.42,s]),col);
    (near?B.tarsus:B.tarsusLo).push(mY(M0,ik.joint,sub(ik.joint,ik.end),fh,[s,dist(ik.joint,ik.end)/.48,s]));
    const lift=clamp((foot[1]-ground(foot[0],foot[2]))/(.18*s));const pitch=-1.0*lift;const fx=add(scale(fh,Math.cos(pitch)),[0,Math.sin(pitch),0]);
-   (near?B.foot:B.footLo).push(mX(M0,add(ik.end,[0,-.004*s,0]),fx,[0,1,0],[s,s,s]));}
-  void white;}
+   (near?B.foot:B.footLo).push(mX(M0,add(ik.end,[0,-.004*s,0]),fx,[0,1,0],[s,s,s]));}}
  Object.values(B).forEach(b=>b.end());
  return <group>{Object.values(B).flatMap((b,i)=>b.meshes.map((m,j)=><primitive key={i+'-'+j} object={m}/>))}</group>;}
 /** World matrix of an emu's head (for hats and wheat stalks). */
