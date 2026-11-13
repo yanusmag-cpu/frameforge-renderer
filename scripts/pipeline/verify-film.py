@@ -3,9 +3,10 @@ from pathlib import Path
 import argparse,json,subprocess,math
 from array import array
 
-def verify_video_metadata(v,mode,frame_count=None):
+def verify_video_metadata(v,mode,frame_count=None,size=None):
     width,height,fps,frames={'final':(1080,1920,60,3600),'final-30':(1080,1920,30,1800),'preview':(360,640,15,900),'visual-review':(540,960,30,1800)}[mode]
     if frame_count is not None:frames=frame_count
+    if size:width,height=size
     actual=(v['codec_name'],v['width'],v['height'],v['r_frame_rate'],int(v['nb_frames']))
     expected=('h264',width,height,f'{fps}/1',frames)
     if actual!=expected:raise ValueError(f'Video metadata mismatch: actual={actual}; expected={expected}')
@@ -14,11 +15,11 @@ def verify_video_metadata(v,mode,frame_count=None):
     if v['pix_fmt'] not in ['yuv420p','yuvj420p']:raise ValueError(f'Expected 8-bit 4:2:0 video, got {v["pix_fmt"]}')
     return frames,fps
 
-def verify(path,mode,seconds=60):
+def verify(path,mode,seconds=60,size=None):
     probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(path)]))
     path.with_suffix('.probe.json').write_text(json.dumps(probe,indent=2)+'\n')
     v=next(s for s in probe['streams'] if s['codec_type']=='video');a=next(s for s in probe['streams'] if s['codec_type']=='audio')
-    frames,fps=verify_video_metadata(v,mode,round(seconds*30) if mode=='final-30' else None)
+    frames,fps=verify_video_metadata(v,mode,round(seconds*30) if mode=='final-30' else None,size)
     if (a['codec_name'],a['sample_rate'],a['channels'])!=('aac','48000',2):raise ValueError('Expected AAC 48 kHz stereo')
     if abs(float(probe['format']['duration'])-seconds)>.05:raise ValueError(f'MP4 duration is {probe["format"]["duration"]}s, expected {seconds}s')
     decoded=subprocess.run(['ffmpeg','-v','error','-i',str(path),'-progress','pipe:1','-f','null','-'],check=True,capture_output=True,text=True)
@@ -37,6 +38,6 @@ def verify(path,mode,seconds=60):
     path.with_suffix('.verified.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report))
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('path',type=Path);p.add_argument('--mode',choices=['preview','final','final-30','visual-review'],required=True);p.add_argument('--seconds',type=float,default=60);a=p.parse_args()
-    try:verify(a.path,a.mode,a.seconds)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('path',type=Path);p.add_argument('--mode',choices=['preview','final','final-30','visual-review'],required=True);p.add_argument('--seconds',type=float,default=60);p.add_argument('--width',type=int);p.add_argument('--height',type=int);a=p.parse_args()
+    try:verify(a.path,a.mode,a.seconds,(a.width,a.height) if a.width and a.height else None)
     except (ValueError,OSError,KeyError,StopIteration,subprocess.CalledProcessError) as e:raise SystemExit(f'FrameForge MP4 validation failed: {e}')
