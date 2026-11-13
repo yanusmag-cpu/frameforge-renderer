@@ -47,27 +47,27 @@ function mY(out:Matrix4,pos:V3,y:V3,xh:V3,s:[number,number,number]){vY.set(...y)
 /** matrix whose local x=x exactly and y≈yh */
 function mX(out:Matrix4,pos:V3,x:V3,yh:V3,s:[number,number,number]){vX.set(...x).normalize();vY.set(...yh);vZ.crossVectors(vX,vY);if(vZ.lengthSq()<1e-8)vZ.set(0,0,1);vZ.normalize();vY.crossVectors(vZ,vX).normalize();out.makeBasis(vX,vY,vZ);out.scale(vS.set(...s));out.setPosition(pos[0],pos[1],pos[2]);return out;}
 const M0=new Matrix4(),M1=new Matrix4(),M2=new Matrix4(),HM=new Matrix4(),IH=new Matrix4(),tmpV=new Vector3();
-const EYE=(side:number):V3=>[.042,.036,side*.049];const D0=(side:number):V3=>norm([.72,.1,side*.69]);
+const HEAD=1.45,EYEK=1.3;const EYE=(side:number):V3=>[.04,.038,side*.05];const D0=(side:number):V3=>norm([.72,.1,side*.69]);
 const tone=(t:number,c:Color)=>c.setRGB(lerp(.82,1.14,t)*(1+.05*Math.sin(t*20)),lerp(.82,1.1,t),lerp(.84,1.06,t));
 
 export interface EmuAttach{id:string;head:Matrix4;hat:boolean;stalk:boolean}
-export function EmuLayer({poses,eye,time,hiDist=9,nearDist=26}:{poses:EmuPose[];eye:V3;time:number;hiDist?:number;nearDist?:number}){const parts=useParts('emu.glb');
- const batches=useMemo(()=>{if(!parts)return null;const p=(n:string)=>parts.get(n)!.meshes;const simpleTarsus=new CylinderGeometry(.03,.024,.48,6).translate(0,-.24,0),simpleFoot=new ConeGeometry(.05,.17,5).rotateZ(-Math.PI/2).translate(.07,-.015,0);
+export function EmuLayer({poses,eye,time,rim='#ffd9a8',hiDist=9,nearDist=26}:{poses:EmuPose[];eye:V3;time:number;rim?:string;hiDist?:number;nearDist?:number}){const parts=useParts('emu.glb');
+ const batches=useMemo(()=>{if(!parts)return null;const p=(n:string)=>parts.get(n)!.meshes;const simpleTarsus=new CylinderGeometry(.03,.024,.55,6).translate(0,-.275,0),simpleFoot=new ConeGeometry(.05,.17,5).rotateZ(-Math.PI/2).translate(.07,-.015,0);
   const legMat=p('EmuTarsus')[0].material,footMat=p('EmuFoot')[0].material;const N=420;
   return {bodyHi:new Batch(p('EmuBodyHi'),24,true),bodyLo:new Batch(p('EmuBodyLo'),N,true),neck:new Batch(p('EmuNeck'),N*6,true),head:new Batch(p('EmuHead'),N,true),jaw:new Batch(p('EmuJaw'),N,false),
    eye:new Batch(p('EmuEye'),120,false,false),iris:new Batch(p('EmuIris'),120,false,false),lid:new Batch(p('EmuLid'),120,true,false),brow:new Batch(p('EmuBrow'),120,false,false),
    thigh:new Batch(p('EmuThigh'),N*2,true),tarsus:new Batch(p('EmuTarsus'),120,false),foot:new Batch(p('EmuFoot'),120,false),tarsusLo:new Batch([{geometry:simpleTarsus,material:legMat}],N*2,false),footLo:new Batch([{geometry:simpleFoot,material:footMat}],N*2,false)};},[parts]);
  useEffect(()=>()=>{if(batches)Object.values(batches).forEach(b=>b.meshes.forEach(m=>m.dispose()));},[batches]);
- U.uTime.value=time;
+ U.uTime.value=time;U.uRim.value.set(rim);
  if(!batches)return null;const B=batches;Object.values(B).forEach(b=>b.begin());const col=new Color(),lidC=new Color();
  for(const e of poses){const d=dist(eye,e.body);const near=d<nearDist,hi=d<hiDist,s=e.s;tone(e.tone,col);
   const fh=norm([e.fwd[0],0,e.fwd[2]]);
   (hi?B.bodyHi:B.bodyLo).push(mX(M0,e.body,e.fwd,e.up,[s,s,s]),col);
-  for(let i=0;i<6;i++){const a=e.neck[i],b=e.neck[i+1],L=Math.max(.01,dist(a,b)),r=s*lerp(1.3,.86,i/5);B.neck.push(mY(M0,a,sub(b,a),fh,[r,L/.1,r]),col);}
-  mX(HM,e.head,e.headFwd,e.headUp,[s,s,s]);B.head.push(HM,col);
+  for(let i=0;i<6;i++){const a=e.neck[i],b=e.neck[i+1],L=Math.max(.01,dist(a,b)),r=s*lerp(1.35,.9,i/5);B.neck.push(mY(M0,a,sub(b,a),fh,[r,L/.1,r]),col);}
+  const hs=s*HEAD;mX(HM,e.head,e.headFwd,e.headUp,[hs,hs,hs]);B.head.push(HM,col);
   M1.makeRotationZ(-(.06+e.beak*.62));M2.makeTranslation(.05,-.006,0).multiply(M1);B.jaw.push(M0.copy(HM).multiply(M2));
   if(near){IH.copy(HM).invert();lidC.setRGB(lerp(.9,1.05,e.tone),lerp(.95,1.05,e.tone),1);
-   for(const side of [-1,1]){const el=EYE(side),d0=D0(side);M1.makeTranslation(...el);const E=M0.copy(HM).multiply(M1);B.eye.push(E);
+   for(const side of [-1,1]){const el=EYE(side),d0=D0(side);M1.makeTranslation(...el).scale(vS.set(EYEK,EYEK,EYEK));const E=M0.copy(HM).multiply(M1);B.eye.push(E);
     let dir=d0;if(e.gaze){tmpV.set(...e.gaze).applyMatrix4(IH);const g=norm(sub([tmpV.x,tmpV.y,tmpV.z],el));const k=dot(g,d0);dir=k>.15?g:norm(add(g,scale(d0,.6)));}
     q.setFromUnitVectors(new Vector3(1,0,0),new Vector3(...dir));M2.makeRotationFromQuaternion(q);B.iris.push(M1.copy(E).multiply(M2));
     const open=norm(add([0,.4,0],scale(d0,-.95))),pole=norm(add(scale(open,1-e.lid),scale(add(d0,[0,.25,0]),e.lid)));q.setFromUnitVectors(new Vector3(0,1,0),new Vector3(...pole));M2.makeRotationFromQuaternion(q).scale(vS.set(1.07,1.07,1.07));B.lid.push(M1.copy(E).multiply(M2),lidC);
@@ -76,12 +76,12 @@ export function EmuLayer({poses,eye,time,hiDist=9,nearDist=26}:{poses:EmuPose[];
   // legs: two-bone IK from the hips to planted feet; the ankle bends backwards like a real emu's
   const BP=(l:V3):V3=>add(e.body,add(add(scale(e.fwd,l[0]*s),scale(e.up,l[1]*s)),scale(e.right,l[2]*s)));
   for(const [k,side] of [[0,-1],[1,1]] as const){const hip=BP([EMU.hipX,EMU.hipY,side*.11]),foot=e.feet[k],ank=add(foot,[0,.03*s,0]);const ik=solveIK(hip,ank,EMU.thigh*s,EMU.tarsus*s,add(scale(fh,-1),[0,-.15,0]));
-   B.thigh.push(mY(M0,hip,sub(hip,ik.joint),fh,[s,dist(hip,ik.joint)/.42,s]),col);
-   (near?B.tarsus:B.tarsusLo).push(mY(M0,ik.joint,sub(ik.joint,ik.end),fh,[s,dist(ik.joint,ik.end)/.48,s]));
+   B.thigh.push(mY(M0,hip,sub(hip,ik.joint),fh,[s,dist(hip,ik.joint)/.5,s]),col);
+   (near?B.tarsus:B.tarsusLo).push(mY(M0,ik.joint,sub(ik.joint,ik.end),fh,[s,dist(ik.joint,ik.end)/.55,s]));
    const lift=clamp((foot[1]-ground(foot[0],foot[2]))/(.18*s));const pitch=-1.0*lift;const fx=add(scale(fh,Math.cos(pitch)),[0,Math.sin(pitch),0]);
    (near?B.foot:B.footLo).push(mX(M0,add(ik.end,[0,-.004*s,0]),fx,[0,1,0],[s,s,s]));}}
  Object.values(B).forEach(b=>b.end());
  return <group>{Object.values(B).flatMap((b,i)=>b.meshes.map((m,j)=><primitive key={i+'-'+j} object={m}/>))}</group>;}
 /** World matrix of an emu's head (for hats and wheat stalks). */
-export function headMatrix(e:EmuPose,out=new Matrix4()){return mX(out,e.head,e.headFwd,e.headUp,[e.s,e.s,e.s]);}
+export function headMatrix(e:EmuPose,out=new Matrix4()){const k=e.s*HEAD;return mX(out,e.head,e.headFwd,e.headUp,[k,k,k]);}
 export {mX,mY};

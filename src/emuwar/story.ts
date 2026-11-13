@@ -85,6 +85,6 @@ export const onGround=(x:number,z:number,y=0):V3=>[x,ground(x,z)+y,z];
 /** Scene lighting per look. */
 export interface Sky{zenith:string;horizon:string;sun:string;sunDir:V3;haze:string;hazeD:number;ambient:string;ground:string;exposure:number;cloudLit:string;cloudShade:string}
 export const SKY:Record<Look,Sky>={
- day:{zenith:'#2d6dc2',horizon:'#c9dbe6',sun:'#fff0d2',sunDir:norm([-.55,.52,.62]),haze:'#d9c7ae',hazeD:.0019,ambient:'#b8cde0',ground:'#9a5a3a',exposure:1,cloudLit:'#fffaf0',cloudShade:'#a7a9b8'},
- gold:{zenith:'#3a6fb3',horizon:'#f2cf9a',sun:'#ffd9a0',sunDir:norm([-.7,.3,.55]),haze:'#e5bf8e',hazeD:.0021,ambient:'#c7b9a4',ground:'#8c4f32',exposure:1.05,cloudLit:'#fff1d8',cloudShade:'#a49a9e'},
- sunset:{zenith:'#36457a',horizon:'#ff9a55',sun:'#ffb066',sunDir:norm([-.92,.07,.36]),haze:'#d4855a',hazeD:.0026,ambient:'#8a6f8a',ground:'#6b3826',exposure:1.1,cloudLit:'#ffc08a',cloudShade:'#6a4a6e'}};
+ day:{zenith:'#2d6dc2',horizon:'#c9dbe6',sun:'#fff0d2',sunDir:norm([-.55,.52,.62]),haze:'#d9c7ae',hazeD:.0019,ambient:'#b8cde0',ground:'#9a5a3a',exposure:1.2,cloudLit:'#fffaf0',cloudShade:'#a7a9b8'},
+ gold:{zenith:'#3a6fb3',horizon:'#f2cf9a',sun:'#ffd9a0',sunDir:norm([-.7,.3,.55]),haze:'#e5bf8e',hazeD:.0021,ambient:'#c7b9a4',ground:'#8c4f32',exposure:1.2,cloudLit:'#fff1d8',cloudShade:'#a49a9e'},
+ sunset:{zenith:'#36457a',horizon:'#ff9a55',sun:'#ffb066',sunDir:norm([-.92,.07,.36]),haze:'#d4855a',hazeD:.0026,ambient:'#8a6f8a',ground:'#6b3826',exposure:1.15,cloudLit:'#ffc08a',cloudShade:'#6a4a6e'}};

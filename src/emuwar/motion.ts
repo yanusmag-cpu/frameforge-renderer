@@ -35,7 +35,7 @@ export function footfalls(m:Mover,a:number,b:number):{t:number;side:number}[]{co
 export type Mood='run'|'walk'|'graze'|'alert'|'peer'|'chew'|'proud'|'smug';
 export interface Emu{id:string;mover:Mover;s:number;tone:number;mood:(t:number,v:number)=>Mood;lookCam?:(t:number)=>number;beak?:(t:number)=>number;lid?:(t:number)=>number;brow?:(t:number)=>number;hat?:(t:number)=>boolean;stalk?:(t:number)=>boolean;turnHead?:(t:number)=>number}
 export const strHash=(k:string)=>{let h=7;for(let i=0;i<k.length;i++)h=(h*31+k.charCodeAt(i))%100003;return hash(h*.913);};
-const emuCycle=(v:number)=>clamp(.75+.36*v,.75,4.4),emuStance=(v:number)=>lerp(.62,.32,clamp(v/9));
+const emuCycle=(v:number)=>clamp(.8+.38*v,.8,4.8),emuStance=(v:number)=>lerp(.62,.32,clamp(v/9));
 const mk=(key:string,t0:number,t1:number,at:(t:number)=>[number,number],face0:[number,number]=[1,0],s=1):Mover=>({key,t0,t1,at,phase0:strHash(key),hip:.11*s,cycle:v=>emuCycle(v/s)*s,stance:v=>emuStance(v/s),lift:.22*s,face0});
 const speedMood=(v:number):Mood=>v>4?'run':v>.45?'walk':'graze';
 /** accelerating run: distance after τ seconds reaching speed v with time constant k */
@@ -48,8 +48,8 @@ function hookFlock():Emu[]{const P=PADDOCK,out:Emu[]=[];
  for(let i=0;i<9;i++){const h=i*5.31+100,x0=P[0]+42+18*hash(h),z0=P[2]-7+14*hash(h+.3),v=12.5+2*hash(h+.5);
   out.push({id:'over'+i,mover:mk('over'+i,0,4.75,t=>[x0-v*t,z0+.6*Math.sin(t*2+i)]),s:1.02,tone:hash(h+.7),mood:()=>'run'});}
  // heroes for the lens-grazing opener
- out.push({id:'lens1',mover:mk('lens1',0,4.75,t=>[P[0]+5+(.55-t)*12.5,P[2]+3.1]),s:1.08,tone:.3,mood:()=>'run',beak:t=>t<1?.35:0});
- out.push({id:'lens2',mover:mk('lens2',0,4.75,t=>[P[0]+5+(.98-t)*11.5,P[2]+.65]),s:1.05,tone:.6,mood:()=>'run'});
+ out.push({id:'lens1',mover:mk('lens1',0,4.75,t=>[P[0]+5+(.55-t)*12.5,P[2]+2.55]),s:1.08,tone:.3,mood:()=>'run',beak:t=>t<1?.35:0});
+ out.push({id:'lens2',mover:mk('lens2',0,4.75,t=>[P[0]+5+(.98-t)*11.5,P[2]+1.35]),s:1.05,tone:.6,mood:()=>'run'});
  // the emu that receives the gunner's hat at "LOST"
  out.push({id:'hatemu',mover:mk('hatemu',0,4.75,t=>[P[0]+2.6-12*(t-VO.lost),P[2]+.75]),s:1.08,tone:.15,mood:t=>t>VO.lost+.1?'proud':'run',hat:t=>t>=VO.lost,lookCam:t=>t>VO.lost+.15?smooth(VO.lost+.15,VO.lost+.4,t):0,lid:t=>t>VO.lost+.25?.45:0});
  return out;}
@@ -59,7 +59,7 @@ function farmFlock():Emu[]{const out:Emu[]=[];const cx=-152,cz=-24;
   out.push({id:'farm'+i,mover:mk('farm'+i,4.6,11.3,t=>{const q=t-4.6;return [x0+Math.cos(dir+.3*Math.sin(q*.4+i))*sp*q,z0+Math.sin(dir+.3*Math.sin(q*.4+i))*sp*q];},[Math.cos(dir),Math.sin(dir)]),s:.92+.18*hash(h+.2),tone:hash(h+.5),
    mood:t=>(Math.sin(t*1.7+i*1.3)>.1?'graze':'walk')});}
  // E05 heads pop up out of the wheat (camera at the field's east edge looking west)
- const pops:[number,number,number][]=[[-58.5,-4.5,0],[-61,-1.2,1],[-57.2,-.6,2],[-63.5,-6.2,3],[-60,-8.3,4]];
+ const pops:[number,number,number][]=[[-58.4,-3.7,0],[-60.6,-2.7,1],[-59.6,-4.8,2],[-62.6,-3.1,3],[-63.8,-5.4,4]];
  for(const [x,z,k] of pops)out.push({id:'pop'+k,mover:mk('pop'+k,4.6,11.3,()=>[x,z],[1,.1]),s:1.05,tone:k/5,mood:t=>t<EV.popHeads[k]?'graze':'alert',lookCam:t=>smooth(EV.popHeads[k]+.1,EV.popHeads[k]+.35,t),beak:t=>k===2&&t>7.7?.6*Math.abs(Math.sin(t*14)):0,brow:t=>k%2&&t>EV.popHeads[k]?.6:0});
  // E06 the horde pours over the north fence into the crop
  for(let i=0;i<260;i++){const h=i*1.93+900,x0=-236+170*hash(h),z0=-97-14*hash(h+.4),v=3.8+2.4*hash(h+.7);
@@ -110,7 +110,7 @@ export function emusAt(t:number):Emu[]{const s=shotAt(t);return flock(s.set).fil
 
 /** Full articulated pose for one emu. */
 export interface EmuPose{id:string;s:number;tone:number;body:V3;fwd:V3;up:V3;right:V3;feet:[V3,V3];neck:V3[];head:V3;headFwd:V3;headUp:V3;beak:number;lid:number;brow:number;gaze:V3|null;hat:boolean;stalk:boolean;speed:number;phase:number;contact:[boolean,boolean]}
-export const EMU={hipY:-.12,hipX:-.04,neckBase:[.36,.2,0] as V3,stand:1.0,thigh:.42,tarsus:.48};
+export const EMU={hipY:-.12,hipX:-.04,neckBase:[.4,.17,0] as V3,stand:1.12,thigh:.5,tarsus:.55};
 function bez(a:V3,b:V3,c:V3,u:number):V3{const v=1-u;return [a[0]*v*v+2*b[0]*u*v+c[0]*u*u,a[1]*v*v+2*b[1]*u*v+c[1]*u*u,a[2]*v*v+2*b[2]*u*v+c[2]*u*u];}
 export function emuPose(e:Emu,t:number,eye:V3):EmuPose{const m=e.mover,s=e.s,f=feet(m,t,1),v=f.speed,mood=e.mood(t,v);const p=m.at(t);const gy=(m.floor??ground)(p[0],p[1]);
  const run=clamp(v/(9*s)),lean=.06+.2*run;const fwdH=f.fwd;const fwd=norm(add(scale(fwdH,Math.cos(lean)),[0,-Math.sin(lean),0]));const right=f.right;const up=norm(cross(right,fwd));
@@ -122,9 +122,9 @@ export function emuPose(e:Emu,t:number,eye:V3):EmuPose{const m=e.mover,s=e.s,f=f
  if(mood==='run'){hf=.62+.04*Math.sin(ph);hu=.64+.06*f.bob;}
  else if(mood==='walk'){hf=.46+.06*Math.sin(ph*.5);hu=.78;}
  else if(mood==='graze'){const cyc=(t*1.3+e.tone*7)%3;peck=cyc<1.6?Math.abs(Math.sin(cyc*Math.PI/1.6*3))*.08:0;hf=.62;hu=-.62+peck-(EMU.stand-1)*0;}
- else if(mood==='alert'||mood==='peer'){hf=.3;hu=.95;side=.03*Math.sin(t*3+e.tone*5);}
+ else if(mood==='alert'||mood==='peer'){hf=.32;hu=.8;side=.03*Math.sin(t*3+e.tone*5);}
  else if(mood==='chew'){hf=.5;hu=.6+.03*Math.sin(t*9);}
- else if(mood==='proud'||mood==='smug'){hf=.22;hu=1.0;}
+ else if(mood==='proud'||mood==='smug'){hf=.26;hu=.86;}
  const tH=e.turnHead?e.turnHead(t):0;const hRight=add(scale(right,Math.cos(tH*2.4)),scale(fwdH,-Math.sin(tH*2.4)));const hFwd0=add(scale(fwdH,Math.cos(tH*2.4)),scale(right,Math.sin(tH*2.4)));
  let head=add(add(add([body[0],gy+(EMU.stand)*s,body[2]],scale(hFwd0,hf*s)),[0,hu*s,0]),scale(hRight,side*s));
  if(mood==='graze')head[1]=Math.max(head[1],(m.floor??ground)(head[0],head[2])+.12*s+peck*s);
@@ -143,7 +143,7 @@ function truckPath(t:number):{x:number;z:number;yaw:number;v:number;s:number}|nu
  if(set==='road'){const u=clamp((t-10.55)/1.6);const x=t<10.55?-17.2-9*(10.55-t):-10-7.2*(1-u)*(1-u);const v=t<10.55?9:9*(1-u);return {x,z:roadZ(x)-.9,yaw:Math.atan2(-(roadZ(x+1)-roadZ(x-1))/2,1),v,s:x};}
  if(set==='chase'){const x=truckChaseX(t),z=1.4*Math.sin(t*.9)-1;return {x,z,yaw:-Math.atan2(1.4*.9*Math.cos(t*.9),CHASE.v),v:CHASE.v,s:x};}
  if(set==='rest'){return {x:REST[0]+8,z:REST[2]-6,yaw:.5,v:0,s:0};}
- if(set==='hill'){const d=11+8.5*(t-34.2),sx=-.92/Math.hypot(.92,.36),sz=.36/Math.hypot(.92,.36);const x=OUTCROP[0]-4+sx*d+2.5*sz,z=OUTCROP[2]+9+sz*d-2.5*sx;return {x,z,yaw:Math.atan2(-sz,sx),v:8.5,s:d};}
+ if(set==='hill'){const d=12+8.5*(t-34.2),sx=-.92/Math.hypot(.92,.36),sz=.36/Math.hypot(.92,.36);const x=OUTCROP[0]+sx*d-6*sz,z=OUTCROP[2]+sz*d+6*sx;return {x,z,yaw:Math.atan2(-sz,sx),v:8.5,s:d};}
  return null;}
 const WB={f:1.45,r:-1.85,w:.82};
 export function truckAt(t:number):TruckState{const p=truckPath(t);if(!p)return {visible:false,pos:[0,0,0],yaw:0,pitch:0,roll:0,spin:0,steer:0,canopy:true,air:0,steam:0,speed:0};

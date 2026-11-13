@@ -149,11 +149,11 @@ def arcband(name, c, R, w, a0, a1, m, segs=18, axis='z', thick=0.02):
 # ================================================================= EMU (scale 1: head ≈ 1.8 m)
 def emu():
     reset()
-    down, F = M('Emu down', '#3a2d22', rough=.95), [M('Emu feather A', '#5c4632', rough=.9), M('Emu feather B', '#71583f', rough=.9), M('Emu feather C', '#43342a', rough=.92), M('Emu feather tip', '#2a211a', rough=.95)]
-    skin, face, hair = M('Emu skin', '#6c7b88', rough=.65), M('Emu face', '#7e8b98', rough=.6), M('Emu hair', '#2b241e', rough=.9)
+    down, F = M('Emu down', '#5b4532', rough=.95), [M('Emu feather A', '#8d6c4b', rough=.88), M('Emu feather B', '#a5825c', rough=.88), M('Emu feather C', '#6f553c', rough=.9), M('Emu feather tip', '#4a3a2b', rough=.95)]
+    skin, face, hair = M('Emu skin', '#8495a6', rough=.6), M('Emu face', '#93a2b0', rough=.55), M('Emu hair', '#3b2f25', rough=.9)
     beakm, mouth = M('Emu beak', '#3b3733', rough=.45), M('Emu mouth', '#c4646a', rough=.5)
     leg, scale_m, toe, claw = M('Emu leg', '#59636c', rough=.7), M('Emu scale', '#3d464e', rough=.75), M('Emu toe', '#4f5860', rough=.7), M('Emu claw', '#1d1b19', rough=.4)
-    A, B, C = .48, .34, .27
+    A, B, C = .52, .33, .29
     def body(name, n, segs, lmin, lmax):
         parts = [sphere(name + ' base', (0, 0, 0), 1, down, sc=(A * .96, B * .94, C * .96), segs=20)]
         groups = {i: ([], [], []) for i in range(4)}
@@ -165,7 +165,7 @@ def emu():
             p = (ux * A, uy * B, uz * C); nn = nrm((ux / A, uy / B, uz / C))
             g = (-.55 + random.uniform(-.15, .15), -1, random.uniform(-.1, .1))
             dot = sum(g[k] * nn[k] for k in range(3)); t = nrm(tuple(g[k] - nn[k] * dot for k in range(3)))
-            Ln = random.uniform(lmin, lmax) * (1.25 if ux < -.3 else 1.0)
+            Ln = random.uniform(lmin, lmax) * (1.45 if ux < -.3 else 1.0) * (1.25 if uy < .1 else 1.0)
             pts = []
             for s in range(segs + 1):
                 q = s / segs; out = .025 * math.sin(q * math.pi) - .02 * q * q
@@ -173,16 +173,21 @@ def emu():
             w = random.uniform(.05, .075); ws = [w * (1 - .55 * s / segs) for s in range(segs + 1)]
             k = 3 if random.random() < .18 else random.randrange(3)
             groups[k][0].append(pts); groups[k][1].append(ws); groups[k][2].append(nn)
+        nr = n // 6
+        for i in range(nr):
+            a = random.uniform(0, math.tau); h = random.uniform(0, .22); root = (.36 + .05 * math.cos(a), .16 + h, .07 * math.sin(a))
+            d = nrm((math.cos(a) * .7 + .2, -.6, math.sin(a) * .9)); Ln = random.uniform(.12, .2); pts = [addv(root, d, Ln * q / segs) for q in range(segs + 1)]
+            k = random.randrange(3); groups[k][0].append(pts); groups[k][1].append([.045 * (1 - .5 * q / segs) for q in range(segs + 1)]); groups[k][2].append(nrm((math.cos(a), 0, math.sin(a))))
         for k, (ps, ws, ns) in groups.items():
             if ps: parts.append(ribbon(ps, ws, ns, F[k], name + f' cards{k}'))
         return keep(name, parts)
-    body('EmuBodyHi', 1300, 3, .2, .34); body('EmuBodyLo', 260, 1, .24, .36)
+    body('EmuBodyHi', 1500, 3, .22, .38); body('EmuBodyLo', 300, 1, .26, .4)
     # neck segment: 0.1 m tall along +y, bluish skin with sparse dark hair-feathers
     ps, ws, ns = [], [], []
     for i in range(16):
         a = random.uniform(0, math.tau); y = random.uniform(0, .1); n = (math.cos(a), .25, math.sin(a)); p = (math.cos(a) * .045, y, math.sin(a) * .045)
         L2 = random.uniform(.05, .09); ps.append([p, addv(addv(p, n, L2 * .6), (0, -1, 0), L2 * .5)]); ws.append([.022, .006]); ns.append(nrm((math.cos(a + 1.5), 0, math.sin(a + 1.5))))
-    keep('EmuNeck', [loft('neck', [(0, -.01, 0), (0, .11, 0)], [.05, .047], skin, sides=10), ribbon(ps, ws, ns, hair, 'neck hair')])
+    keep('EmuNeck', [loft('neck', [(0, -.012, 0), (0, .05, 0), (0, .112, 0)], [.039, .04, .038], skin, sides=12)])
     # head: pivot at the top of the neck; beak toward +x
     hp, hw, hn = [], [], []
     for i in range(30):
@@ -218,10 +223,10 @@ def emu():
     tp, tw, tn = [], [], []
     for i in range(90):
         a = random.uniform(0, math.tau); y = -random.uniform(0, .26); rr = .085 * (1 + y * 1.6)
-        root = (math.cos(a) * rr, y, math.sin(a) * rr); tp.append([root, addv(root, (math.cos(a) * .3, -1, math.sin(a) * .3), random.uniform(.08, .14))]); tw.append([.035, .01]); tn.append(nrm((math.cos(a), 0, math.sin(a))))
-    keep('EmuThigh', [loft('thighc', [(0, 0, 0), (0, -.21, 0), (0, -.42, 0)], [.085, .05, .032], F[2], sides=10), ribbon(tp, tw, tn, F[0], 'thigh cards')])
-    sc = [loft('shank', [(0, 0, 0), (0, -.24, 0), (0, -.48, 0)], [.03, .024, .026], leg, sides=10)]
-    for i in range(14): sc.append(box(f'scute{i}', (.022, -.03 - i * .031, 0), (.012, .022, .03), scale_m, bevel=.003))
+        root = (math.cos(a) * rr, y * 1.2, math.sin(a) * rr); tp.append([root, addv(root, (math.cos(a) * .3, -1, math.sin(a) * .3), random.uniform(.09, .16))]); tw.append([.04, .01]); tn.append(nrm((math.cos(a), 0, math.sin(a))))
+    keep('EmuThigh', [loft('thighc', [(0, 0, 0), (0, -.2, 0), (0, -.36, 0), (0, -.5, 0)], [.1, .075, .042, .032], F[1], sides=12), ribbon(tp, tw, tn, F[0], 'thigh cards')])
+    sc = [loft('shank', [(0, 0, 0), (0, -.28, 0), (0, -.55, 0)], [.031, .025, .027], leg, sides=10)]
+    for i in range(16): sc.append(box(f'scute{i}', (.023, -.03 - i * .031, 0), (.012, .022, .03), scale_m))
     sc.append(sphere('ankle', (0, 0, 0), .036, leg))
     keep('EmuTarsus', sc)
     ft = [sphere('pad', (.0, -.012, 0), .03, toe, sc=(1.2, .6, 1))]
@@ -249,7 +254,7 @@ def wheel(name, x, z):
 def truck():
     reset()
     global TR, OD, BK, CH
-    OD, OD2, WD, CV, BK, CH, TR = M('Truck olive', '#4e5833', rough=.72), M('Truck olive dark', '#394126', rough=.78), M('Truck wood', '#7b5a3a', rough=.85), M('Truck canvas', '#b29a6b', rough=.95), M('Truck black', '#151515', rough=.6), M('Truck chrome', '#c9c6bb', metal=.9, rough=.25), M('Truck rubber', '#1a1a1a', rough=.9)
+    OD, OD2, WD, CV, BK, CH, TR = M('Truck olive', '#6e7848', rough=.62), M('Truck olive dark', '#525b35', rough=.7), M('Truck wood', '#7b5a3a', rough=.85), M('Truck canvas', '#b29a6b', rough=.95), M('Truck black', '#151515', rough=.6), M('Truck chrome', '#c9c6bb', metal=.9, rough=.25), M('Truck rubber', '#1a1a1a', rough=.9)
     GL, LP, RD = M('Truck glass', '#20262a', rough=.08, metal=.3), M('Lamp glass', '#efe3c2', rough=.1, emit=hexc('#fff1c8'), strength=.4), M('Tail red', '#8a1c14', rough=.3)
     b = []
     for z in (-.42, .42): b.append(box(f'rail{z}', (-.3, .62, z), (5.0, .16, .08), BK))

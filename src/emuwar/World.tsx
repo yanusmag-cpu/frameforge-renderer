@@ -19,7 +19,7 @@ vec3 soil(vec2 p){float n=fbm(p*.08),n2=vnoise(p*1.7),peb=step(.82,vnoise(p*6.3)
  float rz=abs(p.y-roadZ(p.x));float road=smoothstep(4.2,2.4,rz);float rut=smoothstep(.35,.1,abs(rz-.85));red=mix(red,vec3(.74,.42,.24)*(.92+.12*n2),road);red=mix(red,vec3(.5,.26,.14),road*rut*.6);
  float fld=step(-260.,p.x)*step(p.x,-48.)*step(-96.,p.y)*step(p.y,38.);vec3 wheat=mix(vec3(.82,.64,.3),vec3(.95,.78,.4),fbm(p*.06))*(.9+.15*sin(p.x*1.4+fbm(p*.1)*4.));red=mix(red,wheat,fld);
  float dd=length(p-vec2(${DAM[0].toFixed(1)},${DAM[2].toFixed(1)}));red=mix(red,vec3(.32,.2,.13),smoothstep(${(DAM_R+3).toFixed(1)},${(DAM_R-.5).toFixed(1)},dd));return red;}`)
-  .replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.rgb*=soil(vWP.xz);');};
+  .replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.rgb*=pow(soil(vWP.xz),vec3(1.9));');};
 TERRAIN_MAT.customProgramCacheKey=()=>'emuwar-terrain';
 function Terrain({set}:{set:SetId}){const [cx,cz]=CENTRE[set];
  const geo=useMemo(()=>{const S=640,N=400,g=new PlaneGeometry(S,S,N,N).rotateX(-Math.PI/2);const p=g.getAttribute('position') as BufferAttribute;for(let i=0;i<p.count;i++){const x=p.getX(i)+cx,z=p.getZ(i)+cz;p.setXYZ(i,x,ground(x,z),z);}g.computeVertexNormals();return g;},[cx,cz]);
@@ -43,8 +43,8 @@ vec3 w=vec3(aP.x,aP.y,aP.z)+p;vW=w;vD=length(cameraPosition-w);gl_Position=proje
   fragmentShader:`uniform vec3 uSD,uSun,uAmb,uHaze;uniform float uHD;varying vec2 vUv;varying float vS,vD;varying vec3 vW;${NOISE}
 void main(){float x=vUv.x*5.;float stalk=fract(x+vS*3.);float cx=abs(stalk-.5);float i=floor(x+vS*3.);float h=.6+.4*fract(sin(i*12.9+vS*7.)*43.7);float y=vUv.y;
 float stem=step(cx,.05)*step(y,h*.82);float head=smoothstep(.2,.14,length(vec2(cx*2.2,(y-h*.9)/(.16))));float awn=step(abs(cx-.5*(y-h*.95)*1.2),.025)*step(h*.92,y)*step(y,h*1.05);float a=max(stem,max(head,awn));if(a<.5)discard;
-vec3 gold=mix(vec3(.78,.58,.26),vec3(.98,.82,.45),y*.8+.2*fbm(vW.xz*.4));gold=mix(gold,vec3(.55,.48,.25),stem*(1.-head)*.4);vec3 L=normalize(uSD);vec3 v=normalize(cameraPosition-vW);float trans=pow(max(0.,dot(-v,L)),3.)*y;
-vec3 col=gold*(uAmb*.45+uSun*(.55+.45*y))+uSun*trans*.8;col*=.55+.45*smoothstep(0.,.7,y);float f=1.-exp(-vD*uHD);col=mix(col,uHaze,f);gl_FragColor=vec4(col,1.);${TAIL}}`}),[]);
+vec3 gold=mix(vec3(.78,.58,.26),vec3(.96,.8,.45),y*.8+.2*fbm(vW.xz*.4));gold=mix(gold,vec3(.55,.48,.25),stem*(1.-head)*.4);gold=pow(gold,vec3(2.2));vec3 L=normalize(uSD);vec3 v=normalize(cameraPosition-vW);float trans=pow(max(0.,dot(-v,L)),3.)*y;
+vec3 col=gold*(uAmb*.5+uSun*(.45+.55*y))+uSun*gold*trans*.9;col*=.55+.45*smoothstep(0.,.7,y);float f=1.-exp(-vD*uHD);col=mix(col,uHaze,f);gl_FragColor=vec4(col,1.);${TAIL}}`}),[]);
  const u=mat.uniforms;u.uTime.value=time;u.uSD.value.set(...norm(sky.sunDir));(u.uSun.value as Color).set(sky.sun);(u.uAmb.value as Color).set(sky.ambient);(u.uHaze.value as Color).set(sky.haze);u.uHD.value=sky.hazeD;
  const A=geo.getAttribute('aP') as InstancedBufferAttribute,arr=A.array as Float32Array;let n=0;const R=34,STEP=.42,cx=Math.round(eye[0]/STEP)*STEP,cz=Math.round(eye[2]/STEP)*STEP;
  for(let gx=-R;gx<=R;gx+=STEP)for(let gz=-R;gz<=R;gz+=STEP){if(n>=MAXW)break;if(gx*gx+gz*gz>R*R)continue;const ix=Math.round((cx+gx)/STEP),iz=Math.round((cz+gz)/STEP);const h=hash(ix*91.3+iz*17.7);
@@ -63,11 +63,12 @@ function Clone({part,pos,rot=[0,0,0],s=1}:{part:Part|undefined;pos:V3;rot?:[numb
 /** fixed scenery placements */
 const GUMS:[number,number,string,number,number][]=[[-162,-140,'GumA',.3,1],[-139,-118,'GumB',2.1,.9],[-196,-104,'GumC',1,1.1],[-40,-120,'GumB',4,1],[-30,70,'GumA',5,1.05],[30,30,'GumC',2,.95],[60,-60,'GumA',1.2,1],[175,-48,'GumB',.4,1.1],[160,35,'GumC',3.3,1],[85,-38,'GumB',2.7,.9],
  [300,-75,'GumA',2.5,1],[362,-12,'GumC',.8,1.05],[300,5,'GumB',1.9,.95],[470,-40,'GumA',.2,1],[560,40,'GumC',1.4,1],[650,-45,'GumB',3,1],[742,26,'GumA',.9,1.15],[700,60,'GumC',2.2,1],[770,-70,'GumB',5.2,1],[860,10,'GumA',1.7,.9],[-100,60,'GumC',.5,1],[-240,-60,'GumA',2,1],[105,8,'GumB',5,1]];
+const CLEAR:[number,number,number][]=[[REST[0]+1,REST[2]+3,11],[PADDOCK[0]-30,PADDOCK[2]+2,9],[PADDOCK[0]+3,PADDOCK[2]+2,7],[DAM[0]+1.8,DAM[2]+21,7],[-69.5,12.8,5]];
 function scatter(eye:V3,set:SetId){const out:{t:Record<string,Matrix4[]>}={t:{TussockA:[],TussockB:[],Rock0:[],Rock1:[],Rock2:[],GrassTree:[],FencePost:[]}};const C=6,R=110,cx=Math.round(eye[0]/C),cz=Math.round(eye[2]/C);
  for(let i=-R/C;i<=R/C;i++)for(let j=-R/C;j<=R/C;j++){const gx=(cx+i)*C,gz=(cz+j)*C;const h=hash(gx*.731+gz*1.913);const x=gx+(hash(h*7.1)-.5)*C,z=gz+(hash(h*3.7)-.5)*C;
-  if(inField(x,z)||Math.abs(z-roadZ(x))<5||dist([x,0,z],[DAM[0],0,DAM[2]])<DAM_R+3||dist([x,0,z],[OUTCROP[0],0,OUTCROP[2]])<6)continue;
+  if(CLEAR.some(([cx,cz,r])=>(x-cx)**2+(z-cz)**2<r*r)||inField(x,z)||Math.abs(z-roadZ(x))<5||dist([x,0,z],[DAM[0],0,DAM[2]])<DAM_R+3||dist([x,0,z],[OUTCROP[0],0,OUTCROP[2]])<6)continue;
   const d2=(x-eye[0])**2+(z-eye[2])**2;if(d2>R*R)continue;const yaw=h*40,s=.7+.7*hash(h*5.3);
-  if(h<.38)out.t[h<.2?'TussockA':'TussockB'].push(mat4(x,z,yaw,s));else if(h<.45)out.t['Rock'+Math.floor(hash(h*9)*3)].push(mat4(x,z,yaw,.4+.9*hash(h*2.2),-.05));else if(h<.475&&set!=='farm')out.t.GrassTree.push(mat4(x,z,yaw,.8+.5*hash(h*4)));}
+  if(h<.38)out.t[h<.2?'TussockA':'TussockB'].push(mat4(x,z,yaw,s));else if(h<.45)out.t['Rock'+Math.floor(hash(h*9)*3)].push(mat4(x,z,yaw,.22+.35*hash(h*2.2),-.04));else if(h<.475&&set!=='farm')out.t.GrassTree.push(mat4(x,z,yaw,.8+.5*hash(h*4)));}
  for(let x=-260;x<=-48;x+=3.2)if(Math.abs(x-eye[0])<260)out.t.FencePost.push(mat4(x,-97,x,1));for(let z=-96;z<=38;z+=3.2)if(Math.abs(z-eye[2])<260&&Math.abs(z-10)>2)out.t.FencePost.push(mat4(-47,z,z,1));
  return out.t;}
 function FenceWires(){const geo=useMemo(()=>{const pts:number[]=[];const run=(a:[number,number],b:[number,number],n:number)=>{for(let i=0;i<n;i++){const p=a[0]+(b[0]-a[0])*i/n,q=a[1]+(b[1]-a[1])*i/n,p2=a[0]+(b[0]-a[0])*(i+1)/n,q2=a[1]+(b[1]-a[1])*(i+1)/n;
@@ -123,14 +124,14 @@ export function WorldSet({time,eye,sky,poses}:{time:number;eye:V3;sky:Sky;poses:
  const placements=useMemo(()=>scatter([Math.round(eye[0]/24)*24,0,Math.round(eye[2]/24)*24],set),[Math.round(eye[0]/24),Math.round(eye[2]/24),set]);
  const gums=GUMS.filter(([x,z])=>dist([x,0,z],eye)<420);
  const mill=farm?.get('WindmillRotor');const hatemu=poses.find(p=>p.hat),victor=poses.find(p=>p.stalk);
- const hm=new Matrix4(),hat=new Matrix4(),stalk=new Matrix4();if(hatemu){headMatrix(hatemu,hm);hat.copy(hm).multiply(new Matrix4().compose(new Vector3(-.01,.07,0),new Quaternion().setFromAxisAngle(new Vector3(0,0,1),.25),new Vector3(.62,.62,.62)));}
- if(victor){headMatrix(victor,hm);stalk.copy(hm).multiply(new Matrix4().compose(new Vector3(.13,-.015,0),new Quaternion().setFromAxisAngle(new Vector3(1,0,0),Math.PI/2).multiply(new Quaternion().setFromAxisAngle(new Vector3(0,0,1),-.35)),new Vector3(1,.55,1)));}
+ const hm=new Matrix4(),hat=new Matrix4(),stalk=new Matrix4();if(hatemu){headMatrix(hatemu,hm);hat.copy(hm).multiply(new Matrix4().compose(new Vector3(-.005,.075,0),new Quaternion().setFromAxisAngle(new Vector3(0,0,1),.25),new Vector3(.46,.46,.46)));}
+ if(victor){headMatrix(victor,hm);stalk.copy(hm).multiply(new Matrix4().compose(new Vector3(.155,-.012,.005),new Quaternion().setFromUnitVectors(new Vector3(0,1,0),new Vector3(.55,-.3,.78).normalize()),new Vector3(.7,.36,.7)));}
  const flying=time<4.2&&set==='paddock'?hatFlight(time,emuPose(emuMover('hatemu','paddock'),Math.min(time,4.09),eye).head):null;
  const DAMG:V3=[DAM[0]+1.8,0,DAM[2]+21.2];
  return <>
   <fogExp2 attach="fog" args={[sky.haze,sky.hazeD*.55]}/><color attach="background" args={[sky.horizon]}/>
-  <hemisphereLight args={[sky.ambient,sky.ground,set==='hill'?.75:1.05]}/><primitive object={sun}/><primitive object={sun.target}/>
-  <SkyDome time={time} sky={sky}/><SunGlare sky={sky} strength={set==='hill'?1.4:.6}/><Cumulus time={time} sky={sky} seed={set==='hill'?5:2} count={set==='hill'?55:38} base={set==='hill'?420:700}/><Ranges sky={sky}/>
+  <hemisphereLight args={[sky.ambient,sky.ground,set==='hill'?1.1:1.7]}/><ambientLight color={sky.sun} intensity={set==='hill'?.25:.35}/><primitive object={sun}/><primitive object={sun.target}/>
+  <SkyDome time={time} sky={sky}/><SunGlare sky={sky} strength={set==='hill'?1.4:.6}/><Cumulus time={time} sky={sky} seed={set==='hill'?5:2} count={set==='hill'?22:34} base={set==='hill'?950:750}/><Ranges sky={sky}/>
   <Terrain set={set}/>{set==='farm'&&<Wheat time={time} eye={eye} sky={sky}/>}
   {nature&&<>{Object.entries(placements).map(([k,m])=><Instances key={k} part={(k==='FencePost'?farm:nature)?.get(k)} mats={m}/>)}
    {gums.map(([x,z,k,yaw,s],i)=><Clone key={i} part={nature.get(k)} pos={[x,ground(x,z)-.05,z]} rot={[0,yaw,0]} s={s}/>)}

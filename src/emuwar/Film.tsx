@@ -49,7 +49,7 @@ export function EmuWarFilm(){const frame=useCurrentFrame(),{width,height}=useVid
   <AbsoluteFill style={{filter}}><ThreeCanvas width={width} height={height} shadows gl={{antialias:true,powerPreference:'high-performance'}} camera={{fov:c.fov,near:.05,far:14000}}>
    <Cam eye={c.eye} target={c.target} up={c.up??[0,1,0]} fov={c.fov} roll={c.roll} exposure={sky.exposure}/>
    <WorldSet time={t} eye={c.eye} sky={sky} poses={emus}/>
-   <EmuLayer poses={emus} eye={c.eye} time={t}/>
+   <EmuLayer poses={emus} eye={c.eye} time={t} rim={sky.sun}/>
    <Actors poses={people} eye={c.eye} time={t} tint={tint}/>
   </ThreeCanvas></AbsoluteFill>
   <Overlay t={t}/></AbsoluteFill>;}
