@@ -27,6 +27,7 @@ jobs:
       fingerprint: ${{ steps.contract.outputs.fingerprint }}
       prefix: ${{ steps.contract.outputs.prefix }}
       matrix: ${{ steps.contract.outputs.matrix }}
+      parallel: ${{ steps.contract.outputs.parallel }}
     steps:
       - uses: actions/checkout@v4
       - name: Validate project file path
