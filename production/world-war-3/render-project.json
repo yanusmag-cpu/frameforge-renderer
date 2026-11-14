@@ -16,5 +16,10 @@
  ],
  "soundtrack": "public/ww3/bed.flac",
  "outputFilename": "FrameForge-What-If-World-War-3-Happened-Final.mp4",
- "audioScript": "scripts/ww3/make-audio.py"
+ "audioScript": "scripts/ww3/make-audio.py",
+ "silentTailSeconds": 2.0,
+ "soundtrackLUFS": -20,
+ "allowSilentSeconds": [
+  115
+ ]
 }

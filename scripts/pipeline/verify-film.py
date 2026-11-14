@@ -15,7 +15,7 @@ def verify_video_metadata(v,mode,frame_count=None,size=None):
     if v['pix_fmt'] not in ['yuv420p','yuvj420p']:raise ValueError(f'Expected 8-bit 4:2:0 video, got {v["pix_fmt"]}')
     return frames,fps
 
-def verify(path,mode,seconds=60,size=None):
+def verify(path,mode,seconds=60,size=None,silent_tail=0.0,target_lufs=-16.0,allow_silent=()):
     probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(path)]))
     path.with_suffix('.probe.json').write_text(json.dumps(probe,indent=2)+'\n')
     v=next(s for s in probe['streams'] if s['codec_type']=='video');a=next(s for s in probe['streams'] if s['codec_type']=='audio')
@@ -28,16 +28,17 @@ def verify(path,mode,seconds=60,size=None):
     samples=array('f');samples.frombytes(subprocess.check_output(['ffmpeg','-v','error','-i',str(path),'-vn','-af',f'atrim=duration={seconds}','-ar','48000','-ac','2','-f','f32le','-']))
     if len(samples)!=round(seconds*96000):raise ValueError(f'Decoded soundtrack does not cover {seconds} seconds')
     rms=[math.sqrt(math.fsum(x*x for x in samples[s*96000:(s+1)*96000])/96000) for s in range(int(seconds))]
-    if min(rms)<.00001 or max(abs(x) for x in samples)>=.999:raise ValueError('Silent second or sample clipping after AAC encoding')
+    checked=[v for i,v in enumerate(rms[:max(1,int(seconds-silent_tail))]) if i not in allow_silent]  # declared, intended silences only
+    if min(checked)<.00001 or max(abs(x) for x in samples)>=.999:raise ValueError('Silent second or sample clipping after AAC encoding')
     meter=subprocess.run(['ffmpeg','-hide_banner','-i',str(path),'-vn','-af','loudnorm=I=-16:TP=-1.5:LRA=9:print_format=json','-f','null','-'],check=True,capture_output=True,text=True)
     levels=json.JSONDecoder().raw_decode(meter.stderr[meter.stderr.rfind('{'):])[0]
     if float(levels['input_tp'])>-1:raise ValueError('Encoded mix exceeds true peak tolerance')
-    if mode!='visual-review' and abs(float(levels['input_i'])+16)>1:raise ValueError('Narrated mix exceeds loudness tolerance')
+    if mode!='visual-review' and abs(float(levels['input_i'])-target_lufs)>1:raise ValueError('Narrated mix exceeds loudness tolerance')
     path.with_suffix('.probe.json').write_text(json.dumps(probe,indent=2)+'\n')
     report={'decodedFrames':frames,'fps':fps,'pixelFormat':v['pix_fmt'],'colorRange':v.get('color_range','unspecified'),'durationSeconds':seconds,'rmsPerSecond':rms,'samplePeak':max(abs(x) for x in samples),'integratedLUFS':float(levels['input_i']),'truePeakDBTP':float(levels['input_tp']),'completeDecode':'passed'}
     path.with_suffix('.verified.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report))
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('path',type=Path);p.add_argument('--mode',choices=['preview','final','final-30','visual-review'],required=True);p.add_argument('--seconds',type=float,default=60);p.add_argument('--width',type=int);p.add_argument('--height',type=int);a=p.parse_args()
-    try:verify(a.path,a.mode,a.seconds,(a.width,a.height) if a.width and a.height else None)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('path',type=Path);p.add_argument('--mode',choices=['preview','final','final-30','visual-review'],required=True);p.add_argument('--seconds',type=float,default=60);p.add_argument('--width',type=int);p.add_argument('--height',type=int);p.add_argument('--silent-tail',type=float,default=0.0);p.add_argument('--target-lufs',type=float,default=-16.0);p.add_argument('--allow-silent',default='');a=p.parse_args()
+    try:verify(a.path,a.mode,a.seconds,(a.width,a.height) if a.width and a.height else None,a.silent_tail,a.target_lufs,{int(x) for x in a.allow_silent.split(',') if x})
     except (ValueError,OSError,KeyError,StopIteration,subprocess.CalledProcessError) as e:raise SystemExit(f'FrameForge MP4 validation failed: {e}')

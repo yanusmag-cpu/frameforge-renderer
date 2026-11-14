@@ -126,7 +126,7 @@ def assemble(root,key,output,final_audio=None,narrated=False):
  final=output/PROJECT['outputFilename']
  audio=Path(final_audio) if final_audio else ROOT/PROJECT['soundtrack']
  subprocess.run([sys.executable,str(ROOT/'scripts/pipeline/package-video.py'),str(raw),str(audio),str(final),'--fps','30','--seconds',str(SECONDS)]+(['--narration'] if narrated else []),check=True)
- subprocess.run([sys.executable,str(ROOT/'scripts/pipeline/verify-film.py'),str(final),'--mode','final-30','--seconds',str(SECONDS),'--width',str(WIDTH),'--height',str(HEIGHT)],check=True)
+ subprocess.run([sys.executable,str(ROOT/'scripts/pipeline/verify-film.py'),str(final),'--mode','final-30','--seconds',str(SECONDS),'--width',str(WIDTH),'--height',str(HEIGHT),'--silent-tail',str(PROJECT.get('silentTailSeconds',0)),'--target-lufs',str(PROJECT.get('soundtrackLUFS',-16)),'--allow-silent',','.join(str(x) for x in PROJECT.get('allowSilentSeconds',[]))],check=True)
  if frame_hashes(final)!=expected:raise ValueError('Final mux dropped or duplicated a decoded frame')
  joins=[]
  for n in [x for i in range(1,CHUNKS) for x in (i*CF-1,i*CF)]:
