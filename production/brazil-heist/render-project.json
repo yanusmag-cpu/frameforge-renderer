@@ -1,0 +1,7 @@
+{
+  "composition": "BrazilHeistFilm",
+  "artifactPrefix": "brazil-heist-chunk",
+  "assetDirectories": ["public/brazil"],
+  "blenderScript": "scripts/brazil/build-assets.py",
+  "outputFilename": "FrameForge-Brazil-70-Million-Bank-Heist-Final.mp4"
+}
