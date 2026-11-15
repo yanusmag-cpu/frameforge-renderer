@@ -1,0 +1,758 @@
+[
+  {
+    "id": "S001",
+    "start": 0,
+    "end": 163,
+    "environment": "exterior",
+    "focus": "narrator",
+    "action": "smile",
+    "camera": "wide"
+  },
+  {
+    "id": "S002",
+    "start": 163,
+    "end": 422,
+    "environment": "cell",
+    "focus": "michael",
+    "action": "think",
+    "camera": "medium"
+  },
+  {
+    "id": "S003",
+    "start": 422,
+    "end": 688,
+    "environment": "office",
+    "focus": "jane",
+    "action": "smile",
+    "camera": "push"
+  },
+  {
+    "id": "S004",
+    "start": 688,
+    "end": 817,
+    "environment": "interrogation",
+    "focus": "both",
+    "action": "study",
+    "camera": "wide"
+  },
+  {
+    "id": "S005",
+    "start": 817,
+    "end": 952,
+    "environment": "exterior",
+    "focus": "michael",
+    "action": "walk",
+    "camera": "track"
+  },
+  {
+    "id": "S006",
+    "start": 952,
+    "end": 1122,
+    "environment": "security",
+    "focus": "jane",
+    "action": "study",
+    "camera": "medium"
+  },
+  {
+    "id": "S007",
+    "start": 1122,
+    "end": 1318,
+    "environment": "interrogation",
+    "focus": "both",
+    "action": "think",
+    "camera": "wide"
+  },
+  {
+    "id": "S008",
+    "start": 1318,
+    "end": 1420,
+    "environment": "cell",
+    "focus": "michael",
+    "action": "study",
+    "camera": "close"
+  },
+  {
+    "id": "S009",
+    "start": 1420,
+    "end": 1552,
+    "environment": "corridor",
+    "focus": "michael",
+    "action": "walk",
+    "camera": "track"
+  },
+  {
+    "id": "S010",
+    "start": 1552,
+    "end": 1717,
+    "environment": "corridor",
+    "focus": "michael",
+    "action": "study",
+    "camera": "overhead"
+  },
+  {
+    "id": "S011",
+    "start": 1717,
+    "end": 1826,
+    "environment": "corridor",
+    "focus": "michael",
+    "action": "turn",
+    "camera": "medium"
+  },
+  {
+    "id": "S012",
+    "start": 1826,
+    "end": 1957,
+    "environment": "cell",
+    "focus": "michael",
+    "action": "think",
+    "camera": "push"
+  },
+  {
+    "id": "S013",
+    "start": 1957,
+    "end": 2146,
+    "environment": "security",
+    "focus": "jane",
+    "action": "sit",
+    "camera": "push"
+  },
+  {
+    "id": "S014",
+    "start": 2146,
+    "end": 2378,
+    "environment": "maintenance",
+    "focus": "michael",
+    "action": "study",
+    "camera": "medium"
+  },
+  {
+    "id": "S015",
+    "start": 2378,
+    "end": 2479,
+    "environment": "maintenance",
+    "focus": "guard",
+    "action": "point",
+    "camera": "track"
+  },
+  {
+    "id": "S016",
+    "start": 2479,
+    "end": 2633,
+    "environment": "shaft",
+    "focus": "guard",
+    "action": "reach",
+    "camera": "close"
+  },
+  {
+    "id": "S017",
+    "start": 2633,
+    "end": 2731,
+    "environment": "office",
+    "focus": "guard",
+    "action": "smile",
+    "camera": "medium"
+  },
+  {
+    "id": "S018",
+    "start": 2731,
+    "end": 2961,
+    "environment": "security",
+    "focus": "jane",
+    "action": "think",
+    "camera": "close"
+  },
+  {
+    "id": "S019",
+    "start": 2961,
+    "end": 3102,
+    "environment": "cell",
+    "focus": "michael",
+    "action": "smile",
+    "camera": "push"
+  },
+  {
+    "id": "S020",
+    "start": 3102,
+    "end": 3325,
+    "environment": "maintenance",
+    "focus": "guard",
+    "action": "walk",
+    "camera": "wide"
+  },
+  {
+    "id": "S021",
+    "start": 3325,
+    "end": 3425,
+    "environment": "security",
+    "focus": "jane",
+    "action": "think",
+    "camera": "medium"
+  },
+  {
+    "id": "S022",
+    "start": 3425,
+    "end": 3630,
+    "environment": "security",
+    "focus": "jane",
+    "action": "point",
+    "camera": "track"
+  },
+  {
+    "id": "S023",
+    "start": 3630,
+    "end": 3791,
+    "environment": "corridor",
+    "focus": "guard",
+    "action": "turn",
+    "camera": "close"
+  },
+  {
+    "id": "S024",
+    "start": 3791,
+    "end": 3904,
+    "environment": "corridor",
+    "focus": "michael",
+    "action": "walk",
+    "camera": "track"
+  },
+  {
+    "id": "S025",
+    "start": 3904,
+    "end": 4116,
+    "environment": "security",
+    "focus": "jane",
+    "action": "sit",
+    "camera": "push"
+  },
+  {
+    "id": "S026",
+    "start": 4116,
+    "end": 4317,
+    "environment": "security",
+    "focus": "jane",
+    "action": "study",
+    "camera": "close"
+  },
+  {
+    "id": "S027",
+    "start": 4317,
+    "end": 4390,
+    "environment": "interrogation",
+    "focus": "jane",
+    "action": "sit",
+    "camera": "wide"
+  },
+  {
+    "id": "S028",
+    "start": 4390,
+    "end": 4538,
+    "environment": "interrogation",
+    "focus": "michael",
+    "action": "walk",
+    "camera": "track"
+  },
+  {
+    "id": "S029",
+    "start": 4538,
+    "end": 4618,
+    "environment": "interrogation",
+    "focus": "both",
+    "action": "sit",
+    "camera": "wide"
+  },
+  {
+    "id": "S030",
+    "start": 4618,
+    "end": 4702,
+    "environment": "interrogation",
+    "focus": "jane",
+    "action": "sit",
+    "camera": "close"
+  },
+  {
+    "id": "S031",
+    "start": 4702,
+    "end": 4756,
+    "environment": "interrogation",
+    "focus": "michael",
+    "action": "sit",
+    "camera": "close"
+  },
+  {
+    "id": "S032",
+    "start": 4756,
+    "end": 4982,
+    "environment": "interrogation",
+    "focus": "jane",
+    "action": "point",
+    "camera": "medium"
+  },
+  {
+    "id": "S033",
+    "start": 4982,
+    "end": 5048,
+    "environment": "interrogation",
+    "focus": "michael",
+    "action": "point",
+    "camera": "close"
+  },
+  {
+    "id": "S034",
+    "start": 5048,
+    "end": 5206,
+    "environment": "interrogation",
+    "focus": "jane",
+    "action": "smile",
+    "camera": "close"
+  },
+  {
+    "id": "S035",
+    "start": 5206,
+    "end": 5375,
+    "environment": "interrogation",
+    "focus": "michael",
+    "action": "think",
+    "camera": "close"
+  },
+  {
+    "id": "S036",
+    "start": 5375,
+    "end": 5513,
+    "environment": "interrogation",
+    "focus": "michael",
+    "action": "smile",
+    "camera": "push"
+  },
+  {
+    "id": "S037",
+    "start": 5513,
+    "end": 5676,
+    "environment": "interrogation",
+    "focus": "jane",
+    "action": "think",
+    "camera": "close"
+  },
+  {
+    "id": "S038",
+    "start": 5676,
+    "end": 5785,
+    "environment": "interrogation",
+    "focus": "both",
+    "action": "study",
+    "camera": "wide"
+  },
+  {
+    "id": "S039",
+    "start": 5785,
+    "end": 5914,
+    "environment": "corridor",
+    "focus": "michael",
+    "action": "walk",
+    "camera": "track"
+  },
+  {
+    "id": "S040",
+    "start": 5914,
+    "end": 6056,
+    "environment": "cell",
+    "focus": "michael",
+    "action": "think",
+    "camera": "close"
+  },
+  {
+    "id": "S041",
+    "start": 6056,
+    "end": 6212,
+    "environment": "electrical",
+    "focus": "guard",
+    "action": "reach",
+    "camera": "medium"
+  },
+  {
+    "id": "S042",
+    "start": 6212,
+    "end": 6280,
+    "environment": "corridor",
+    "focus": "guard",
+    "action": "alarm",
+    "camera": "wide"
+  },
+  {
+    "id": "S043",
+    "start": 6280,
+    "end": 6394,
+    "environment": "maintenance",
+    "focus": "guard",
+    "action": "walk",
+    "camera": "track"
+  },
+  {
+    "id": "S044",
+    "start": 6394,
+    "end": 6472,
+    "environment": "corridor",
+    "focus": "michael",
+    "action": "walk",
+    "camera": "medium"
+  },
+  {
+    "id": "S045",
+    "start": 6472,
+    "end": 6695,
+    "environment": "security",
+    "focus": "jane",
+    "action": "study",
+    "camera": "push"
+  },
+  {
+    "id": "S046",
+    "start": 6695,
+    "end": 6823,
+    "environment": "infirmary",
+    "focus": "michael",
+    "action": "walk",
+    "camera": "wide"
+  },
+  {
+    "id": "S047",
+    "start": 6823,
+    "end": 6992,
+    "environment": "shaft",
+    "focus": "michael",
+    "action": "crawl",
+    "camera": "track"
+  },
+  {
+    "id": "S048",
+    "start": 6992,
+    "end": 7130,
+    "environment": "shaft",
+    "focus": "michael",
+    "action": "crawl",
+    "camera": "close"
+  },
+  {
+    "id": "S049",
+    "start": 7130,
+    "end": 7144,
+    "environment": "shaft",
+    "focus": "michael",
+    "action": "reach",
+    "camera": "medium"
+  },
+  {
+    "id": "S050",
+    "start": 7144,
+    "end": 7275,
+    "environment": "maintenance",
+    "focus": "guard",
+    "action": "point",
+    "camera": "close"
+  },
+  {
+    "id": "S051",
+    "start": 7275,
+    "end": 7426,
+    "environment": "maintenance",
+    "focus": "both",
+    "action": "alarm",
+    "camera": "wide"
+  },
+  {
+    "id": "S052",
+    "start": 7426,
+    "end": 7594,
+    "environment": "interrogation",
+    "focus": "michael",
+    "action": "sit",
+    "camera": "push"
+  },
+  {
+    "id": "S053",
+    "start": 7594,
+    "end": 7758,
+    "environment": "security",
+    "focus": "jane",
+    "action": "think",
+    "camera": "close"
+  },
+  {
+    "id": "S054",
+    "start": 7758,
+    "end": 7882,
+    "environment": "security",
+    "focus": "jane",
+    "action": "study",
+    "camera": "medium"
+  },
+  {
+    "id": "S055",
+    "start": 7882,
+    "end": 8019,
+    "environment": "interrogation",
+    "focus": "michael",
+    "action": "turn",
+    "camera": "medium"
+  },
+  {
+    "id": "S056",
+    "start": 8019,
+    "end": 8124,
+    "environment": "interrogation",
+    "focus": "guard",
+    "action": "card",
+    "camera": "close"
+  },
+  {
+    "id": "S057",
+    "start": 8124,
+    "end": 8267,
+    "environment": "security",
+    "focus": "guard",
+    "action": "point",
+    "camera": "wide"
+  },
+  {
+    "id": "S058",
+    "start": 8267,
+    "end": 8441,
+    "environment": "interrogation",
+    "focus": "jane",
+    "action": "card",
+    "camera": "close"
+  },
+  {
+    "id": "S059",
+    "start": 8441,
+    "end": 8681,
+    "environment": "security",
+    "focus": "jane",
+    "action": "think",
+    "camera": "push"
+  },
+  {
+    "id": "S060",
+    "start": 8681,
+    "end": 8889,
+    "environment": "office",
+    "focus": "jane",
+    "action": "study",
+    "camera": "overhead"
+  },
+  {
+    "id": "S061",
+    "start": 8889,
+    "end": 8997,
+    "environment": "security",
+    "focus": "jane",
+    "action": "think",
+    "camera": "close"
+  },
+  {
+    "id": "S062",
+    "start": 8997,
+    "end": 9061,
+    "environment": "exterior",
+    "focus": "guard",
+    "action": "walk",
+    "camera": "wide"
+  },
+  {
+    "id": "S063",
+    "start": 9061,
+    "end": 9300,
+    "environment": "exterior",
+    "focus": "jane",
+    "action": "point",
+    "camera": "track"
+  },
+  {
+    "id": "S064",
+    "start": 9300,
+    "end": 9443,
+    "environment": "exterior",
+    "focus": "guard",
+    "action": "reach",
+    "camera": "medium"
+  },
+  {
+    "id": "S065",
+    "start": 9443,
+    "end": 9608,
+    "environment": "office",
+    "focus": "guard",
+    "action": "reach",
+    "camera": "close"
+  },
+  {
+    "id": "S066",
+    "start": 9608,
+    "end": 9696,
+    "environment": "exterior",
+    "focus": "jane",
+    "action": "alarm",
+    "camera": "push"
+  },
+  {
+    "id": "S067",
+    "start": 9696,
+    "end": 9835,
+    "environment": "exterior",
+    "focus": "guard",
+    "action": "walk",
+    "camera": "wide"
+  },
+  {
+    "id": "S068",
+    "start": 9835,
+    "end": 9938,
+    "environment": "cell",
+    "focus": "michael",
+    "action": "sit",
+    "camera": "push"
+  },
+  {
+    "id": "S069",
+    "start": 9938,
+    "end": 10152,
+    "environment": "security",
+    "focus": "jane",
+    "action": "think",
+    "camera": "close"
+  },
+  {
+    "id": "S070",
+    "start": 10152,
+    "end": 10380,
+    "environment": "office",
+    "focus": "jane",
+    "action": "study",
+    "camera": "overhead"
+  },
+  {
+    "id": "S071",
+    "start": 10380,
+    "end": 10565,
+    "environment": "office",
+    "focus": "jane",
+    "action": "card",
+    "camera": "medium"
+  },
+  {
+    "id": "S072",
+    "start": 10565,
+    "end": 10756,
+    "environment": "security",
+    "focus": "jane",
+    "action": "think",
+    "camera": "push"
+  },
+  {
+    "id": "S073",
+    "start": 10756,
+    "end": 10930,
+    "environment": "interrogation",
+    "focus": "both",
+    "action": "study",
+    "camera": "wide"
+  },
+  {
+    "id": "S074",
+    "start": 10930,
+    "end": 11155,
+    "environment": "office",
+    "focus": "jane",
+    "action": "reach",
+    "camera": "close"
+  },
+  {
+    "id": "S075",
+    "start": 11155,
+    "end": 11321,
+    "environment": "office",
+    "focus": "guard",
+    "action": "reach",
+    "camera": "medium"
+  },
+  {
+    "id": "S076",
+    "start": 11321,
+    "end": 11485,
+    "environment": "exterior",
+    "focus": "michael",
+    "action": "walk",
+    "camera": "track"
+  },
+  {
+    "id": "S077",
+    "start": 11485,
+    "end": 11582,
+    "environment": "exterior",
+    "focus": "michael",
+    "action": "smile",
+    "camera": "wide"
+  },
+  {
+    "id": "S078",
+    "start": 11582,
+    "end": 11710,
+    "environment": "exterior",
+    "focus": "jane",
+    "action": "point",
+    "camera": "medium"
+  },
+  {
+    "id": "S079",
+    "start": 11710,
+    "end": 11750,
+    "environment": "exterior",
+    "focus": "michael",
+    "action": "turn",
+    "camera": "close"
+  },
+  {
+    "id": "S080",
+    "start": 11750,
+    "end": 11816,
+    "environment": "exterior",
+    "focus": "jane",
+    "action": "card",
+    "camera": "close"
+  },
+  {
+    "id": "S081",
+    "start": 11816,
+    "end": 11905,
+    "environment": "exterior",
+    "focus": "michael",
+    "action": "think",
+    "camera": "close"
+  },
+  {
+    "id": "S082",
+    "start": 11905,
+    "end": 12028,
+    "environment": "exterior",
+    "focus": "jane",
+    "action": "smile",
+    "camera": "push"
+  },
+  {
+    "id": "S083",
+    "start": 12028,
+    "end": 12311,
+    "environment": "exterior",
+    "focus": "narrator",
+    "action": "point",
+    "camera": "medium"
+  },
+  {
+    "id": "S084",
+    "start": 12311,
+    "end": 12487,
+    "environment": "outro",
+    "focus": "narrator",
+    "action": "walk",
+    "camera": "wide"
+  }
+]

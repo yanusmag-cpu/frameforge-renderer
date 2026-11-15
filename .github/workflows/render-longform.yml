@@ -1,0 +1,90 @@
+name: Landscape long-form film (verified 300-frame chunks)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: longform-${{ github.ref }}
+  cancel-in-progress: false
+env:
+  FRAMEFORGE_RENDER_PROJECT: production/scofield-jane/render-project.json
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      key: ${{ steps.plan.outputs.key }}
+      prefix: ${{ steps.plan.outputs.prefix }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit && npx eslint src
+      - run: node --import tsx --test src/scofield-jane/story.test.ts
+      - run: python scripts/longform/test-pipeline.py
+      - id: plan
+        run: python scripts/longform/pipeline.py plan
+  chunks:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: command -v ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+      - run: npm ci && npx remotion browser ensure
+      - name: Monitor resources
+        run: |
+          mkdir -p out
+          (while true; do date -u; free -m; df -h /; sleep 30; done) > out/resources.txt 2>&1 &
+      - name: Reuse verified chunk or render its absolute frame range
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/longform/pipeline.py chunk --index '${{ matrix.index }}' --folder out/chunk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ needs.plan.outputs.prefix }}-${{ needs.plan.outputs.key }}-${{ matrix.index }}
+          path: |
+            out/chunk/chunk.mp4
+            out/chunk/manifest.json
+          retention-days: 30
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: longform-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.index }}
+          path: out/resources.txt
+          retention-days: 7
+  assemble:
+    needs: [plan, chunks]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - run: command -v ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: ${{ needs.plan.outputs.prefix }}-${{ needs.plan.outputs.key }}-*
+          path: out/segments
+      - run: python scripts/longform/pipeline.py assemble --folder out/segments
+      - uses: actions/upload-artifact@v4
+        with:
+          name: scofield-jane-silent-visual-master-${{ github.run_id }}
+          path: |
+            out/segments/Scofield-Jane-Silent-Master.mp4
+            out/segments/assembly.json
+          retention-days: 30
+          if-no-files-found: error
+      - run: echo 'Silent master only. Private Liam narration is mixed separately; this artifact is not the final narrated film.' >> "$GITHUB_STEP_SUMMARY"
