@@ -119,7 +119,7 @@ function strata(m: T.MeshStandardMaterial) {
     sh.vertexShader = 'varying vec3 vWP;\n' + sh.vertexShader.replace('#include <worldpos_vertex>', '#include <worldpos_vertex>\n vWP = (modelMatrix * vec4(transformed,1.)).xyz;');
     sh.fragmentShader = 'varying vec3 vWP;\n' + sh.fragmentShader.replace('#include <map_fragment>', `#include <map_fragment>
       float y = vWP.y + sin(vWP.x * .35) * .18 + sin(vWP.x * 1.3 + 2.) * .06;
-      vec3 c1 = vec3(.23,.14,.08), c2 = vec3(.58,.3,.14), c3 = vec3(.8,.62,.38), c4 = vec3(.46,.43,.41);
+      vec3 c1 = vec3(.36,.23,.14), c2 = vec3(.58,.3,.14), c3 = vec3(.8,.62,.38), c4 = vec3(.46,.43,.41);
       vec3 sc = mix(c1, c2, smoothstep(-.8, -1.3, y)); sc = mix(sc, c3, smoothstep(-2.7, -3.2, y)); sc = mix(sc, c4, smoothstep(-6.3, -6.9, y));
       float band = sin(y * 9.0 + sin(vWP.x * .7) * 1.5) * .5 + .5; sc *= .9 + band * .14;
       vec3 det = clamp(diffuseColor.rgb / vec3(.45,.28,.16), .45, 1.35);

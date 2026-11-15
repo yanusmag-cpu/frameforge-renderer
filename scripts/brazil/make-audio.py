@@ -178,7 +178,7 @@ def sfx():
     put(SFX, 17.9, bp(noise(.5), 2000, 7000) * gate(.5, .05, .2) * .05, pan=-.2)  # "shh"
     # 11 bulbs switching on along 78 m
     for x in range(0, 19):
-        bx = 4.4 + x * 4.0; k = (bx - 2) / 77.5; tt = 19.55 + (np.arccos(1 - 2 * k) / np.pi) * 2.05
+        bx = 4.4 + x * 4.0; k = (bx - 2) / 76.2; tt = 19.5 + (np.arccos(1 - 2 * k) / np.pi) * 1.05
         put(SFX, tt, click(.12), pan=-.6 + 1.2 * k)
     put(SFX, 20.3, stamp(.35))
     # 12 months time-lapse
@@ -207,7 +207,8 @@ def sfx():
     # 21 tonnes: carts and footsteps in the tunnel
     put(SFX, 42.05, rumble(2.5, .08)); put(SFX, 42.15, hit2(.4))
     put(SFX, 42.05, lp(noise(2.45), 250) * gate(2.45, .1, .3) * .35)
-    for k in range(int(2.45 / (.55 / 4.0 * 2.4))): put(SFX, 42.05 + k * .33, step(.08), pan=rng.uniform(-.3, .3))
+    for k in range(int(2.45 / .46)):
+        for j in range(3): put(SFX, 42.05 + k * .46 + j * .15, step(.07), pan=-.3 + j * .3)
     # 22–23 no alarms / no guards
     put(AMB, 44.5, hum(.7, 120, .025)); put(SFX, 44.6, pop_(.06)); put(AMB, 45.2, hum(.75, 60, .03)); put(SFX, 45.2, snore(.12)); put(SFX, 45.3, pop_(.06))
     # 24 Monday morning
@@ -227,7 +228,7 @@ def sfx():
     for k in range(int(5.4 / .45)): put(SFX, 52.6 + k * .45, step(.05), pan=rng.uniform(-.6, .6))
     put(SFX, 52.6, lp(noise(5.0), 240) * gate(5.0, .3, .5) * .25)
     put(SFX, 53.0, pop_(.12)); put(SFX, 53.35, pop_(.12))
-    for k in range(4): put(SFX, 54.8 + k * .36, step(.1))
+    for k in range(int(1.1 / .4)): put(SFX, 54.8 + k * .4, step(.1))
     put(SFX, 56.85, thump(.32)); put(SFX, 57.15, thump(.28)); put(SFX, 56.9, rubble(.8, .06))
 
 music(); sfx()

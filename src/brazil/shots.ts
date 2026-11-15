@@ -76,7 +76,7 @@ function digPose(t: number, seed: number, sw: ReturnType<typeof swing>, dir = 1,
   return { p, tool: pickaxe([grip[0] * dir, grip[1]], up ? (dir > 0 ? -1.45 + (1 - r) * 0 - r * .2 : Math.PI + 1.45) : a) };
 }
 function carryPose(d: number, dir: number, lift = 0): Pose {
-  const w = walkPose(d / .4167, dir, { carryB: [.62 * dir, -2.25 - lift] }); return { ...w, handA: [.45 * dir, -2.25 - lift], frontA: 1, frontB: 1, shapeA: 'hold', shapeB: 'hold' } as Pose;
+  const w = walkPose(d / .4167, dir, { step: 1.15, carryB: [.62 * dir, -2.25 - lift] }); return { ...w, handA: [.45 * dir, -2.25 - lift], frontA: 1, frontB: 1, shapeA: 'hold', shapeB: 'hold' } as Pose;
 }
 
 type Shot = { t0: number; t1: number; name: string; f: (t: number, l: number) => Frame };
@@ -136,7 +136,7 @@ const streetLife = (t: number, extra: ActorState[] = []): ActorState[] => {
   const peds: [string, number, number, number, number][] = [['walkerA', -16, 40, 12.0, 1.25], ['walkerB', 30, -20, 11.6, 1.1], ['walkerC', -26, 30, .8, 1.3], ['walkerD', 24, -24, 12.3, 1.2]];
   peds.forEach(([who, x0, x1, z, sp], i) => {
     const dir = Math.sign(x1 - x0); const d = ((t * sp + i * 7) % Math.abs(x1 - x0)); const x = x0 + dir * d;
-    ws.push({ id: 'ped' + i, look: CAST[who], pose: walkPose(d / .4167, dir), face: F('calm'), pos: [x, z > 10 ? .15 : .15, z], t, seed: 10 + i, res: 512, lean: .4 });
+    ws.push({ id: 'ped' + i, look: CAST[who], pose: walkPose(d / .4167, dir, { step: 1.15 }), face: F('calm'), pos: [x, z > 10 ? .15 : .15, z], t, seed: 10 + i, res: 512, lean: .4 });
   });
   return [...ws, ...extra];
 };
@@ -247,7 +247,7 @@ shot('months', 22.7, 25.35, (t, l) => {
   L.sky = [mixC(d.sky[0], n.sky[0], day), mixC(d.sky[1], n.sky[1], day)];
   const c = { pos: [-1.6, 1.6, 12.4] as V3, look: [.3, 2.6, 0] as V3, fov: 44 };
   const months = ['MAY', 'JUN', 'JUL', 'AUG']; const mi = Math.min(3, Math.floor(ph * 4)); const flip = (ph * 4) % 1;
-  const cop = walkPose(((t - 23.2) * 1.2) / .4167, 1); const copX = -8 + Math.max(0, t - 23.2) * 1.2;
+  const cop = walkPose(((t - 23.2) * 1.2) / .4167, 1, { step: 1.15 }); const copX = -8 + Math.max(0, t - 23.2) * 1.2;
   const glance = k01(t, 24.2, 24.5) * (1 - k01(t, 24.9, 25.2));
   cop.headTurn = glance * -.9;
   return { t, cam: c, light: L, cut: null, sign: 1,
@@ -391,10 +391,10 @@ shot('monday', 45.95, 47.55, (t) => {
 shot('door-opens', 47.55, 48.9, (t) => {
   const c = camPath(t, 47.55, 48.9, [{ p: [80.6, -1.75, .3], l: [72.6, -1.95, -1.3], f: 40 }, { p: [80.1, -1.75, .25], l: [72.6, -1.95, -1.3], f: 38 }], x => x);
   const o = inOut(k01(t, 47.6, 48.5)); const enter = k01(t, 48.3, 48.9);
-  const cl = walkPose(enter * 1.4 / .4167, 1); cl.handB = [.6, -2.4]; cl.shapeB = 'hold';
+  const cl = walkPose(enter * .85 / .4167, 1, { step: 1.15 }); cl.handB = [.6, -2.4]; cl.shapeB = 'hold';
   return { t, cam: c, light: VAULT(o, [{ pos: [70, -1.4, -1.4], color: '#fff2d8', int: 30 * o, dist: 9, shadow: true }]), cut: null, vaultWall: true, show: { ...palletShow(0), 'Floor plug': false },
     xform: { 'Vault door': { rot: [0, o * 1.75, 0] } },
-    actors: enter > 0 ? [{ id: 'clerk', look: CAST.clerk, pose: cl, face: F('calm', 'curious', enter), pos: [71.3 + enter * 1.4, VF, -1.4], t, seed: 60, res: 1024, extra: cupSvg([.6, -2.5]), tint: [.9, .92, 1] }] : [],
+    actors: enter > 0 ? [{ id: 'clerk', look: CAST.clerk, pose: cl, face: F('calm', 'curious', enter), pos: [71.6 + enter * .85, VF, -1.4], t, seed: 60, res: 1024, extra: cupSvg([.6, -2.5]), tint: [.9, .92, 1] }] : [],
     fx: [{ kind: 'motes', box: [[72, -2.9, -2.5], [76, -.8, .2]], n: 80 * o | 0, seed: 17, color: '#fff2d8', size: .03, t, alpha: .5 }], grade: { gain: [1.0, 1.0, 1.04], vignette: .5 } };
 });
 shot('vanished', 48.9, 50.55, (t) => {
@@ -427,14 +427,14 @@ function feetShot(t: number, withHost: boolean): Frame {
   const c = withHost ? camPath(t, 55.9, 57.2, [{ p: c0.pos, l: c0.look, f: c0.fov }, { p: [41.45, .9, 5.4], l: [41.4, 1.0, 1.15], f: 44 }, { p: [41.42, 1.42, 3.3], l: [41.4, 1.43, 1.15], f: 36 }], inOut) : c0;
   const walkers: ActorState[] = ([['walkerA', 1, 0], ['walkerC', -1, 3], ['walkerB', 1, 6], ['walkerD', -1, 9]] as const).map(([w, dir, off], i) => {
     const d = ((t * 1.2 + off) % 16); const x = dir > 0 ? 34 + d : 49 - d;
-    return { id: 'feet' + i, look: CAST[w], pose: walkPose(d / .4167, dir), face: F('calm'), pos: [x, .15, .7] as V3, t, seed: 80 + i, res: 768 };
+    return { id: 'feet' + i, look: CAST[w], pose: walkPose(d / .4167, dir, { step: 1.15 }), face: F('calm'), pos: [x, .15, .7] as V3, t, seed: 80 + i, res: 768 };
   });
   const cartX = 49 - (t - 52.6) * 1.3;
-  const ren = walkPose((t - 52.6) * 1.3 / .4167, -1); ren.handA = [-.75, -2.05]; ren.handB = [-.7, -2.0]; ren.shapeA = ren.shapeB = 'hold';
+  const ren = walkPose((t - 52.6) * 1.3 / .4167, -1, { step: 1.15 }); ren.handA = [-.75, -2.05]; ren.handB = [-.7, -2.0]; ren.shapeA = ren.shapeB = 'hold';
   const acts: ActorState[] = [...walkers, { id: 'renato', look: CAST.renato, pose: ren, face: F('focused'), pos: [cartX, TF, TZ], t, seed: 36, res: 768, tint: [1, .88, .72] }];
   if (withHost) {
-    const arrive = k01(t, 54.75, 55.6); const hx = mix(44.5, 41.4, inOut(arrive));
-    let hp = arrive < 1 ? walkPose(mix(0, 3.1, inOut(arrive)) / .4167, -1) : pose(t, 3, { turn: 0 });
+    const arrive = k01(t, 54.75, 55.85); const hx = mix(43.2, 41.4, arrive);
+    let hp = arrive < 1 ? walkPose(mix(0, 1.8, arrive) / .4167, -1, { step: 1.15 }) : pose(t, 3, { turn: 0 });
     const lookDown = gesture(t, 55.65, .4) * (1 - gesture(t, 56.35, .35)); const point = gesture(t, 56.9, .3);
     if (arrive >= 1) hp = pose(t, 3, { turn: .05, headTilt: lookDown * .35 - point * .05, arms: [[-.5, -1.72], P(pose(t, 3, {}), pose(t, 3, { handB: [.75, -1.0] }), point).handB], shapeB: point > .5 ? 'point' : 'fist' });
     const face = arrive < 1 ? F('calm') : lookDown > .5 ? { ...F('curious'), gy: .95 } : { ...F('smug', 'happy', k01(t, 56.9, 57.4)), browY: .5, browAng: -.25 };
@@ -445,7 +445,7 @@ function feetShot(t: number, withHost: boolean): Frame {
     props: [{ name: 'Cash cart', pos: [cartX - 1.3, TF, TZ], rot: [0, Math.PI, 0] }],
     fx: withHost && dustT > 0 ? [{ kind: 'puff', at: [41.4, -4.15, TZ], t: dustT, n: 12, seed: 19, spread: .3, rise: -.4, size: .35, color: '#8a6a4a', alpha: .45, dur: 1.4 },
       { kind: 'debris', at: [41.4, -4.15, TZ], t: dustT, n: 8, seed: 20, spread: .3, up: 0, floor: TF, size: .03, color: '#7a5233' }] : [],
-    overlay: svg(withHost ? '' : pop('RIGHT BENEATH', 540, 330, 86, t, 53.0) + pop("EVERYONE'S FEET", 540, 430, 86, t, 53.35, { color: '#ffd34d' })),
+    overlay: svg(withHost ? '' : pop('RIGHT BENEATH', 540, 860, 86, t, 53.0) + pop("EVERYONE'S FEET", 540, 960, 86, t, 53.35, { color: '#ffd34d' })),
     grade: { gain: [1.04, 1.0, .95], fade: k01(t, 57.45, 58.0) } };
 }
 shot('feet', 52.6, 54.75, t => feetShot(t, false));
