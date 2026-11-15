@@ -561,3 +561,6 @@ export function frameAt(frame: number): Frame {
   const src = S.find(x => x.name === e[2])!; const st = e[3] + (t - e[0]);
   const F0 = src.f(st, st - src.t0); return { ...F0, t: st };
 }
+
+// shared with Part 2 (src/brazil2)
+export { DAY, GOLD, NIGHT, TUNNEL, VAULT, STUDIO, LAMPS, TF, TZ, VF, HOST_Z, palletShow, shovel, pickaxe, torchSvg, cupSvg, bag, brick, sweat, k01, carryPose };

@@ -20,10 +20,16 @@ export type Pose = {
   frontA?: number; frontB?: number; // 1 = draw that arm in front of torso
 };
 export type Look = {
-  outfit: 'hoodie' | 'suit' | 'uniform' | 'lab' | 'jacket' | 'dress';
+  outfit: 'hoodie' | 'suit' | 'uniform' | 'lab' | 'jacket' | 'dress' | 'jumpsuit' | 'coat' | 'vest';
   color: string; pants: string; shoe?: string;
-  hat?: 'helmet' | 'headset' | 'cap' | 'officer' | 'bun' | 'hood';
-  glasses?: boolean; tie?: string; hair?: string; mask?: boolean;
+  hat?: 'helmet' | 'headset' | 'cap' | 'officer' | 'bun' | 'hood' | 'hardhat';
+  glasses?: boolean | 'heavy'; tie?: string; hair?: string; mask?: boolean;
+  hairStyle?: 'sidepart' | 'slick' | 'fringe' | 'crop' | 'curlyTop' | 'bun';
+  streak?: string;              // contrasting hair streak colour (temples)
+  beard?: 'goatee' | 'moustache' | 'stubble' | 'full'; beardColor?: string;
+  inner?: string;               // shirt / turtleneck colour under a coat, vest or suit
+  patch?: string;               // jumpsuit number patch text
+  pencil?: boolean; badge?: boolean; radio?: boolean; hiVis?: boolean;
 };
 export const HERO: Look = { outfit: 'hoodie', color: '#d8262b', pants: '#151515' };
 
@@ -134,10 +140,46 @@ export function stickman(p: Pose, L: Look, o: DrawOpts): { svg: string; j: Joint
       if (L.tie) torso += `<path d="M${P(at2(c - .035, TL - .05))} L${P(at2(c + .035, TL - .05))} L${P(at2(c + .045, TL - .48))} L${P(at2(c, TL - .56))} L${P(at2(c - .045, TL - .48))}Z" fill="${L.tie}" stroke="${OUT}" stroke-width=".018"/>`;
       torso += `<path d="M${P(at2(c, TL - .55))} L${P(at2(c, .05))}" stroke="${shade(bodyCol, .6)}" stroke-width=".025"/>`;
     }
+  } else if (L.outfit === 'jumpsuit') {
+    if (!back) {
+      const c = p.turn * .12;
+      torso += `<path d="M${P(at2(c, TL - .3))} L${P(at2(c, .05))}" stroke="${shade(bodyCol, .62)}" stroke-width=".028"/>`;
+      if (at < .8) {
+        const px = c - hw * .55 * (1 - at * .5);
+        torso += `<path d="M${P(at2(px - .13, TL - .42))} h.26 v.17 h-.26z" fill="${shade(bodyCol, .86)}" stroke="${shade(bodyCol, .55)}" stroke-width=".018"/>`;
+        if (L.patch) { const q = at2(c + hw * .36 * (1 - at * .6), TL - .5); torso += `<rect x="${n(q[0] - .15)}" y="${n(q[1] - .065)}" width=".3" height=".14" rx=".02" fill="#f4f1e8" stroke="${OUT}" stroke-width=".015"/><text x="${n(q[0])}" y="${n(q[1] + .035)}" font-family="Inter,Arial,sans-serif" font-weight="800" font-size=".09" fill="#222" text-anchor="middle">${L.patch}</text>`; }
+      }
+    }
+    torso += `<path d="M${P(at2(-hw, .32))}L${P(at2(hw, .32))}" stroke="${shade(bodyCol, .66)}" stroke-width=".05"/>`;
+  } else if (L.outfit === 'coat' || L.outfit === 'vest') {
+    if (!back) {
+      const c = p.turn * .12, inner = L.inner ?? '#f4f4f2';
+      const depth = L.outfit === 'coat' ? .78 : .6;
+      torso += `<path d="M${P(at2(c - .2, TL + .02))} L${P(at2(c, TL - depth))} L${P(at2(c + .2, TL + .02))}Z" fill="${inner}"/>`;
+      if (L.outfit === 'coat') {
+        for (const sd of [-1, 1]) torso += `<path d="M${P(at2(c + sd * .21, TL + .02))} L${P(at2(c + sd * .03, TL - depth))} L${P(at2(c + sd * .2, TL - depth + .2))} L${P(at2(c + sd * .34, TL - .12))}Z" fill="${shade(bodyCol, .88)}" stroke="${OUT}" stroke-width=".02" stroke-linejoin="round"/>`;
+        torso += `<path d="M${P(at2(-hw, .42))}L${P(at2(hw, .42))}" stroke="${shade(bodyCol, .62)}" stroke-width=".075"/><rect x="${n(at2(c, .42)[0] - .06)}" y="${n(at2(c, .42)[1] - .05)}" width=".12" height=".1" fill="none" stroke="#c9b27a" stroke-width=".02"/>`;
+      } else {
+        for (const k of [.18, .34, .5]) { const b = at2(c, TL - depth - k + .1); torso += `<circle cx="${n(b[0])}" cy="${n(b[1])}" r=".025" fill="${shade(bodyCol, .5)}"/>`; }
+      }
+      torso += `<path d="M${P(at2(c, TL - depth))} L${P(at2(c, .04))}" stroke="${shade(bodyCol, .6)}" stroke-width=".022"/>`;
+    }
   } else if (L.outfit === 'uniform') {
     torso += `<rect x="-1" y="-1" width="0" height="0"/><path d="M${P(at2(-hw, .28))}L${P(at2(hw, .28))}" stroke="#2c2a1e" stroke-width=".09"/><path d="M${P(at2(-hw * .55, TL - .25))}h.16v.13h-.16z" fill="${shade(bodyCol, .75)}" stroke="${OUT}" stroke-width=".015"/>`;
   }
+  if (L.hiVis) for (const k of [.38, .72]) torso += `<path d="M${P(at2(-hw * 1.1, k))}L${P(at2(hw * 1.1, k))}" stroke="#e8ecef" stroke-width=".07"/><path d="M${P(at2(-hw * 1.1, k))}L${P(at2(hw * 1.1, k))}" stroke="#9aa3aa" stroke-width=".018" stroke-dasharray=".05 .05"/>`;
+  if (!back && L.badge && at < .85) { const b = at2(-hw * .5 + p.turn * .1, TL - .38); torso += `<path d="M${n(b[0])} ${n(b[1] - .08)} l.07 .03 v.06 q0 .06 -.07 .09 q-.07 -.03 -.07 -.09 v-.06z" fill="#e3b341" stroke="${OUT}" stroke-width=".014"/>`; }
   torso += `</g><path d="${torsoPath}" fill="none" stroke="${OUT}" stroke-width="${LW}" stroke-linejoin="round"/>`;
+  // long coat skirt (drawn over the thighs, split at the centre so it follows the stride)
+  if (L.outfit === 'coat') {
+    const fl = (side: number) => {
+      const ft = side < 0 ? p.footA : p.footB; const sw = clamp((ft[0] - hip[0]) * .32, -.3, .3);
+      const t0 = at2(side * hw * .98, .02), t1 = at2(side * .01 + p.turn * .1, .02), b1: V2 = [hip[0] + p.turn * .1 + side * .02 + sw * .6, hip[1] + .95], b0: V2 = [hip[0] + side * hw * 1.18 + sw, hip[1] + .9];
+      return `<path d="M${P(t0)} L${P(t1)} L${P(b1)} Q${P([(b1[0] + b0[0]) / 2, b1[1] + .04])} ${P(b0)} Z" fill="${side * (p.turn || 1) > 0 ? shade(bodyCol, .8) : bodyCol}" stroke="${OUT}" stroke-width="${LW}" stroke-linejoin="round"/>`;
+    };
+    torso = fl(-1) + fl(1) + torso;
+  }
+  if (L.radio && !back) { const r0 = at2((at > .3 ? -sgn : 1) * hw * .82, TL - .32); torso += `<rect x="${n(r0[0] - .06)}" y="${n(r0[1] - .1)}" width=".12" height=".2" rx=".025" fill="#2a2d31" stroke="${OUT}" stroke-width=".02"/><path d="M${n(r0[0] + .03)} ${n(r0[1] - .1)} v-.12" stroke="#2a2d31" stroke-width=".025" stroke-linecap="round"/>`; }
 
   // hood / collar
   let collar = '';
@@ -153,6 +195,11 @@ export function stickman(p: Pose, L: Look, o: DrawOpts): { svg: string; j: Joint
         collar += `<path d="M${P(top)}L${P(bot)}" stroke="${OUT}" stroke-width=".05" stroke-linecap="round"/><path d="M${P(top)}L${P(bot)}" stroke="#fff" stroke-width=".022" stroke-linecap="round"/><circle cx="${n(bot[0])}" cy="${n(bot[1])}" r=".028" fill="#fff" stroke="${OUT}" stroke-width=".018"/>`;
       }
     }
+  } else if (L.outfit === 'jumpsuit' && !back) {
+    const c = p.turn * .1;
+    for (const sd of [-1, 1]) collar += `<path d="M${P(at2(c + sd * .02, TL - .02))} L${P(at2(c + sd * .27, TL + .03))} L${P(at2(c + sd * .16, TL - .22))}Z" fill="${shade(bodyCol, .9)}" stroke="${OUT}" stroke-width=".022" stroke-linejoin="round"/>`;
+  } else if ((L.outfit === 'coat' && L.inner) && !back) {
+    const c = at2(p.turn * .05, TL + .02); collar = `<ellipse cx="${n(c[0])}" cy="${n(c[1])}" rx=".19" ry=".09" fill="${L.inner}" stroke="${OUT}" stroke-width=".03"/><path d="M${n(c[0] - .15)} ${n(c[1] - .02)} q.15 .05 .3 0" stroke="${shade(L.inner, .7)}" stroke-width=".015" fill="none"/>`;
   } else if (L.outfit !== 'hoodie') {
     const c = at2(0, TL); collar = `<ellipse cx="${n(c[0])}" cy="${n(c[1])}" rx=".16" ry=".07" fill="${L.outfit === 'uniform' ? shade(bodyCol, .85) : '#f4f4f2'}" stroke="${OUT}" stroke-width=".03"/>`;
   }
@@ -169,8 +216,9 @@ export function stickman(p: Pose, L: Look, o: DrawOpts): { svg: string; j: Joint
   if (L.hat === 'bun') hd += `<circle cx="${n(-fturn * .1)}" cy="-.56" r=".17" fill="${L.hair ?? '#d9d5cc'}" stroke="${OUT}" stroke-width="${LW}"/>`;
   hd += `<circle r=".5" fill="#fff" stroke="${OUT}" stroke-width="${LW}"/>`;
   if (!back) hd += drawFace(F, fturn, lid, id, LW);
+  if (L.beard && !back) hd += beardSvg(L, fturn);
   if (L.mask && !back) hd += `<path d="M${n(fturn * .3 - .3)} .02 Q${n(fturn * .3)} -.04 ${n(fturn * .3 + .3)} .02 L${n(fturn * .3 + .24)} .3 Q${n(fturn * .3)} .4 ${n(fturn * .3 - .24)} .3Z" fill="#e9eef2" stroke="${OUT}" stroke-width="${LW * .8}"/><path d="M${n(fturn * .3 - .2)} .12 H${n(fturn * .3 + .2)} M${n(fturn * .3 - .18)} .22 H${n(fturn * .3 + .18)}" stroke="#b8c2cc" stroke-width=".02"/>`;
-  hd += hat(L, fturn, back);
+  hd += hairSvg(L, fturn, back) + hat(L, fturn, back);
   if (!back) hd += drawEmanata(F, fturn, LW);
   hd += '</g>';
 
@@ -189,6 +237,7 @@ function hat(L: Look, turn: number, back: boolean): string {
   const o = `stroke="${OUT}" stroke-width="${LW}"`;
   switch (L.hat) {
     case 'helmet': return `<path d="M-.56 -.02 Q-.6 -.68 0 -.7 Q.6 -.68 .56 -.02 Z" fill="#5d6b3a" ${o}/><path d="M-.62 -.02 H.62" ${o} stroke-linecap="round"/><path d="M-.3 -.45 q.1 -.08 .2 0 M.12 -.52 q.1 -.06 .18 .02" stroke="#46522c" stroke-width=".05" fill="none"/>`;
+    case 'hardhat': return `<path d="M-.52 -.12 Q-.54 -.7 0 -.72 Q.54 -.7 .52 -.12 Z" fill="#f2f2ee" ${o}/><path d="M-.64 -.1 H.64" stroke="${OUT}" stroke-width=".11" stroke-linecap="round"/><path d="M-.64 -.1 H.64" stroke="#f2f2ee" stroke-width=".05" stroke-linecap="round"/><path d="M0 -.7 V-.2" stroke="#d7d7d0" stroke-width=".07"/>`;
     case 'cap': return `<path d="M-.5 -.12 Q-.5 -.62 0 -.6 Q.5 -.62 .5 -.12 Z" fill="${L.hair ?? '#222'}" ${o}/><path d="M${turn >= 0 ? '.3' : '-.3'} -.14 h${turn >= 0 ? '.42' : '-.42'}" stroke="${OUT}" stroke-width=".13" stroke-linecap="round"/><path d="M${turn >= 0 ? '.3' : '-.3'} -.14 h${turn >= 0 ? '.42' : '-.42'}" stroke="${L.hair ?? '#222'}" stroke-width=".05" stroke-linecap="round"/>`;
     case 'officer': return `<path d="M-.5 -.3 L-.62 -.62 Q0 -.85 .62 -.62 L.5 -.3 Z" fill="${L.hair ?? '#3c4a2a'}" ${o}/><path d="M-.52 -.27 H.52" stroke="#111" stroke-width=".1" stroke-linecap="round"/><circle cy="-.55" r=".07" fill="#e3b341" stroke="#111" stroke-width=".02"/>`;
     case 'headset': {
@@ -198,6 +247,14 @@ function hat(L: Look, turn: number, back: boolean): string {
     }
     default: break;
   }
+  const pen = L.pencil && !back && Math.abs(turn) < .9 ? (() => { const x = -(Math.sign(turn) || 1) * .5 + turn * .05; return `<g transform="translate(${n(x)} -.2) rotate(${-(Math.sign(turn) || 1) * 70})"><rect x="-.03" y="-.2" width=".06" height=".36" rx=".01" fill="#f2c230" stroke="${OUT}" stroke-width=".018"/><path d="M-.03 .16 L0 .23 L.03 .16Z" fill="#e8c9a0" stroke="${OUT}" stroke-width=".015"/></g>`; })() : '';
+  if (L.glasses === 'heavy' && !back) {
+    const at = Math.abs(turn), sq = 1 - at * .45, c = turn * .3; const e = (sd: number) => c + sd * .145 * sq;
+    const far = (sd: number) => sd === -(Math.sign(turn) || 1) && at > .5;
+    return `<g fill="rgba(210,232,245,.12)" stroke="#111" stroke-width=".038" stroke-linejoin="round">` + [-1, 1].filter(sd => !(far(sd) && at > .82)).map(sd => `<rect x="${n(e(sd) - .128 * (far(sd) ? .6 : 1))}" y="-.18" width="${n(.256 * (far(sd) ? .6 : 1))}" height=".27" rx=".045"/><path d="M${n(e(sd) - .128 * (far(sd) ? .6 : 1))} -.16 h${n(.256 * (far(sd) ? .6 : 1))}" stroke-width=".06"/>`).join('') +
+      `<path d="M${n(e(-1) + .128)} -.1 H${n(e(1) - .128)}" fill="none"/>` + (at > .3 ? `<path d="M${n(e(-Math.sign(turn)) - Math.sign(turn) * .115)} -.08 L${n(-Math.sign(turn) * .47)} -.1" fill="none"/>` : '') + `</g>` + pen;
+  }
+  if (!L.glasses) return pen;
   return L.glasses && !back ? `<g fill="none" stroke="#111" stroke-width=".035"><rect x="${n(turn * .3 - .3)}" y="-.13" width=".22" height=".17" rx=".05"/><rect x="${n(turn * .3 + .08)}" y="-.13" width=".22" height=".17" rx=".05"/><path d="M${n(turn * .3 - .08)} -.06 h.16"/></g>` : '';
 }
 
@@ -216,4 +273,45 @@ export function walkPose(dist: number, dir: number, o: { step?: number; carryB?:
   const handB: V2 = o.carryB ?? [.08 * dir + sw * dir, -1.66 + Math.abs(sw) * .12];
   return { ...STAND, turn: (o.turn ?? .78) * dir, lean: .05 * dir, crouch: -w.bob + .03, hipX: 0, headTilt: 0, headTurn: 0, headLift: 0,
     footA: f(w.L), footB: f(w.R), handA, handB, kneeDir: dir, bendA: -1, bendB: -1 };
+}
+
+/** Hair styles in head-local units (head radius .5). Shapes shift with the face turn so partings / waves read in 3/4 views. */
+function hairSvg(L: Look, turn: number, back: boolean): string {
+  if (!L.hairStyle || L.hat === 'officer' || L.hat === 'helmet' || L.hat === 'hardhat' || L.hat === 'hood') return '';
+  const col = L.hair ?? '#2b211b', dk = shade(col.startsWith('#') ? col : '#2b211b', .6), o = `stroke="${OUT}" stroke-width="${LW}" stroke-linejoin="round"`;
+  const k = turn * .22, sx = Math.sign(turn) || 1;
+  switch (L.hairStyle) {
+    case 'sidepart': { // neat engineer side parting, fringe swept toward screen-right with a lifted wave
+      if (back) return `<path d="M-.52 .02 Q-.6 -.62 0 -.66 Q.6 -.62 .52 .02 Q.3 -.12 0 -.12 Q-.3 -.12 -.52 .02Z" fill="${col}" ${o}/>`;
+      const pX = -.2 + k;
+      return `<path d="M-.5 -.02 Q-.58 -.6 ${n(-.04 + k * .3)} -.67 Q.56 -.66 .52 -.08 L.49 .02 Q.47 -.2 ${n(.28 + k)} -.27 Q${n(.05 + k)} -.31 ${n(pX + .06)} -.4 Q${n(pX - .14)} -.3 ${n(-.42 + k * .4)} -.2 L-.48 .03Z" fill="${col}" ${o}/>` +
+        `<path d="M${n(pX)} -.41 Q${n(pX - .03)} -.55 ${n(pX - .02)} -.64" stroke="${dk}" stroke-width=".022" fill="none"/>` +
+        `<path d="M${n(pX + .1)} -.44 Q${n(.25 + k)} -.5 ${n(.42 + k * .3)} -.36 M${n(pX + .08)} -.36 Q${n(.2 + k)} -.42 ${n(.36 + k * .3)} -.28" stroke="${dk}" stroke-width=".018" fill="none" stroke-linecap="round"/>`;
+    }
+    case 'slick': { // swept-back wave with a raised front and silver temples
+      const st = L.streak ? [-1, 1].filter(sd => !(sd === -sx && Math.abs(turn) > .6)).map(sd => `<path d="M${n(sd * .44 + k * .1)} -.12 Q${n(sd * .47)} -.3 ${n(sd * .36)} -.44" stroke="${L.streak}" stroke-width=".038" opacity=".9" fill="none" stroke-linecap="round"/>`).join('') : '';
+      if (back) return `<path d="M-.53 0 Q-.62 -.66 0 -.68 Q.62 -.66 .53 0 Q.25 -.14 0 -.14 Q-.25 -.14 -.53 0Z" fill="${col}" ${o}/>`;
+      return `<path d="M-.5 -.04 Q-.6 -.64 ${n(-.02 + k)} -.72 Q.6 -.68 .5 -.04 Q.47 -.27 ${n(.26 + k * .5)} -.38 Q${n(.1 + k)} -.46 ${n(-.06 + k)} -.42 Q${n(-.3 + k * .6)} -.38 -.47 -.24Z" fill="${col}" ${o}/>` +
+        `<path d="M${n(-.18 + k)} -.43 Q${n(-.05 + k)} -.62 ${n(.3 + k * .4)} -.6 M${n(.02 + k)} -.44 Q${n(.14 + k)} -.6 ${n(.4 + k * .3)} -.5 M${n(-.3 + k * .6)} -.36 Q${n(-.25 + k)} -.56 ${n(.05 + k)} -.66" stroke="${dk}" stroke-width=".02" fill="none" stroke-linecap="round"/>` + st;
+    }
+    case 'fringe': { // receding top with side fringe (older men)
+      return [-1, 1].filter(sd => !(sd === -sx && Math.abs(turn) > .6)).map(sd => `<path d="M${n(sd * .5)} .02 Q${n(sd * .56)} -.3 ${n(sd * .34)} -.42 Q${n(sd * .4)} -.22 ${n(sd * .42)} .04Z" fill="${col}" ${o}/>`).join('') +
+        `<path d="M${n(-.2 + k)} -.47 q.08 -.04 .16 0" stroke="${OUT}" stroke-width=".015" fill="none" opacity=".5"/>`;
+    }
+    case 'crop': return `<path d="M-.5 -.06 Q-.56 -.6 0 -.62 Q.56 -.6 .5 -.06 Q.42 -.32 0 -.36 Q-.42 -.32 -.5 -.06Z" fill="${col}" ${o}/>`;
+    case 'curlyTop': { let d = ''; for (let i = 0; i < 7; i++) { const a = Math.PI * (1.08 + i * .14), x = Math.cos(a) * .47, y = Math.sin(a) * .47 - .04; d += `<circle cx="${n(x + k * .2)}" cy="${n(y)}" r=".14" fill="${col}" ${o}/>`; } return d; }
+    case 'bun': return `<path d="M-.5 -.02 Q-.55 -.6 0 -.62 Q.55 -.6 .5 -.02 Q.4 -.34 0 -.38 Q-.4 -.34 -.5 -.02Z" fill="${col}" ${o}/><circle cx="${n(-turn * .25)}" cy="-.6" r=".15" fill="${col}" ${o}/>`;
+  }
+  return '';
+}
+function beardSvg(L: Look, turn: number): string {
+  const c = L.beardColor ?? L.hair ?? '#2b211b', mx = turn * .34, o = `stroke="${OUT}" stroke-width="${n(LW * .8)}" stroke-linejoin="round"`, w = .13 * (1 - Math.abs(turn) * .4);
+  switch (L.beard) {
+    case 'goatee': return `<path d="M${n(mx - w * .5)} .345 Q${n(mx)} .33 ${n(mx + w * .5)} .345 Q${n(mx + w * .42)} .46 ${n(mx)} .48 Q${n(mx - w * .42)} .46 ${n(mx - w * .5)} .345Z" fill="${c}" ${o}/>` +
+      `<path d="M${n(mx - .012)} .33 v-.03" stroke="${c}" stroke-width=".035" stroke-linecap="round"/>`;
+    case 'moustache': return `<path d="M${n(mx - w * 1.2)} .2 Q${n(mx - w * .6)} .08 ${n(mx)} .13 Q${n(mx + w * .6)} .08 ${n(mx + w * 1.2)} .2 Q${n(mx + w * .5)} .17 ${n(mx)} .18 Q${n(mx - w * .5)} .17 ${n(mx - w * 1.2)} .2Z" fill="${c}" ${o}/>`;
+    case 'stubble': { let d = ''; for (let i = 0; i < 26; i++) { const a = Math.PI * (.12 + (i % 13) / 13 * .76), r = i < 13 ? .4 : .34; d += `<circle cx="${n(Math.cos(a) * r + turn * .12)}" cy="${n(Math.sin(a) * r + .02)}" r=".012" fill="${c}" opacity=".55"/>`; } return d; }
+    case 'full': return `<path d="M-.44 .02 Q-.42 .5 ${n(mx)} .52 Q.42 .5 .44 .02 Q.3 .3 ${n(mx)} .3 Q-.3 .3 -.44 .02Z" fill="${c}" ${o}/>`;
+  }
+  return '';
 }

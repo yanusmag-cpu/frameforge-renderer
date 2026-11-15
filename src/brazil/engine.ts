@@ -95,17 +95,17 @@ export class Engine {
     this.beam.geometry.translate(0, -.5, 0); this.scene.add(this.beam);
     this.crack.rotation.x = -Math.PI / 2; this.crack.position.set(78.1, -2.975, .85); this.crack.renderOrder = 3; this.scene.add(this.crack);
   }
-  async load(base: string) {
+  async load(base: string, extra: string[] = []) {
     const loader = new GLTFLoader();
     // environment for reflections: gradient room rendered into a PMREM
     const envScene = new T.Scene(); const es = new T.Mesh(new T.SphereGeometry(10, 32, 16), new T.ShaderMaterial({ side: T.BackSide,
       vertexShader: 'varying vec3 vD; void main(){ vD = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.); }',
       fragmentShader: 'varying vec3 vD; void main(){ float y = vD.y; vec3 c = mix(vec3(.25,.22,.2), vec3(.85,.92,1.), smoothstep(-.2,.6,y)); c += vec3(1.1) * smoothstep(.9,.99, dot(vD, normalize(vec3(.4,.8,.3)))); c += vec3(1.2,1.1,1.)*smoothstep(.96,.99,dot(vD, normalize(vec3(-.7,.3,-.5)))); gl_FragColor = vec4(c,1.); }' }));
     envScene.add(es); const pm = new T.PMREMGenerator(this.r); this.envTex = pm.fromScene(envScene, 0).texture;
-    for (const f of ['world.glb', 'props.glb']) {
-      const g = await loader.loadAsync(base + f); dressMaterials(g.scene, this.envTex); this.scene.add(g.scene);
+    for (const f of ['world.glb', 'props.glb', ...extra]) {
+      const g = await loader.loadAsync(f.includes('/') ? f : base + f); dressMaterials(g.scene, this.envTex); this.scene.add(g.scene);
       g.scene.traverse(o => {
-        if (o.name.startsWith('KEEP_')) { this.objs.set(o.name.slice(5), o); if (f === 'props.glb') { this.props.set(o.name.slice(5), o); o.visible = false; } }
+        if (o.name.startsWith('KEEP_')) { this.objs.set(o.name.slice(5), o); if (f.includes('props')) { this.props.set(o.name.slice(5), o); o.visible = false; } }
         if (o.name.startsWith('FRONT')) this.front.push(o);
       });
     }
