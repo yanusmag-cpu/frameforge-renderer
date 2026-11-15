@@ -15,7 +15,7 @@
  ],
  "blenderScript": "scripts/brazil/build-assets.py",
  "audioScript": "scripts/brazil/make-audio.py",
- "soundtrack": "public/brazil/bed.flac",
+ "soundtrack": "public/brazil-sound/bed.flac",
  "soundtrackLUFS": -20,
  "silentTailSeconds": 1.0,
  "outputFilename": "FrameForge-Brazil-70-Million-Bank-Heist-Final.mp4"

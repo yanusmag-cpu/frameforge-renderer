@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 from scipy.signal import butter, fftconvolve, sosfilt, resample_poly
 from scipy.ndimage import maximum_filter1d, uniform_filter1d
-ROOT = Path(__file__).resolve().parents[2]; OUT = ROOT / 'public/brazil'
+ROOT = Path(__file__).resolve().parents[2]; OUT = ROOT / 'public/brazil-sound'
 SR, DUR = 48000, 58.0; N = int(SR * DUR); t = np.arange(N) / SR; rng = np.random.default_rng(2005)
 MUS = np.zeros((N, 2)); SFX = np.zeros((N, 2)); AMB = np.zeros((N, 2))
 def sos(kind, f, order=2): return butter(order, f, kind, fs=SR, output='sos')
@@ -243,9 +243,12 @@ def write(p, x):
     y = np.clip(x, -1, 1); w = wave.open(str(p), 'wb'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((y * 32767).astype('<i2').tobytes()); w.close()
 fade = np.minimum(1, t / .03) * (1 - np.clip((t - 57.4) / .6, 0, 1))
 MUSm = MUS * fade[:, None]; SFXm = (SFX + AMB) * fade[:, None]
-bed = norm_lufs(MUSm * .55 + SFXm, -20.0)
-pk = np.max(np.abs(bed));
-if pk > .89: bed *= .89 / pk
+def limit(x, ceiling):
+    e = maximum_filter1d(np.abs(x).max(axis=1), int(SR * .006)); g = np.minimum(1, ceiling / np.maximum(e, 1e-9))
+    g = -maximum_filter1d(-g, int(SR * .012)); g = uniform_filter1d(g, int(SR * .01)); return x * g[:, None]
+bed = MUSm * .55 + SFXm
+for _ in range(6):  # loudness-normalise to -20 LUFS with a transparent peak limiter (impacts stay punchy, no clipping)
+    bed = limit(norm_lufs(bed, -20.0), .7)
 if '--stems' in sys.argv:
     d = Path(sys.argv[sys.argv.index('--stems') + 1]); d.mkdir(parents=True, exist_ok=True); write(d / 'music.wav', MUSm); write(d / 'sfx.wav', SFXm)
 OUT.mkdir(parents=True, exist_ok=True); tmp = OUT / 'bed.wav'; write(tmp, bed)
