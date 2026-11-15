@@ -288,6 +288,18 @@ def pallet_stack(name, x, z, layers=4, front_open=False):
 
 # ================================================================== STREET (+ cutaway earth, tunnel, vault)
 
+
+# Part 2: jitter ico vertices about their own centre (transform_apply also bakes the location, so scaling raw coords would smear them across the map)
+def ico(name, p, r, m, sc=(1, 1, 1), sub=1):
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=sub, radius=r, location=L(*p))
+    o = bpy.context.object; o.name = name; o.scale = (sc[0], sc[2], sc[1]); bpy.ops.object.transform_apply(scale=True, location=False, rotation=False)
+    for v in o.data.vertices: v.co *= 1 + random.uniform(-.12, .12)
+    return finish(o, m)
+def moved(fn, dx):
+    """build a set with fn() and shift everything it created by dx metres along x (keeps sets apart)"""
+    before = set(bpy.data.objects); fn()
+    for o in set(bpy.data.objects) - before: o.location.x += dx
+
 # ================================================================== PART 2 materials
 sirenR = mat('siren_red', (1, .1, .08), 0, .3, (1, .08, .05), 1.0); sirenB = mat('siren_blue', (.1, .3, 1), 0, .3, (.08, .25, 1), 1.0)
 cork = mat('cork', (.66, .5, .32), 0, 1); paper = mat('paper', (.93, .91, .86), 0, .9); manila = mat('folder_manila', (.85, .72, .45), 0, .8)
@@ -361,7 +373,7 @@ def safehouse():
     x = 186.0
     for k, w in enumerate([6.5, 7.0]): house(x, w, random.choice([3.6, 4.2]), P[cols[k]], z0=2.6, depth=8, variant=k + 1); x += w
     x = 209.4
-    for k, w in enumerate([6.0, 7.5, 6.5]): house(x, w, random.choice([3.6, 4.2, 6.4]), P[cols[k + 2]], z0=2.6, depth=8, variant=k + 3); x += w
+    for k, w in enumerate([6.0, 7.0]): house(x, w, random.choice([3.6, 4.2, 6.4]), P[cols[k + 2]], z0=2.6, depth=8, variant=k + 3); x += w
     x = 184.0
     for k in range(7): w = random.choice([6.0, 7.0]); house(x, w, random.choice([3.8, 4.4, 6.6]), P[cols[(k * 3) % 7]], z0=11.0, front=True, variant=k); x += w
     for px in (192, 214, 228): tree('safe tree', px, 3.3, random.uniform(3.6, 4.4))
@@ -478,7 +490,7 @@ def hq_exterior():
     for px in (311, 334): palm('hqx palm', px, 2.5, 7.5, lean=.4)
     police_car('Pol A', 314.5, 2.4); police_car('Pol B', 321.5, 2.4)
 
-reset(); safehouse(); hq_office(); evidence_room(); roadside(); hq_exterior(); export('part2.glb')
+reset(); safehouse(); moved(hq_office, 180); moved(evidence_room, 190); moved(roadside, 260); moved(hq_exterior, 290); export('part2.glb')
 def props2():
     police_car('Police cruiser')
     keep('Cuffs', [torus('cuff', (s * .05, 0, 0), .035, .007, chrome, 'z', 16, 6) for s in (-1, 1)], (0, 0, 0))
