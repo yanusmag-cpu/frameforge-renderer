@@ -10,6 +10,10 @@ on:
       tag:
         description: Release tag to create (e.g. ba5390-final)
         required: true
+      artifact_pattern:
+        description: Finished artifact pattern (complete-* or scofield-jane-silent-visual-master-*)
+        required: false
+        default: complete-*
 permissions:
   contents: write
   actions: read
@@ -21,16 +25,18 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       RUN_ID: ${{ inputs.run_id }}
       TAG: ${{ inputs.tag }}
+      ARTIFACT_PATTERN: ${{ inputs.artifact_pattern }}
     steps:
       - name: Validate inputs
         run: |
           echo "$RUN_ID" | grep -Eq '^[0-9]+$' && echo "$TAG" | grep -Eq '^[a-z0-9][a-z0-9.-]{1,60}$' || { echo 'Invalid input'; exit 1; }
+          case "$ARTIFACT_PATTERN" in complete-\*|scofield-jane-silent-visual-master-\*) ;; *) echo 'Unsupported artifact pattern'; exit 1;; esac
           if gh release view "$TAG" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then echo 'Release already exists; not overwriting.'; exit 1; fi
       - uses: actions/download-artifact@v4
         with:
           run-id: ${{ inputs.run_id }}
           github-token: ${{ github.token }}
-          pattern: complete-*
+          pattern: ${{ inputs.artifact_pattern }}
           path: out
           merge-multiple: true
       - name: Check the video before keeping it
