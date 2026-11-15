@@ -12,3 +12,5 @@ The new `render-longform.yml` workflow is deliberately gated by `finalApproved: 
 This repository contains only original visual assets and nonverbal animation timing. No private narration MP3, reference images, transcript or mixed soundtrack is included. Public assembly creates a **silent visual master**, not the final deliverable. Private/local assembly must add the original narration and sound mix, verify it, and deliver the narrated file privately.
 
 Remaining: bespoke interactions and staging throughout the thriller; moving gates, truck search, escort/perimeter crossing, hatch/flashlight trap, full acting and environmental polish; word alignment/listening QA; representative motion checks; full final render and private final mux. Do not label the blocking composition a completed film.
+
+Local encoded-fixture tests passed: 617 frames across three segments, shorter final chunk, exact decoded-frame concatenation, and tampered-manifest rejection. Before eventual dispatch, register the reviewed new workflow on default main; a new workflow present only on a feature branch cannot yet be manually dispatched.
