@@ -152,7 +152,7 @@ conc = mat('concrete', (.66, .65, .62), 0, .85); concW = mat('concrete_paint', (
 tileF = mat('floor_tile', (.62, .64, .66), 0, .35); marble = mat('marble', (.88, .86, .82), 0, .2); turf = mat('turf', (.25, .62, .2), 0, .9)
 leaf = mat('plant_leaf', (.2, .52, .22), 0, .7); leafD = mat('plant_leaf_dark', (.12, .38, .16), 0, .7); pot = mat('pot_terracotta', (.75, .38, .22), 0, .8)
 trunk = mat('palm_trunk', (.5, .4, .28), 0, .9); frond = mat('palm_leaf', (.28, .55, .2), 0, .7); bark = mat('tree_bark', (.35, .25, .17), 0, .9)
-cash = mat('cash', (.36, .55, .78), 0, .7); band = mat('cash_band', (.95, .93, .86), 0, .6); wrap = mat('cash_wrap', (.62, .7, .8), .2, .2)
+cash = mat('cash', (.62, .78, .58), 0, .7); band = mat('cash_band', (.95, .93, .86), 0, .6); wrap = mat('cash_wrap', (.85, .9, .88), .1, .15)
 pallet = mat('pallet_wood', (.72, .58, .38), 0, .8); vsteel = mat('vault_steel', (.6, .62, .64), .95, .3); brass = mat('brass', (.8, .62, .3), 1, .3)
 awnG = mat('awning_green', (.12, .5, .35), 0, .8); awnR = mat('awning_red', (.75, .2, .18), 0, .8); awnB = mat('awning_blue', (.2, .35, .65), 0, .8)
 bulb = mat('bulb', (1, .85, .55), 0, .4, (1, .78, .45), 6.0); fluoro = mat('fluoro', (.95, .98, 1), 0, .3, (.9, .95, 1), 4.0)
@@ -162,7 +162,7 @@ rubber = mat('rubber', (.07, .07, .07), 0, .9); carR = mat('car_paint_red', (.7,
 carS = mat('car_paint_silver', (.62, .64, .66), .6, .3); carB = mat('car_paint_blue', (.15, .3, .6), .4, .3); fabric = mat('fabric', (.3, .32, .36), 0, .9)
 bagW = mat('bag_white', (.9, .9, .86), 0, .9); plastic = mat('plastic_blue', (.15, .35, .7), 0, .5); plasticY = mat('plastic_yellow', (.95, .75, .1), 0, .5)
 cable = mat('cable', (.08, .08, .08), 0, .6); ropeO = mat('cable_orange', (.95, .45, .1), 0, .6); sign = lambda n: mat('sign_' + n, (.9, .9, .9), 0, .5)
-studioC = mat('studio_cyc', (.06, .08, .12), 0, .8); studioF = mat('studio_floor', (.05, .05, .07), .3, .25); studioL = mat('studio_led', (1, .25, .2), 0, .3, (1, .2, .15), 8.0)
+studioC = mat('studio_cyc', (.05, .07, .13), 0, .8); studioF = mat('studio_floor', (.05, .05, .07), .3, .25); studioL = mat('studio_led', (1, .25, .2), 0, .3, (1, .2, .15), 8.0)
 studioW = mat('studio_led_white', (.9, .95, 1), 0, .3, (.85, .9, 1), 6.0); gold = mat('gold', (1, .78, .3), 1, .25); flagG = mat('flag_brazil', (.1, .6, .25), 0, .8)
 
 # ------------------------------------------------------------------ reusable builders
@@ -337,7 +337,7 @@ def street():
     for a, b in zip(poles, poles[1:]):
         for s in (-.6, 0, .6): tube('FRONT Wire', catenary((a, 8.75, 2.15 + s), (b, 8.75, 2.15 + s), .45), .012, cable, 1)
         tube('FRONT Wire low', catenary((a, 7.6, 2.15), (b, 7.6, 2.15), .6), .015, cable, 1)
-    for px in [-18, 12, 26, 40, 54, 100]: tree('FRONT Tree', px + 7, 1.95, random.uniform(3.6, 4.6))
+    for px in [-36, 12, 26, 54, 100]: tree('FRONT Tree', px + 7, 1.95, random.uniform(3.6, 4.6))
     for px in [63, 93]: palm('Palm', px, -1.5, 8.5, lean=.6)
     for px in [68, 88]: palm('Palm', px, -1.2, 6.5, lean=-.4)
     # ---- parked cars and bus stop on the far pavement
@@ -426,7 +426,7 @@ def bank():
     for i in range(3): box('Alarm led', (75.65 + i * .15, 3.25, -14.88), (.05, .05, .02), ledG, 0)
 def vault():
     # reinforced slab y -4.1..-2.4, with section face at z=1.5 and a breakthrough hole at x 77.6..78.6, z .4..1.3
-    s = span('Slab', (71.7, -4.1, -4.3), (84.3, -3.0, 1.5), conc, 0)
+    s = span('Slab', (71.7, -4.1, -4.3), (84.3, -3.0, 1.5), mat('slab_concrete', (.66, .65, .62), 0, .85), 0)
     c = span('cut', (77.6, -4.2, .4), (78.6, -2.9, 1.3), conc, 0); boolean(s, c)
     for i in range(int(12 / .25) + 1):
         for yy in (-3.98, -3.12):
