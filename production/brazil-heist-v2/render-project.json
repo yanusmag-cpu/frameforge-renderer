@@ -1,0 +1,22 @@
+{
+ "composition": "BrazilHeistFilm",
+ "artifactPrefix": "brazil-heist-v2-chunk",
+ "frames": 1680,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil"
+ ],
+ "sourceDirectories": [
+  "src/ff2d",
+  "src/brazil"
+ ],
+ "blenderScript": "scripts/brazil/build-assets.py",
+ "audioScript": "scripts/brazil/make-audio.py",
+ "soundtrack": "public/brazil-sound-v2/bed.flac",
+ "soundtrackLUFS": -20,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "FrameForge-Brazil-70-Million-Bank-Heist-Final-v2.mp4"
+}

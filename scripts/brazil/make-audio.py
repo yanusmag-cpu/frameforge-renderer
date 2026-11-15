@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """Brazil heist (Fortaleza, 2005) — original score + synchronized SFX bed (pure synthesis, no samples, no narration).
-Cue times are the film's shot timeline (src/brazil/shots.ts), itself keyed to the measured narration.
+v2: the narration MP3 runs in loop order ("The vault was protected…" first). The film is an edit of source shots
+(src/brazil/shots.ts EDIT); every SFX cue written against a source shot is remapped onto the edit and trimmed at
+its cut, new shots get their own cues, and the score follows the story beats in their real order.
 Writes public/brazil/bed.flac. --stems DIR also writes music.wav / sfx.wav for the private narration mix."""
 import json, os, subprocess, sys, tempfile, wave
 from pathlib import Path
 import numpy as np
 from scipy.signal import butter, fftconvolve, sosfilt, resample_poly
 from scipy.ndimage import maximum_filter1d, uniform_filter1d
-ROOT = Path(__file__).resolve().parents[2]; OUT = ROOT / 'public/brazil-sound'
-SR, DUR = 48000, 58.0; N = int(SR * DUR); t = np.arange(N) / SR; rng = np.random.default_rng(2005)
+ROOT = Path(__file__).resolve().parents[2]; OUT = ROOT / 'public/brazil-sound-v2'
+SR, DUR = 48000, 56.0; N = int(SR * DUR); t = np.arange(N) / SR; rng = np.random.default_rng(2005)
 MUS = np.zeros((N, 2)); SFX = np.zeros((N, 2)); AMB = np.zeros((N, 2))
 def sos(kind, f, order=2): return butter(order, f, kind, fs=SR, output='sos')
 def lp(x, f): return sosfilt(sos('low', f), x)
@@ -22,12 +24,40 @@ def saw(f, d, det=0.0): x = T(d); ph = np.cumsum(np.full(len(x), f * (1 + det)))
 def sine(f, d): return np.sin(2 * np.pi * np.cumsum(np.broadcast_to(f, (int(d * SR),)).astype(float)) / SR)
 def noise(d): return rng.standard_normal(int(d * SR))
 def put(bus, at, sig, gain=1.0, pan=0.0):
+    if REMAP and bus is not MUS:
+        for nt, left in remap(at):
+            k = int((left + .12) * SR); s2 = np.array(sig[:k], dtype=float)
+            if len(s2) == k and k > 0: f = min(len(s2), int(.12 * SR)); s2[-f:] *= np.linspace(1, 0, f)
+            _put(bus, nt, s2, gain, pan)
+        return
+    _put(bus, at, sig, gain, pan)
+def _put(bus, at, sig, gain=1.0, pan=0.0):
     i = int(at * SR)
     if i >= N or len(sig) == 0: return
     if i < 0: sig = sig[-i:]; i = 0
     n = min(len(sig), N - i); l, r = np.cos((pan + 1) * np.pi / 4), np.sin((pan + 1) * np.pi / 4)
     bus[i:i + n, 0] += sig[:n] * gain * l * 1.41; bus[i:i + n, 1] += sig[:n] * gain * r * 1.41
 NOTE = lambda m: 440 * 2 ** ((m - 69) / 12)
+V1 = [('host-open', 0, 1), ('host-70m', 1, 4.1), ('host-gun', 4.1, 6.4), ('rewind-2005', 6.4, 8.05), ('crew', 8.05, 9.5), ('rent', 9.5, 11.05), ('near-bank', 11.05, 12.1),
+      ('fake-front', 12.1, 13.05), ('grass', 13.05, 15.0), ('underneath', 15.0, 17.4), ('digging', 17.4, 19.4), ('eighty-metres', 19.4, 22.7), ('months', 22.7, 25.35),
+      ('reached', 25.35, 27.85), ('problem', 27.85, 29.2), ('vault-slab', 29.2, 32.05), ('reinforced', 32.05, 34.2), ('break-through', 34.2, 36.0), ('emerge', 36.0, 37.55),
+      ('unbelievable', 37.55, 38.45), ('unbelievable-face', 38.45, 39.45), ('weekend', 39.45, 42.05), ('tonnes', 42.05, 44.5), ('no-alarms', 44.5, 45.2), ('no-guards', 45.2, 45.95),
+      ('monday', 45.95, 47.55), ('door-opens', 47.55, 48.9), ('vanished', 48.9, 50.55), ('history', 50.55, 52.6), ('feet', 52.6, 54.75), ('host-end', 54.75, 58.0)]
+EDIT = [(0.00, 2.45, 'vault-slab', 29.0), (2.45, 3.95, 'reinforced', 32.05), (3.95, 6.30, 'break-through', 33.8), (6.30, 7.75, 'emerge', 36.0), (7.75, 8.75, 'unbelievable', 37.55),
+        (8.75, 9.60, 'unbelievable-face', 38.45), (9.60, 12.05, 'weekend', 39.45), (12.05, 15.00, 'tonnes', 42.05), (15.00, 17.15, 'cctv-guard', 15.0), (17.15, 19.40, 'monday', 45.95),
+        (19.40, 20.75, 'door-opens', 47.55), (20.75, 22.80, 'vanished', 48.26), (22.80, 25.45, 'history', 50.55), (25.45, 28.05, 'feet', 52.6), (28.05, 30.25, 'host-open', -1.2),
+        (30.25, 32.40, 'host-70m', 1.0), (32.40, 34.45, 'host-gun', 3.8), (34.45, 36.05, 'rewind-2005', 6.4), (36.05, 39.55, 'gang-rent-bank', 36.05), (39.55, 40.50, 'fake-front', 12.1),
+        (40.50, 41.95, 'grass', 13.05), (41.95, 43.45, 'underneath', 15.0), (43.45, 45.00, 'digging', 17.4), (45.00, 47.60, 'tunnel-track', 45.0), (47.60, 50.35, 'months', 22.7),
+        (50.35, 52.45, 'reached', 25.21), (52.45, 56.00, 'problem-loop', 52.45)]
+def remap(at):
+    """source-shot time -> [(film time, seconds left before the cut)]"""
+    nm = next((n for n, a, b in V1 if a <= at < b), None)
+    if at < 0: nm = 'host-open'
+    out = []
+    for n0, n1, name, src in EDIT:
+        if name == nm and src <= at < src + (n1 - n0): out.append((n0 + at - src, n1 - (n0 + at - src)))
+    return out
+REMAP = False
 D2, F2, A2, C3, D3, E3, F3, G3, A3, Bb3, C4, D4, E4, F4, G4, A4, Bb4, C5, D5 = [NOTE(m) for m in (38, 41, 45, 48, 50, 52, 53, 55, 57, 58, 60, 62, 64, 65, 67, 69, 70, 72, 74)]
 
 # ---------------------------------------------------------------- instruments
@@ -231,7 +261,54 @@ def sfx():
     for k in range(int(1.1 / .4)): put(SFX, 54.8 + k * .4, step(.1))
     put(SFX, 56.85, thump(.32)); put(SFX, 57.15, thump(.28)); put(SFX, 56.9, rubble(.8, .06))
 
-music(); sfx()
+def music_v2():
+    put(MUS, 0.0, drone(D2, 4.2, .09, 240)); put(MUS, 0.0, pad([D3, F3, Bb3 / 2 * 2], 4.0, .035, 900, .05, 1.0))
+    for i in range(int(3.9 / (beat / 2))): put(MUS, i * beat / 2, pulse(D2, .12, .045 + .02 * i / 13))
+    put(MUS, 2.6, hit(.2)); put(MUS, 3.95, riser(1.35, .16, 150, 2000)); put(MUS, 5.3, hit2(.4))
+    put(MUS, 6.3, pad([D3, F3, A3], 1.5, .035, 1000, .3, .8)); put(MUS, 7.8, pad([Bb3 / 2 * 2, D4, F4, A4], 1.9, .05, 2200, .2, .8)); put(MUS, 7.82, sparkle(.11))
+    put(MUS, 9.6, drone(D2, 5.4, .07, 300))
+    for i in range(int((15.0 - 9.6) / (beat / 2))):
+        tt = 9.6 + i * beat / 2; put(MUS, tt, pulse([D2, D2, F2, C3 / 2][i // 4 % 4], .14, .075 if i % 2 == 0 else .045)); put(MUS, tt + beat / 4, shaker(.028))
+    put(MUS, 12.15, hit2(.32))
+    put(MUS, 15.0, pad([D3, A3], 2.2, .028, 700, .2, .5))
+    put(MUS, 17.15, pad([F3, A3, C4], 2.25, .03, 1500, .3, .4)); put(MUS, 19.4, riser(2.45, .13, 180, 1500)); put(MUS, 21.85, hit2(.36)); put(MUS, 21.9, bell(NOTE(62), .08, 2.5))
+    put(MUS, 22.8, pad([D3, A3, D4, F4], 5.25, .05, 2000, .4, 1.0)); put(MUS, 22.8, drone(D2, 5.2, .07, 300))
+    for k, n_ in enumerate([D4, F4, A4, D5]): put(MUS, 22.85 + k * .5, piano(n_, 1.8, .055))
+    put(MUS, 25.5, pad([Bb3 / 2 * 2, D4, F4], 2.55, .04, 1600, .3, .5))
+    put(MUS, 28.05, drone(D2, 6.4, .065, 260)); put(MUS, 30.25, pad([D3, F3, A3], 4.2, .04, 1400, .3, 1.0))
+    for i in range(int(6.3 / (beat / 2))): put(MUS, 28.05 + i * beat / 2, pulse(D2 if (i // 4) % 2 == 0 else F2, .16, .08 if i % 2 == 0 else .045))
+    put(MUS, 30.27, hit2(.3)); put(MUS, 30.3, sparkle(.08))
+    for i in range(int((41.95 - 34.9) / (beat / 4))): put(MUS, 34.9 + i * beat / 4, shaker(.03 if i % 2 else .045), pan=.3)
+    for bar in range(5):
+        b0 = 34.95 + bar * beat * 4
+        for n_, off in [(D3, 0), (A3, 1.5), (F3, 2), (A3, 3), (E3, 3.5)]:
+            if b0 + off * beat < 41.9: put(MUS, b0 + off * beat, piano(n_ * 2, .6, .045), pan=-.2)
+        if b0 < 41.9: put(MUS, b0, pulse(D2 if bar % 2 == 0 else Bb3 / 4, .25, .065))
+    put(MUS, 34.9, pad([D3, F3, A3, C4], 7.0, .028, 1100, 1.0, 1.0))
+    put(MUS, 41.95, drone(D2, 8.4, .085, 220)); put(MUS, 42.1, riser(1.2, .1, 120, 700))
+    for i in range(int((47.6 - 43.45) / (beat / 2))): put(MUS, 43.45 + i * beat / 2, pulse(D2, .12, .05))
+    put(MUS, 45.0, riser(1.2, .13, 200, 1600)); put(MUS, 46.2, hit2(.26))
+    put(MUS, 47.6, pad([D3, G3, A3], 2.8, .038, 1200, .3, .6))
+    put(MUS, 50.35, drone(D2 * .94, 5.65, .1, 240)); put(MUS, 52.0, hit(.22)); put(MUS, 52.45, pad([D3, F3, Bb3 / 2 * 2, E4], 3.55, .042, 900, .2, .4))
+    for i in range(int((56.0 - 53.2) / (beat / 2))): put(MUS, 53.2 + i * beat / 2, pulse(D2, .12, .045 + .02 * i / 10))
+def sfx_new():
+    # cctv → sleeping guard
+    put(AMB, 15.0, hum(2.15, 60, .03)); put(SFX, 15.0, buzz(.4, .025)); put(SFX, 15.95, snore(.11)); put(SFX, 16.9, snore(.08))
+    # gang walks up, keys, crane to the bank
+    put(AMB, 36.05, traffic(3.5, .08))
+    for k in range(3): put(AMB, 36.3 + k * 1.1, bird(.035), pan=rng.uniform(-.7, .7))
+    for k in range(int((37.3 - 36.05) / .42)):
+        for j in range(5): put(SFX, 36.05 + k * .42 + j * .05, step(.05), pan=-.4 + j * .2)
+    put(SFX, 37.5, A(click(.18), click(.12))); put(SFX, 37.98, thump(.1)); put(SFX, 38.35, whoosh(1.0, .14)); put(SFX, 38.55, pop_(.1)); put(SFX, 38.8, pop_(.1))
+    # tunnel tracking: whoosh in, bulbs, steps, a pickaxe far ahead, counter ticks
+    put(SFX, 45.0, whoosh(.6, .18)); put(AMB, 45.0, room(2.6, .06) + hum(2.6, 50, .02))
+    for k in range(10): put(SFX, 45.15 + k * .105, tick(.06))
+    put(SFX, 46.2, stamp(.3))
+    for h in swing_hits(45.0, 47.6, .95): put(SFX, h, pick(.12), pan=.1)
+    for k in range(int(2.6 / .44)): put(SFX, 45.1 + k * .44, step(.05), pan=.2)
+    # loop tail: tension hum into the concrete (flows back into frame 0)
+    put(AMB, 52.45, room(3.55, .06)); put(SFX, 52.45, sub(.32, 36, 2.0)); put(SFX, 52.9, hit(.16)); put(SFX, 54.6, sub(.3, 36, 1.4))
+music_v2(); REMAP = True; sfx(); REMAP = False; sfx_new()
 # ---------------------------------------------------------------- master bed: gentle, leaves room for the narration (mixed privately)
 def norm_lufs(x, target):
     with tempfile.TemporaryDirectory() as d:
@@ -241,7 +318,7 @@ def norm_lufs(x, target):
     return x * 10 ** ((target - I) / 20)
 def write(p, x):
     y = np.clip(x, -1, 1); w = wave.open(str(p), 'wb'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((y * 32767).astype('<i2').tobytes()); w.close()
-fade = np.minimum(1, t / .03) * (1 - np.clip((t - 57.4) / .6, 0, 1))
+fade = np.minimum(1, t / .03) * (1 - np.clip((t - 55.75) / .25, 0, 1))  # short tail: the Short loops back to the vault
 MUSm = MUS * fade[:, None]; SFXm = (SFX + AMB) * fade[:, None]
 def limit(x, ceiling):
     e = maximum_filter1d(np.abs(x).max(axis=1), int(SR * .006)); g = np.minimum(1, ceiling / np.maximum(e, 1e-9))

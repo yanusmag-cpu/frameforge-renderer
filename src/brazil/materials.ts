@@ -173,10 +173,16 @@ export const SIGNS: Record<string, SignDef> = {
     for (let i = 0; i < 3; i++) { g.beginPath(); g.moveTo(60 + i * 40, 240 - i * 30); g.lineTo(175, 60); g.lineTo(290 - i * 40, 240 - i * 30); g.stroke(); }
   } },
   sign_flag_ce: { rect: [89, 9.4, 1.9, 1.4], w: 256, h: 190, draw: (g, w, h) => { g.fillStyle = '#f2f2f2'; g.fillRect(0, 0, w, h); g.fillStyle = '#1f7a3a'; g.beginPath(); g.ellipse(w / 2, h / 2, 50, 50, 0, 0, 7); g.fill(); } },
-  sign_cctv: { rect: [71.36, 2.42, .78, .57], w: 256, h: 190, draw: (g, w, h) => {
-    g.fillStyle = '#1d2a26'; g.fillRect(0, 0, w, h); g.strokeStyle = 'rgba(150,200,170,.5)'; g.lineWidth = 3;
-    g.beginPath(); g.moveTo(20, h - 20); g.lineTo(90, 70); g.lineTo(170, 70); g.lineTo(236, h - 20); g.stroke();
-    g.fillStyle = 'rgba(200,255,220,.8)'; g.font = '16px monospace'; g.fillText('CAM 03  COFRE', 10, 20);
+  sign_cctv: { rect: [71.36, 2.42, 1.05, .57], w: 1035, h: 570, draw: (g, w0, h0) => {
+    g.scale(3, 3); const w = w0 / 3, h = h0 / 3;
+    // each of the three screens shows the vault camera (content drawn in the left 0.78/1.05 of the canvas: the screen pitch)
+    const W = w * .78 / 1.05; g.fillStyle = '#0b1310'; g.fillRect(0, 0, w, h);
+    const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#2b3a35'); gr.addColorStop(1, '#16201c'); g.fillStyle = gr; g.fillRect(0, 0, W, h);
+    g.strokeStyle = 'rgba(160,210,180,.55)'; g.lineWidth = 2; g.beginPath(); g.moveTo(10, h - 30); g.lineTo(60, 80); g.lineTo(W - 60, 80); g.lineTo(W - 10, h - 30); g.stroke();
+    for (let i = 0; i < 4; i++) { g.fillStyle = 'rgba(150,200,160,.5)'; g.fillRect(70 + i * 34, 96, 26, 30); g.fillStyle = 'rgba(200,230,200,.4)'; g.fillRect(72 + i * 34, 100, 22, 4); }
+    for (let y = 0; y < h; y += 3) { g.fillStyle = 'rgba(0,0,0,.18)'; g.fillRect(0, y, W, 1); }
+    g.fillStyle = 'rgba(210,255,225,.85)'; g.font = '700 15px monospace'; g.fillText('CAM 03  COFRE', 8, 18); g.fillText('SAB 03:12', W - 88, 18);
+    g.fillStyle = '#30e070'; g.beginPath(); g.arc(14, h - 14, 6, 0, 7); g.fill(); g.font = '800 16px monospace'; g.fillText('ALARME: OK', 26, h - 8);
   } },
 };
 function flagBrazil() {
@@ -185,7 +191,7 @@ function flagBrazil() {
 }
 function signTex(def: SignDef) {
   const c = canvas(def.w, def.h, (g, w, h) => def.draw(g, w, h)); const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 8;
-  const [x, y, W, H] = def.rect; t.repeat.set(1 / W, -1 / H); t.offset.set(-x / W, (1 - y) / H); /* glTF stores v = 1 - y */ t.wrapS = t.wrapT = T.ClampToEdgeWrapping; return t;
+  const [x, y, W, H] = def.rect; t.repeat.set(1 / W, -1 / H); t.offset.set(-x / W, (1 - y) / H); /* glTF stores v = 1 - y */ t.wrapS = t.wrapT = T.ClampToEdgeWrapping; if (def.rect[2] === 1.05) t.wrapS = T.RepeatWrapping; return t;
 }
 // ---------------------------------------------------------------------------------------------- material swap
 export function dressMaterials(root: T.Object3D, env: T.Texture | null) {

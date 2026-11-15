@@ -7,9 +7,10 @@ import { type V2 } from '../ff2d/motion.ts';
 import { svg, pop, money, chip, projector, measure, stamp, pin, calendar, clock, gunIcon, rewind } from './overlay.ts';
 import { MOUTH } from './mouth.ts';
 
-export const FPS = 30, DURATION = 58.0, FRAMES = Math.round(DURATION * FPS);
+export const FPS = 30, DURATION = 56.0, FRAMES = Math.round(DURATION * FPS);
 const TF = -5.82, TZ = .95, VF = -2.98, HOST_Z = 8.5;
-const mouth = (t: number) => { const i = Math.round(t * FPS); return i >= 0 && i < MOUTH.length ? +MOUTH[i] / 9 : 0; };
+let AUDIO_T = 0;
+const mouth = () => { const i = Math.round(AUDIO_T * FPS); return i >= 0 && i < MOUTH.length ? +MOUTH[i] / 9 : 0; };
 const k01 = (t: number, a: number, b: number) => clamp((t - a) / (b - a));
 
 // ---------------------------------------------------------------------------------------------- lighting presets
@@ -53,6 +54,9 @@ function shovel(g: V2, ang: number) {
 }
 const brick = (c: V2, rot = 0, s = 1) => `<g transform="translate(${c[0]} ${c[1]}) rotate(${rot}) scale(${s})"><rect x="-.5" y="-.32" width="1" height=".64" rx=".06" fill="#7f9cc0" ${O}/><rect x="-.5" y="-.32" width="1" height=".64" rx=".06" fill="url(#nb)" opacity=".0"/>
   <path d="M-.5 -.1 H.5 M-.5 .1 H.5" stroke="#5d7aa0" stroke-width=".03"/><rect x="-.08" y="-.32" width=".16" height=".64" fill="#f1ede2" ${O}/><text x=".27" y=".08" font-size=".22" font-weight="900" text-anchor="middle" fill="#2a3e5c" font-family="Inter,sans-serif">50</text></g>`;
+const bag = (c: V2, rot = 0, s = 1) => `<g transform="translate(${c[0]} ${c[1]}) rotate(${rot}) scale(${s})"><path d="M-.5 -.18 Q-.55 .32 -.05 .34 L.08 .34 Q.56 .32 .5 -.18 Q.3 -.34 0 -.33 Q-.3 -.34 -.5 -.18Z" fill="#2f4a33" ${O}/>
+  <path d="M-.22 -.3 Q-.12 -.58 .14 -.3" fill="none" stroke="#111" stroke-width=".08"/><path d="M-.2 -.3 Q-.12 -.52 .12 -.3" fill="none" stroke="#3d6142" stroke-width=".035"/>
+  <path d="M-.48 .02 Q0 .1 .48 .02" fill="none" stroke="#1d3020" stroke-width=".03"/><text x="0" y=".2" font-size=".3" font-weight="900" text-anchor="middle" fill="#e8d36a" stroke="#111" stroke-width=".02" font-family="Inter,sans-serif">R$</text></g>`;
 const keySvg = (c: V2) => `<g transform="translate(${c[0]} ${c[1]})"><circle r=".09" fill="none" stroke="#111" stroke-width=".07"/><circle r=".09" fill="none" stroke="#e3b341" stroke-width=".035"/><path d="M.08 0 H.3 V.08 M.22 0 V.07" stroke="#111" stroke-width=".07" fill="none"/><path d="M.08 0 H.3 V.08 M.22 0 V.07" stroke="#e3b341" stroke-width=".035" fill="none"/></g>`;
 const cupSvg = (c: V2, rot = 0) => `<g transform="translate(${c[0]} ${c[1]}) rotate(${rot})"><path d="M-.13 -.22 H.13 L.1 .12 H-.1Z" fill="#fff" ${O}/><rect x="-.14" y="-.27" width=".28" height=".07" rx=".02" fill="#5a3a22" ${O}/><path d="M-.12 -.05 H.11" stroke="#c8261f" stroke-width=".05"/></g>`;
 const turfSvg = (c: V2, w = .9) => `<g transform="translate(${c[0]} ${c[1]})"><rect x="${-w / 2}" y="-.12" width="${w}" height=".18" fill="#6b4a2a" ${O}/>${Array.from({ length: 16 }, (_, i) => `<path d="M${-w / 2 + .03 + i * (w - .06) / 15} -.1 l${(i % 3 - 1) * .03} -.2" stroke="#2e8a3a" stroke-width=".05" stroke-linecap="round"/>`).join('')}<rect x="${-w / 2}" y="-.16" width="${w}" height=".06" fill="#38a446"/></g>`;
@@ -86,7 +90,7 @@ const shot = (name: string, t0: number, t1: number, f: Shot['f']) => S.push({ na
 // ============================================================================================== 1–3 PRESENTER (studio opens onto the bank)
 const studioOpen = (t: number) => inOut(k01(t, 1.0, 1.85));
 function host(t: number): ActorState {
-  const sp = mouth(t); let p: Pose; let face = F('calm');
+  const sp = mouth(); let p: Pose; let face = F('calm');
   const g1 = gesture(t, 1.12, .42), g2 = gesture(t, 2.75, .4), g3 = gesture(t, 4.25, .35), g4 = gesture(t, 5.05, .3), g5 = gesture(t, 5.72, .35);
   const base = pose(t, 3, { turn: 0, lean: -.03, arms: [[-.24, -2.15], [.24, -2.12]], shapeA: 'fist', shapeB: 'fist', headTilt: .04 });
   const wide = pose(t, 3, { turn: 0, lean: .02, headLift: .04, arms: [[-1.12, -2.72], [1.12, -2.7]], shapeA: 'open', shapeB: 'open' });
@@ -120,8 +124,7 @@ shot('host-open', 0, 1.0, (t) => {
 shot('host-70m', 1.0, 4.1, (t) => {
   const c = camPath(t, 1.0, 4.1, [{ p: [78, 1.5, 10.25], l: [78, 1.46, HOST_Z], f: 28 }, { p: [78, 2.1, 12.9], l: [78, 2.1, 5.5], f: 36 }, { p: [78.7, 2.7, 14.6], l: [78, 2.9, 2.5], f: 40 }], x => 1 - (1 - x) ** 2.4);
   const v = 7e7 * (1 - (1 - k01(t, 1.05, 2.3)) ** 3);
-  const ov = svg(money(v, 540, 360, 128, k01(t, 1.0, 1.15)) + pop('STOLEN FROM A BANK', 540, 452, 46, t, 2.7, { weight: 800, track: 3 }) +
-    (t > 2.4 ? `<text x="540" y="508" text-anchor="middle" font-size="34" font-weight="700" fill="#ffe7a8" opacity="${k01(t, 2.4, 2.7)}" stroke="#000" stroke-width="3" paint-order="stroke">≈ R$164.8 MILLION</text>` : ''));
+  const ov = svg(money(v, 540, 360, 128, k01(t, 1.0, 1.15)));
   return hookFrame(t, { pos: add3(c.pos, drift(t, .01)), look: c.look, fov: c.fov }, { flash: Math.max(0, .35 - (t - 1.0) * 1.4) }, ov);
 });
 shot('host-gun', 4.1, 6.4, (t) => {
@@ -185,7 +188,7 @@ shot('fake-front', 12.1, 13.05, (t) => {
   const cp = P(pose(t, 8, { turn: .7, crouch: .25, lean: .25, arms: [[.6, -1.25], [.85, -1.3]], shapeA: 'hold', shapeB: 'hold' }), pose(t, 8, { turn: .3, arms: [[-.5, -1.7], [.7, -3.0]], shapeB: 'open' }), g);
   return { t, cam: c, light: DAY([0, 0, 0], 14), cut: 12.6, sign: 1, actors: [{ id: 'claudio', look: CAST.claudio, pose: cp, face: F('happy'), pos: [-2.1, .15, 1.0], t, seed: 8, res: 1024 }, ...streetLife(t)],
     fx: [{ kind: 'motes', box: [[-4, .5, -1], [4, 3, 1.5]], n: 30, seed: 3, color: '#ffffff', size: .04, t, alpha: .35 }],
-    overlay: svg(stamp('FAKE BUSINESS', 540, 1560, 74, t, 12.3)), grade: { flash: Math.max(0, .5 - (t - 12.1) * 2.5), gain: [1.03, 1.0, .95] } };
+    grade: { gain: [1.03, 1.0, .95] } };
 });
 shot('grass', 13.05, 15.0, (t) => {
   const c = camPath(t, 13.05, 15.0, [{ p: [-.7, 1.85, -1.5], l: [.4, 1.45, -6.6], f: 34 }, { p: [-.3, 1.8, -2.1], l: [.5, 1.5, -6.6], f: 32 }], x => x);
@@ -199,7 +202,7 @@ shot('grass', 13.05, 15.0, (t) => {
     actors: [{ id: 'claudio', look: CAST.claudio, pose: cp2, face: F('happy', 'laugh', thumbs * .6), pos: [.55, .2, -7.0], t, seed: 9, res: 1024, extra: show > .1 ? turfSvg(turfAt, 1.1) : '' },
       { id: 'customer', look: CAST.customer, pose: cust, face: F('calm'), pos: [-.4, .2, -4.75], t, seed: 11, res: 1024 }],
     props: [{ name: 'Grass roll', pos: [1.5, 1.42, -6.05], rot: [0, 0, 0], scale: [1, 1, .6] }],
-    overlay: svg(chip('"ARTIFICIAL GRASS" SHOP', 90, 1640, 46, t, 13.3, 14.95)), grade: { gain: [1.04, 1.0, .96] } };
+    grade: { gain: [1.04, 1.0, .96] } };
 });
 
 // ============================================================================================== 9–11 UNDERNEATH: the cutaway reveal, digging, 80 m
@@ -211,7 +214,7 @@ shot('underneath', 15.0, 17.4, (t) => {
   return { t, cam: c, light: { ...DAY([5, -2, 0], 22), points: TUNNEL(6, 2).points }, cut: cutSweep(t), bulbs: 30, digX: 30, sign: 1,
     actors: [{ id: 'junior', look: CAST.junior, pose: climb, face: F('focused'), pos: [2.55, y, -.95], t, seed: 30, res: 768, contact: 0, tint: [.95, .82, .65] },
       { id: 'marcos', look: CAST.marcos, pose: digPose(t, 31, swing(t, .9), 1).p, extra: digPose(t, 31, swing(t, .9), 1).tool, face: F('focused'), pos: [8.4, TF, TZ], t, seed: 31, res: 768, tint: [1, .85, .62] }],
-    overlay: svg(chip('UNDERNEATH THE SHOP…', 90, 1640, 50, t, 15.9, 17.35)), grade: { gain: [1.04, 1.0, .94], vignette: .38 } };
+    grade: { gain: [1.04, 1.0, .94], vignette: .38 } };
 });
 shot('digging', 17.4, 19.4, (t) => {
   const c = camPath(t, 17.4, 19.4, [{ p: [30.75, -4.62, 1.3], l: [26.5, -5.05, .78], f: 52 }, { p: [30.7, -4.66, 1.28], l: [26.4, -5.1, .8], f: 50 }], x => x);
@@ -226,7 +229,7 @@ shot('digging', 17.4, 19.4, (t) => {
     actors: [{ id: 'marcos', look: CAST.marcos, pose: { ...dg.p, turn: .6 }, face: F('focused', 'determined', .5), pos: [29.65, TF, 1.12], t, seed: 31, res: 1536, extra: dg.tool + sweat(.25, -3.9, .8), tint: [1, .9, .74] },
       { id: 'tiago', look: CAST.tiago, pose: tp, face: shh > .3 ? { ...F('smug'), gx: 0, mOpen: 0, mO: .3 } : F('focused'), pos: [27.6, TF, .68], t, seed: 32, res: 1024, extra: shh < .3 ? shovel([tp.handA[0], tp.handA[1]], 2.2) : '', tint: [1, .88, .7] }],
     props: [{ name: 'Wheelbarrow', pos: [26.2, TF, .9], rot: [0, Math.PI, 0] }, { name: 'Bucket', pos: [28.7, TF, 1.25] }],
-    fx, overlay: svg(chip('DUG IN SECRET', 90, 1640, 50, t, 17.7, 19.3)), grade: { gain: [1.08, .98, .86], lift: [.03, .015, 0], vignette: .45, bloom: .2, exposure: .9 } };
+    fx, grade: { gain: [1.08, .98, .86], lift: [.03, .015, 0], vignette: .45, bloom: .2, exposure: .9 } };
 });
 shot('eighty-metres', 19.4, 22.7, (t) => {
   const c = camPath(t, 19.4, 22.7, [{ p: [-1.5, -3.0, 3.7], l: [30, -4.7, .7], f: 50 }, { p: [21, -2.85, 3.5], l: [54, -4.6, .7], f: 48 }, { p: [45, -2.6, 3.4], l: [80, -4.4, .7], f: 46 }], x => inOut(x));
@@ -254,7 +257,7 @@ shot('months', 22.7, 25.35, (t, l) => {
     xform: { 'Police car': { pos: [Math.max(0, t - 23.4) * 26, 0, 0] } }, show: { 'Police car': t > 23.4 && t < 25.3 },
     actors: [...streetLife(t * 3), { id: 'cop', look: CAST.cop, pose: cop, face: glance > .5 ? F('curious') : F('calm'), pos: [copX, .15, 1.6], t, seed: 40, res: 768 },
       { id: 'claudio', look: CAST.claudio, pose: pose(t, 41, { turn: -.2, arms: [[-.5, -1.7], [.75 + Math.sin(t * 14) * .12 * glance, -3.4]], shapeB: 'open' }), face: F('happy'), pos: [1.6, .2, -.6], t, seed: 41, res: 768 }],
-    overlay: svg(calendar(540, 360, months[mi], '2005', flip > .85 ? (flip - .85) / .15 * .5 : 0) + chip('NOBODY SUSPECTED A THING', 90, 1660, 46, t, 23.4, 25.3)),
+    overlay: svg(calendar(540, 360, months[mi], '2005', flip > .85 ? (flip - .85) / .15 * .5 : 0)),
     grade: { gain: [1.03, 1.0, .97], exposure: mix(1, 1.25, day) } };
 });
 function mixC(a: string, b: string, k: number) {
@@ -275,14 +278,13 @@ shot('reached', 25.35, 27.85, (t) => {
   return { t, cam: { pos: add3(c.pos, strike ? [Math.sin(t * 60) * .02 * recoil, 0, 0] : [0, 0, 0]), look: c.look, fov: c.fov }, light: TUNNEL(76, 3, { maxX: 79, extra: strike ? [{ pos: [76.85, -4.3, 1.1], color: '#ffb060', int: 18 * recoil, dist: 4 }] : [] }), cut: null, tunnelWall: true, bulbs: 79,
     actors: [{ id: 'marcos', look: CAST.marcos, pose: { ...dg.p, turn: .55 }, face: bface, pos: [76.15, TF, 1.12], t, seed: 31, res: 1536, extra: dg.tool, tint: [1, .88, .7] },
       { id: 'bira', look: CAST.bira, pose: pose(t, 33, { turn: .7, crouch: .2, lean: .1, arms: [[.4, -2.0], [.9, -2.9]], shapeB: 'hold', headTilt: strike ? -.25 : 0 }), face: strike ? F('shocked') : F('focused'), pos: [74.7, TF, .66], t, seed: 33, res: 1024, extra: torchSvg([.9, -2.9], -.5), tint: [1, .88, .7] }],
-    fx, overlay: svg(stamp('CLANG!', 760, 820, 72, t, 26.86, '#ffd34d', 8, 27.6)), grade: { gain: [1.08, .98, .86], vignette: .45, flash: strike ? recoil * .25 : 0 } };
+    fx, grade: { gain: [1.08, .98, .86], vignette: .45, flash: strike ? recoil * .25 : 0 } };
 });
 shot('problem', 27.85, 29.2, (t) => {
   const c = camPath(t, 27.85, 29.2, [{ p: [78.35, -5.5, 1.3], l: [76.6, -4.35, .85], f: 46 }, { p: [78.3, -5.52, 1.28], l: [76.7, -4.3, .85], f: 44 }], x => x);
   return { t, cam: c, light: TUNNEL(73, 2, { maxX: 75, extra: [{ pos: [77.0, -4.9, 1.3], color: '#fff1c8', int: 3, dist: 3 }] }), cut: null, tunnelWall: true, bulbs: 79,
     actors: [{ id: 'marcos', look: CAST.marcos, pose: pose(t, 31, { turn: .4, headTilt: -.35, headLift: .05, arms: [[-.5, -1.7], [.3, -2.4]] }), face: { ...F('worried'), gy: -.9, gx: .3 }, pos: [77.3, TF, .72], t, seed: 31, res: 1536, extra: sweat(.32, -3.95, 1), tint: [1, .9, .74] },
       { id: 'bira', look: CAST.bira, pose: pose(t, 33, { turn: .5, headTilt: -.4, arms: [[-.5, -1.7], [.7, -3.3]], shapeB: 'hold' }), face: { ...F('worried', 'fear', k01(t, 28.4, 29)), gy: -.9, gx: .4 }, pos: [76.5, TF, 1.12], t, seed: 33, res: 1536, extra: torchSvg([.7, -3.3], -1.2), tint: [1, .9, .74] }],
-    overlay: svg(pop('ONE MASSIVE PROBLEM', 540, 1600, 62, t, 28.2, { color: '#ffd34d' })),
     grade: { gain: [1.06, .98, .9], vignette: .5, exposure: .78 } };
 });
 shot('vault-slab', 29.2, 32.05, (t) => {
@@ -291,7 +293,7 @@ shot('vault-slab', 29.2, 32.05, (t) => {
   return { t, cam: c, light: { ...VAULT(.9, [{ pos: [77.2, -4.6, 1.2], color: '#ffb260', int: 6, dist: 6 }, { pos: [78.1, -3.4, 5.5], color: '#e8eef8', int: 14, dist: 12 }]), hemi: ['#cfe0ff', '#30343c', .4] }, cut: 1.52, bulbs: 79,
     actors: [{ id: 'marcos', look: CAST.marcos, pose: pose(t, 31, { turn: .3, headTilt: -.3 }), face: { ...F('worried'), gy: -.8 }, pos: [77.6, TF, TZ], t, seed: 31, res: 512, tint: [1, .88, .7] },
       { id: 'bira', look: CAST.bira, pose: pose(t, 33, { turn: .5, headTilt: -.35 }), face: { ...F('worried'), gy: -.8 }, pos: [76.7, TF, TZ - .1], t, seed: 33, res: 512, tint: [1, .88, .7] }],
-    overlay: svg(chip('THE VAULT', 640, 470, 46, t, 29.4) + measure(pr, [76.9, -4.1, 1.62], [76.9, -3.0, 1.62], m, m > .95 ? '1+ METRE' : (m * 1.1).toFixed(1) + ' M', { size: 54, side: 1 })),
+    overlay: svg(measure(pr, [76.9, -4.1, 1.62], [76.9, -3.0, 1.62], m, m > .95 ? '1+ METRE' : (m * 1.1).toFixed(1) + ' M', { size: 54, side: 1 })),
     grade: { gain: [.98, 1.0, 1.04] } };
 });
 shot('reinforced', 32.05, 34.2, (t) => {
@@ -310,7 +312,7 @@ shot('break-through', 34.2, 36.0, (t) => {
     { kind: 'motes', box: [[77.4, -2.95, .3], [78.8, -.7, 1.4]], n: 120, seed: 13, color: '#ffd9a0', size: .03, t, alpha: .6 });
   return { t, cam: { pos: add3(c.pos, [rumble, rumble * .5, 0]), look: c.look, fov: c.fov }, light: VAULT(.38, broke ? [{ pos: [78.1, -3.5, .85], color: '#ffb468', int: 22, dist: 6, shadow: true }] : []), cut: null, vaultWall: true,
     floorCracks: broke ? 0 : cr, show: { 'Floor plug': !broke }, beam: broke ? { at: [78.1, -3.6, .85], dir: [0, 3.2, 0], k: k01(t, bt, bt + .3) } : undefined, fx,
-    overlay: svg(stamp('CRACK!', 540, 700, 80, t, bt, '#ffffff', -8, 35.95)), grade: { flash: broke ? Math.max(0, .45 - (t - bt) * 2) : 0, bloom: .7, gain: [1.02, 1.0, 1.02], vignette: .5 } };
+    grade: { flash: broke ? Math.max(0, .45 - (t - bt) * 2) : 0, bloom: .7, gain: [1.02, 1.0, 1.02], vignette: .5 } };
 });
 
 // ============================================================================================== 18–21 INSIDE THE VAULT
@@ -336,7 +338,7 @@ shot('unbelievable-face', 38.45, 39.45, (t) => {
   const glints: Emitter = { kind: 'motes', box: [[76, -2.9, -1], [80, -1.0, 1.4]], n: 40, seed: 25, color: '#fff6d0', size: .035, t: t * 3, alpha: .7 };
   return { t, cam: c, light: VAULT(1, [{ pos: [76.9, -1.6, .2], color: '#fff3d8', int: 8, dist: 4 }]), cut: null, vaultWall: true, show: { 'Floor plug': false },
     actors: [{ id: 'bira', look: CAST.bira, pose: pose(t, 33, { turn: -.35, arms: [[-.95, -2.05], [.95, -2.05]], shapeA: 'open', shapeB: 'open', headLift: .04 * gesture(t, 38.8, .3) }), face: F('shocked', 'laugh', k01(t, 38.75, 39.15)), pos: [78.1, -3.42, .85], t, seed: 33, res: 2048, contact: 0, tint: [.97, .97, 1] }],
-    fx: [glints], overlay: svg(chip('R$164,755,150 IN CASH', 540, 1640, 50, t, 38.5, 99, 'middle')), grade: { bloom: .5, gain: [1.0, 1.0, 1.05] } };
+    fx: [glints], grade: { bloom: .5, gain: [1.0, 1.0, 1.05] } };
 });
 const palletsLeft = (t: number) => Math.round(mix(10, 2, inOut(k01(t, 39.8, 42.0))));
 const palletShow = (n: number) => Object.fromEntries(Array.from({ length: 10 }, (_, i) => ['Pallet ' + i, i < n]));
@@ -348,20 +350,20 @@ shot('weekend', 39.45, 42.05, (t) => {
   const junior = pose(fast, 35, { turn: -.4, crouch: .6, lean: .45, arms: [[-.8 - lift * .2, -1.1 - (1 - lift) * .3], [-.4 - lift * .2, -1.05 - (1 - lift) * .3]], shapeA: 'hold', shapeB: 'hold' });
   const hours = mix(2, 47, k01(t, 39.6, 42.0)); const day = hours < 24 ? 'SATURDAY' : 'SUNDAY';
   return { t, cam: c, light: VAULT(1), cut: null, vaultWall: true, show: { 'Floor plug': false, ...palletShow(palletsLeft(t)) },
-    actors: [{ id: 'tiago', look: CAST.tiago, pose: tiago, face: F('focused'), pos: [76.0, VF, -.4], t: fast, seed: 34, res: 1024, extra: brick([(tiago.handA[0] + tiago.handB[0]) / 2, (tiago.handA[1] + tiago.handB[1]) / 2 - .25], 0, .9), tint: [.95, .97, 1] },
-      { id: 'junior', look: CAST.junior, pose: junior, face: F('focused'), pos: [78.1, VF, .55], t: fast, seed: 35, res: 1024, extra: lift < 0 ? brick([(junior.handA[0] + junior.handB[0]) / 2, junior.handA[1] - .25], 0, .9) : '', tint: [.95, .97, 1] }],
+    actors: [{ id: 'tiago', look: CAST.tiago, pose: tiago, face: F('focused'), pos: [76.0, VF, -.4], t: fast, seed: 34, res: 1024, extra: bag([(tiago.handA[0] + tiago.handB[0]) / 2, (tiago.handA[1] + tiago.handB[1]) / 2 - .05], 0, .9), tint: [.95, .97, 1] },
+      { id: 'junior', look: CAST.junior, pose: junior, face: F('focused'), pos: [78.1, VF, .55], t: fast, seed: 35, res: 1024, extra: lift < 0 ? bag([(junior.handA[0] + junior.handB[0]) / 2, junior.handA[1] - .05], 0, .9) : '', tint: [.95, .97, 1] }],
     overlay: svg(clock(540, 380, hours, day)), grade: { gain: [1.0, 1.0, 1.04], whip: 0 } };
 });
 shot('tonnes', 42.05, 44.5, (t) => {
   const d = (t - 42.05) * 1.35; const xR = 60 - d, xJ = xR + 2.9, xT = xR + 5.0;
   const c = { pos: [xR - 2.7, -4.62, 1.25] as V3, look: [xR + 2.5, -5.05, .85] as V3, fov: 50 };
   const step = (dd: number, hands: [V2, V2]): Pose => { const p = walkFront(dd, {}); p.turn = -.35; p.handA = hands[0]; p.handB = hands[1]; p.shapeA = p.shapeB = 'hold'; p.lean = -.06; return p; };
-  const ren = step(d, [[-.55, -1.75], [.55, -1.8]]); const jun = step(d + .3, [[-.45, -2.15], [.45, -2.2]]); const tia = step(d + .6, [[-.45, -2.5], [.45, -2.5]]);
+  const ren = step(d, [[-.55, -1.75], [.55, -1.8]]); const jun = step(d + .3, [[-.45, -2.15], [.45, -2.2]]); const tia = step(d + .6, [[-.38, -2.95], [.42, -3.2]]);
   const cart: PropState[] = [{ name: 'Cash cart', pos: [xR + 1.25, TF, .85], rot: [0, Math.PI, 0] }, { name: 'Cash cart', pos: [xJ - 1.2, TF, .85], rot: [0, Math.PI, 0] }];
   return { t, cam: c, light: TUNNEL(xR + 1, 4, { int: 6 }), cut: null, tunnelWall: true, bulbs: 80,
     actors: [{ id: 'renato', look: CAST.renato, pose: ren, face: F('determined'), pos: [xR, TF, .9], t, seed: 36, res: 1024, tint: [1, .9, .76] },
       { id: 'junior', look: CAST.junior, pose: jun, face: F('focused'), pos: [xJ, TF, 1.0], t, seed: 35, res: 768, tint: [1, .88, .72] },
-      { id: 'tiago', look: CAST.tiago, pose: tia, face: F('focused'), pos: [xT, TF, .85], t, seed: 32, res: 768, extra: brick([0, -2.75]), tint: [1, .88, .72] }],
+      { id: 'tiago', look: CAST.tiago, pose: tia, face: F('focused'), pos: [xT, TF, .85], t, seed: 32, res: 768, extra: bag([.05, -3.25], -8, .95) + bag([-.55, -1.75], 6, .8), tint: [1, .88, .72] }],
     props: cart, fx: [{ kind: 'motes', box: [[xR - 3, -5.8, .5], [xR + 6, -4.2, 1.5]], n: 60, seed: 16, color: '#ffcf8a', size: .025, t, alpha: .45 }],
     overlay: svg(stamp('3.5 TONNES', 540, 330, 120, t, 42.15, '#ffd34d', -4) + pop('OF CASH', 540, 460, 64, t, 42.5, { weight: 900 })),
     grade: { gain: [1.08, .98, .86], vignette: .4 } };
@@ -386,7 +388,7 @@ shot('monday', 45.95, 47.55, (t) => {
   const walkers = (['clerk', 'clerk2', 'clerk3'] as const).map((w, i) => {
     const d = (t - 45.95) * 1.25 + i * .3; const p = walkFront(d, { away: true }); return { id: w, look: CAST[w], pose: p, face: F('calm'), pos: [76.8 + i * 1.3, .2, 2.0 - d - i * .5] as V3, t, seed: 60 + i, res: 768 } as ActorState;
   });
-  return { t, cam: c, light: DAY([78, 0, 0], 25), cut: null, actors: walkers, overlay: svg(calendar(540, 360, 'MON', 'AUGUST 8', 0) + chip('MONDAY MORNING', 540, 1640, 50, t, 46.1, 99, 'middle')), grade: { gain: [1.02, 1.0, .98] } };
+  return { t, cam: c, light: DAY([78, 0, 0], 25), cut: null, actors: walkers, overlay: svg(t > 47.45 ? `<g transform="translate(540 360) scale(${outBack(k01(t, 47.45, 47.8), 1.8)}) translate(-540 -360)">${calendar(540, 360, 'MON', 'AUGUST 8', 0)}</g>` : ''), grade: { gain: [1.02, 1.0, .98] } };
 });
 shot('door-opens', 47.55, 48.9, (t) => {
   const c = camPath(t, 47.55, 48.9, [{ p: [80.6, -1.75, .3], l: [72.6, -1.95, -1.3], f: 40 }, { p: [80.1, -1.75, .25], l: [72.6, -1.95, -1.3], f: 38 }], x => x);
@@ -407,7 +409,9 @@ shot('vanished', 48.9, 50.55, (t) => {
   return { t, cam: c, light: VAULT(1, [{ pos: [70, -1.4, -1.4], color: '#fff2d8', int: 26, dist: 9 }]), cut: null, vaultWall: true, show: { ...palletShow(0), 'Floor plug': false },
     xform: { 'Vault door': { rot: [0, 1.75, 0] } },
     actors: [{ id: 'clerk', look: CAST.clerk, pose: pz, face: drop ? F('shocked', 'terror', k01(t, 49.6, 50.0)) : F('curious', 'confused', k01(t, 48.9, 49.3)), pos: [73.4, VF, -1.25], t, seed: 60, res: 1536,
-      extra: cupY < -.1 ? cupSvg([cupX, Math.min(cupY, -.15)], drop ? dt * 400 : 0) : '', tint: [.95, .96, 1] }],
+      extra: cupY < -.1 ? cupSvg([cupX, Math.min(cupY, -.15)], drop ? dt * 400 : 0) : '', tint: [.95, .96, 1] },
+      ...(t > 49.15 ? [{ id: 'clerk2', look: CAST.clerk2, pose: P(walkPose(k01(t, 49.15, 49.7) * .75 / .4167, 1, { step: 1.15 }), pose(t, 61, { turn: .5, arms: [[-.32, -3.45], [.32, -3.45]], shapeA: 'open', shapeB: 'open', headLift: .05 }), k01(t, 49.6, 49.85)),
+        face: t > 49.6 ? F('shocked', 'terror', k01(t, 49.9, 50.2)) : F('curious'), pos: [71.5 + k01(t, 49.15, 49.7) * .75, VF, -1.75] as V3, t, seed: 61, res: 1024, tint: [.92, .94, 1] } as ActorState] : [])],
     fx: drop && dt > .32 ? [{ kind: 'puff', at: [73.6, VF, -1.1], t: dt - .32, n: 8, seed: 18, spread: .3, rise: .05, size: .25, color: '#5a3a22', alpha: .5, dur: 1 }] : [],
     overlay: ov, grade: { gain: [1.0, 1.0, 1.04], vignette: .45 } };
 });
@@ -419,7 +423,7 @@ shot('history', 50.55, 52.6, (t) => {
   return { t, cam: c, light: { ...GOLD([60, -2, 0], 50), points: [{ pos: [74, 1.4, 5.2], color: '#3060ff', int: 30 * (Math.sin(t * 20) > 0 ? 1 : .1), dist: 10 }, { pos: [74, 1.4, 4.8], color: '#ff2020', int: 30 * (Math.sin(t * 20) > 0 ? .1 : 1), dist: 10 }] },
     cut: 1.52, bulbs: 80, show: { 'Police car': true, ...palletShow(0), 'Floor plug': false }, xform: { 'Police car': { pos: [104, 0, 0] } }, actors: cops,
     overlay: svg(pop('THE FORTALEZA HEIST', 540, 300, 84, t, 50.7, { weight: 900 }) + pop('BANCO CENTRAL · 2005', 540, 372, 44, t, 50.9, { weight: 700, color: '#ffd34d', track: 4 }) +
-      chip('78 M TUNNEL', 90, 1560, 44, t, 51.2) + chip('3.5 TONNES', 90, 1650, 44, t, 51.4) + chip('R$164.8 MILLION', 90, 1740, 44, t, 51.6)),
+      ''),
     grade: { gain: [1.06, 1.0, .93], bloom: .5 } };
 });
 function feetShot(t: number, withHost: boolean): Frame {
@@ -445,14 +449,115 @@ function feetShot(t: number, withHost: boolean): Frame {
     props: [{ name: 'Cash cart', pos: [cartX - 1.3, TF, TZ], rot: [0, Math.PI, 0] }],
     fx: withHost && dustT > 0 ? [{ kind: 'puff', at: [41.4, -4.15, TZ], t: dustT, n: 12, seed: 19, spread: .3, rise: -.4, size: .35, color: '#8a6a4a', alpha: .45, dur: 1.4 },
       { kind: 'debris', at: [41.4, -4.15, TZ], t: dustT, n: 8, seed: 20, spread: .3, up: 0, floor: TF, size: .03, color: '#7a5233' }] : [],
-    overlay: svg(withHost ? '' : pop('RIGHT BENEATH', 540, 860, 86, t, 53.0) + pop("EVERYONE'S FEET", 540, 960, 86, t, 53.35, { color: '#ffd34d' })),
+    
     grade: { gain: [1.04, 1.0, .95], fade: k01(t, 57.45, 58.0) } };
 }
 shot('feet', 52.6, 54.75, t => feetShot(t, false));
 shot('host-end', 54.75, 58.0, t => feetShot(t, true));
 
+// ============================================================================================== v2 NEW SHOTS (natural times = film times)
+shot('slab-oner', 0.0, 3.95, (t) => {
+  // one continuous push from the vault cross-section into the slab: "protected by over a metre of reinforced concrete"
+  const F0 = S.find(x => x.name === 'vault-slab')!.f(29.0 + t, t - .2);
+  const c = camPath(t, 0, 3.95, [{ p: [78.1, -2.35, 9.6], l: [78.1, -3.05, 0], f: 36 }, { p: [78.15, -2.6, 8.0], l: [78.1, -3.25, 0], f: 36 }, { p: [78.7, -3.05, 6.3], l: [78.0, -3.45, 0], f: 34 }, { p: [78.9, -3.15, 5.4], l: [77.95, -3.55, 0], f: 33 }], inOut);
+  const xr = inOut(k01(t, 2.55, 3.1)); const pr = projector(c.pos, c.look, c.fov); const m = inOut(k01(t, 1.35, 2.05)) * (1 - k01(t, 2.5, 2.7));
+  return { ...F0, t, cam: c, slab: xr, rebarGlow: xr,
+    light: { ...F0.light, points: [...(F0.light.points ?? []).slice(0, 4), { pos: [78.6, -3.3, 6.0], color: '#e8eef8', int: 13, dist: 12 }, { pos: [78, -3.6, 2.5], color: '#ff8a40', int: 3 * xr, dist: 5 }] },
+    overlay: svg((m > 0 ? measure(pr, [77.45, -4.1, 1.62], [77.45, -3.0, 1.62], m, m > .95 ? '1+ METRE' : (m * 1.1).toFixed(1) + ' M', { size: 54, side: -1 }) : '') + stamp('REINFORCED CONCRETE', 540, 1520, 66, t, 2.7, '#ff7a2a', -3)),
+    grade: { gain: [.99, 1.0, 1.03], bloom: .4 } };
+});
+shot('cctv-guard', 15.0, 17.15, (t) => {
+  const c = camPath(t, 15.0, 17.15, [{ p: [72.8, 2.62, -6.75], l: [72.8, 2.62, -8.28], f: 50 }, { p: [72.85, 2.64, -6.6], l: [72.8, 2.62, -8.28], f: 50 }, { p: [75.5, 2.55, -7.7], l: [73.4, 2.25, -9.1], f: 42 }, { p: [76.7, 2.25, -9.7], l: [72.8, 2.05, -9.25], f: 40 }],
+    x => x < .25 ? x * .4 : x < .62 ? .1 + inOut((x - .25) / .37) * .9 : 1);
+  const g = pose(t, 50, { turn: .3, crouch: .45, lean: -.3, headTilt: -.45 + Math.sin(t * 1.3) * .03, headLift: -.05, arms: [[-.7, -1.5], [.6, -1.45]], footA: [-.5, -.08], footB: [.7, -.08] });
+  return { t, cam: c, light: { ...NIGHT([72, 1, -8]), hemi: ['#30457a', '#1a1410', .28], points: [{ pos: [72.8, 3.0, -7.9], color: '#8fd0b0', int: 6, dist: 5 }, { pos: [74, 5.2, -9], color: '#c8d8ff', int: 4, dist: 7 }] }, cut: null,
+    actors: [{ id: 'guard', look: CAST.guard, pose: g, face: { ...F('tired'), eyeOpen: 0, mOpen: .3 + Math.sin(t * 1.3) * .08, mO: .5 }, pos: [72.8, 1.22, -9.25], t, seed: 50, res: 1024, noAuto: true, extra: t > 15.9 ? zzz(t) : '', tint: [.85, .95, .95] }],
+    grade: { gain: [.95, 1.02, 1.05], vignette: .55 } };
+});
+shot('gang-rent-bank', 36.05, 39.55, (t) => {
+  const arrive = 37.25;
+  const crew: [string, number, number][] = [['bira', -.55, 1.45], ['marcos', -1.45, 2.0], ['tiago', -2.25, 1.65], ['claudio', -3.0, 2.2], ['junior', -3.7, 1.85]];
+  const acts: ActorState[] = crew.map(([who, xe, z], i) => {
+    const start = xe - 6.3, sp = 6.3 / (arrive - 36.05 + i * .12); const d = Math.min(6.3, Math.max(0, t - 36.05) * sp); const x = start + d;
+    const walk = walkPose(d / .4167, 1, { step: 1.15 }); const stand = pose(t, 20 + i, { turn: .8, headTurn: who === 'bira' ? 0 : .1 });
+    let p = P(walk, stand, k01(6.3 - d, .35, 0));
+    if (who === 'bira') {
+      const take = gesture(t, 37.55, .3), shake = k01(t, 37.95, 38.4);
+      p = P(p, pose(t, 6, { turn: .8, lean: .05, arms: [[.45, -1.7], [1.0, -2.32]], shapeB: 'hold' }), take);
+      p.handB = [p.handB[0], p.handB[1] + Math.sin(shake * Math.PI * 6) * .07 * (1 - shake)];
+    }
+    return { id: who, look: CAST[who], pose: p, face: who === 'bira' ? F('calm', 'smug', k01(t, 37.7, 38.1)) : F('focused'), pos: [x, .15, z] as V3, t, seed: 20 + i, res: 768, lean: 0,
+      extra: who === 'bira' && t > 37.85 ? keySvg([p.handB[0] + .12, p.handB[1]]) : '' };
+  });
+  const give = gesture(t, 37.4, .35) * (1 - k01(t, 37.85, 38.0)), shake2 = k01(t, 37.95, 38.4);
+  const lp = P(pose(t, 5, { turn: -.8, arms: [[-.5, -1.7], [-.4, -1.72]] }), pose(t, 5, { turn: -.8, lean: -.05, arms: [[-1.05, -2.35], [-.45, -1.72]], shapeA: 'hold' }), Math.max(give, shake2 > 0 && shake2 < 1 ? 1 : 0));
+  lp.handA = [lp.handA[0], lp.handA[1] + Math.sin(shake2 * Math.PI * 6) * .07 * (1 - shake2)];
+  acts.push({ id: 'landlord', look: CAST.landlord, pose: lp, face: F('happy'), pos: [.55, .15, 1.45], t, seed: 5, res: 768, lean: 0, extra: t < 37.85 && give > .2 ? keySvg([lp.handA[0] - .12, lp.handA[1]]) : '' });
+  const follow = Math.min(-.3, -6.6 + Math.max(0, t - 36.05) * 5.2);
+  const c = t < 38.35 ? camPath(t, 36.05, 38.35, [{ p: [follow + .2, 1.75, 9.4], l: [follow - 1.0, 1.4, 1.4], f: 46 }, { p: [follow + .2, 1.8, 9.2], l: [follow - 1.0, 1.45, 1.4], f: 46 }], x => x)
+    : camPath(t, 38.35, 39.55, [{ p: [-.1, 1.8, 9.2], l: [-1.3, 1.45, 1.4], f: 46 }, { p: [3, 4.5, 9.2], l: [28, 3, -2], f: 36 }, { p: [8, 7.5, 9.6], l: [66, 5, -4], f: 32 }], inOut);
+  const pr = projector(c.pos, c.look, c.fov);
+  return { t, cam: c, light: DAY([0, 0, 1], 18), cut: 12.6, sign: 0, actors: [...acts, ...streetLife(t)],
+    overlay: svg(pin(pr, [0, 5.6, 0], 'THE SHOP', t, 38.55) + pin(pr, [78, 15.8, -3], 'CENTRAL BANK', t, 38.8)), grade: { gain: [1.03, 1.0, .95] } };
+});
+shot('tunnel-track', 45.0, 47.6, (t) => {
+  const x = 6 + inOut(k01(t, 45.0, 47.6)) * 16 + (t - 45.0) * .4; const sway = Math.sin(t * 2.1) * .03;
+  const c = { pos: [x, -4.78 + sway * .5, .95 + sway] as V3, look: [x + 6, -4.95, .95] as V3, fov: 54 };
+  const m = inOut(k01(t, 45.15, 46.2)); const metres = Math.round(m * 78);
+  const ren = walkPose((t - 45.0) * 1.2 / .4167, 1, { step: 1.15 }); ren.handA = [.95, -1.55]; ren.handB = [1.0, -1.6]; ren.shapeA = ren.shapeB = 'hold'; ren.lean = .12;
+  const jun = walkPose((t - 45.0) * 1.1 / .4167, -1, { step: 1.15 }); jun.handB = [-.55, -1.55]; jun.shapeB = 'hold';
+  const sw = swing(t, .95);
+  const acts: ActorState[] = [
+    { id: 'renato', look: CAST.renato, pose: ren, face: F('focused'), pos: [27.5 + (t - 45.0) * 1.2, TF, .72], t, seed: 36, res: 768, tint: [1, .88, .72] },
+    { id: 'junior', look: CAST.junior, pose: jun, face: F('determined'), pos: [33.5 - (t - 45.0) * 1.1, TF, 1.2], t, seed: 35, res: 768, extra: `<g transform="translate(-.55 -1.55)"><path d="M-.18 0 L.18 0 L.14 .34 L-.14 .34Z" fill="#2a5db0" ${O}/></g>`, tint: [1, .88, .72] },
+    { id: 'marcos', look: CAST.marcos, pose: digPose(t, 31, sw, 1).p, face: F('focused'), pos: [40.5, TF, .9], t, seed: 31, res: 768, extra: digPose(t, 31, sw, 1).tool, tint: [1, .88, .72] }];
+  return { t, cam: c, light: TUNNEL(x + 4, 5, { int: 6 }), cut: null, tunnelWall: true, bulbs: 80, digX: 41.4, actors: acts,
+    props: [{ name: 'Wheelbarrow', pos: [28.6 + (t - 45.0) * 1.2, TF, .72], rot: [0, 0, 0] }, { name: 'Bucket', pos: [12.5, TF, 1.3] }, { name: 'Bucket', pos: [17.0, TF, .55] }, { name: 'Shovel', pos: [14.6, TF + .55, .5], rot: [0, 0, .25] }, { name: 'Work lamp', pos: [21.0, -4.25, 1.38] }],
+    fx: [{ kind: 'motes', box: [[x, -5.8, .45], [x + 9, -4.2, 1.45]], n: 80, seed: 21, color: '#ffcf8a', size: .025, t, alpha: .5 }],
+    overlay: svg(`<g opacity="${k01(t, 45.1, 45.3)}">${money(metres, 540, 330, 150, 1, '', '#ffd34d').replace('</text>', ' M</text>')}</g>` + stamp('≈ 80 METRES LONG', 540, 470, 64, t, 46.2, '#ffd34d', -4)),
+    grade: { gain: [1.08, .98, .86], vignette: .42, whip: Math.max(0, .25 - (t - 45.0) * 1.2) } };
+});
+shot('problem-loop', 52.45, 56.0, (t) => {
+  const src = S.find(x => x.name === 'problem')!; const F0 = src.f(Math.min(29.15, 27.85 + (t - 52.45)), Math.min(1.3, t - 52.45));
+  const tilt = inOut(k01(t, 54.55, 55.85));
+  const a = camPath(t, 52.45, 54.55, [{ p: [78.35, -5.5, 1.3], l: [76.6, -4.35, .85], f: 46 }, { p: [78.3, -5.52, 1.28], l: [76.7, -4.3, .85], f: 44 }], x => x);
+  const cam = { pos: [mix(a.pos[0], 77.9, tilt), mix(a.pos[1], -5.0, tilt), mix(a.pos[2], 1.0, tilt)] as V3, look: [mix(a.look[0], 77.0, tilt), mix(a.look[1], -4.1, tilt), mix(a.look[2], .92, tilt)] as V3, fov: mix(a.fov, 40, tilt) };
+  return { ...F0, t, cam, grade: { ...(F0.grade ?? {}), exposure: .78 } };
+});
+
 export const SHOTS = S;
+/** v2 edit: [film start, film end, source shot, source time at film start] — keyed to the measured narration (production/brazil-heist/timing-v2.json). */
+export const EDIT: [number, number, string, number][] = [
+  [0.00, 3.95, 'slab-oner', 0.0],            // "The vault was protected by over a metre of reinforced concrete"  (1 m bracket on "metre" 1.96, x-ray on "reinforced" 2.6)
+  [3.95, 6.30, 'break-through', 33.8],       // "but somehow they broke through"  (tension 4.5–5.3, burst 5.3)
+  [6.30, 7.75, 'emerge', 36.0],              // "and what they found inside"
+  [7.75, 8.75, 'unbelievable', 37.55],       // lights on the cash
+  [8.75, 9.60, 'unbelievable-face', 38.45],  // "was unbelievable"
+  [9.60, 12.05, 'weekend', 39.45],           // "Over one weekend, the thieves moved"
+  [12.05, 15.00, 'tonnes', 42.05],           // "three and a half tonnes of cash through the tunnel"
+  [15.00, 17.15, 'cctv-guard', 15.0],        // "No alarms, no guards stopping them"
+  [17.15, 19.40, 'monday', 45.95],           // "and when employees returned on Monday"  (MON card on "Monday" 18.8)
+  [19.40, 20.75, 'door-opens', 47.55],       // "nearly seventy million dollars"
+  [20.75, 22.80, 'vanished', 48.26],         // "had vanished"  (coffee drops on "vanished" 21.85)
+  [22.80, 25.45, 'history', 50.55],          // "One of the biggest bank heists in history"
+  [25.45, 28.05, 'feet', 52.6],              // "happened right beneath everyone's feet"
+  [28.05, 30.25, 'host-open', -1.2],         // "These thieves stole nearly…"
+  [30.25, 32.40, 'host-70m', 1.0],           // "…seventy million dollars from a bank"
+  [32.40, 34.45, 'host-gun', 3.8],           // "without using a single gun"
+  [34.45, 36.05, 'rewind-2005', 6.4],        // "Back in 2005"
+  [36.05, 39.55, 'gang-rent-bank', 36.05],   // "a gang in Brazil rented a building near the Central Bank"
+  [39.55, 40.50, 'fake-front', 12.1],        // "They pretended…"
+  [40.50, 41.95, 'grass', 13.05],            // "…to sell artificial grass"
+  [41.95, 43.45, 'underneath', 15.0],        // "but underneath that building"
+  [43.45, 45.00, 'digging', 17.4],           // "they were secretly digging"
+  [45.00, 47.60, 'tunnel-track', 45.0],      // "a tunnel almost eighty metres long"
+  [47.60, 50.35, 'months', 22.7],            // "For months, nobody suspected a thing"
+  [50.35, 52.45, 'reached', 25.21],          // "and when they finally reached the bank"  (pickaxe hits concrete on "bank" 52.0)
+  [52.45, 56.00, 'problem-loop', 52.45],     // "there was one massive problem" → tilt up into the concrete (loops to frame 0)
+];
 export function frameAt(frame: number): Frame {
-  const t = frame / FPS; const s = S.find(x => t >= x.t0 && t < x.t1) ?? S[S.length - 1];
-  return s.f(t, t - s.t0);
+  const t = frame / FPS; AUDIO_T = t;
+  const e = EDIT.find(x => t >= x[0] && t < x[1]) ?? EDIT[EDIT.length - 1];
+  const src = S.find(x => x.name === e[2])!; const st = e[3] + (t - e[0]);
+  const F0 = src.f(st, st - src.t0); return { ...F0, t: st };
 }
