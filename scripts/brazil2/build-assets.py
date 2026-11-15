@@ -2,6 +2,7 @@
 Same conventions as Part 1 (Three.js metres; KEEP objects animated in Three; materials named by surface type). Sets are placed away from the Part 1 world:
   safehouse x 200-209 (floor y .15, front z 0, street z 0..10) · police HQ office x 220-232 · evidence room x 240-248 · roadside x 260-300 · HQ facade/garage x 310-336.
 """
+import bpy, bmesh, math, random
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'public/brazil2'; OUT.mkdir(parents=True, exist_ok=True)
