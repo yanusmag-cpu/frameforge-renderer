@@ -1,4 +1,5 @@
 name: Keep a finished video permanently (draft release)
+run-name: Preserve finished video — ${{ inputs.tag }}
 # Manual only. Copies a verified complete-* artifact into a DRAFT release, which never expires and is visible only
 # to people with write access to this repository. Renders nothing, deletes nothing, never overwrites a release.
 on:
