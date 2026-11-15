@@ -1,5 +1,5 @@
 """Landscape extension: arbitrary duration, absolute 300-frame chunks, silent public masters."""
-import argparse,hashlib,json,math,os,subprocess,sys,urllib.request,urllib.parse,zipfile,io
+import argparse,hashlib,json,math,os,subprocess,sys,urllib.request,urllib.parse,zipfile,io,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 CONFIG=ROOT/os.environ.get('FRAMEFORGE_RENDER_PROJECT','production/scofield-jane/render-project.json')
@@ -19,6 +19,8 @@ def verify(path,frames):
  if len(ts)!=frames or ts[0]['key_frame']!=1 or any(abs(float(s['best_effort_timestamp_time'])-i/P['fps'])>.0001 for i,s in enumerate(ts)):raise ValueError('Invalid timestamps')
  decoded=hashes(path)
  if len(decoded)!=frames:raise ValueError('Decode incomplete')
+ scan=subprocess.run(['ffmpeg','-hide_banner','-i',str(path),'-an','-vf','blackdetect=d=0.02:pix_th=0.015:pic_th=0.995','-f','null','-'],capture_output=True,text=True,check=True)
+ if 'black_start:' in scan.stderr:raise ValueError('Unexpected black frame detected')
  return decoded
 class Redirect(urllib.request.HTTPRedirectHandler):
  def redirect_request(self,req,fp,code,msg,headers,url):
@@ -59,7 +61,16 @@ def main():
  if a.command=='chunk':
   spec=ranges()[a.index]
   if reuse(a.folder,a.index,key):print('Verified unchanged chunk reused');return
-  subprocess.run(['npx','remotion','render','src/index.ts',P['composition'],str(a.folder/'chunk.mp4'),f"--frames={spec['start']}-{spec['end']}",'--muted','--codec=h264','--crf=18','--x264-preset=fast','--pixel-format=yuv420p','--gl=swangle','--concurrency=1'],check=True,timeout=9000)
+  command=['npx','remotion','render','src/index.ts',P['composition'],str(a.folder/'chunk.mp4'),f"--frames={spec['start']}-{spec['end']}",'--muted','--codec=h264','--crf=18','--x264-preset=fast','--pixel-format=yuv420p','--gl=swangle','--concurrency=1']
+  started=time.monotonic()
+  for attempt in range(2):
+   try:
+    subprocess.run(command,check=True,timeout=max(1,9000-(time.monotonic()-started)));break
+   except subprocess.CalledProcessError:
+    if attempt or time.monotonic()-started>1200:raise
+    print('Retrying this failed chunk once within its original time budget',flush=True)
+    (a.folder/'chunk.mp4').unlink(missing_ok=True);time.sleep(5)
+
   record(a.folder,a.index,key,True);return
  records={}
  for manifest in a.folder.rglob('manifest.json'):

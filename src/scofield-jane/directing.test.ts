@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {stage,doorHandle,escapeDistance,gateOpening,localTarget} from './directing';
+import {actorPose,type V3} from './motion';
+const distance=(a:V3,b:V3)=>Math.hypot(...a.map((v,i)=>v-b[i]));
+test('Door grip uses the actual rotating handle and remains within arm reach',()=>{for(let t=81.3;t<82.55;t+=1/30){const a=stage(t).actors![0],p=actorPose(a.id,t,a.action,a.elapsed,false,a.performance),h=p.rightArm.end,yaw=a.yaw??0;const world:V3=[a.position[0]+Math.cos(yaw)*(h[0]+p.root)+Math.sin(yaw)*h[2],a.position[1]+h[1],a.position[2]-Math.sin(yaw)*(h[0]+p.root)+Math.cos(yaw)*h[2]];assert.ok(distance(world,doorHandle(t))<.025,`Lost door contact at ${t}`);}});
+test('Michael is fully beyond the perimeter when narration says the clock stops',()=>{assert.ok(-5.1+escapeDistance(379.54)>-2.8);assert.ok(gateOpening(377.38)>5.5);assert.equal(escapeDistance(377.38),0);assert.equal(escapeDistance(379.8),escapeDistance(380.8));});
+test('Yaw transformation preserves local hand contacts',()=>{const w:V3=[3,1.2,-2],p:V3=[1,0,-4],yaw=-Math.PI/2,travel=.7;const q=localTarget(w,p,yaw,travel);const result:V3=[p[0]+Math.cos(yaw)*(q[0]+travel)+Math.sin(yaw)*q[2],q[1],p[2]-Math.sin(yaw)*(q[0]+travel)+Math.cos(yaw)*q[2]];assert.ok(distance(w,result)<1e-8);});
+test('Shaft root position and action do not reset at the 233.08 second cut',()=>{const at=(t:number)=>{const a=stage(t).actors![0];return actorPose(a.id,t,a.action,a.elapsed,false,a.performance).root;};assert.ok(Math.abs(at(233.08)-at(233.08-1/30))<.03);assert.equal(stage(233.08).actors![0].action,'crawl');});
+test('Truck, flashlight trap and expired card appear only at their narration beats',()=>{assert.ok(!stage(309).truck);assert.ok(stage(310).truck);assert.equal(stage(242.5).actors!.filter(a=>a.id==='guard').length,3);assert.ok(!stage(275).reader);assert.ok(stage(275.56).reader);});

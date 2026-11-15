@@ -1,16 +1,11 @@
-# Scofield / Jane landscape production branch
+# Scofield / Jane landscape production
 
-**Work in progress — blocking only, not approved for final render.**
+The 84-shot visual composition is implemented and approved for the cloud export after representative frame and interaction-motion review. The finished movie is not available until cloud assembly and private audio mux pass.
 
-Original fan-made animation; no TV footage or official artwork. Existing BA5390 production is preserved.
+1920×1080, 30 FPS, 12,487 frames (416.233333 seconds). Render 41 full 300-frame chunks plus one 187-frame final chunk. Preserve absolute timeline evaluation. Two concurrent standard Ubuntu jobs, one render worker each, independent verified artifacts, bounded transient retries and cross-run reuse.
 
-1920×1080, 30 FPS, 12,487 frames. The full visual timeline has 84 shot blocks.
-The long-form extension uses 41 full 300-frame chunks and one 187-frame final chunk; it does not stretch the recording to 420 seconds.
+`render-longform.yml` creates a **silent visual master**. No private narration MP3, references, transcript or mixed soundtrack belongs in this public repository. Private/local assembly adds the supplied narration and original sound mix once and delivers privately.
 
-The new `render-longform.yml` workflow is deliberately gated by `finalApproved: false` until visual and synchronization QA pass. It has not been run. Existing short-film workflows/defaults are unchanged.
+Reviewed interactions include the maintenance door, interrogation, hatch/flashlight trap, pocket/card search, contractor truck and cargo inspection, moving gates, escorted perimeter crossing and animated subscribe outro. Original fan-made visual assets only; no TV footage or official artwork. Prior films and short-film defaults remain unchanged.
 
-This repository contains only original visual assets and nonverbal animation timing. No private narration MP3, reference images, transcript or mixed soundtrack is included. Public assembly creates a **silent visual master**, not the final deliverable. Private/local assembly must add the original narration and sound mix, verify it, and deliver the narrated file privately.
-
-Remaining: bespoke interactions and staging throughout the thriller; moving gates, truck search, escort/perimeter crossing, hatch/flashlight trap, full acting and environmental polish; word alignment/listening QA; representative motion checks; full final render and private final mux. Do not label the blocking composition a completed film.
-
-Local encoded-fixture tests passed: 617 frames across three segments, shorter final chunk, exact decoded-frame concatenation, and tampered-manifest rejection. Before eventual dispatch, register the reviewed new workflow on default main; a new workflow present only on a feature branch cannot yet be manually dispatched.
+Tests cover continuous shot/chunk ranges, planted feet, articulated limbs, contact targets, escape timing and real encoded segment assembly. Assembly verifies every decoded frame against the ordered segment hashes, timestamps, dimensions and black-frame scan. Final full-resolution visual/audio review remains a delivery step, not a claim made from code checks alone.

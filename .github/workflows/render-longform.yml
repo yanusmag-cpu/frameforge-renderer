@@ -25,7 +25,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx tsc --noEmit && npx eslint src
-      - run: node --import tsx --test src/scofield-jane/story.test.ts
+      - run: node --import tsx --test src/scofield-jane/*.test.ts
       - run: command -v ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
       - run: python scripts/longform/test-pipeline.py
       - id: plan

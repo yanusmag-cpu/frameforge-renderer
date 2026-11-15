@@ -4,9 +4,13 @@
   "height": 1080,
   "fps": 30,
   "frames": 12487,
-  "sourceDirectories": ["src/scofield-jane"],
-  "assetDirectories": ["public/scofield-jane"],
+  "sourceDirectories": [
+    "src/scofield-jane"
+  ],
+  "assetDirectories": [
+    "public/scofield-jane"
+  ],
   "artifactPrefix": "scofield-jane-landscape-chunk",
-  "finalApproved": false,
+  "finalApproved": true,
   "privacy": "Silent public visual master only; private narration mixed separately"
 }
