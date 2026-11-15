@@ -1,0 +1,24 @@
+{
+ "composition": "BrazilHeist2Film",
+ "artifactPrefix": "brazil-heist-2-chunk",
+ "frames": 1722,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil2",
+  "public/brazil"
+ ],
+ "sourceDirectories": [
+  "src/ff2d",
+  "src/brazil",
+  "src/brazil2"
+ ],
+ "blenderScript": "scripts/brazil2/build-assets.py",
+ "audioScript": "scripts/brazil2/make-audio.py",
+ "soundtrack": "public/brazil2-sound/bed.flac",
+ "soundtrackLUFS": -20,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "FrameForge-Brazil-Bank-Heist-Part-2-Final.mp4"
+}
