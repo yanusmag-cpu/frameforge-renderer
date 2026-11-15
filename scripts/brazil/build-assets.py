@@ -114,8 +114,8 @@ def world_uv(o):
         n = r @ f.normal; ax = max(range(3), key=lambda i: abs(n[i]))
         for lp in f.loops:
             co = mw @ lp.vert.co
-            if ax == 0: u, v = (co.y if n[0] < 0 else -co.y), co.z
-            elif ax == 1: u, v = (-co.x if n[1] < 0 else co.x), co.z
+            if ax == 0: u, v = (co.y if n[0] > 0 else -co.y), co.z
+            elif ax == 1: u, v = (co.x if n[1] < 0 else -co.x), co.z
             else: u, v = co.x, co.y
             lp[uv].uv = (u, v)
     bm.to_mesh(me); bm.free()
@@ -155,7 +155,7 @@ trunk = mat('palm_trunk', (.5, .4, .28), 0, .9); frond = mat('palm_leaf', (.28, 
 cash = mat('cash', (.62, .78, .58), 0, .7); band = mat('cash_band', (.95, .93, .86), 0, .6); wrap = mat('cash_wrap', (.85, .9, .88), .1, .15)
 pallet = mat('pallet_wood', (.72, .58, .38), 0, .8); vsteel = mat('vault_steel', (.6, .62, .64), .95, .3); brass = mat('brass', (.8, .62, .3), 1, .3)
 awnG = mat('awning_green', (.12, .5, .35), 0, .8); awnR = mat('awning_red', (.75, .2, .18), 0, .8); awnB = mat('awning_blue', (.2, .35, .65), 0, .8)
-bulb = mat('bulb', (1, .85, .55), 0, .4, (1, .78, .45), 6.0); fluoro = mat('fluoro', (.95, .98, 1), 0, .3, (.9, .95, 1), 4.0)
+bulb = mat('bulb', (1, .85, .55), 0, .4, (1, .78, .45), 3.0); fluoro = mat('fluoro', (.95, .98, 1), 0, .3, (.9, .95, 1), 4.0)
 lampW = mat('lamp_warm', (1, .9, .7), 0, .3, (1, .82, .55), 3.0); ledG = mat('led_green', (.2, 1, .3), 0, .3, (.2, 1, .3), 5.0)
 ledR = mat('led_red', (1, .15, .1), 0, .3, (1, .1, .05), 5.0); screen = mat('screen', (.3, .45, .4), 0, .2, (.4, .6, .5), 1.2)
 rubber = mat('rubber', (.07, .07, .07), 0, .9); carR = mat('car_paint_red', (.7, .1, .1), .4, .3); carW = mat('car_paint_white', (.9, .9, .9), .4, .3)
@@ -481,11 +481,11 @@ def tunnel():
         box('Tunnel cap', (x, -4.16, .95), (.14, .1, 1.1), wood, .01)
         x += 1.2
     for i in range(61): box('Tunnel plank', (3.0 + i * 1.2 + .6, -4.1, .95), (1.2, .03, 1.0), plank, .004)
-    tube('Tunnel cable', [(2.2, -4.2, .55)] + [(3.2 + i * 1.2, -4.24 - .04 * (i % 2), .55) for i in range(63)] + [(78.4, -4.2, .55)], .012, cable, 1)
+    tube('Tunnel cable', [(2.2, -4.2, .8)] + [(3.2 + i * 1.2, -4.22 - .03 * (i % 2), .8) for i in range(63)] + [(78.4, -4.2, .8)], .012, cable, 1)
     for i in range(19):
         bx = 4.4 + i * 4.0
-        cyl('Bulb socket', (bx, -4.28, .62), .03, .08, dark, 'y', 8); sphere('Bulb', (bx, -4.38, .62), .055, bulb)
-    tube('Air duct', [(2.4, -4.32, 1.32)] + [(3.0 + i * 3, -4.32 + .03 * math.sin(i), 1.3) for i in range(26)], .09, mat('duct', (.75, .76, .78), .6, .4), 3)
+        cyl('Bulb socket', (bx, -4.28, .8), .03, .08, dark, 'y', 8); sphere('Bulb', (bx, -4.38, .8), .055, bulb)
+    tube('Air duct', [(2.4, -4.3, .6)] + [(3.0 + i * 3, -4.3 + .03 * math.sin(i), .62) for i in range(26)], .08, mat('duct', (.75, .76, .78), .6, .4), 3)
     for i in range(25):
         x = random.uniform(5, 76); ico('Dirt clump', (x, -5.8, random.uniform(.55, 1.35)), random.uniform(.05, .12), dirt, (1, .6, 1))
     for x in (9.0, 31.0, 55.0): cyl('Bucket', (x, -5.68, 1.25), .15, .3, plastic if x < 40 else plasticY, 'y', 14, 0, .12)
