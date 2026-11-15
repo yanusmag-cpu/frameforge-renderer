@@ -1,10 +1,13 @@
 """Exact-duration H.264/AAC packaging; the video packets are never re-encoded."""
 from pathlib import Path
-import argparse,json,subprocess,wave
+import argparse,json,subprocess,tempfile,wave
 
 def mux(source,audio,output,fps,seconds=60,narration=False):
  p=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-of','json',str(source)]));v=next(s for s in p['streams'] if s['codec_type']=='video')
  if v['codec_name']!='h264' or int(v['nb_frames'])!=round(seconds*fps) or v['r_frame_rate']!=f'{fps}/1' or abs(float(v['duration'])-seconds)>.001:raise ValueError('Rendered video frame count, FPS or duration mismatch')
+ if Path(audio).suffix.lower()!='.wav':
+  # lossless soundtracks (e.g. FLAC) are decoded to 48 kHz stereo PCM first; WAV inputs are untouched
+  tmp=Path(tempfile.mkdtemp())/'soundtrack.wav';subprocess.run(['ffmpeg','-v','error','-y','-i',str(audio),'-c:a','pcm_s16le','-ar','48000','-ac','2',str(tmp)],check=True);audio=tmp
  with wave.open(str(audio)) as w:
   if w.getframerate()!=48000 or w.getnchannels()!=2 or w.getnframes()<round(seconds*48000):raise ValueError('Expected complete 48kHz stereo PCM soundtrack')
  output.parent.mkdir(parents=True,exist_ok=True)

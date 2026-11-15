@@ -4,7 +4,7 @@ Coordinates are Three.js metres (x along the street, y up, z toward the camera/r
 One continuous world:
   street level y=0 (road), north pavement y=.15 for z in [0,2.5], buildings z<0.
   landscaping shop x in [-4,4]; Banco Central x in [64,92] behind a plaza (facade z=-3, podium y=1.2).
-  tunnel void y in [-4.6,-3.5], z in [.4,1.5], x from 2 to 78.3 (78 m), shop shaft x in [2,3].
+  tunnel void y in [-5.9,-4.1], z in [.4,1.5], x from 2 to 78.3 (78 m), shop shaft x in [2,3].
   vault room x in [72,84], y in [-2.4,.8], z in [-4,1.2]; reinforced slab y in [-3.5,-2.4].
   section plane z=1.5 (cutaway shots clip 'FRONT' objects; the earth block's z=1.5 face is the cut).
 Objects named 'KEEP …' stay separate (animated in Three). 'FRONT …' objects are removed in cutaway shots.
@@ -34,8 +34,10 @@ def finish(o, m, bevel=0.0, seg=2):
         b = o.modifiers.new('bevel', 'BEVEL'); b.width = bevel; b.segments = seg; b.limit_method = 'ANGLE'
     return o
 def box(name, p, s, m, bevel=0.01, rot=(0, 0, 0), seg=2):
-    bpy.ops.mesh.primitive_cube_add(size=1, location=L(*p)); o = bpy.context.object; o.name = name
-    o.scale = (s[0], s[2], s[1]); o.rotation_euler = (rot[0], -rot[2], rot[1]); bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+    me = bpy.data.meshes.new(name); bm = bmesh.new(); bmesh.ops.create_cube(bm, size=1.0)
+    for v in bm.verts: v.co.x *= s[0]; v.co.y *= s[2]; v.co.z *= s[1]
+    bm.to_mesh(me); bm.free()
+    o = bpy.data.objects.new(name, me); bpy.context.collection.objects.link(o); o.location = L(*p); o.rotation_euler = (rot[0], -rot[2], rot[1])
     return finish(o, m, bevel, seg)
 def span(name, a, b, m, bevel=0.01):
     """Axis-aligned box from corner a to corner b (Three coords)."""
@@ -86,18 +88,22 @@ def boolean(target, cutter, op='DIFFERENCE'):
 def apply_mods(o):
     bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o
     for md in list(o.modifiers): bpy.ops.object.modifier_apply(modifier=md.name)
+def bulk_convert(objs):
+    """Convert curves/fonts and apply all modifiers of many objects in ONE operator call."""
+    objs = [o for o in objs if o.type in ('CURVE', 'FONT') or (o.type == 'MESH' and len(o.modifiers))]
+    if not objs: return
+    bpy.ops.object.select_all(action='DESELECT')
+    for o in objs: o.select_set(True)
+    bpy.context.view_layer.objects.active = objs[0]; bpy.ops.object.convert(target='MESH')
 def join(name, objs):
-    objs = [o for o in objs if o is not None]
-    for o in objs:
-        if o.type != 'MESH':
-            bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o; bpy.ops.object.convert(target='MESH')
-    objs = [bpy.data.objects[o.name] for o in objs]
-    for o in objs: apply_mods(o)
+    names = [o.name for o in objs if o is not None]
+    bulk_convert([bpy.data.objects[n] for n in names])
+    objs = [bpy.data.objects[n] for n in names]
     bpy.ops.object.select_all(action='DESELECT')
     for o in objs: o.select_set(True)
     bpy.context.view_layer.objects.active = objs[0]
     if len(objs) > 1: bpy.ops.object.join()
-    o = bpy.context.object; o.name = name; return o
+    o = bpy.context.view_layer.objects.active; o.name = name; return o
 def keep(name, objs, pivot):
     """Join objs into one separately animatable object whose origin is pivot (Three coords)."""
     o = join('KEEP ' + name, objs)
@@ -114,12 +120,9 @@ def world_uv(o):
             lp[uv].uv = (u, v)
     bm.to_mesh(me); bm.free()
 def export(name):
-    for o in list(bpy.context.scene.objects):
-        if o.type in ('CURVE', 'FONT'):
-            bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o; bpy.ops.object.convert(target='MESH')
+    bulk_convert(list(bpy.context.scene.objects))
     for o in bpy.context.scene.objects:
-        if o.type == 'MESH':
-            apply_mods(o); world_uv(o)
+        if o.type == 'MESH': world_uv(o)
     by = {}
     for o in bpy.context.scene.objects:
         if o.type == 'MESH' and o.data.materials and not o.name.startswith('KEEP'):
@@ -304,8 +307,8 @@ def street():
     span('Plaza', (60, .15, -6), (96, .2, 0), stone, .01)
     # earth block with the cut face at z=1.5 (strata coloured in Three by world y)
     e = span('Earth', (-40, -9, -16), (130, -.25, 1.5), earth, 0)
-    void = [((2, -5.2, .4), (78.6, -4.1, 1.6)),            # main tunnel
-            ((2, -5.2, -1.4), (3.1, -.2, 1.6)),            # shop shaft
+    void = [((2, -5.9, .4), (78.6, -4.1, 1.6)),            # main tunnel
+            ((2, -5.9, -1.4), (3.1, -.2, 1.6)),            # shop shaft
             ((71.7, -4.2, -4.3), (84.3, .2, 1.6))]          # vault room + slab (separate objects)               # vault box + slab region (slab & room are separate objects)
     for a, b in void:
         c = span('cut', (a[0], a[1], a[2]), (b[0], b[1], b[2]), earth, 0); boolean(e, c)
@@ -399,7 +402,7 @@ def bank():
     span('Bank roof cap', (x0 - .2, 15.2, -16.2), (x1 + .2, 15.6, zf + .2), stoneD, .02)
     span('Bank sign', (70.5, 5.05, zf + .41), (85.5, 5.55, zf + .45), sign('bank'), 0)   # 'BANCO CENTRAL DO BRASIL'
     span('Bank emblem', (66.0, 11.5, zf + .01), (69.5, 14.5, zf + .06), sign('emblem'), 0)
-    for s, fx in enumerate((87.5, 89.0)):
+    for s, fx in enumerate((86.0, 89.0)):
         cyl('Flagpole', (fx, 5.7, -.6), .05, 11, chrome, 'y', 10)
         o = mesh('Flag', [(fx, 10.8, -.6), (fx + 1.9, 10.6, -.62), (fx + 1.9, 9.4, -.6), (fx, 9.6, -.6)], [(0, 1, 2, 3)], flagG if s == 0 else sign('flag_ce'))
         o.modifiers.new('sol', 'SOLIDIFY').thickness = .01
@@ -471,27 +474,27 @@ def vault():
     span('Corridor light', (68, -.66, -1.6), (69.4, -.6, -1.3), fluoro, 0)
 def tunnel():
     # dirt floor + wood frames every 1.2 m + ceiling planks + plastic sheet + cable with bulbs + air duct
-    span('Tunnel floor', (2, -5.2, .4), (78.6, -5.12, 1.5), dirt, 0)
+    span('Tunnel floor', (2, -5.9, .4), (78.6, -5.82, 1.5), dirt, 0)
     x = 3.2
     while x < 77.5:
-        for zz in (.48, 1.42): box('Tunnel post', (x, -4.66, zz), (.1, 1.0, .1), wood, .01)
+        for zz in (.48, 1.42): box('Tunnel post', (x, -5.0, zz), (.1, 1.8, .1), wood, .01)
         box('Tunnel cap', (x, -4.16, .95), (.14, .1, 1.1), wood, .01)
         x += 1.2
-    for i in range(65): box('Tunnel plank', (3.0 + i * 1.2 + .6, -4.1, .95), (1.2, .03, 1.0), plank, .004)
+    for i in range(61): box('Tunnel plank', (3.0 + i * 1.2 + .6, -4.1, .95), (1.2, .03, 1.0), plank, .004)
     tube('Tunnel cable', [(2.2, -4.2, .55)] + [(3.2 + i * 1.2, -4.24 - .04 * (i % 2), .55) for i in range(63)] + [(78.4, -4.2, .55)], .012, cable, 1)
     for i in range(19):
         bx = 4.4 + i * 4.0
         cyl('Bulb socket', (bx, -4.28, .62), .03, .08, dark, 'y', 8); sphere('Bulb', (bx, -4.38, .62), .055, bulb)
     tube('Air duct', [(2.4, -4.32, 1.32)] + [(3.0 + i * 3, -4.32 + .03 * math.sin(i), 1.3) for i in range(26)], .09, mat('duct', (.75, .76, .78), .6, .4), 3)
     for i in range(25):
-        x = random.uniform(5, 76); ico('Dirt clump', (x, -5.1, random.uniform(.55, 1.35)), random.uniform(.05, .12), dirt, (1, .6, 1))
-    for x in (9.0, 31.0, 55.0): cyl('Bucket', (x, -4.98, 1.25), .15, .3, plastic if x < 40 else plasticY, 'y', 14, 0, .12)
+        x = random.uniform(5, 76); ico('Dirt clump', (x, -5.8, random.uniform(.55, 1.35)), random.uniform(.05, .12), dirt, (1, .6, 1))
+    for x in (9.0, 31.0, 55.0): cyl('Bucket', (x, -5.68, 1.25), .15, .3, plastic if x < 40 else plasticY, 'y', 14, 0, .12)
     # shop shaft: ladder + timber lining (x 2..3.1)
-    for s in (2.25, 2.85): box('Ladder rail', (s, -2.52, -1.25), (.06, 5.35, .06), wood, .005)
-    for i in range(16): box('Ladder rung', (2.55, -4.9 + i * .32, -1.25), (.62, .04, .05), wood, 0)
-    for i in range(4): box('Shaft lining', (2.55, -1.0 - i * .9, -1.38), (1.1, .2, .04), plank, 0)
+    for s in (2.25, 2.85): box('Ladder rail', (s, -2.87, -1.25), (.06, 6.05, .06), wood, .005)
+    for i in range(18): box('Ladder rung', (2.55, -5.6 + i * .32, -1.25), (.62, .04, .05), wood, 0)
+    for i in range(5): box('Shaft lining', (2.55, -1.0 - i * .95, -1.38), (1.1, .2, .04), plank, 0)
     # end: short timber prop under the breakthrough
-    for s in (77.7, 78.5): box('End prop', (s, -4.6, .5), (.1, 1.1, .1), wood, .01)
+    for s in (77.7, 78.5): box('End prop', (s, -5.0, .5), (.1, 1.8, .1), wood, .01)
 def studio():
     """Presenter set floating on the road in front of the bank; the backdrop halves slide away (KEEP)."""
     cx, cz = 78.0, 7.0
