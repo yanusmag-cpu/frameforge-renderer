@@ -19,6 +19,8 @@ export type Face = {
   teeth: number;     // 0..1 upper teeth band; >0.85 gritted
   tongue: number;
   sweat: number; tears: number; shock: number; vein: number; blush: number; question: number;
+  smirk?: number;    // -1..1 lifts one mouth corner (+ = screen-right)
+  browOne?: number;  // -1..1 raises one brow only (+ = screen-right)
 };
 
 const N: Face = { eyeOpen: 1, eyeWhite: 0, pupil: .5, gx: 0, gy: 0, lidTop: 0, lidLow: 0, happyEyes: 0, browY: 0, browAng: 0, browCurve: .25,
@@ -46,6 +48,20 @@ export const EXPR = {
   relief: f({ eyeOpen: .25, browAng: .55, browY: .15, smile: .45, mOpen: .12, mO: .4 }),
   smug: f({ lidTop: .45, browAng: -.3, smile: .7, mWide: .9 }),
   focused: f({ lidTop: .25, browAng: -.35, browY: -.15, smile: 0, mWide: .6 }),
+  // Mind Game additions (asymmetric, subtler acting faces)
+  suspicious: f({ lidTop: .38, browOne: .9, browAng: -.25, smile: -.1, mWide: .7, gx: .35 }),
+  thinking: f({ gx: .55, gy: -.45, browAng: .3, browY: .2, smile: -.05, mWide: .55, smirk: -.3 }),
+  calculating: f({ lidTop: .3, browAng: -.45, browY: -.2, gx: -.4, gy: .1, smile: 0, mWide: .55 }),
+  nervous: f({ browAng: .75, browY: .3, smile: -.3, mWide: .75, sweat: .45, gx: -.3 }),
+  confident: f({ smile: .5, browY: .1, lidTop: .15, mWide: .95 }),
+  smirk: f({ smile: .25, smirk: 1, browOne: .6, lidTop: .22, mWide: .9 }),
+  slySmile: f({ smile: .55, smirk: .7, lidLow: .3, browOne: .45, mOpen: .1, teeth: .4 }),
+  concern: f({ browAng: .7, browY: .15, smile: -.35, mWide: .8, lidTop: .1 }),
+  surprise: f({ eyeOpen: 1.25, browY: .9, browAng: .15, mO: .7, mOpen: .4, smile: 0 }),
+  realization: f({ eyeOpen: 1.22, browY: .7, browAng: .35, mOpen: .22, mO: .45, smile: -.05 }),
+  disappointment: f({ lidTop: .4, browAng: .6, browY: -.05, smile: -.5, gy: .4, mWide: .85 }),
+  annoyed: f({ lidTop: .45, browAng: -.6, browY: -.3, smile: -.35, mWide: .7, smirk: -.4 }),
+  amused: f({ smile: .8, smirk: .4, lidLow: .35, browY: .3, mOpen: .2, teeth: .5 }),
 } satisfies Record<string, Face>;
 export type ExprName = keyof typeof EXPR;
 export const expr = (a: ExprName | Face, b?: ExprName | Face, k = 0): Face => {
@@ -74,12 +90,13 @@ export function drawFace(F: Face, turn: number, lid: number, id: string, lw: num
     const ex = cx + side * .145 * squash + F.gx * .035, ey = eyeY;
     const rx = .082 * scale * (1 - at * .25), ry = .135 * open;
     // brows
-    const by = ey - .2 - F.browY * .07 + (F.lidTop * .03);
+    const one = (F.browOne ?? 0) * (side > 0 ? 1 : -.35);
+    const by = ey - .2 - (F.browY + one) * .07 + (F.lidTop * .03) * (1 - Math.max(0, one));
     const tilt = F.browAng * .38 * side; // inner end = towards face centre
     const bl = .085 * scale;
     const bx0 = ex - bl, bx1 = ex + bl;
     const iy = (x: number) => by + (x - ex) * Math.tan(tilt);
-    const bAlpha = clamp((Math.abs(F.browAng) + Math.max(0, F.browY - .15) + Math.max(0, -F.browY) + F.lidTop - .3) * 3);
+    const bAlpha = clamp((Math.abs(F.browAng) + Math.max(0, F.browY - .15) + Math.max(0, -F.browY) + F.lidTop + Math.abs(F.browOne ?? 0) - .3) * 3);
     if (bAlpha > .02) s.push(`<path opacity="${n(bAlpha)}" d="M${n(bx0)} ${n(iy(bx0))} Q${n(ex)} ${n(by - F.browCurve * .05)} ${n(bx1)} ${n(iy(bx1))}" fill="none" stroke="${OUT}" stroke-width="${n(lw * 1.25)}" stroke-linecap="round"/>`);
     if (F.happyEyes > .5 || open < .1) {
       const up = F.happyEyes > .5 ? -1 : .35;
@@ -109,13 +126,15 @@ export function drawFace(F: Face, turn: number, lid: number, id: string, lw: num
   const w0 = .145 * F.mWide * (1 - at * .4);
   const w = mix(w0, .055 + F.mOpen * .02, F.mO);
   const cy = my - F.smile * .055;
+  const sk = F.smirk ?? 0, cyL = cy + sk * .035, cyR = cy - sk * .05;
   const op = F.mOpen;
   if (op < .06) {
-    s.push(`<path d="M${n(mx - w)} ${n(cy)} Q${n(mx)} ${n(my + F.smile * .07)} ${n(mx + w)} ${n(cy)}" fill="none" stroke="${OUT}" stroke-width="${n(lw)}" stroke-linecap="round"/>`);
+    s.push(`<path d="M${n(mx - w)} ${n(cyL)} Q${n(mx + sk * .02)} ${n(my + F.smile * .07 - Math.abs(sk) * .01)} ${n(mx + w)} ${n(cyR)}" fill="none" stroke="${OUT}" stroke-width="${n(lw)}" stroke-linecap="round"/>`);
+    if (Math.abs(sk) > .3) { const ex = sk > 0 ? mx + w : mx - w, ey2 = sk > 0 ? cyR : cyL; s.push(`<path d="M${n(ex - Math.sign(sk) * .02)} ${n(ey2 - .035)} q${n(Math.sign(sk) * .03)} .02 ${n(Math.sign(sk) * .02)} .06" fill="none" stroke="${OUT}" stroke-width="${n(lw * .6)}" stroke-linecap="round"/>`); }
   } else {
     const up = my - op * .03 - F.mO * op * .07 + Math.max(0, F.smile) * .015;
     const lo = my + op * .2 + F.smile * .06 + F.mO * op * .03;
-    const path = `M${n(mx - w)} ${n(cy)} Q${n(mx)} ${n(up)} ${n(mx + w)} ${n(cy)} Q${n(mx)} ${n(lo)} ${n(mx - w)} ${n(cy)}Z`;
+    const path = `M${n(mx - w)} ${n(cyL)} Q${n(mx)} ${n(up)} ${n(mx + w)} ${n(cyR)} Q${n(mx)} ${n(lo)} ${n(mx - w)} ${n(cyL)}Z`;
     const mc = `${id}m`;
     s.push(`<clipPath id="${mc}"><path d="${path}"/></clipPath><path d="${path}" fill="#7a1418"/>`);
     s.push(`<g clip-path="url(#${mc})">`);

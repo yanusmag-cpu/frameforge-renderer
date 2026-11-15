@@ -1,0 +1,22 @@
+{
+ "composition": "MindGameFilm",
+ "artifactPrefix": "mind-game-chunk",
+ "frames": 300,
+ "width": 1920,
+ "height": 1080,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/mind"
+ ],
+ "sourceDirectories": [
+  "src/ff2d",
+  "src/mind"
+ ],
+ "blenderScript": "scripts/mind/build-assets.py",
+ "audioScript": "scripts/mind/make-audio.py",
+ "soundtrack": "public/mind-sound/bed.flac",
+ "soundtrackLUFS": -20,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "FrameForge-72-Hour-Mind-Game-Final.mp4"
+}
