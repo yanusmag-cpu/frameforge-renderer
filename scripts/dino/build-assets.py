@@ -486,8 +486,8 @@ def raptor(prefix='raptor'):
     """the mother: large feathered dromaeosaur (hip 1.6 m, length ~6 m), tawny with dark bars, cream belly, rust crest, white eye ring"""
     s = lambda b: prefix + '_' + b
     bones = [('pelvis', (0, 1.6, -.4), (0, 1.6, .1), None), ('spine', (0, 1.6, .1), (0, 1.62, .7), 'pelvis'), ('chest', (0, 1.62, .7), (0, 1.8, 1.15), 'spine'),
-             ('neck1', (0, 1.8, 1.15), (0, 2.06, 1.4), 'chest'), ('neck2', (0, 2.06, 1.4), (0, 2.32, 1.62), 'neck1'), ('head', (0, 2.32, 1.62), (0, 2.38, 2.55), 'neck2'),
-             ('jaw', (0, 2.3, 1.82), (0, 2.22, 2.48), 'head'), ('lidL', (.115, 2.47, 1.86), (.125, 2.55, 1.86), 'head'), ('lidR', (-.115, 2.47, 1.86), (-.125, 2.55, 1.86), 'head'),
+             ('neck1', (0, 1.8, 1.15), (0, 2.06, 1.4), 'chest'), ('neck2', (0, 2.06, 1.4), (0, 2.32, 1.62), 'neck1'), ('head', (0, 2.32, 1.62), (0, 2.4, 2.48), 'neck2'),
+             ('jaw', (0, 2.3, 1.82), (0, 2.26, 2.45), 'head'), ('lidL', (.125, 2.5, 1.9), (.135, 2.58, 1.9), 'head'), ('lidR', (-.125, 2.5, 1.9), (-.135, 2.58, 1.9), 'head'),
              ('tail1', (0, 1.6, -.4), (0, 1.58, -1.2), 'pelvis'), ('tail2', (0, 1.58, -1.2), (0, 1.55, -2.0), 'tail1'), ('tail3', (0, 1.55, -2.0), (0, 1.5, -2.8), 'tail2'), ('tail4', (0, 1.5, -2.8), (0, 1.45, -3.7), 'tail3')]
     for sd, n in ((1, 'L'), (-1, 'R')):
         x = .26 * sd
@@ -502,14 +502,14 @@ def raptor(prefix='raptor'):
         c = tawny if top > -.12 else cream
         if top > -.05 and math.sin(p.z * 7.5) > .55: c = dark
         return c
-    body = Piece(prefix + '_body', [(0, 1.45, -3.75), (0, 1.5, -2.8), (0, 1.55, -2.0), (0, 1.58, -1.2), (0, 1.6, -.45), (0, 1.58, .15), (0, 1.62, .72), (0, 1.8, 1.15), (0, 2.06, 1.4), (0, 2.32, 1.62), (0, 2.45, 1.8), (0, 2.45, 2.05), (0, 2.39, 2.35), (0, 2.33, 2.6)],
-                 [(.02, .02), (.06, .075), (.1, .12), (.15, .18), (.22, .27), (.28, .34, -.05), (.26, .33, -.03), (.17, .19), (.12, .13), (.11, .12), (.14, .15), (.115, .11, -.01), (.075, .075, -.015), (.03, .035, -.02)],
+    body = Piece(prefix + '_body', [(0, 1.45, -3.75), (0, 1.5, -2.8), (0, 1.55, -2.0), (0, 1.58, -1.2), (0, 1.6, -.45), (0, 1.58, .15), (0, 1.62, .72), (0, 1.8, 1.15), (0, 2.06, 1.4), (0, 2.32, 1.62), (0, 2.46, 1.8), (0, 2.46, 2.0), (0, 2.42, 2.22), (0, 2.38, 2.4), (0, 2.35, 2.5)],
+                 [(.02, .02), (.06, .075), (.1, .12), (.15, .18), (.22, .27), (.28, .34, -.05), (.26, .33, -.03), (.17, .19), (.12, .13), (.12, .13), (.155, .175), (.135, .15, -.01), (.095, .11, -.02), (.055, .07, -.025), (.025, .035, -.025)],
                  [s(b) for b in ('pelvis', 'spine', 'chest', 'neck1', 'neck2', 'head', 'tail1', 'tail2', 'tail3', 'tail4')], bodycol, m=skinM)
-    jaw = Piece(prefix + '_jaw', [(0, 2.31, 1.86), (0, 2.27, 2.1), (0, 2.25, 2.35), (0, 2.25, 2.55)], [(.09, .045), (.075, .04), (.055, .03), (.025, .02)], [s('jaw')], lambda p, i: cream, ring=10, m=skinM)
+    jaw = Piece(prefix + '_jaw', [(0, 2.31, 1.86), (0, 2.28, 2.08), (0, 2.27, 2.3), (0, 2.28, 2.46)], [(.1, .05), (.08, .045), (.05, .03), (.02, .015)], [s('jaw')], lambda p, i: cream, ring=10, m=skinM)
     parts = [(body.o, B, body.bones, None), (jaw.o, B, jaw.bones, None)]
     for sd, n in ((1, 'L'), (-1, 'R')):
         h, k, a, bl = B[s('thigh' + n)][0], B[s('shin' + n)][0], B[s('foot' + n)][0], B[s('toe' + n)][0]
-        th = Piece(f'{prefix}_thigh{n}', [tuple(h + V(0, .12, -.05)), tuple(h), tuple((h + k) * .5), tuple(k), tuple((k + a) * .5), tuple(a), tuple(bl)], [(.17, .22), (.19, .25), (.15, .17), (.09, .1), (.065, .07), (.05, .055), (.04, .04)],
+        th = Piece(f'{prefix}_thigh{n}', [tuple(h + V(0, .12, -.05)), tuple(h), tuple((h + k) * .5), tuple(k), tuple((k + a) * .5), tuple(a), tuple(bl)], [(.21, .28), (.23, .31), (.18, .21), (.1, .11), (.065, .07), (.05, .055), (.04, .04)],
                    [s('pelvis'), s('thigh' + n), s('shin' + n), s('foot' + n)], lambda p, i: tawny if p.y > .9 else (.42, .3, .2), ring=12, m=skinM)
         parts.append((th.o, B, th.bones, None))
         for j, (dx, ln) in enumerate(((-.07, .3), (0, .36), (.07, .28))):   # toes + sickle claw on the second toe
@@ -523,32 +523,32 @@ def raptor(prefix='raptor'):
         for j in range(3):
             c = Piece(f'{prefix}_claw{n}{j}', [tuple(tip + V(sd * (j - 1) * .02, 0, 0)), tuple(tip + V(sd * (j - 1) * .03, -.1, .05))], [(.012, .012), (.002, .002)], [s('hand' + n)], lambda p, i: (.08, .07, .06), ring=5, sub=2, m=hard)
             parts.append((c.o, B, c.bones, None))
-        e = sphere(f'{prefix}_eye{n}', (.105 * sd, 2.47, 1.86), .045, eye, (1, 1, 1), 12); parts.append((e, B, [s('head')], None))
-        ring_ = torus(f'{prefix}_ering{n}', (.1 * sd, 2.47, 1.86), .052, .012, mat('eyering', (.92, .88, .78), 0, .6), axis='x', segs=16, minor=6); parts.append((ring_, B, [s('head')], None))
-        lid = sphere(f'{prefix}_lid{n}', (.108 * sd, 2.475, 1.86), .05, skinM, (1, 1, 1), 10)
+        e = sphere(f'{prefix}_eye{n}', (.118 * sd, 2.5, 1.9), .058, eye, (1, 1, 1), 12); parts.append((e, B, [s('head')], None))
+        ring_ = torus(f'{prefix}_ering{n}', (.122 * sd, 2.5, 1.9), .064, .014, mat('eyering', (.92, .88, .78), 0, .6), axis='x', segs=16, minor=6); parts.append((ring_, B, [s('head')], None))
+        lid = sphere(f'{prefix}_lid{n}', (.12 * sd, 2.505, 1.9), .064, skinM, (1, 1, 1), 10)
         for v in lid.data.vertices:
             if v.co.z < 0: v.co.z = 0       # upper hemisphere only: rotates down over the eye to blink
         set_cols(lid, lambda p, i: tawny); parts.append((lid, B, [s('lid' + n)], None))
         for j in range(9):   # teeth
-            z = 1.95 + j * .065; parts.append((cyl(f'{prefix}_t{n}{j}', (.06 * sd * (1 - j * .04), 2.3, z), .001, .05, toothM, verts=5, r2=.009), B, [s('head')], None))
+            z = 2.0 + j * .05; parts.append((cyl(f'{prefix}_t{n}{j}', (.075 * sd * (1 - j * .07), 2.31 + j * .006, z), .001, .05, toothM, verts=5, r2=.009), B, [s('head')], None))
     # ---- feather cards
     spec = []; feather_cols = pal((.6, .42, .24), (.5, .34, .2), (.42, .28, .17), (.68, .5, .3), (.3, .2, .13))
     for ring in body.rings:
         c, t, sv, u, rx, ry, idx = ring
         if c.z > 1.7 or c.z < -3.2: continue
         bl = [s('pelvis'), s('spine'), s('chest'), s('neck1'), s('neck2'), s('tail1'), s('tail2'), s('tail3'), s('tail4')]
-        n_here = 26 if c.z < 1.1 else 16
+        n_here = 34 if c.z < 1.1 else 20
         for _ in range(n_here):
             a = random.uniform(-.55, 3.69); nrm = sv * math.cos(a) + u * math.sin(a); root = c + sv * math.cos(a) * rx + u * math.sin(a) * ry
             belly = math.sin(a) < -.25
-            d = (-t * .85 + nrm * .22 - u * .25).normalized(); side = nrm.cross(d).normalized()
+            d = (-t * .9 + nrm * .08 - u * .22).normalized(); side = nrm.cross(d).normalized()
             ln = random.uniform(.16, .3) * (1.4 if c.z > .9 else 1.0) * (.7 if belly else 1)
             col = cream if belly else rnd(feather_cols)
             if not belly and math.sin(c.z * 7.5) > .6: col = dark
-            spec.append((tuple(root + nrm * .015), tuple(d), tuple(side), ln, ln * .38, col, bl))
+            spec.append((tuple(root + nrm * .012), tuple(d), tuple(side), ln, ln * .55, col, bl))
     for k in range(70):   # neck ruff: longer, lifted
         z = random.uniform(.8, 1.35); c = V(0, 1.7 + (z - .8) * .5, z); a = random.uniform(-.3, 3.44); nrm = V(math.cos(a), math.sin(a) * .9, 0).normalized()
-        root = c + nrm * .2; d = (V(0, -.25, -1) + nrm * .5).normalized(); spec.append((tuple(root), tuple(d), tuple(nrm.cross(d).normalized()), random.uniform(.3, .46), .12, rnd(feather_cols), [s('chest'), s('neck1')]))
+        root = c + nrm * .18; d = (V(0, -.3, -1) + nrm * .25).normalized(); spec.append((tuple(root), tuple(d), tuple(nrm.cross(d).normalized()), random.uniform(.28, .4), .16, rnd(feather_cols), [s('chest'), s('neck1')]))
     for k in range(16):   # crest (rust)
         z = 1.72 + k * .022; root = V(random.uniform(-.04, .04), 2.58 - k * .006, z); d = V(random.uniform(-.25, .25), .55, -1).normalized()
         spec.append((tuple(root), tuple(d), (1, 0, 0), random.uniform(.18, .32) * (1.2 - k / 20), .06, rust, [s('head')]))
@@ -562,7 +562,7 @@ def raptor(prefix='raptor'):
         k = j / 21; z = -1.4 - k * 2.3; tb = s('tail2') if z > -2 else (s('tail3') if z > -2.8 else s('tail4'))
         for sd in (1, -1):
             root = V(sd * (.1 - k * .05), 1.56 - k * .1, z); d = V(sd * (.85 - k * .4), .02, -.5 - k * .6).normalized()
-            spec.append((tuple(root), tuple(d), tuple(V(0, 1, 0).cross(d).normalized()), .28 + .32 * k, .1, dark if j % 4 == 0 else rnd(feather_cols), [tb]))
+            spec.append((tuple(root), tuple(d), tuple(V(0, 1, 0).cross(d).normalized()), .3 + .34 * k, .17, dark if j % 5 == 0 else rnd(feather_cols), [tb]))
     fo, roots = cards(prefix + '_feathers', spec, feathM)
     parts.append((fo, B, None, roots))
     bind(ob, parts, prefix + '_mesh')
@@ -686,6 +686,9 @@ def export_glb(name, filt):
     print('exported', name)
 def export_world(name):
     bulk_convert(list(bpy.context.scene.objects))
+    for o in bpy.context.scene.objects:
+        if o.type == 'MESH' and o.data.materials and o.data.materials[0] and o.data.materials[0].name in ('leaves', 'mossrock', 'asteroid', 'needles', 'bark', 'petal'):
+            for f in o.data.polygons: f.use_smooth = True
     for o in bpy.context.scene.objects:
         if o.type == 'MESH' and not o.get('rigid_roots') and not o.data.uv_layers: world_uv(o)
         elif o.type == 'MESH' and not o.get('rigid_roots'): world_uv(o)
