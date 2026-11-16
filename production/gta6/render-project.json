@@ -1,0 +1,24 @@
+{
+ "composition": "Gta6Film",
+ "artifactPrefix": "gta6-chunk",
+ "frames": 1833,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 7,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/vice",
+  "public/brazil"
+ ],
+ "sourceDirectories": [
+  "src/ff2d",
+  "src/brazil",
+  "src/vice"
+ ],
+ "blenderScript": "scripts/vice/build-assets.py",
+ "audioScript": "scripts/vice/make-audio.py",
+ "soundtrack": "public/vice-sound/bed.flac",
+ "soundtrackLUFS": -20,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "FrameForge-Why-GTA6-Took-13-Years-Final.mp4"
+}
