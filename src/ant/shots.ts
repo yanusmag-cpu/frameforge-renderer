@@ -52,7 +52,7 @@ function cells(t: number, t0: number, out: number) {
   for (let i = 0; i < 6; i++) c += `<circle cx="${280 + (i % 3) * 120}" cy="${1250 + Math.floor(i / 3) * 120}" r="52" fill="#ff9aa8" stroke="#fff" stroke-width="5"/><circle cx="${280 + (i % 3) * 120}" cy="${1250 + Math.floor(i / 3) * 120}" r="16" fill="#a83a52"/>`;
   return `<g opacity="${k}" filter="url(#sh)">${c}<text x="780" y="1290" text-anchor="middle" font-size="40" font-weight="900" fill="#fff" stroke="#000" stroke-width="4" paint-order="stroke">CELLS DON'T</text><text x="780" y="1345" text-anchor="middle" font-size="40" font-weight="900" fill="#fff" stroke="#000" stroke-width="4" paint-order="stroke">SHRINK WITH YOU</text></g>`;
 }
-const blackOpen = (t: number) => { const k = 1 - k01(t, .15, .95); return k <= 0 ? '' : `<rect width="1080" height="${960 * k}" fill="#000"/><rect y="${1920 - 960 * k}" width="1080" height="${960 * k}" fill="#000"/>`; };
+const blackOpen = (t: number) => { const k = .86 * (1 - k01(t, .15, .95)); return k <= 0 ? '' : `<rect width="1080" height="${960 * k}" fill="#000"/><rect y="${1920 - 960 * k}" width="1080" height="${960 * k}" fill="#000"/>`; };
 
 type Shot = { t0: number; t1: number; f: (t: number) => Frame7 };
 const S: Shot[] = []; const shot = (t0: number, t1: number, f: Shot['f']) => S.push({ t0, t1, f });
@@ -236,7 +236,7 @@ shot(57.1, 60, t => {
   return { t, cam: shake(cam, t, .08 + engulf * .1), light: ROOM(hp, { sun: { dir: [-.12, .5, -.86], color: '#ffd9a6', int: 3.6, focus: hp, size: 60 } }), cut: null, motes: 1.5, brush: t * 6,
     props: [{ name: 'Vacuum', pos: [vx, 0, 72], rot: [0, 0, 0] }], suck: { at: [vx - 26, 0, 72], k: 1, t },
     actors: [hero({ pose: runPose(d / UNIT, -1, { fear: .5, lean: .3 }), pos: add3(hp, [0, runBob(d / UNIT) * UNIT, 0]), t, face: F('terrified', 'determined', .3) })],
-    overlay: svg(engulf > 0 ? `<rect width="1080" height="1920" fill="#000" opacity="${engulf}"/>` : ''), grade: { bloom: .5, gain: [1.06, 1.0, .92], vignette: .55 + engulf * .3, whip: .15 } };
+    overlay: svg(engulf > 0 ? `<rect width="1080" height="1920" fill="#000" opacity="${engulf * .88}"/>` : ''), grade: { bloom: .5, gain: [1.06, 1.0, .92], vignette: .55 + engulf * .3, whip: .15 } };
 });
 
 export const SHOTS = S;
