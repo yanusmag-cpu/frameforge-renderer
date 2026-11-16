@@ -11,7 +11,7 @@ function skClone(source: T.Object3D) {
     c.skeleton = s.skeleton.clone(); c.bindMatrix.copy(s.bindMatrix); c.skeleton.bones = s.skeleton.bones.map(b => cloneOf.get(b) as T.Bone); c.bind(c.skeleton, c.bindMatrix); });
   return clone;
 }
-export type Kind = 'raptor' | 'rex' | 'sauro' | 'ptero' | 'bird';
+export type Kind = 'raptor' | 'rex' | 'sauro' | 'ptero' | 'bird' | 'ant' | 'spider';
 export type CreatureState = {
   id: string; kind: Kind; pos: [number, number, number]; yaw: number; scale?: number;
   gait?: { phase: number; stride: number; lift?: number };   // phase in cycles (one cycle = two steps)
@@ -26,6 +26,7 @@ export type CreatureState = {
   flap?: number;            // flyers: wingbeat phase (cycles); glide when undefined
   tint?: string;            // colour multiplier for juveniles / variants
   shake?: number;           // shiver (fear, cold)
+  rear?: number;            // bugs: front legs raised, body tilted up (threat display / lunge)
 };
 type Bn = { b: T.Bone; par: Bn | null; p0: T.Vector3; q0: T.Quaternion; ax0: T.Vector3; kids: Bn[] };
 const X = new T.Vector3(1, 0, 0), Y = new T.Vector3(0, 1, 0), Z = new T.Vector3(0, 0, 1);
@@ -95,6 +96,7 @@ export class Creature {
     const crouch = S.crouch ?? 0, br = (S.breathe ?? 1) * Math.sin(t * 1.7) * .5 + .5;
     const sway = (k: number) => Math.sin(t * 1.1 - k * .7);
     const shake = (S.shake ?? 0) * Math.sin(t * 47) * .015;
+    if (this.kind === 'ant' || this.kind === 'spider') { this.poseBug(S); return this.place(S); }
     if (this.kind === 'ptero' || this.kind === 'bird') {
       const fl = S.flap; const beat = fl === undefined ? .15 : Math.sin(fl * Math.PI * 2);
       for (const sd of ['L', 'R']) { const s = sd === 'L' ? 1 : -1; d['wing1' + sd] = qa(Z, s * (beat * .75 + .05)); d['wing2' + sd] = qa(Z, s * (fl === undefined ? .05 : Math.sin(fl * Math.PI * 2 - .8) * .55)); }
@@ -148,6 +150,32 @@ export class Creature {
     }
     this.solve(d, ik, off);
     return this.place(S);
+  }
+  /** insects / spiders: alternating tripod (ant) or tetrapod (spider) gait with FK sweeps and lifts, twitching antennae, threat rear-up */
+  private poseBug(S: CreatureState) {
+    const d: Record<string, T.Quaternion> = {}; const t = S.t; const ant = this.kind === 'ant'; const rear = S.rear ?? 0; const g = S.gait;
+    const root = ant ? 'body' : 'ceph'; d[root] = qe(-rear * .45 + (S.lean ?? 0), (S.head?.[1] ?? 0) * .3, 0);
+    const br = Math.sin(t * 2.1) * .04 * (S.breathe ?? 1); d[ant ? 'gaster' : 'abd'] = qe(rear * .5 + br + (ant ? -.08 : 0), Math.sin(t * .9) * .05);
+    if (ant) {
+      d.head = qe((S.head?.[0] ?? 0) + rear * .3, S.head?.[1] ?? 0, S.head?.[2] ?? 0);
+      for (const [n, sd] of [['L', 1], ['R', -1]] as [string, number][]) {
+        d['ant' + n + '1'] = qe(Math.sin(t * 6.3 + sd) * .25 - rear * .3, Math.sin(t * 4.1 + sd * 2) * .35 * sd); d['ant' + n + '2'] = qe(Math.sin(t * 8.7 + sd) * .3, 0);
+        d['mand' + n] = qa(Y, sd * (S.jaw ?? 0) * .6);
+      }
+    } else { for (const [n, sd] of [['L', 1], ['R', -1]] as [string, number][]) { d['chel' + n] = qa(X, -(S.jaw ?? 0) * .5); d['palp' + n] = qe(Math.sin(t * 3 + sd) * .2 - rear * .6, sd * Math.sin(t * 2.3) * .2); } }
+    const pairs = ant ? 3 : 4; const groupA = (n: string, k: number) => ((n === 'L' ? 0 : 1) + k) % 2 === 0;
+    for (let k = 0; k < pairs; k++) for (const [n, sd] of [['L', 1], ['R', -1]] as [string, number][]) {
+      const off = groupA(n, k) ? 0 : .5; let sweep = 0, lift = 0;
+      if (g && g.stride > 0) { const u = ((g.phase + off) % 1 + 1) % 1; sweep = Math.cos(u * Math.PI * 2) * .38; lift = u > .5 ? Math.sin((u - .5) * 2 * Math.PI) : 0; }
+      else { sweep = Math.sin(t * .7 + k + sd) * .03; }
+      const front = k === 0 ? rear : (k === 1 && !ant ? rear * .6 : 0);
+      const fem = ant ? 'fem' : 'fem', tib = 'tib';
+      d[fem + n + k] = qa(Y, -sd * sweep).multiply(qa(Z, sd * (lift * .35 + front * 1.1 - (S.crouch ?? 0) * .25)));
+      d[tib + n + k] = qa(Z, sd * (lift * .2 + front * .4));
+      if (!ant) d['tar' + n + k] = qa(Z, sd * (lift * .15 - front * .3));
+    }
+    const bob = g ? Math.abs(Math.sin(g.phase * Math.PI * 4)) * .02 * (ant ? 1 : 3) : 0;
+    this.solve(d, {}, new T.Vector3(0, bob - (S.crouch ?? 0) * (ant ? .2 : .9) + rear * (ant ? .15 : .6), 0));
   }
   private place(S: CreatureState) {
     this.root.position.set(...S.pos); this.root.rotation.set(0, S.yaw, 0); this.root.scale.setScalar(S.scale ?? 1); this.root.visible = true;
