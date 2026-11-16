@@ -329,13 +329,14 @@ def room():
 # ================================================================== props
 def props():
     fib = vcol_mat('fiber', .9); parts = []
-    for k in range(5):   # one tuft: a twisted bundle of curly strands, splaying at the tips
-        a = k / 5 * 6.283 + random.uniform(-.3, .3); r0 = random.uniform(.05, .18); h = random.uniform(2.6, 3.8); pts = []
-        for j in range(6):
-            s = j / 5; tw = s * 2.4 + a; rr = r0 + s * s * .35; pts.append((math.cos(tw) * rr, h * s, math.sin(tw) * rr))
-        parts.append(tube(f'fs{k}', pts, .1, fib, 0))
+    for k in range(12):   # one tuft: a twisted bundle of fine curly strands, splaying at the tips
+        a = k / 12 * 6.283 + random.uniform(-.3, .3); r0 = random.uniform(.03, .16); h = random.uniform(2.4, 3.6); ph = random.uniform(0, 6.28); pts = []
+        for j in range(5):
+            s_ = j / 4; tw = s_ * 3.2 + a; rr = r0 + s_ * s_ * .42; pts.append((math.cos(tw) * rr + math.sin(s_ * 5 + ph) * .06, h * s_, math.sin(tw) * rr + math.cos(s_ * 5 + ph) * .06))
+        parts.append(tube(f'fs{k}', pts, .042, fib, 0))
     bulk_convert(parts); objs = [bpy.data.objects[p.name] for p in parts]
-    for o in objs: set_cols(o, lambda p, i: (.72 + p[1] * .05, .65 + p[1] * .045, .54 + p[1] * .04))
+    for o in objs:
+        tint = random.uniform(.85, 1.08); set_cols(o, lambda p, i: ((.55 + p[1] * .1) * tint, (.47 + p[1] * .09) * tint, (.36 + p[1] * .08) * tint))
     keep('Tuft', objs, (0, 0, 0))
     cr = vcol_mat('crumb', .95); c = ico('crumbp', (0, .6, 0), 1, cr, (1.1, .8, 1), sub=3); set_cols(c, lambda q, i: (.92, .78, .52) if random.random() < .7 else (.62, .38, .16)); keep('Crumb', [c], (0, 0, 0))
     d = sphere('drop', (0, 0, 0), 1, mat('droplet', (.9, .95, 1), 0, .02), (1, .78, 1), 48)
@@ -408,7 +409,7 @@ def spider(prefix='spider'):
     m = vcol_mat('spider', .6); base, light, dark = (.36, .27, .18), (.62, .5, .34), (.12, .09, .07)
     def col(p, i): return light if (abs(p.x) < .18 and p.y > 2.6) or math.sin(p.z * 6) > .75 else (dark if p.y < 2.25 else base)
     body = Piece(prefix + '_body', [(0, 2.6, -2.6), (0, 2.65, -1.9), (0, 2.6, -1.0), (0, 2.45, -.32), (0, 2.42, -.15), (0, 2.5, .2), (0, 2.5, .65), (0, 2.42, .98)],
-                 [(.05, .05), (1.0, .9), (1.05, .95), (.25, .22), (.4, .3), (.75, .5), (.6, .45), (.25, .2)], [s('ceph'), s('abd')], col, ring=16, m=m)
+                 [(.06, .06), (1.35, 1.2), (1.4, 1.25), (.35, .3), (.55, .4), (1.0, .65), (.8, .6), (.32, .26)], [s('ceph'), s('abd')], col, ring=16, m=m)
     parts = [(body.o, B, body.bones, None)]
     for k in range(8):   # eye cluster
         x = (k % 4 - 1.5) * .12; y = 2.85 + (k // 4) * .12 - abs(x) * .3; parts.append((sphere(f'{prefix}_e{k}', (x, y, .82 - (k // 4) * .08), .06 + (.03 if k in (1, 2) else 0), mat('spider_eye', (.02, .02, .03), .4, .02), (1, 1, 1), 10), B, [s('ceph')], None))
@@ -417,27 +418,33 @@ def spider(prefix='spider'):
         pa = Piece(f'{prefix}_palp{n}', [tuple(B[s('palp' + n)][0]), tuple((B[s('palp' + n)][0] + B[s('palp' + n)][1]) * .5 + V(0, .2, 0)), tuple(B[s('palp' + n)][1])], [(.07, .07), (.06, .06), (.09, .09)], [s('palp' + n)], col, ring=8, m=m); parts.append((pa.o, B, pa.bones, None))
         for k in range(4):
             a, b_, c_, d_ = B[s(f'fem{n}{k}')][0], B[s(f'tib{n}{k}')][0], B[s(f'tar{n}{k}')][0], B[s(f'tar{n}{k}')][1]
-            lg = Piece(f'{prefix}_leg{n}{k}', [tuple(a), tuple(b_), tuple(c_), tuple(d_)], [(.16, .16), (.12, .12), (.08, .08), (.03, .03)], [s(f'fem{n}{k}'), s(f'tib{n}{k}'), s(f'tar{n}{k}')], lambda p, i: light if (int(p.y * 3) % 2) else base, ring=8, sub=6, m=m)
+            lg = Piece(f'{prefix}_leg{n}{k}', [tuple(a), tuple(b_), tuple(c_), tuple(d_)], [(.3, .3), (.24, .24), (.15, .15), (.06, .06)], [s(f'fem{n}{k}'), s(f'tib{n}{k}'), s(f'tar{n}{k}')], lambda p, i: light if (int(p.y * 3) % 2) else base, ring=8, sub=6, m=m)
             parts.append((lg.o, B, lg.bones, None))
     spec = []   # hair: dense on the abdomen, bristly spines on the legs
     for ring in body.rings:
         c, t, sv, u, rx, ry, idx = ring
-        for _ in range(26 if c.z < -.3 else 12):
+        for _ in range(40 if c.z < -.3 else 18):
             a = random.uniform(0, 6.283); nrm = sv * math.cos(a) + u * math.sin(a); root = c + sv * math.cos(a) * rx + u * math.sin(a) * ry
-            d = (nrm * .7 - t * .7).normalized(); spec.append((tuple(root), tuple(d), tuple(nrm.cross(d).normalized()), random.uniform(.12, .25), .05, random.choice([base, light, dark]), [s('abd') if c.z < -.3 else s('ceph')]))
+            d = (nrm * .7 - t * .7).normalized(); spec.append((tuple(root), tuple(d), tuple(nrm.cross(d).normalized()), random.uniform(.18, .34), .06, random.choice([base, light, dark, dark]), [s('abd') if c.z < -.3 else s('ceph')]))
     for sd, n in ((1, 'L'), (-1, 'R')):
         for k in range(4):
             for seg, bn in ((('fem', 'tib')), ('tib', 'tar')):
                 a, b_ = B[s(f'{seg}{n}{k}')][0], B[s(f'{seg}{n}{k}')][1]
-                for j in range(14):
-                    q = a + (b_ - a) * (j / 13); d = (V(random.uniform(-1, 1), random.uniform(.3, 1), random.uniform(-1, 1))).normalized()
+                for j in range(22):
+                    q = a + (b_ - a) * (j / 21); d = (V(random.uniform(-1, 1), random.uniform(.3, 1), random.uniform(-1, 1))).normalized()
                     spec.append((tuple(q), tuple(d), tuple(d.cross(V(0, 1, 0)).normalized() if abs(d.y) < .95 else V(1, 0, 0)), random.uniform(.18, .35), .03, dark, [s(f'{seg}{n}{k}')]))
     fo, roots = cards(prefix + '_hair', spec, vcol_mat('bug_hair', .8)); parts.append((fo, B, None, roots))
     bind(ob, parts, prefix + '_mesh')
 
+CLEAR = [(0, 0, 0, 0, 3.2), (1.6, 3.2, 3.4, 8, 1.8), (2, 1, 16, -6, 1.6), (-.6, 4.4, 13.4, -2.6, 1.7), (17, -2.5, 24, -9, 2.4), (22.4, -9.2, 22.4, -9.2, 2.8), (33, -15, 24.6, -9.6, 1.9),
+         (20.4, -4.8, 23.5, -7, 1.6), (24.6, -9.6, 31, -12, 1.7), (19, -3.5, 19, -3.5, 1.6), (25, -10, 25, -10, 2.4), (40, 26, 40, 26, 3.2), (35, 19, 36.5, 20.5, 2.2), (38, 24, 60, 236, 2.2), (33, 13, 55, 225, 2.2),
+         (124.5, 64, 128, 64, 3.6), (119, 66.5, 119, 66.5, 1.9), (124, 66, 124, 66, 1.6), (120, 58, 120, 58, 2.2), (124, 52, 124, 52, 2.6), (128, 64.5, 139, 69, 2.3), (124, 66, 135, 72, 1.7),
+         (136.4, 72.4, 136.7, 72.1, 1.6), (139, 69, 115, 61, 2.3), (130, 66.5, 106, 58.5, 2.1)]
+def seg_d(x, z, ax, az, bx, bz):
+    dx, dz = bx - ax, bz - az; L2 = dx * dx + dz * dz; k = 0 if L2 == 0 else max(0, min(1, ((x - ax) * dx + (z - az) * dz) / L2)); return math.hypot(x - ax - dx * k, z - az - dz * k)
 def tufts_json():
     out = []
-    zones = [((0, 0), 24, 1.4), ((25, -10), 20, 1.45), ((60, 40), 26, 1.6), ((95, 150), 28, 1.6), ((100, 230), 20, 1.8), ((128, 64), 18, 1.5), ((170, 70), 28, 1.7)]
+    zones = [((0, 0), 22, 1.25), ((25, -10), 20, 1.3), ((60, 40), 24, 1.5), ((95, 150), 26, 1.7), ((100, 230), 18, 1.9), ((128, 64), 18, 1.3), ((150, 68), 30, 1.5)]
     seen = set()
     for (cx, cz), r, step in zones:
         n = int(r / step)
@@ -447,7 +454,7 @@ def tufts_json():
                 if math.hypot(x - cx, z - cz) > r: continue
                 key = (round(x / step), round(z / step))
                 if key in seen: continue
-                if math.hypot(x - 128, z - 64) < 3.0 or math.hypot(x - 25, z + 10) < 2.2 or (20 < x < 30 and 240 < z < 250): continue
+                if any(seg_d(x, z, *c[:4]) < c[4] for c in CLEAR): continue
                 seen.add(key); out.append([round(x, 2), 0, round(z, 2), round(random.uniform(.75, 1.25), 2), round(random.uniform(0, 6.28), 2)])
     (OUT / 'tufts.json').write_text(json.dumps({'Tuft': out}, separators=(',', ':'))); print('tufts', len(out))
 
