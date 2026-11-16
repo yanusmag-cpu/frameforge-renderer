@@ -123,7 +123,7 @@ shot(16.65, 20.5, t => {
 const SHOE_HIT = 21.6;
 shot(20.5, 23.45, t => {
   const hp: V3 = [40, 0, 26]; const fall = k01(t, 20.6, SHOE_HIT); const sy = mix(260, 0, fall * fall); const it = t - SHOE_HIT;
-  const cam = cp(t, 20.5, 23.45, [{ p: [36, 1.0, 20], l: [55, 30, 42], f: 60 }, { p: [35, 1.2, 19], l: [50, 8, 40], f: 58 }]);
+  const cam = it < 0 ? { pos: [30, 1.2, 14] as V3, look: [SHOE[0] - 3, 4 + sy * .5, SHOE[2]] as V3, fov: 60 } : cp(t, SHOE_HIT, 23.45, [{ p: [30, 1.2, 14], l: [SHOE[0] - 3, 4, SHOE[2]], f: 60 }, { p: [33, 1.2, 17], l: [50, 8, 40], f: 58 }]);
   const kb = k01(t, SHOE_HIT + .05, SHOE_HIT + 1.3);
   return { t, cam: shake(cam, t, it > 0 && it < 1.2 ? .35 * (1 - it / 1.2) : fall * .03), light: ROOM(hp, { sun: { dir: [-.12, .5, -.86], color: '#ffd9a6', int: 3.6, focus: SHOE, size: 90 } }), cut: null, motes: .5,
     props: [{ name: 'Shoe', pos: [SHOE[0], sy, SHOE[2]], rot: [it < 0 ? .25 * (1 - fall) : 0, -.6, 0] }], stomp: it > 0 ? { at: SHOE, t: it } : undefined,
