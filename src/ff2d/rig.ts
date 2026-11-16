@@ -15,7 +15,7 @@ export type Pose = {
   headLift: number;    // units, + = up (anticipation / recoil)
   handA: V2; handB: V2; // targets for screen-left (A) and screen-right (B) hands, local coords
   bendA?: number; bendB?: number;
-  footA: V2; footB: V2; kneeDir?: number;
+  footA: V2; footB: V2; kneeDir?: number; kneeUp?: boolean;   // kneeUp: sitting / kneeling knees point up
   shapeA?: Hand; shapeB?: Hand;
   frontA?: number; frontB?: number; // 1 = draw that arm in front of torso
 };
@@ -108,7 +108,7 @@ export function stickman(p: Pose, L: Look, o: DrawOpts): { svg: string; j: Joint
     const tgt = side < 0 ? p.footA : p.footB;
     const kd = p.kneeDir ?? (at > .2 ? sgn : side);
     const k1 = ik2(hj, tgt, .8, .77, 1), k2 = ik2(hj, tgt, .8, .77, -1);
-    const pick = (k1.mid[0] - hj[0]) * kd >= (k2.mid[0] - hj[0]) * kd ? k1 : k2;
+    const pick = p.kneeUp ? (k1.mid[1] < k2.mid[1] ? k1 : k2) : (k1.mid[0] - hj[0]) * kd >= (k2.mid[0] - hj[0]) * kd ? k1 : k2;
     const { end } = pick;
     // front view: knees stay nearly straight/slightly outward instead of kinking
     const w = at > .2 || p.kneeDir !== undefined ? 1 : .35;
