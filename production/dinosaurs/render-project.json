@@ -1,0 +1,24 @@
+{
+ "composition": "DinoFilm",
+ "artifactPrefix": "dino-chunk",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/dino",
+  "public/brazil"
+ ],
+ "sourceDirectories": [
+  "src/ff2d",
+  "src/brazil",
+  "src/dino"
+ ],
+ "blenderScript": "scripts/dino/build-assets.py",
+ "audioScript": "scripts/dino/make-audio.py",
+ "soundtrack": "public/dino-sound/bed.flac",
+ "soundtrackLUFS": -20,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "raised_by_dinosaurs_final.mp4"
+}
