@@ -30,7 +30,7 @@ function drawCaustics(c: HTMLCanvasElement, time: number) {
   const g = c.getContext('2d')!; g.fillStyle = '#000'; g.fillRect(0, 0, 256, 256); g.globalCompositeOperation = 'lighter'; g.lineWidth = 3;
   for (let k = 0; k < 3; k++) for (let i = 0; i < 14; i++) {
     g.strokeStyle = `rgba(190,240,255,${.16 + k * .05})`; g.beginPath();
-    for (let x = -10; x <= 266; x += 8) { const y = (i * 19 + k * 7 + Math.sin(x * .045 + time * (1.1 + k * .3) + i) * 9 + Math.sin(x * .11 - time * 1.7 + i * 2.1) * 4) % 266; x === -10 ? g.moveTo(x, y) : g.lineTo(x, y); }
+    for (let x = -10; x <= 266; x += 8) { const y = (i * 19 + k * 7 + Math.sin(x * .045 + time * (1.1 + k * .3) + i) * 9 + Math.sin(x * .11 - time * 1.7 + i * 2.1) * 4) % 266; if (x === -10) g.moveTo(x, y); else g.lineTo(x, y); }
     g.stroke();
   }
   g.globalCompositeOperation = 'source-over';
@@ -113,12 +113,11 @@ export class Engine3 extends Engine {
     }
   }
   private sway(t: number, wind: number) {
-    const m = new T.Matrix4(), q = new T.Quaternion(), e = new T.Euler();
+    const q = new T.Quaternion(), e = new T.Euler(), r = new T.Matrix4(), mm = new T.Matrix4();
     for (const v of this.veg) {
       v.data.forEach((d, i) => {
         const ph = d[4] * 3 + d[0] * .05 + d[2] * .04; const a = v.sway * wind * (Math.sin(t * 1.3 + ph) * .7 + Math.sin(t * 2.9 + ph * 1.7) * .3);
-        e.set(a * .6, 0, a); q.setFromEuler(e); m.makeRotationFromQuaternion(q); m.premultiply(new T.Matrix4().copyPosition(v.base[i])); const s = d[3];
-        const mm = new T.Matrix4().copy(v.base[i]).multiply(new T.Matrix4().makeRotationFromQuaternion(q)); void s; v.inst.forEach(im => im.setMatrixAt(i, mm));
+        e.set(a * .6, 0, a); q.setFromEuler(e); mm.copy(v.base[i]).multiply(r.makeRotationFromQuaternion(q)); v.inst.forEach(im => im.setMatrixAt(i, mm));
       });
       v.inst.forEach(im => im.instanceMatrix.needsUpdate = true);
     }
