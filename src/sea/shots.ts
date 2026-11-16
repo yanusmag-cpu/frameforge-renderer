@@ -155,8 +155,8 @@ shot(19.05, 21.95, t => {
 });
 // 5b. MAMMALS LIKE WHALES STILL BREATHE AIR (21.95 – 24.05): a whale rises past us to the surface
 shot(21.95, 24.05, t => {
-  const k = k01(t, 21.95, 24.05); const wp: V3 = [6, mix(-16, -2.6, inOut(k)), mix(24, 6, k)];
-  const cam = cp(t, 21.95, 24.05, [{ p: [-8, -12, 34], l: [6, -10, 18], f: 54 }, { p: [-9, -11, 33], l: [5, -3, 10], f: 56 }]);
+  const k = k01(t, 21.95, 24.05); const wp: V3 = [6, mix(-8.5, -2.6, inOut(k)), mix(24, 6, k)];
+  const cam = cp(t, 21.95, 24.05, [{ p: [-12, -5.5, 42], l: [6, -10, 16], f: 54 }, { p: [-12, -5, 40], l: [5, -3, 9], f: 56 }]);
   return { t, cam, light: SHALLOW(wp), cut: null, caust: 1.1, current: .4, snow: .5, rays: { k: 1.2, at: [6, 0, 12], spread: 30 },
     props: [{ name: 'Whale', pos: wp, rot: [-.35 * (1 - k), Math.PI, 0], scale: 1.2 }],
     bubbles: [{ at: add3(wp, [0, 1.6, -5]), t: t * 2, n: k > .85 ? 120 : 30, spread: 2.5, rate: 2 }],
@@ -166,7 +166,7 @@ shot(21.95, 24.05, t => {
 // 6. HOMES NEAR THE SURFACE, DIVING FOR FOOD TOGETHER (24.05 – 28.56)
 shot(24.05, 28.56, t => {
   const k = k01(t, 26.2, 28.5);
-  const cam = cp(t, 24.05, 28.56, [{ p: [52, -13, 52], l: [52, -1, 26], f: 58 }, { p: [52, -12.5, 50], l: [54, -5, 26], f: 56 }, { p: [53, -11, 46], l: [56, -10, 24], f: 52 }]);
+  const cam = cp(t, 24.05, 28.56, [{ p: [38, -7.5, 52], l: [54, -2.2, 26], f: 56 }, { p: [39, -8.5, 50], l: [54, -5, 27], f: 56 }, { p: [41, -10, 47], l: [55, -9, 26], f: 52 }]);
   const divers = [0, 1, 2, 3].map(i => { const sx = HOMES[0] - 6 + i * 4, sz = 26 + (i % 2) * 6; const d = smooth(k01(t, 25.6 + i * .25, 28.4)); const pos: V3 = [sx + d * 2, mix(-.9, -9.5 - i * .6, d), sz];
     return folk(i, { pose: swimPose(t + i, { speed: 1.2 }), roll: d > .05 ? Math.PI * .8 : 0, pos, t, res: 640 }); });
   const hp: V3 = [HOMES[0] + 2, mix(-1, -9, smooth(k01(t, 26.1, 28.3))), 33];
@@ -230,9 +230,9 @@ shot(43.65, 48.55, t => {
 const ISL: V3 = [0, 0, -200];
 shot(48.55, 53.95, t => {
   const k = k01(t, 48.55, 53.95); const hp: V3 = [2, mix(-9, -2.2, inOut(k)), mix(-170, -188, k)];
-  const cam = cp(t, 48.55, 53.95, [{ p: add3(hp, [2.5, -2.5, 6]), l: add3(hp, [-1, 3, -10]), f: 54 }, { p: add3(hp, [1.6, -1.2, 4.2]), l: add3(hp, [-.5, 3.5, -14]), f: 56 }]);
+  const cam = cp(t, 48.55, 53.95, [{ p: add3(hp, [1.2, -1.2, 5.5]), l: add3(hp, [.4, .8, -3]), f: 52 }, { p: add3(hp, [.9, -.9, 4.4]), l: add3(hp, [.2, 1.6, -6]), f: 54 }]);
   return { t, cam, light: SHALLOW(hp, { fog: ['#2aa8b8', .016] }), cut: null, caust: 1.6, current: .6, snow: .4, rays: { k: 1.5, at: hp, spread: 22 }, schools: [{ kind: 'FishYellow', center: add3(hp, [-3, 1, -4]), n: 30, r: 3, t, speed: .4 }],
-    actors: [hero({ pose: P(swimPose(t), pose(t, 1, { back: 1, headLift: .15, arms: [[-.5, -2.2], [.95, -3.8]], shapeB: 'open' }), k01(t, 51.4, 52.4)), roll: (1 - k01(t, 51.4, 52.4)) * Math.PI * .5, pos: hp, t, face: F('amazed') })],
+    actors: [hero({ pose: P({ ...swimPose(t), back: 1 }, pose(t, 1, { back: 1, headLift: .15, arms: [[-.5, -2.2], [.95, -3.8]], shapeB: 'open' }), k01(t, 51.4, 52.4)), pos: hp, t, face: F('amazed') })],
     bubbles: [{ at: add3(hp, [0, 1, 0]), t: t * 2, n: 16, spread: .3 }],
     overlay: svg(sub('SOMETHING NOBODY HAS EVER TOUCHED', t, 50.06, 52.2, 320, 44, '#fff') + title('A BEACH ABOVE THE WAVES', t, 52.39, 99, 320, 66, '#ffd34d')), grade: { bloom: .6, sat: 1.15, gain: [.95, 1.03, 1.06] } };
 });
