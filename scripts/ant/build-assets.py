@@ -276,7 +276,7 @@ def room():
     span('rug', (-420, 0, -560), (680, .6, 560), rug, 0)
     for nm, a, b in (('wall_back', (-700, 0, -880), (700, 875, -875)), ('wall_left', (-705, 0, -875), (-700, 875, 875)), ('wall_right', (700, 0, -875), (705, 875, 875)), ('wall_front', (-700, 0, 875), (700, 875, 880))):
         span(nm, a, b, wall, 0)
-    for nm, a, b in (('bb_back', (-700, 0, -875), (700, 35, -868)), ('bb_left', (-700, 0, -875), (-693, 35, 875)), ('bb_right_a', (693, 0, -875), (700, 35, 280)), ('bb_right_b', (693, 0, 600), (700, 35, 875))):
+    for nm, a, b in (('bb_back', (-700, 0, -875), (700, 35, -868)), ('bb_left', (-700, 0, -875), (-693, 35, 875)), ('bb_right_a', (693, 0, -875), (700, 35, -315)), ('bb_right_b', (693, 0, 30), (700, 35, 875))):
         span(nm, a, b, base, 0)
     # window in the back wall: bright panes + frame + sill (sunlight source)
     glow = mat('window_light', (1, .95, .85), 0, .3, (1, .93, .8), 3.5); frame = mat('window_frame', (.96, .96, .95), 0, .4)
@@ -285,9 +285,9 @@ def room():
     for y in (300, 525, 750): span(f'wh{y}', (-258, y - 8, -873), (258, y + 8, -866), frame, 0)
     span('sill', (-280, 285, -875), (280, 300, -830), frame, 0)
     # door on the right wall, half open: warm hallway light through the gap
-    span('door_gap', (701, 0, 285), (703, 735, 600), mat('hall_light', (1, .92, .78), 0, .3, (1, .88, .7), 2.6), 0)
-    door = span('door', (550, 0, 590), (560, 730, 905), mat('door_paint', (.95, .94, .9), 0, .5), 0); door.rotation_euler = (0, 0, 0)
-    span('door_frame_a', (690, 0, 270), (705, 750, 285), frame, 0); span('door_frame_b', (690, 0, 600), (705, 750, 615), frame, 0); span('door_frame_t', (690, 735, 270), (705, 750, 615), frame, 0)
+    span('door_gap', (701, 0, -300), (703, 735, 15), mat('hall_light', (1, .92, .78), 0, .3, (1, .88, .7), 3.2), 0)
+    span('door', (420, 0, 22), (700, 730, 30), mat('door_paint', (.95, .94, .9), 0, .5), 0)
+    span('door_frame_a', (688, 0, -315), (705, 752, -300), frame, 0); span('door_frame_b', (688, 0, 15), (705, 752, 30), frame, 0); span('door_frame_t', (688, 735, -315), (705, 752, 30), frame, 0)
     # bed (back-left), duvet + pillows
     span('bed_base', (-690, 0, -870), (-170, 160, -160), dark, 0); duv = mat('duvet', (.78, .82, .9), 0, .95)
     ico('duvet', (-430, 230, -500), 1, duv, (270, 70, 360), sub=3); ico('pillow1', (-560, 300, -780), 1, mat('pillow', (.97, .96, .94), 0, .95), (100, 40, 60), sub=3); ico('pillow2', (-320, 300, -780), 1, mat('pillow', (.97, .96, .94), 0, .95), (100, 40, 60), sub=3)

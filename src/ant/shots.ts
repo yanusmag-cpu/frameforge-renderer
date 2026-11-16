@@ -112,9 +112,9 @@ shot(16.65, 20.5, t => {
   const hp: V3 = [22.4, 0, -9.2]; const ap = add3([24.6, 0, -9.6], [(t - 16.65) * 1.6, 0, -(t - 16.65) * .6]);
   const tilt = smooth(k01(t, 19.5, 20.4)); const shadow = k01(t, 19.8, 20.5);
   const cam = cp(t, 16.65, 20.5, [{ p: [19, 1.6, -3.5], l: [23, 1.1, -10], f: 46 }, { p: [18.5, 1.4, -3.0], l: [23, 1.2, -10], f: 46 }]);
-  const cam2 = { ...cam, look: add3(cam.look, [0, tilt * 30, -tilt * 10]), fov: cam.fov + tilt * 10 };
+  const up: V3 = [52, 150, 34]; const cam2 = { ...cam, look: [mix(cam.look[0], up[0], tilt), mix(cam.look[1], up[1], tilt), mix(cam.look[2], up[2], tilt)] as V3, fov: cam.fov + tilt * 14 };
   return { t, cam: cam2, light: ROOM(hp, { sun: { dir: [-.12, .5, -.86], color: '#ffd9a6', int: 4.0 * (1 - shadow * .6), focus: hp, size: 14 } }), cut: null, motes: .8,
-    props: [{ name: 'Droplet', pos: DROP, scale: [1.6, 1.2, 1.6] }],
+    props: [{ name: 'Droplet', pos: DROP, scale: [1.6, 1.2, 1.6] }, { name: 'Shoe', pos: [SHOE[0] - 6, 170 - shadow * 30, SHOE[2] - 4], rot: [.3, -.6, 0] }],
     bugs: [ANT0(t, { pos: ap, yaw: 1.95, gait: { phase: t * 2.2, stride: .5 } })],
     actors: [hero({ pose: pose(t, 1, { turn: .4, headLift: tilt * .2, arms: [[-.45, -1.6], [.5, -1.7]] }), pos: hp, t, face: t < 19.6 ? F('relief') : F('worried', 'shocked', shadow) })],
     overlay: svg(sub('NOT A LION OR A SHARK', t, 18.0, 19.6) + danger(t, 18.2, 19.7) + sub('IT’S YOUR OWN HOME', t, 19.76, 99, 330, 66, '#ff7a5a')), grade: { bloom: .45, gain: [1.04, .98, .92], vignette: .5 + shadow * .2 } };
@@ -195,8 +195,8 @@ shot(43.65, 46.75, t => {
 shot(46.75, 50.4, t => {
   const ck = smooth(k01(t, 46.95, 48.3)); const topY = 3.4; const hp: V3 = [mix(124.5, 128, ck), mix(0, topY, ck), 64];
   const onTop = t > 48.3; const point = gesture(t, 49.3, .5);
-  const cam = t < 48.4 ? { pos: [119, 1.6, 66.5] as V3, look: [127, 2.2, 64] as V3, fov: 46 } : cp(t, 48.4, 50.4, [{ p: [124, 4.6, 66], l: [200, 30, 200], f: 50 }, { p: [124.5, 4.9, 65.2], l: [400, 60, 320], f: 46 }]);
-  return { t, cam, light: ROOM(CRUMB, { sun: { dir: [-.12, .5, -.86], color: '#ffd9a6', int: 4.0, focus: CRUMB, size: 24 } }), cut: null, motes: .7, rays: { k: .8, at: [300, 0, 300], spread: 300, len: 1200 },
+  const cam = t < 48.4 ? { pos: [122.4, 2.4, 59.4] as V3, look: [127.4, 2.2, 64] as V3, fov: 50 } : cp(t, 48.4, 50.4, [{ p: [124.6, 4.7, 66.4], l: [300, 90, 0], f: 50 }, { p: [125, 5.0, 66.8], l: [700, 300, -142], f: 38 }]);
+  return { t, cam, light: ROOM(CRUMB, { sun: { dir: [-.12, .5, -.86], color: '#ffd9a6', int: 4.0, focus: CRUMB, size: 24 }, fog: ['#e9d2b2', t > 48.4 ? .00045 : .0016] }), cut: null, motes: .7, rays: { k: .8, at: [300, 0, 300], spread: 300, len: 1200 },
     actors: [hero({ pose: !onTop ? climbPose(ck * 6) : P(pose(t, 1, { back: 1, headLift: .1 }), pose(t, 1, { back: 1, arms: [[-.5, -1.7], [1.1, -3.4]], shapeB: 'point' }), point), pos: hp, t, face: onTop ? F('excited') : F('determined') })],
     overlay: svg(sub('CLIMB OVER A CRUMB', t, 46.96, 49.0, 330, 56) + sub('THE BEDROOM DOOR!', t, 49.14, 99, 330, 66, '#ffd34d')), grade: { bloom: .6, gain: [1.08, 1.0, .9] } };
 });
