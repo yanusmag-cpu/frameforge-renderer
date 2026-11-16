@@ -1,0 +1,25 @@
+{
+ "composition": "SeaFilm",
+ "artifactPrefix": "sea-chunk",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/sea",
+  "public/brazil"
+ ],
+ "sourceDirectories": [
+  "src/ff2d",
+  "src/brazil",
+  "src/dino",
+  "src/sea"
+ ],
+ "blenderScript": "scripts/sea/build-assets.py",
+ "audioScript": "scripts/sea/make-audio.py",
+ "soundtrack": "public/sea-sound/bed.flac",
+ "soundtrackLUFS": -20,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "humans_evolved_underwater_final.mp4"
+}
