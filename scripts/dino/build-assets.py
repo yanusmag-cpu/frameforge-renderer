@@ -161,7 +161,7 @@ def terrain():
     for j in range(NZ):
         for i in range(NX): x, z = X0 + i * STEP, Z0 + j * STEP; verts.append((x, H(x, z), z))
     for j in range(NZ - 1):
-        for i in range(NX - 1): a = j * NX + i; faces.append((a, a + 1, a + NX + 1, a + NX))
+        for i in range(NX - 1): a = j * NX + i; faces.append((a, a + NX, a + NX + 1, a + 1))
     o = mesh('terrain', verts, faces, mat('terrain', (.3, .4, .2), 0, .95), smooth=True)
     hs = [[round(verts[j * NX + i][1], 2) for i in range(NX)] for j in range(NZ)]
     (OUT / 'height.json').write_text(json.dumps({'x0': X0, 'z0': Z0, 'step': STEP, 'nx': NX, 'nz': NZ, 'h': hs}, separators=(',', ':')))
@@ -174,7 +174,7 @@ def strip(name, cl, z0, z1, width, yfn, m, n=160):
         z = z0 + (z1 - z0) * k / n; x = cl(z); y = yfn(x, z)
         dz = (z1 - z0) / n; tx = cl(z + dz * .5) - cl(z - dz * .5); l = math.hypot(tx, dz); nx, nz = dz / l, -tx / l
         verts += [(x - nx * width / 2, y, z - nz * width / 2), (x + nx * width / 2, y, z + nz * width / 2)]
-        if k: a = 2 * k; faces.append((a - 2, a - 1, a + 1, a))
+        if k: a = 2 * k; faces.append((a - 2, a, a + 1, a - 1))
     return mesh(name, verts, faces, m)
 
 def waterfall_x():
