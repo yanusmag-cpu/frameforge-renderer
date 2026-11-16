@@ -19,6 +19,7 @@ export type ActorState = {
   shadow?: boolean; contact?: number;
   extra?: string;                   // extra SVG drawn in rig space (held 2D props)
   under?: string;                   // SVG drawn behind the character
+  roll?: number;                    // rotate the cut-out in its own plane about the feet (lying down = ±PI/2)
 };
 const blobTex = (() => { let t: T.Texture | null = null; return () => {
   if (t) return t; const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d')!;
@@ -63,7 +64,7 @@ export class Actor {
     const to = cp.clone().sub(this.base); const yaw = Math.atan2(to.x, to.z);
     const pitch = Math.atan2(to.y, Math.hypot(to.x, to.z));
     const lean = (s.lean ?? .5) * Math.max(0, pitch);
-    this.mesh.position.copy(this.base); this.mesh.rotation.set(0, 0, 0); this.mesh.rotateY(yaw); this.mesh.rotateX(-lean);
+    this.mesh.position.copy(this.base); this.mesh.rotation.set(0, 0, 0); this.mesh.rotateY(yaw); this.mesh.rotateX(-lean); if (s.roll) this.mesh.rotateZ(s.roll);
     this.mesh.scale.setScalar(sc); this.mesh.visible = true;
     this.mesh.updateMatrixWorld(); this.right.set(1, 0, 0).applyQuaternion(this.mesh.quaternion); this.up.set(0, 1, 0).applyQuaternion(this.mesh.quaternion);
     const tint = s.tint ?? [1, 1, 1]; const W = 1.14; this.mat.color.setRGB(tint[0] * W, tint[1] * W, tint[2] * W);

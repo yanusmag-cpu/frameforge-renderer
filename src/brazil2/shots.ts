@@ -47,7 +47,7 @@ const kneel = (t: number, seed: number, dir: number, k: number, o: PoseIn = {}):
 const indoor = (pts: Light['points'], o: Partial<Light> = {}): Light => ({ sky: ['#1b2433', '#38465c'], sun: { dir: [.4, .8, .3], color: '#fff3dc', int: 0, shadow: 0 }, hemi: ['#ffe7c8', '#4a3a2a', .45], amb: ['#ffffff', .08], fog: ['#20242b', .004], env: .6, sunGlow: 0, points: pts, ...o });
 
 // ============================================================================================== 1. CONTINUING FROM PART 1 — the crew drags the last bags away (0 – 3.67)
-// "They pulled off one of the biggest bank robberies in history,"
+//
 shot('p2-open', 0, 3.67, (t) => {
   const E = END1(); const tilt = inOut(k01(t, .45, 2.3));
   const target = camPath(t, .45, 3.67, [{ p: [78.25, -5.0, 1.02], l: [71.0, -5.25, .95], f: 46 }, { p: [78.1, -5.02, 1.0], l: [70.5, -5.3, .95], f: 44 }], x => x);
@@ -62,7 +62,7 @@ shot('p2-open', 0, 3.67, (t) => {
     overlay: svg(chip('PART 2', 70, 170, 46, t, .9, 3.3)), grade: { ...(E.grade ?? {}), exposure: mix(.78, .86, tilt), vignette: .5 } };
 });
 
-// ============================================================================================== 2. MONDAY — the vault door opens (3.67 – 6.44)   "but what happened next was even crazier."
+// ============================================================================================== 2. MONDAY — the vault door opens (3.67 – 6.44)
 shot('p2-monday', 3.67, 6.44, (t) => {
   const c = camPath(t, 3.67, 6.44, [{ p: [81.2, -1.7, .55], l: [72.6, -2.0, -1.3], f: 44 }, { p: [80.5, -1.72, .35], l: [72.6, -1.95, -1.3], f: 40 }], x => x);
   const o = inOut(k01(t, 3.9, 5.2)); const enter = k01(t, 5.3, 6.44);
@@ -78,7 +78,7 @@ shot('p2-monday', 3.67, 6.44, (t) => {
     grade: { gain: [1.0, 1.0, 1.04], vignette: .5 } };
 });
 
-// ============================================================================================== 3. POLICE FIND THE HOLE (6.44 – 8.83)   "When Brazilian police discovered the tunnel,"
+// ============================================================================================== 3. POLICE FIND THE HOLE (6.44 – 8.83)
 shot('p2-police', 6.44, 8.83, (t) => {
   const c = camPath(t, 6.44, 8.83, [{ p: [81.0, -1.95, 1.15], l: [77.4, -2.6, .3], f: 46 }, { p: [80.7, -2.1, 1.1], l: [77.5, -2.75, .4], f: 42 }], x => x);
   const walkIn = k01(t, 6.44, 7.25), kn = inOut(k01(t, 7.15, 7.75)); const beamK = k01(t, 8.05, 8.3);
@@ -96,7 +96,7 @@ shot('p2-police', 6.44, 8.83, (t) => {
     overlay: svg(chip('POLICE ARRIVE', 70, 170, 44, t, 6.75, 8.6)), grade: { gain: [1.0, 1.0, 1.04], vignette: .45 } };
 });
 
-// ============================================================================================== 4. THE TUNNEL IS EMPTY (8.83 – 10.74)   "the thieves were already gone."
+// ============================================================================================== 4. THE TUNNEL IS EMPTY (8.83 – 10.74)
 shot('p2-gone', 8.83, 10.74, (t) => {
   const c = t < 9.75 ? camPath(t, 8.83, 9.75, [{ p: [78.1, -2.3, .86], l: [78.12, -5.4, .9], f: 52 }, { p: [78.12, -4.1, .9], l: [77.4, -5.6, .9], f: 50 }, { p: [78.2, -5.0, 1.0], l: [72.0, -5.25, .95], f: 46 }], inOut)
     : camPath(t, 9.75, 10.74, [{ p: [78.2, -5.0, 1.0], l: [72.0, -5.25, .95], f: 46 }, { p: [77.4, -5.02, .98], l: [68.0, -5.3, .95], f: 44 }], x => 1 - (1 - x) ** 2);
@@ -110,7 +110,7 @@ shot('p2-gone', 8.83, 10.74, (t) => {
     overlay: svg(pop('ALREADY GONE', 540, 1560, 84, t, 10.05, { color: '#ffd34d' })), grade: { exposure: 1.0, gain: [1.05, .98, .9], vignette: .55 } };
 });
 
-// ============================================================================================== 5. THE GETAWAY (10.74 – 14.09)   "They escaped with nearly $70 million,"
+// ============================================================================================== 5. THE GETAWAY (10.74 – 14.09)
 shot('p2-escape', 10.74, 14.09, (t) => {
   const drive = Math.max(0, t - 12.05); const carX = 2.9 + drive * drive * 2.2 + drive * 1.5;
   const c = camPath(t, 10.74, 14.09, [{ p: [-5.4, 1.7, 8.6], l: [.4, 1.0, 2.4], f: 42 }, { p: [-4.6, 1.8, 8.8], l: [2.4, .9, 2.8], f: 40 }, { p: [-2.5, 2.0, 9.4], l: [12, .9, 3.4], f: 40 }], x => x);
@@ -123,7 +123,7 @@ shot('p2-escape', 10.74, 14.09, (t) => {
     overlay: svg(t > 12.55 ? money(v, 540, 380, 132, 1) + pop('NEARLY', 540, 250, 56, t, 12.2, { color: '#fff', weight: 800 }) : ''), grade: { gain: [.95, .98, 1.08], bloom: .5 } };
 });
 
-// ============================================================================================== 6. PRESENTER (14.09 – 16.72)   "but the gang made one massive mistake."
+// ============================================================================================== 6. PRESENTER (14.09 – 16.72)
 const studioHost = (t: number, ov: string, cam?: { pos: V3; look: V3; fov: number }, hostPose?: Pose, face?: ReturnType<typeof F>): Frame2 => ({
   t, cam: cam!, light: STUDIO(1, [78, 0, 4]), cut: 12.6, show: { 'Studio L': true, 'Studio R': true, 'Studio floor': true, 'Hook cash': true },
   xform: { 'Studio L': { pos: [-5.8, 0, 1.5] }, 'Studio R': { pos: [5.8, 0, 1.5] }, 'Studio floor': { pos: [0, 0, 1.5] } },
@@ -141,7 +141,7 @@ shot('p2-mistake', 14.09, 16.72, (t) => {
   return studioHost(t, svg(pop('ONE MASSIVE MISTAKE', 540, 1570, 78, t, 15.4, { color: '#ffd34d' })), c, p, face);
 });
 
-// ============================================================================================== 7. TOO MUCH CASH (16.72 – 19.36)   "They couldn't disappear with that much cash forever."
+// ============================================================================================== 7. TOO MUCH CASH (16.72 – 19.36)
 const stashProps = (n: number): PropState[] => {
   const o: PropState[] = []; let k = 0;
   for (let i = 0; i < 6 && k < n; i++) for (let j = 0; j < 4 && k < n; j++) for (let h = 0; h < 3 && k < n; h++, k++) o.push({ name: 'Cash brick', pos: [201.2 + i * .52, .15 + h * .31, -4.6 + j * .34 + (i % 2) * .05], rot: [0, (i * j % 3) * .05, 0] });
@@ -162,7 +162,7 @@ shot('p2-toomuch', 16.72, 19.36, (t) => {
     overlay: svg(pop('3.5 TONNES OF CASH', 540, 300, 62, t, 17.6, { color: '#ffd34d' }) + pop('HARD TO HIDE', 540, 380, 48, t, 18.4, { color: '#fff', weight: 800 })), grade: { gain: [1.04, .98, .94], vignette: .5 } };
 });
 
-// ============================================================================================== 8. TRACKING THE SUSPECTS (19.36 – 21.54)   "Police began tracking the suspects"
+// ============================================================================================== 8. TRACKING THE SUSPECTS (19.36 – 21.54)
 const hqLight = (o: Partial<Light> = {}): Light => indoor([{ pos: [410.5, 2.3, -3.8], color: '#fff1d6', int: 22, dist: 12, shadow: true }, { pos: [406, 3.0, -3.5], color: '#e8f0ff', int: 9, dist: 9 }, { pos: [403.5, 1.3, -4.1], color: '#ffd38a', int: 3, dist: 3 }], { hemi: ['#f4f0e6', '#5a4a3a', .55], ...o });
 shot('p2-tracking', 19.36, 21.54, (t) => {
   const c = camPath(t, 19.36, 21.54, [{ p: [407.6, 1.65, -2.4], l: [405.6, 1.8, -7], f: 46 }, { p: [407, 1.7, -3.6], l: [405.4, 1.8, -7], f: 42 }], x => x);
@@ -179,7 +179,7 @@ shot('p2-tracking', 19.36, 21.54, (t) => {
     overlay: svg(chip('POLÍCIA FEDERAL · FORTALEZA', 70, 170, 38, t, 19.5)), grade: { gain: [1.04, 1.0, .95] } };
 });
 
-// ============================================================================================== 9. MONEY UNDER THE FLOOR (21.54 – 25.45)   "and eventually discovered millions hidden beneath the floor of a house,"
+// ============================================================================================== 9. MONEY UNDER THE FLOOR (21.54 – 25.45)
 shot('p2-stash', 21.54, 25.45, (t) => {
   const c = camPath(t, 21.54, 25.45, [{ p: [207.0, 2.15, -.9], l: [204.6, .3, -2.9], f: 46 }, { p: [206.6, 1.95, -1.35], l: [204.7, .2, -2.95], f: 42 }, { p: [206.2, 1.6, -1.7], l: [204.7, .5, -3.0], f: 42 }], inOut);
   const rug = inOut(k01(t, 21.55, 22.1)); const kn = inOut(k01(t, 21.9, 22.3)); const lift = inOut(k01(t, 22.25, 22.85)); const glow = k01(t, 22.7, 23.3);
@@ -234,7 +234,7 @@ shot('p2-kidnap', 27.53, 32.04, (t) => {
     overlay: svg(ov), grade: { exposure: .9, sat: .82, gain: [.92, .96, 1.1], vignette: .6 } };
 });
 
-// ============================================================================================== 12. ROADSIDE AT DAWN (32.04 – 35.54)   "One alleged mastermind was kidnapped and later found dead."  (no body shown)
+// ============================================================================================== 12. ROADSIDE AT DAWN (32.04 – 35.54)  (no body shown)
 shot('p2-found', 32.04, 35.54, (t) => {
   const c = camPath(t, 32.04, 35.54, [{ p: [533.5, 1.5, 9.0], l: [541, .8, 0], f: 40 }, { p: [535.5, 1.35, 7.0], l: [541, .9, 0], f: 36 }], x => x);
   const capOff = inOut(k01(t, 34.55, 35.1));
@@ -247,7 +247,7 @@ shot('p2-found', 32.04, 35.54, (t) => {
     overlay: svg(pop('KIDNAPPED', 540, 300, 84, t, 33.65, { color: '#fff' }) + pop('LATER FOUND DEAD', 540, 390, 60, t, 34.75, { color: '#ffb46e', weight: 800 })), grade: { sat: .85, gain: [1.06, .98, .9], vignette: .55 } };
 });
 
-// ============================================================================================== 13. ARRESTS (35.54 – 38.95)   "Over the following years, investigators arrested dozens of people"
+// ============================================================================================== 13. ARRESTS (35.54 – 38.95)
 shot('p2-arrests', 35.54, 38.95, (t) => {
   const c = camPath(t, 35.54, 38.95, [{ p: [605.6, 1.45, 9.6], l: [609.9, 1.3, 3.2], f: 40 }, { p: [606.2, 1.9, 10.2], l: [609.5, 1.2, 3.3], f: 42 }], x => x);
   const pair = (id: string, look: Look, aid: string, x0: number, z: number, lag: number, seed: number): ActorState[] => {
@@ -267,7 +267,7 @@ shot('p2-board', 38.95, 40.69, (t) => {
   return { t, cam: c, light: hqLight(), cut: null, board: 1 + k01(t, 38.95, 40.4) * 9.2, xform: { 'Ceiling fan': { rot: [0, t * 3.2, 0] } }, grade: { gain: [1.04, 1.0, .95] } };
 });
 
-// ============================================================================================== 14. PRESENTER (40.69 – 42.78)   "and here's the unbelievable part."
+// ============================================================================================== 14. PRESENTER (40.69 – 42.78)
 shot('p2-unbelievable', 40.69, 42.78, (t) => {
   const c = camPath(t, 40.69, 42.78, [{ p: [77.2, 1.4, 11.2], l: [78, 1.5, HOST_Z], f: 32 }, { p: [77.6, 1.45, 10.2], l: [78, 1.55, HOST_Z], f: 28 }], x => x);
   const lean = gesture(t, 41.1, .4);
