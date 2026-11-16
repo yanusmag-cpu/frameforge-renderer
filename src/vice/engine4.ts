@@ -210,7 +210,7 @@ export class Engine4 extends Engine {
       if (p === 0) { for (let r = 0; r < 12; r++) { const R = rng(r + Math.floor(t * 4) * 31); g.fillStyle = ['#ff7ad9', '#3df2ff', '#ffd38a', '#9aa4b8'][r % 4]; g.fillRect(x0 + 12 + (r % 3) * 10, 8 + r * 13, 40 + R() * 180, 6); } }
       if (p === 1) { g.strokeStyle = '#3df2ff'; g.lineWidth = 2; const s = t * .6; for (let i = 0; i < 6; i++) { const cx = x0 + 144 + Math.cos(s + i) * 50, cy = 82 + Math.sin(s * .7 + i) * 20; g.strokeRect(cx - 18, cy - 30, 36, 60); }
         if (k > .5) { g.fillStyle = 'rgba(255,170,90,.5)'; g.fillRect(x0 + 40, 30, 210, 100); } }
-      if (p === 2) { g.strokeStyle = '#ffd38a'; g.lineWidth = 3; g.beginPath(); for (let x = 0; x < P; x += 6) { const y = 82 + Math.sin(x * .05 + t * 2) * 40 * (1 - .5 * k); x ? g.lineTo(x0 + x, y) : g.moveTo(x0 + x, y); } g.stroke(); }
+      if (p === 2) { g.strokeStyle = '#ffd38a'; g.lineWidth = 3; g.beginPath(); for (let x = 0; x < P; x += 6) { const y = 82 + Math.sin(x * .05 + t * 2) * 40 * (1 - .5 * k); if (x) g.lineTo(x0 + x, y); else g.moveTo(x0 + x, y); } g.stroke(); }
       if (p === 3) { const bug = k > .25 && k < .62; g.fillStyle = bug ? '#ff4a4a' : '#4fd36a'; g.font = '900 30px Inter'; g.fillText(bug ? '⚠ BUG #4127' : '✓ FIXED', x0 + 30, 92); }
     }
     this.monT.needsUpdate = true;
