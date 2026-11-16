@@ -51,6 +51,7 @@ export class Engine7 extends Engine {
     if ((m as unknown as { _d?: boolean })._d) return; (m as unknown as { _d?: boolean })._d = true; const n = m.name;
     m.vertexColors = /fiber|crumb/.test(n); if (m.vertexColors) m.color.set('#fff');
     if (/light|lamp_shade/.test(n)) { m.toneMapped = false; me.castShadow = false; }
+    if (n === 'hall_light') { m.toneMapped = true; m.emissiveIntensity = 1.15; m.emissive.set('#ffc98a'); }   // warm hallway glow that still reads as a doorway
     if (n === 'droplet') {   // water droplet: fresnel-weighted transparency, room reflections, a sharp window highlight and caustic core
       const p = new T.ShaderMaterial({ transparent: true, depthWrite: false, uniforms: { sun: { value: new T.Vector3(-.12, .5, -.86).normalize() } },
         vertexShader: 'varying vec3 vN; varying vec3 vW; void main(){ vN = normalize(mat3(modelMatrix) * normal); vec4 w = modelMatrix * vec4(position, 1.); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }',
