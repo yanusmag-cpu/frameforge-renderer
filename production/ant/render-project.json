@@ -1,0 +1,25 @@
+{
+ "composition": "AntFilm",
+ "artifactPrefix": "ant-chunk",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/ant",
+  "public/brazil"
+ ],
+ "sourceDirectories": [
+  "src/ff2d",
+  "src/brazil",
+  "src/dino",
+  "src/ant"
+ ],
+ "blenderScript": "scripts/ant/build-assets.py",
+ "audioScript": "scripts/ant/make-audio.py",
+ "soundtrack": "public/ant-sound/bed.flac",
+ "soundtrackLUFS": -20,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "size_of_an_ant_final.mp4"
+}
