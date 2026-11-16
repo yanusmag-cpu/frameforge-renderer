@@ -405,6 +405,7 @@ def frames(P):
 class Piece:
     """a lofted, closed tube in Three coordinates with per-vertex colour and the bones it may follow"""
     def __init__(self, name, pts, prof, bones, col, ring=14, sub=4, m=None):
+        prof = [tuple(v) + (0,) * (3 - len(v)) for v in prof]
         P, Vv = catmull(pts, prof, sub); F = frames(P); verts, faces = [], []
         self.rings = []
         for i, (p, v) in enumerate(zip(P, Vv)):
