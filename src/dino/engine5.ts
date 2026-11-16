@@ -291,7 +291,7 @@ export class Engine5 extends Engine {
     if (F.mist && F.mist.k > 0) {   // low steam drifting between the trees
       const M = F.mist; const R = rng(11); c.set(M.color ?? '#e9efe9');
       for (let i = 0; i < 320; i++) {
-        const a = R() * 6.283, r = Math.sqrt(R()) * M.radius; let x = M.center[0] + Math.cos(a) * r + Math.sin(t * .05 + i) * 2 + t * .25, z = M.center[2] + Math.sin(a) * r;
+        const a = R() * 6.283, r = Math.sqrt(R()) * M.radius; const z = M.center[2] + Math.sin(a) * r; let x = M.center[0] + Math.cos(a) * r + Math.sin(t * .05 + i) * 2 + t * .25;
         const y = this.H(x, z) + .3 + R() * R() * (M.height ?? 4); x += Math.sin(t * .2 + i * 1.7) * .6;
         this.mist.add(x, y, z, c, M.k * (.025 + R() * .035), 3 + R() * 5, R() * 6);
       }
