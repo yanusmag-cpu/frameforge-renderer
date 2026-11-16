@@ -18,8 +18,8 @@ export type Frame5 = Frame & {
   meteors?: { from: V3; to: V3; t: number; size?: number }[];     // t: 0..1 flight progress (>1 = landed)
   splash?: { at: V3; t: number; k: number }[];
 };
-const rng = (s: number) => () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
-function softTex(kind: 'soft' | 'smoke' | 'drop' | 'feather') {
+export const rng = (s: number) => () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+export function softTex(kind: 'soft' | 'smoke' | 'drop' | 'feather') {
   const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d')!; const R = rng(kind.length * 97 + 3);
   if (kind === 'soft') { const gr = g.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(.4, 'rgba(255,255,255,.45)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); }
   if (kind === 'smoke') for (let i = 0; i < 26; i++) { const x = 64 + (R() - .5) * 46, y = 64 + (R() - .5) * 46, r = 16 + R() * 30; const gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, 'rgba(255,255,255,.28)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); }
@@ -35,7 +35,7 @@ function softTex(kind: 'soft' | 'smoke' | 'drop' | 'feather') {
   }
   const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; return t;
 }
-class Sprites {
+export class Sprites {
   geo = new T.BufferGeometry(); obj: T.Points; n = 0; pos: Float32Array; col: Float32Array; siz: Float32Array; rot: Float32Array;
   constructor(scene: T.Scene, public max: number, tex: T.Texture, additive: boolean, order: number, fadeNear = 0) {
     this.pos = new Float32Array(max * 3); this.col = new Float32Array(max * 4); this.siz = new Float32Array(max); this.rot = new Float32Array(max);
@@ -58,7 +58,7 @@ class Sprites {
     const u = (this.obj.material as T.ShaderMaterial).uniforms; u.scale.value = h * .5; if (fog) { u.fogC.value.copy(fog.color); u.fogD.value = fog.density; }
   }
 }
-const NOISE = `float h21(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+export const NOISE = `float h21(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
   float vn(vec2 p){ vec2 i=floor(p), f=fract(p); f=f*f*(3.-2.*f); return mix(mix(h21(i),h21(i+vec2(1,0)),f.x),mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),f.x),f.y); }
   float fbm(vec2 p){ return vn(p)*.5 + vn(p*2.07)*.25 + vn(p*4.13)*.125 + vn(p*8.31)*.0625; }`;
 const ZC = `float zc(float x){ return 82. + 10.*sin(x/47.) + 5.*sin(x/19.+1.); } float xs(float z){ return -52. + 14.*sin(z/38.); }`;
