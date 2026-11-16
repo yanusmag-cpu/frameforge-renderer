@@ -201,6 +201,7 @@ def world():
     rocks = []
     for i in range(170):
         x = random.uniform(-290, 290); c = zc(x); z = c + random.uniform(-1, 9); y = H(x, z)
+        if -6 < x < 34: continue                      # keep the overlook's view clear
         r = random.uniform(2.5, 7.5); o = ico(f'cliff{i}', (x, y + r * .2, z), r, rock, (1.3, random.uniform(.7, 1.6), 1), sub=2); rocks.append(o)
     for i in range(60):   # valley floor rocks
         x = random.uniform(-180, 180); z = random.uniform(110, 420); r = random.uniform(1, 3.5); rocks.append(ico(f'vr{i}', (x, valley(x, z), z), r, rock, (1.2, .7, 1), sub=1))
@@ -210,7 +211,7 @@ def world():
     for v in slab.data.vertices:
         if v.co.z > .9: v.co.z = 2.65 + random.uniform(-.04, .04)   # flatten top at y≈1.25 (Blender z = Three y)
     rocks.append(slab)
-    for i in range(8): rocks.append(ico(f'oc{i}', (OX + random.uniform(-6, 6), random.uniform(-3, 0), oc + random.uniform(-6, 3)), random.uniform(1.2, 2.4), rock, (1.2, .8, 1), sub=2))
+    for i in range(6): rocks.append(ico(f'oc{i}', (OX + random.choice((-1, 1)) * random.uniform(5, 7), random.uniform(-3, -.5), oc + random.uniform(-6, 1)), random.uniform(1.2, 2.2), rock, (1.2, .8, 1), sub=2))
     for o in rocks:
         set_cols(o, lambda p, i: (.2 + random.uniform(0, .04), .3 + random.uniform(0, .06), .12) if (o.data.vertices[i].normal.z > .55 and random.random() < .8) else ((.36, .33, .29) if random.random() < .6 else (.44, .4, .35)))
     # hero log (training run + hiding place): huge fallen conifer, moss on top, broken root plate
