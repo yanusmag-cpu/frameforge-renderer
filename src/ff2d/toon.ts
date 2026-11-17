@@ -6,7 +6,7 @@ import { type Face, EXPR } from './face.ts';
 import { blink, clamp, ik2, mix, saccade, type V2 } from './motion.ts';
 import { type Pose, type Joints } from './rig.ts';
 
-export type Held = 'paper' | 'papers' | 'envelope' | 'cash' | 'newspaper' | 'pen' | 'cigar' | 'suitcase' | 'stamp' | 'cane' | 'hat' | 'blueprint' | 'coin' | 'glass' | 'wallet';
+export type Held = 'paper' | 'papers' | 'envelope' | 'cash' | 'newspaper' | 'pen' | 'cigar' | 'suitcase' | 'stamp' | 'cane' | 'hat' | 'blueprint' | 'coin' | 'glass' | 'wallet' | 'driptorch' | 'fusee' | 'radio';
 export type ToonLook = {
   skin: string; hair: string; hairStyle: 'slick' | 'bald' | 'wavy' | 'crop' | 'bob' | 'side' | 'none';
   headW: number; headH: number; jaw: number;          // jaw 0 = narrow pointed chin … 1 = wide square / jowly
@@ -15,14 +15,16 @@ export type ToonLook = {
   stache?: 'pencil' | 'walrus' | 'handlebar' | 'brush'; beard?: 'goatee' | 'full' | 'chops'; facial?: string;
   glasses?: 'round' | 'monocle' | 'pince';
   leg: number; torso: number; shoulder: number; belly: number;
-  coat: 'suit' | 'tails' | 'frock' | 'long' | 'livery' | 'dress' | 'cape' | 'apron';
+  coat: 'suit' | 'tails' | 'frock' | 'long' | 'livery' | 'dress' | 'cape' | 'apron' | 'nomex';
+  adv?: boolean;                                       // Mystery-Adventure style: fingered hands, limb cel shading, medium head
+  boots?: boolean; webgear?: string; braid?: boolean; freckles?: boolean; stubble?: string;
   jacket: string; trousers: string; vest?: string; shirt: string; tie?: { kind: 'bow' | 'long'; color: string };
   pin?: boolean; square?: string; chain?: boolean; buttons?: string; trim?: string;
-  hat?: { kind: 'top' | 'bowler' | 'fedora' | 'kepi' | 'cloche' | 'boater' | 'cap' | 'beret'; color: string; band?: string };
+  hat?: { kind: 'top' | 'bowler' | 'fedora' | 'kepi' | 'cloche' | 'boater' | 'cap' | 'beret' | 'helmet'; color: string; band?: string };
   shoes: string; spats?: boolean; gloves?: string; lips?: string; lashes?: boolean; earring?: string;
   stockings?: string;
 };
-export type ToonOpts = { id: string; t: number; seed?: number; face?: Face; noAuto?: boolean; heldA?: Held; heldB?: Held; hatOff?: number; light?: number };
+export type ToonOpts = { id: string; t: number; seed?: number; face?: Face; noAuto?: boolean; heldA?: Held; heldB?: Held; hatOff?: number; light?: number; torchLit?: number; heldAng?: number };
 
 const OUT = '#16120f', LW = .05;
 const n = (x: number) => +x.toFixed(4);
@@ -89,6 +91,13 @@ export const CAST = {
   porter: { skin: '#a8714c', hair: '#1a1410', hairStyle: 'crop', headW: .98, headH: 1.02, jaw: .7, nose: 'bulb', leg: 1.85, torso: 1.48, shoulder: .56, belly: .2,
     coat: 'livery', jacket: '#3d4a2e', trousers: '#2a2a24', shirt: '#efe7d6', buttons: '#c9a24a', trim: '#c9a24a', shoes: '#1a1410',
     hat: { kind: 'cap', color: '#b0262a', band: '#c9a24a' } },
+  // ── YunoWorld Mystery-Adventure test cast: wildland firefighters ──
+  ffMain: { adv: true, skin: '#e6b48e', hair: '#5a3a22', hairStyle: 'crop', headW: .98, headH: 1.12, jaw: .85, nose: 'straight', stubble: '#4a3020',
+    leg: 2.25, torso: 1.65, shoulder: .64, belly: .05, coat: 'nomex', jacket: '#f2c230', trousers: '#2f3a2c', shirt: '#f2c230', webgear: '#4a4f36',
+    gloves: '#b98a52', shoes: '#2a1c14', boots: true, hat: { kind: 'helmet', color: '#f3c21c', band: '#2a2a2a' } },
+  ffSecond: { adv: true, skin: '#a8714c', hair: '#1a1210', hairStyle: 'crop', headW: .92, headH: 1.06, jaw: .35, nose: 'button', lashes: true, braid: true, freckles: true, lips: '#8a3a32',
+    leg: 2.1, torso: 1.55, shoulder: .54, belly: 0, coat: 'nomex', jacket: '#efc02e', trousers: '#2a2f33', shirt: '#efc02e', webgear: '#3c4232',
+    gloves: '#c99a5e', shoes: '#22160f', boots: true, hat: { kind: 'helmet', color: '#e9e4d6', band: '#1d2a4a' } },
 } satisfies Record<string, ToonLook>;
 
 /** Draw a toon character. Returns SVG (local coords) and joints in the same space. */
@@ -108,7 +117,7 @@ export function toon(p: Pose, L: ToonLook, o: ToonOpts): { svg: string; j: Joint
   const c0 = p.turn * .14;                                       // front centre line shift
   const chest = at2(0, T);
   const neckTop = add(chest, u, .2);
-  const hs = (L.headScale ?? 1) * .96;
+  const hs = (L.headScale ?? (L.adv ? .93 : 1)) * .96;
   const head = add(add(neckTop, u, L.headH * .5 * hs * .92 + p.headLift), r, p.turn * .05);
   const shoulder = (side: number): V2 => at2(side * sw * .86 - p.turn * .05 * (side === sgn ? 0 : 1), T - .1);
   const far = (side: number) => side === -sgn && at > .12;
@@ -129,14 +138,16 @@ export function toon(p: Pose, L: ToonLook, o: ToonOpts): { svg: string; j: Joint
     const dv: V2 = [Math.cos(dir), Math.sin(dir)];
     const wrist = add(end, dv, -.17);
     const sleeveCol = far(side) ? Jd : J;
-    let svg = `<path d="${taper(s, mid, wrist, .3, .26, .23)}" fill="${sleeveCol}" ${ol()}/>`;
+    let svg = `<path d="${taper(s, mid, wrist, L.adv ? .38 : .3, L.adv ? .33 : .26, L.adv ? .28 : .23)}" fill="${sleeveCol}" ${ol()}/>`;
+    if (L.adv) svg += `<path d="${taper(add(s, perp(nrm(sub(mid, s))), .06 * side), add(mid, perp(dv), .055 * side), add(wrist, perp(dv), .05 * side), .12, .1, .09)}" fill="${Jd}" opacity=".55"/>`;
     // sleeve crease + cuff
     svg += `<path d="M${P(add(mid, perp(dv), -.06))} q${n(dv[0] * .06)} ${n(dv[1] * .06)} ${n(-perp(dv)[0] * .08)} ${n(-perp(dv)[1] * .08)}" stroke="${Jd}" stroke-width=".03" fill="none"/>`;
     const cuffA = add(wrist, dv, -.02), cuffB = add(wrist, dv, .05);
-    if (L.coat !== 'dress' && L.coat !== 'apron') svg += `<path d="M${P(cuffA)}L${P(cuffB)}" stroke="${OUT}" stroke-width=".24" stroke-linecap="round"/><path d="M${P(cuffA)}L${P(cuffB)}" stroke="${L.coat === 'livery' || L.coat === 'cape' ? (L.trim ?? L.shirt) : L.shirt}" stroke-width=".15" stroke-linecap="round"/>`;
+    if (L.coat === 'nomex') svg += `<path d="M${P(cuffA)}L${P(cuffB)}" stroke="${OUT}" stroke-width=".27" stroke-linecap="round"/><path d="M${P(cuffA)}L${P(cuffB)}" stroke="${Jd}" stroke-width=".19" stroke-linecap="round"/>`;
+    else if (L.coat !== 'dress' && L.coat !== 'apron') svg += `<path d="M${P(cuffA)}L${P(cuffB)}" stroke="${OUT}" stroke-width=".24" stroke-linecap="round"/><path d="M${P(cuffA)}L${P(cuffB)}" stroke="${L.coat === 'livery' || L.coat === 'cape' ? (L.trim ?? L.shirt) : L.shirt}" stroke-width=".15" stroke-linecap="round"/>`;
     const held = side < 0 ? o.heldA : o.heldB;
-    svg += heldItem(held, end, dir, side);
-    svg += handSvg(end, dir, (side < 0 ? p.shapeA : p.shapeB) ?? 'fist', side, L.gloves ?? skin, !!held);
+    svg += heldItem(held, end, dir, side, o);
+    svg += L.adv ? handAdv(end, dir, (side < 0 ? p.shapeA : p.shapeB) ?? 'fist', side, L.gloves ?? skin, !!held) : handSvg(end, dir, (side < 0 ? p.shapeA : p.shapeB) ?? 'fist', side, L.gloves ?? skin, !!held);
     return { svg, end };
   };
   const A = arm(-1), B = arm(1);
@@ -159,6 +170,8 @@ export function toon(p: Pose, L: ToonLook, o: ToonOpts): { svg: string; j: Joint
     const col = dress ? (L.stockings ?? skin) : far(side) ? shade(L.trousers, .8) : L.trousers;
     const ank = add(end, [0, -.06]);
     let s = `<path d="${taper(hj, m2, ank, dress ? .2 : .36, dress ? .17 : .3, dress ? .13 : .27)}" fill="${col}" ${ol()}/>`;
+    if (L.adv && !dress) { const dd = nrm(sub(ank, m2)); s += `<path d="${taper(add(hj, perp(nrm(sub(m2, hj))), -.08), add(m2, perp(dd), -.07), add(ank, perp(dd), -.06), .13, .11, .1)}" fill="${shade(col, .7)}" opacity=".6"/>`;
+      if (L.coat === 'nomex') { const q = lerp2(hj, m2, .55); s += `<path d="M${n(q[0] - .12)} ${n(q[1] - .12)} h.24 v.26 q-.12 .04 -.24 0z" fill="${shade(col, 1.12)}" ${ol(.02)}/>`; } }
     if (!dress && !back) s += `<path d="M${P(lerp2(hj, m2, .25))} L${P(lerp2(m2, ank, .85))}" stroke="${shade(col, .78)}" stroke-width=".022" fill="none"/>`;
     s += shoeSvg(end, at > .2 ? p.turn : side * .3, L, dress);
     return s;
@@ -211,7 +224,23 @@ export function toon(p: Pose, L: ToonLook, o: ToonOpts): { svg: string; j: Joint
   // cel shade away from the key light
   torso += `<path d="M${P(at2(sw * .35, T + .3))} L${P(at2(sw * 1.6, T + .3))} L${P(at2(sw * 1.6, -.5))} L${P(at2(sw * .5, -.5))}Z" fill="${Jd}" opacity=".55"/>`;
   if (L.pin) for (let k = -4; k <= 4; k++) torso += `<path d="M${P(at2(k * .13, T + .2))} L${P(at2(k * .13 + bx(.05), -.4))}" stroke="${Jl}" stroke-width=".012" opacity=".7"/>`;
-  if (front && !dress && L.coat !== 'cape') {
+  if (L.coat === 'nomex') {
+    const c = c0, G = L.webgear ?? '#3a3f2c';
+    if (front) {
+      torso += `<path d="M${P(at2(c, T - .05))} L${P(at2(c + bx(.05), -.25))}" stroke="${Jd}" stroke-width=".03"/>`;
+      for (const k of [.35, .75, 1.15]) { const b = at2(c + .04, T - k); torso += `<circle cx="${n(b[0])}" cy="${n(b[1])}" r=".028" fill="${shade(J, .55)}"/>`; }
+      for (const sd of [-1, 1]) { if (sd === -sgn && at > .6) continue; const q = at2(c + sd * sw * .52, T - .42); torso += `<path d="M${n(q[0] - .15)} ${n(q[1] - .12)} h.3 v.3 q-.15 .05 -.3 0z" fill="${Jl}" ${ol(.02)}/><path d="M${n(q[0] - .16)} ${n(q[1] - .14)} h.32 l-.02 .1 h-.28z" fill="${Jd}" ${ol(.02)}/>`; }
+      // web gear: shoulder straps, chest strap, radio
+      for (const sd of [-1, 1]) torso += `<path d="M${P(at2(c + sd * sw * .62, T + .05))} L${P(at2(c + sd * sw * .55, -.25))}" stroke="${OUT}" stroke-width=".15"/><path d="M${P(at2(c + sd * sw * .62, T + .05))} L${P(at2(c + sd * sw * .55, -.25))}" stroke="${G}" stroke-width=".1"/>`;
+      torso += `<path d="M${P(at2(c - sw * .6, T * .48))} L${P(at2(c + sw * .6, T * .48))}" stroke="${OUT}" stroke-width=".12"/><path d="M${P(at2(c - sw * .6, T * .48))} L${P(at2(c + sw * .6, T * .48))}" stroke="${G}" stroke-width=".07"/>`;
+      const rq = at2(c - sw * .55, T - .55); torso += `<path d="M${n(rq[0] - .08)} ${n(rq[1] - .2)} h.16 v.36 h-.16z" fill="#262626" ${ol(.02)}/><path d="M${n(rq[0] + .04)} ${n(rq[1] - .2)} v-.24" stroke="${OUT}" stroke-width=".035"/><circle cx="${n(rq[0])}" cy="${n(rq[1] - .1)}" r=".025" fill="#e04a2a"/>`;
+    } else {   // fire shelter pack on the back
+      const pk = `M${P(at2(-sw * .85, T - .05))} L${P(at2(sw * .85, T - .05))} L${P(at2(sw * .8, -.15))} Q${P(at2(0, -.3))} ${P(at2(-sw * .8, -.15))}Z`;
+      torso += `<path d="${pk}" fill="${shade(G, 1.25)}" ${ol(.03)}/><path d="M${P(at2(-sw * .75, T * .35))} L${P(at2(sw * .75, T * .35))}" stroke="${G}" stroke-width=".07"/><path d="M${P(at2(-sw * .5, T * .62))} h${n(sw)} v.25 h${n(-sw)}z" fill="#d8c08a" ${ol(.02)}/>`;
+    }
+    torso += `<path d="M${P(at2(-ww * 1.1, .02))} L${P(at2(ww * 1.1, .02))}" stroke="${OUT}" stroke-width=".13"/><path d="M${P(at2(-ww * 1.1, .02))} L${P(at2(ww * 1.1, .02))}" stroke="#2a2420" stroke-width=".08"/>`;
+    if (front) { const b = at2(c, .02); torso += `<rect x="${n(b[0] - .07)}" y="${n(b[1] - .06)}" width=".14" height=".12" fill="#9aa0a6" ${ol(.015)}/>`; }
+  } else if (front && !dress && L.coat !== 'cape') {
     const c = c0, dep = L.coat === 'livery' ? .12 : L.coat === 'tails' ? T * .62 : T * .52;
     const vY = T - dep;
     // shirt + vest in the V
@@ -302,7 +331,22 @@ function handSvg(at: V2, dir: number, shape: string, side: number, col: string, 
   return `<g transform="translate(${P(at)}) rotate(${rot})">${g}</g>`;
 }
 
-function heldItem(h: Held | undefined, at: V2, dir: number, side: number): string {
+/** Mystery-Adventure hands: palm + four fingers + thumb in the forearm frame (x along the forearm), gauntlet cuff for gloves */
+function handAdv(at: V2, dir: number, shape: string, side: number, col: string, holding: boolean): string {
+  const rot = n(dir * 180 / Math.PI), d = shade(col, .8), o = ol(.032), sd = side;
+  const fing = (x: number, y: number, a: number, len: number, w = .058) => `<g transform="translate(${n(x)} ${n(y)}) rotate(${n(a)})"><rect x="0" y="${n(-w / 2)}" width="${n(len)}" height="${n(w)}" rx="${n(w / 2)}" fill="${col}" ${o}/></g>`;
+  let g = `<path d="M-.2 -.1 L-.06 -.12 L-.06 .12 L-.2 .1Z" fill="${shade(col, .9)}" ${o}/>`;   // cuff / wrist
+  const palm = `<path d="M-.07 -.11 Q.08 -.13 .12 -.09 L.13 .09 Q.08 .13 -.07 .11 Q-.1 0 -.07 -.11Z" fill="${col}" ${o}/>`;
+  const thumbOut = fing(-.01, -.09 * sd, -60 * sd, .15, .062), thumbIn = fing(.0, -.06 * sd, -15 * sd, .12, .06);
+  if (shape === 'open') g += thumbOut + palm + [-.075, -.025, .025, .075].map((y, i) => fing(.1, y, (y * 140) + (i - 1.5) * 3, [.16, .19, .18, .14][i])).join('');
+  else if (shape === 'point') g += palm + fing(.1, -.055 * sd, -4 * sd, .2) + [0, .045, .085].map(y => `<path d="M.11 ${n(y * sd - .015)} q.07 0 .06 .04 q-.01 .03 -.06 .02" fill="${col}" ${o}/>`).join('') + thumbIn;
+  else if (shape === 'thumb') g += palm + [-.06, -.02, .02, .06].map(y => `<path d="M.11 ${n(y - .02)} q.07 0 .06 .04 q-.01 .03 -.06 .02" fill="${col}" ${o}/>`).join('') + fing(.0, -.08 * sd, -95 * sd, .17, .066);
+  else if (shape === 'hold' || holding) g += palm + [-.065, -.022, .022, .065].map(y => `<path d="M.08 ${n(y - .024)} q.11 -.01 .1 .045 q-.04 .025 -.1 .006" fill="${col}" ${o}/>`).join('') + thumbIn;
+  else g += palm + [-.07, -.025, .02, .065].map(y => `<path d="M.1 ${n(y - .022)} q.08 0 .07 .045 q-.02 .02 -.07 .005" fill="${col}" ${o}/>`).join('') + `<path d="M.0 ${n(-.07 * sd)} q.1 ${n(.02 * sd)} .1 ${n(.06 * sd)}" fill="none" stroke="${OUT}" stroke-width=".03"/><path d="M.02 ${n(-.08 * sd)} q.09 ${n(.02 * sd)} .09 ${n(.06 * sd)}" fill="none" stroke="${d}" stroke-width=".035"/>`;
+  return `<g transform="translate(${P(at)}) rotate(${rot}) scale(1.45)">${g}</g>`;
+}
+
+function heldItem(h: Held | undefined, at: V2, dir: number, side: number, op?: ToonOpts): string {
   if (!h) return '';
   const o = ol(.025), rot = n(dir * 180 / Math.PI);
   const g = (s: string, upright = false) => `<g transform="translate(${P(at)}) rotate(${upright ? 0 : rot})">${s}</g>`;
@@ -322,6 +366,13 @@ function heldItem(h: Held | undefined, at: V2, dir: number, side: number): strin
     case 'hat': return '';
     case 'blueprint': return g(`<g transform="rotate(${-rot})"><path d="M-.6 -.5 h1.2 v.75 h-1.2z" fill="#26476e" ${o}/><path d="M0 -.42 L-.16 .17 M0 -.42 L.16 .17 M-.12 0 h.24 M-.07 -.2 h.14" stroke="#cfe0f2" stroke-width=".02"/><path d="M-.3 -.3 L.3 .1 M.3 -.3 L-.3 .1" stroke="#e04a3a" stroke-width=".04" opacity=".9"/></g>`, true);
     case 'coin': return g(`<circle cx=".1" r=".07" fill="#d9b45a" ${o}/>`);
+    case 'driptorch': {   // red fuel canister + loop handle, angled spout with wick (flame when lit)
+      const lit = op?.torchLit ?? 0, ang = op?.heldAng ?? 0, fk = Math.sin((op?.t ?? 0) * 31) * .04, fl = lit > 0 ? `<g transform="translate(.8 .56) scale(${n(lit)})">${[[.16, .52, '#e5401c'], [.12, .4, '#ff8a2a'], [.07, .26, '#ffe27a']].map(([w, h, c]) => `<path d="M0 .04 C${n(-(w as number) * 1.2)} 0 ${n(-(w as number))} ${n(-(h as number) * .55)} ${n(fk)} ${n(-(h as number) - fk)} C${n(w as number)} ${n(-(h as number) * .55)} ${n((w as number) * 1.2)} 0 0 .04Z" fill="${c}" opacity=".92"/>`).join('')}</g>` : '';
+      return g(`<g transform="rotate(${n(-rot + ang)})"><path d="M-.12 .05 L.42 .05 L.4 .72 L-.1 .72Z" fill="#c8272a" ${o}/><path d="M-.1 .2 H.4 M-.1 .58 H.4" stroke="#8a1a1c" stroke-width=".03"/><path d="M.0 .05 Q.15 -.22 .3 .05" fill="none" stroke="${OUT}" stroke-width=".07"/><path d="M.0 .05 Q.15 -.22 .3 .05" fill="none" stroke="#9aa0a6" stroke-width=".035"/>` +
+        `<path d="M.38 .2 L.72 .52 L.8 .56" fill="none" stroke="${OUT}" stroke-width=".085" stroke-linecap="round"/><path d="M.38 .2 L.72 .52 L.8 .56" fill="none" stroke="#b8bec4" stroke-width=".045" stroke-linecap="round"/><circle cx=".78" cy=".55" r=".035" fill="#3a2a1a"/><path d="M.08 .32 h.14 l-.07 .13z" fill="#ffd25a" stroke="#1a1a1a" stroke-width=".015"/>${fl}</g>`, true);
+    }
+    case 'fusee': return g(`<path d="M-.02 -.02 L.38 -.08 L.39 .0 L-.01 .06Z" fill="#d6262a" ${o}/><circle cx=".4" cy="-.04" r="${n(.05 + .02 * Math.sin((op?.t ?? 0) * 40))}" fill="#ffb0a0"/><circle cx=".4" cy="-.04" r=".03" fill="#fff"/>`);
+    case 'radio': return g(`<path d="M-.05 -.25 h.16 v.34 h-.16z" fill="#2a2a2a" ${o}/><path d="M.08 -.25 v-.18" stroke="${OUT}" stroke-width=".035"/>`, true);
     case 'glass': return g(`<path d="M.02 -.3 h.16 l-.02 .25 h-.12z" fill="rgba(240,220,160,.75)" ${o}/>`, true);
   }
   return '';
@@ -331,6 +382,12 @@ function shoeSvg(ank: V2, facing: number, L: ToonLook, dress: boolean): string {
   const at = Math.abs(facing), lenS = mix(.34, .52, at), h = dress ? .13 : .18, toe = facing * .17;
   const x0 = ank[0] + toe - lenS / 2, y = ank[1] + .02;
   const col = L.shoes;
+  if (L.boots) {   // laced leather fire boots: tall shaft, lug sole
+    const top = y - .62, bw = .17;
+    return `<path d="M${n(ank[0] - bw)} ${n(top)} L${n(ank[0] + bw)} ${n(top)} L${n(ank[0] + bw + facing * .05)} ${n(y - h * .3)} L${n(x0 + lenS + .05)} ${n(y - h * .2)} Q${n(x0 + lenS + .1)} ${n(y + h * .2)} ${n(x0 + lenS + .04)} ${n(y + h * .6)} L${n(x0 - .04)} ${n(y + h * .6)} Q${n(x0 - .07)} ${n(y)} ${n(ank[0] - bw)} ${n(y - h * .4)}Z" fill="${col}" ${ol(.045)}/>` +
+      `<path d="M${n(x0 - .04)} ${n(y + h * .45)} H${n(x0 + lenS + .04)}" stroke="#111" stroke-width=".09"/>` + [0, 1, 2, 3].map(k => `<path d="M${n(ank[0] - bw * .55)} ${n(top + .08 + k * .1)} L${n(ank[0] + bw * .55)} ${n(top + .13 + k * .1)}" stroke="${shade(col, 1.6)}" stroke-width=".022"/>`).join('') +
+      `<path d="M${n(ank[0] - bw)} ${n(top)} L${n(ank[0] + bw)} ${n(top)}" stroke="${shade(col, .6)}" stroke-width=".05"/><ellipse cx="${n(x0 + lenS * (facing >= 0 ? .78 : .22))}" cy="${n(y - h * .05)}" rx=".06" ry=".025" fill="#fff" opacity=".35"/>`;
+  }
   let s = `<path d="M${n(x0)} ${n(y + h * .55)} Q${n(x0 - .02)} ${n(y - h * .3)} ${n(x0 + lenS * .45)} ${n(y - h * .5)} Q${n(x0 + lenS + .03)} ${n(y - h * .3)} ${n(x0 + lenS)} ${n(y + h * .55)} Z" fill="${col}" ${ol(.04)}/>`;
   s += `<path d="M${n(x0 + .02)} ${n(y + h * .45)} H${n(x0 + lenS - .02)}" stroke="${shade(col, .5)}" stroke-width=".04"/>`;
   s += `<ellipse cx="${n(x0 + lenS * (facing >= 0 ? .7 : .3))}" cy="${n(y - h * .15)}" rx=".05" ry=".022" fill="#fff" opacity=".45"/>`;
@@ -355,11 +412,14 @@ function headSvg(L: ToonLook, F: Face, turn: number, lid: number, back: boolean,
   s += `<g clip-path="url(#${id}h)"><path d="M${n(w * .3)} ${n(-h * 1.2)} Q${n(w * 1.4)} 0 ${n(w * .2)} ${n(h * 1.3)} L${n(w * 1.5)} ${n(h * 1.3)} L${n(w * 1.5)} ${n(-h * 1.2)}Z" fill="${skD}" opacity=".45"/>`;
   if (L.beard === 'chops') for (const sd of [-1, 1]) s += `<path d="M${n(sd * w * 1.1)} ${n(-h * .2)} L${n(sd * w * .72)} ${n(-h * .2)} Q${n(sd * w * .55)} ${n(h * .35)} ${n(sd * w * .42 + chinX * .4)} ${n(h * .62)} Q${n(sd * w * .7)} ${n(h * .78)} ${n(sd * w * 1.1)} ${n(h * .6)}Z" fill="${L.facial ?? L.hair}"/>`;
   if (L.beard === 'full') s += `<path d="M${n(-w * 1.1)} ${n(-h * .1)} L${n(-w * .7)} ${n(-h * .05)} Q${n(-w * .55)} ${n(h * .6)} ${n(chinX)} ${n(h * (L.beard === 'full' ? .55 : .9))} Q${n(w * .55)} ${n(h * .6)} ${n(w * .7)} ${n(-h * .05)} L${n(w * 1.1)} ${n(-h * .1)} L${n(w * 1.1)} ${n(h * 1.2)} L${n(-w * 1.1)} ${n(h * 1.2)}Z" fill="${L.facial ?? L.hair}" opacity="${L.beard === 'full' ? 1 : .95}"/>`;
+  if (L.stubble && !back) s += `<path d="M${n(-w * 1.1)} ${n(h * .25)} Q${n(-w * .6)} ${n(h * .2)} ${n(chinX)} ${n(h * .32)} Q${n(w * .6)} ${n(h * .2)} ${n(w * 1.1)} ${n(h * .25)} L${n(w * 1.1)} ${n(h * 1.2)} L${n(-w * 1.1)} ${n(h * 1.2)}Z" fill="${L.stubble}" opacity=".22"/>`;
   s += `</g><path d="${shape}" fill="none" ${o}/>`;
+  if (L.freckles && !back) for (const sd of [-1, 1]) for (let i = 0; i < 4; i++) s += `<circle cx="${n(turn * w * .55 + sd * (.22 + (i % 2) * .08) * (1 - Math.abs(turn) * .45))}" cy="${n(h * (.18 + Math.floor(i / 2) * .07))}" r=".016" fill="${shade(L.skin, .62)}"/>`;
   if (L.beard === 'goatee' && !back) s += `<path d="M${n(chinX - .07)} ${n(h * .82)} Q${n(chinX)} ${n(h * 1.25)} ${n(chinX + .07)} ${n(h * .82)}Z" fill="${L.facial ?? L.hair}" ${ol(.03)}/>`;
   if (!back) {
     s += faceSvg(L, F, turn, lid, id, w, h);
   }
+  if (L.braid && (back || Math.abs(turn) > .25)) { const bxp = back ? 0 : -sx * w * .82; for (let i = 0; i < 6; i++) s += `<ellipse cx="${n(bxp + Math.sin(i * 1.3) * .015)}" cy="${n(h * (.45 + i * .17))}" rx="${n(.085 - i * .006)}" ry=".1" fill="${L.hair}" ${ol(.025)}/>`; s += `<circle cx="${n(bxp)}" cy="${n(h * 1.5)}" r=".045" fill="#c8272a" ${ol(.02)}/>`; }
   s += hairSvg(L, turn, back, w, h);
   s += hatSvg(L, turn, back, w, h, hatOff);
   if (L.earring && !back && at < .7) s += [-1, 1].map(sd => `<circle cx="${n(sd * w * .98)}" cy="${n(h * .12)}" r=".035" fill="${L.earring}" ${ol(.015)}/>`).join('');
@@ -377,10 +437,10 @@ function faceSvg(L: ToonLook, F: Face, turn: number, lid: number, id: string, w:
     if (farS && at > .8) continue;
     const scale = farS ? 1 - at * .4 : 1 + at * .05;
     const ex = cx + side * .16 * squash, ey = eyeY;
-    const rx = .085 * scale * (1 - at * .2), ry = .1 * Math.min(1.25, open) + .005;
+    const es = L.adv ? 1.32 : 1; const rx = .085 * es * scale * (1 - at * .2), ry = (.1 * Math.min(1.25, open) + .005) * es;
     // brows: always drawn, thick
     const one = (F.browOne ?? 0) * (side > 0 ? 1 : -.35);
-    const by = ey - .16 - (F.browY + one) * .065 + F.lidTop * .02;
+    const by = ey - .16 * (L.adv ? 1.25 : 1) - (F.browY + one) * .065 + F.lidTop * .02;
     const tilt = F.browAng * .4 * side;
     const bl = .1 * scale;
     const iy = (x: number) => by + (x - ex) * Math.tan(tilt);
@@ -394,7 +454,7 @@ function faceSvg(L: ToonLook, F: Face, turn: number, lid: number, id: string, w:
     const clip = `${id}e${side}`;
     const cutY = ey - ry + F.lidTop * ry * 1.1, lowY = ey + ry - F.lidLow * ry * .8;
     s.push(`<clipPath id="${clip}"><path d="M${n(ex - .2)} ${n(cutY - Math.tan(tilt) * .2)} L${n(ex + .2)} ${n(cutY + Math.tan(tilt) * .2)} L${n(ex + .2)} ${n(lowY)} Q${n(ex)} ${n(lowY + .01)} ${n(ex - .2)} ${n(lowY)}Z"/></clipPath>`);
-    const pr = (F.eyeWhite > .5 ? .028 + F.pupil * .02 : .045) * scale;
+    const pr = (F.eyeWhite > .5 ? .028 + F.pupil * .02 : .045) * scale * es;
     const gx = clamp(F.gx, -1, 1) * rx * .45 + turn * rx * .35, gy = F.gy * ry * .3;
     s.push(`<g clip-path="url(#${clip})"><ellipse cx="${n(ex)}" cy="${n(ey)}" rx="${n(rx)}" ry="${n(ry)}" fill="#fffdf6"/>` +
       `<circle cx="${n(ex + gx)}" cy="${n(ey + gy)}" r="${n(pr * 1.35)}" fill="#5a3b26"/><circle cx="${n(ex + gx)}" cy="${n(ey + gy)}" r="${n(pr * .8)}" fill="${OUT}"/>` +
@@ -522,6 +582,16 @@ function hatSvg(L: ToonLook, turn: number, back: boolean, w: number, h: number, 
       s = `<path d="M${n(-w * .85 + k)} ${n(y0 + .04)} L${n(-w * .8 + k)} ${n(y0 - .32)} H${n(w * .8 + k)} L${n(w * .85 + k)} ${n(y0 + .04)}Z" fill="${c}" ${o}/><path d="M${n(-w * .82 + k)} ${n(y0 - .06)} H${n(w * .82 + k)}" stroke="${H.band ?? d}" stroke-width=".06"/>` +
         (back ? '' : `<path d="M${n(-w * .55 + k * 3)} ${n(y0 + .04)} Q${n(k * 4)} ${n(y0 + .18)} ${n(w * .6 + k * 3)} ${n(y0 + .04)}Z" fill="${OUT}"/>`);
       break;
+    case 'helmet': {   // wildland hard hat: dome, ridge, full brim, goggles on the front
+      const d2 = shade(c, .78), yb = y0 + .1;
+      s = `<path d="M${n(-w * 1.02 + k)} ${n(yb)} Q${n(-w * 1.05 + k)} ${n(yb - .78)} ${n(k * 1.5)} ${n(yb - .82)} Q${n(w * 1.05 + k)} ${n(yb - .78)} ${n(w * 1.02 + k)} ${n(yb)}Z" fill="${c}" ${o}/>` +
+        `<path d="M${n(k * 1.5 - .06)} ${n(yb - .8)} Q${n(k * 2)} ${n(yb - .4)} ${n(k * 2 - .05)} ${n(yb - .04)} L${n(k * 2 + .07)} ${n(yb - .04)} Q${n(k * 2.1)} ${n(yb - .4)} ${n(k * 1.5 + .06)} ${n(yb - .8)}Z" fill="${d2}"/>` +
+        `<path d="M${n(-w * .55 + k)} ${n(yb - .6)} Q${n(-w * .2 + k)} ${n(yb - .74)} ${n(w * .05 + k)} ${n(yb - .7)}" stroke="#fff" stroke-width=".05" fill="none" opacity=".45"/>` +
+        `<path d="M${n(-w * 1.42)} ${n(yb + .03)} Q${n(k)} ${n(yb + .2)} ${n(w * 1.42)} ${n(yb + .03)} Q${n(w * 1.45)} ${n(yb - .06)} ${n(w * 1.25)} ${n(yb - .07)} Q${n(k)} ${n(yb + .05)} ${n(-w * 1.25)} ${n(yb - .07)} Q${n(-w * 1.45)} ${n(yb - .06)} ${n(-w * 1.42)} ${n(yb + .03)}Z" fill="${d2}" ${o}/>` +
+        `<path d="M${n(-w * 1.0 + k)} ${n(yb - .2)} Q${n(k)} ${n(yb - .14)} ${n(w * 1.0 + k)} ${n(yb - .2)}" stroke="${OUT}" stroke-width=".08" fill="none"/><path d="M${n(-w * 1.0 + k)} ${n(yb - .2)} Q${n(k)} ${n(yb - .14)} ${n(w * 1.0 + k)} ${n(yb - .2)}" stroke="${H.band ?? '#2a2a2a'}" stroke-width=".05" fill="none"/>` +
+        (back ? '' : [-1, 1].map(sd => `<rect x="${n(k * 2.6 + sd * .2 - .15)}" y="${n(yb - .32)}" width=".3" height=".2" rx=".08" fill="#9fc6d8" ${ol(.03)}/><rect x="${n(k * 2.6 + sd * .2 - .1)}" y="${n(yb - .29)}" width=".1" height=".05" rx=".02" fill="#fff" opacity=".7"/>`).join('') + `<circle cx="${n(k * 2.6)}" cy="${n(yb - .5)}" r=".07" fill="#c8272a" ${ol(.02)}/>`);
+      break;
+    }
     case 'beret':
       s = `<path d="M${n(-w * 1.05)} ${n(y0 + .06)} Q${n(-w * 1.3)} ${n(y0 - .4)} ${n(k + .1)} ${n(y0 - .42)} Q${n(w * 1.3)} ${n(y0 - .35)} ${n(w * 1.0)} ${n(y0 + .06)} Q${n(k)} ${n(y0 + .12)} ${n(-w * 1.05)} ${n(y0 + .06)}Z" fill="${c}" ${o}/><path d="M${n(k + .1)} ${n(y0 - .42)} l.02 -.08" ${ol(.05)}/>`;
       break;

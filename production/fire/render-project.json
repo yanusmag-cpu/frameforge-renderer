@@ -1,0 +1,24 @@
+{
+ "composition": "FireTest",
+ "artifactPrefix": "fire-chunk",
+ "frames": 900,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 3,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/fire",
+  "public/brazil"
+ ],
+ "sourceDirectories": [
+  "src/ff2d",
+  "src/brazil",
+  "src/fire"
+ ],
+ "blenderScript": "scripts/fire/build-assets.py",
+ "audioScript": "scripts/fire/make-audio.py",
+ "soundtrack": "public/fire-sound/bed.flac",
+ "soundtrackLUFS": -18,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "yunoworld_firefighter_test_final.mp4"
+}

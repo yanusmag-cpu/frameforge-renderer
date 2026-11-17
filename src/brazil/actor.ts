@@ -21,7 +21,7 @@ export type ActorState = {
   extra?: string;                   // extra SVG drawn in rig space (held 2D props)
   under?: string;                   // SVG drawn behind the character
   roll?: number;                    // rotate the cut-out in its own plane about the feet (lying down = ±PI/2)
-  toon?: ToonLook; heldA?: Held; heldB?: Held; hatOff?: number;   // YunoWorld cartoon cast instead of the stickman
+  toon?: ToonLook; heldA?: Held; heldB?: Held; hatOff?: number; toonOpts?: { torchLit?: number; heldAng?: number };   // YunoWorld cartoon cast instead of the stickman
   flip?: boolean;                   // mirror the cut-out (reflections)
 };
 const blobTex = (() => { let t: T.Texture | null = null; return () => {
@@ -53,7 +53,7 @@ export class Actor {
     const sc = s.scale ?? 1; this.scale = sc;
     const res = s.res ?? 1024;
     if (res !== this.res) { this.res = res; this.canvas.height = res; this.canvas.width = Math.round(res * VW / VH); this.lastSvg = ''; this.tex.dispose(); }
-    const r = s.toon ? toon(s.pose, s.toon, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, heldA: s.heldA, heldB: s.heldB, hatOff: s.hatOff })
+    const r = s.toon ? toon(s.pose, s.toon, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, heldA: s.heldA, heldB: s.heldB, hatOff: s.hatOff, ...s.toonOpts })
       : stickman(s.pose, s.look, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, lighting: s.rim ? { rim: s.rim, rimSide: s.rimSide } : undefined });
     this.joints = r.j;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${this.canvas.width}" height="${this.canvas.height}" viewBox="${VB.x0} ${VB.y0} ${VW} ${VH}">${s.under ?? ''}${r.svg}${s.extra ?? ''}</svg>`;
