@@ -54,7 +54,8 @@ const truck = { name: 'Engine', pos: g(14.5, 9.5), rot: [0, Math.PI / 2 + .25, 0
 
 // main firefighter pose & props through the sequence (shared by every camera so continuity holds)
 function mainFF(t: number): { act: ActorState; torch: T.Vector3 | null } {
-  let pz: Pose, face: Face = F('determined'), heldA: Held | undefined, heldB: Held | undefined = 'driptorch', lit = 0, ang = 0, pos = A0;
+  const heldB: Held | undefined = 'driptorch';
+  let pz: Pose, face: Face = F('determined'), heldA: Held | undefined, lit = 0, ang = 0, pos = A0;
   if (t < 6.3) {   // watches the wildfire (back to camera), weight shifts
     pz = pose(t, 2, { back: 1, turn: 0, headTurn: Math.sin(t * .7) * .15, arms: [Hm(LA, -.38, .82), Hm(LA, .42, .8)], shapeA: 'fist', shapeB: 'hold' }); face = F('focused');
   } else if (t < 7.3) {   // turns to the unburned fuel by the line
