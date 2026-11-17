@@ -3,6 +3,7 @@
 import * as T from 'three';
 import { type Look, type Pose, stickman, type Joints } from '../ff2d/rig.ts';
 import { type Face } from '../ff2d/face.ts';
+import { toon, type ToonLook, type Held } from '../ff2d/toon.ts';
 
 export const UNIT = 1.75 / 4.2;           // rig unit (head diameter) in metres for a 1.75 m stickman
 const VB = { x0: -1.8, x1: 1.8, y0: -5.4, y1: .35 }; // rig viewBox (y down, 0 = ground)
@@ -20,6 +21,8 @@ export type ActorState = {
   extra?: string;                   // extra SVG drawn in rig space (held 2D props)
   under?: string;                   // SVG drawn behind the character
   roll?: number;                    // rotate the cut-out in its own plane about the feet (lying down = ±PI/2)
+  toon?: ToonLook; heldA?: Held; heldB?: Held; hatOff?: number;   // YunoWorld cartoon cast instead of the stickman
+  flip?: boolean;                   // mirror the cut-out (reflections)
 };
 const blobTex = (() => { let t: T.Texture | null = null; return () => {
   if (t) return t; const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d')!;
@@ -50,7 +53,8 @@ export class Actor {
     const sc = s.scale ?? 1; this.scale = sc;
     const res = s.res ?? 1024;
     if (res !== this.res) { this.res = res; this.canvas.height = res; this.canvas.width = Math.round(res * VW / VH); this.lastSvg = ''; this.tex.dispose(); }
-    const r = stickman(s.pose, s.look, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, lighting: s.rim ? { rim: s.rim, rimSide: s.rimSide } : undefined });
+    const r = s.toon ? toon(s.pose, s.toon, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, heldA: s.heldA, heldB: s.heldB, hatOff: s.hatOff })
+      : stickman(s.pose, s.look, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, lighting: s.rim ? { rim: s.rim, rimSide: s.rimSide } : undefined });
     this.joints = r.j;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${this.canvas.width}" height="${this.canvas.height}" viewBox="${VB.x0} ${VB.y0} ${VW} ${VH}">${s.under ?? ''}${r.svg}${s.extra ?? ''}</svg>`;
     if (svg !== this.lastSvg) {
@@ -65,7 +69,7 @@ export class Actor {
     const pitch = Math.atan2(to.y, Math.hypot(to.x, to.z));
     const lean = (s.lean ?? .5) * Math.max(0, pitch);
     this.mesh.position.copy(this.base); this.mesh.rotation.set(0, 0, 0); this.mesh.rotateY(yaw); this.mesh.rotateX(-lean); if (s.roll) this.mesh.rotateZ(s.roll);
-    this.mesh.scale.setScalar(sc); this.mesh.visible = true;
+    this.mesh.scale.set(s.flip ? -sc : sc, sc, sc); this.mesh.visible = true;
     this.mesh.updateMatrixWorld(); this.right.set(1, 0, 0).applyQuaternion(this.mesh.quaternion); this.up.set(0, 1, 0).applyQuaternion(this.mesh.quaternion);
     const tint = s.tint ?? [1, 1, 1]; const W = 1.14; this.mat.color.setRGB(tint[0] * W, tint[1] * W, tint[2] * W);
     this.mesh.castShadow = s.shadow ?? true;
