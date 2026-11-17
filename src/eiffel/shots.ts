@@ -128,7 +128,7 @@ const S: Shot[] = [
     return base(t, hand(cam, t, .02), AM([0, 0, 10]), {
       actors: [actor({ id: 'lus', who: 'lustig', t, pos: [.42, 0, z], pose: pz, face, res: 1800, tint: WARM_TINT })],
       fx: [{ kind: 'motes', box: [[-6, 0, 5], [6, 5, 25]], n: 90, seed: 1, color: '#ffe2b0', size: .05, t, alpha: .3 }],
-      grade: { focus: Math.hypot(cam.pos[2] - z, cam.pos[1] - 1.4), aperture: t < 2.3 ? 0 : .12, fade: 1 - k01(t, 0, .6) },
+      grade: { focus: Math.hypot(cam.pos[2] - z, cam.pos[1] - 1.4), aperture: t < 2.3 ? 0 : .12, fade: .8 * (1 - k01(t, 0, .6)) },
     });
   } },
   // 2 ─ 4.30–7.30  "In 1925, a con artist named Victor Lustig"
