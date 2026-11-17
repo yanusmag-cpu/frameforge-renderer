@@ -8,7 +8,7 @@ import type { ActorState } from '../brazil/actor.ts';
 import type { Pose } from '../ff2d/rig.ts';
 import type { Frame9 } from './engine9.ts';
 import { pose, P, F, camPath, add3, inOut, mix, gesture, type CamKey } from '../brazil/anim.ts';
-import { STAND, walkPose, HERO } from '../ff2d/rig.ts';
+import { walkPose, HERO } from '../ff2d/rig.ts';
 import { clamp, noise1, smooth } from '../ff2d/motion.ts';
 import { UNIT } from '../brazil/actor.ts';
 import { CAST, type ToonLook, type Held } from '../ff2d/toon.ts';
@@ -29,7 +29,7 @@ const g = (x: number, z: number): V3 => [x, H(x, z), z];
 type Act = { id: string; L: ToonLook; pose: Pose; pos: V3; t: number; face?: Face; heldA?: Held; heldB?: Held; torchLit?: number; heldAng?: number; res?: number; tint?: [number, number, number]; seed?: number };
 const actor = (a: Act): ActorState => ({ id: a.id, look: HERO, toon: a.L, pose: a.pose, pos: a.pos, t: a.t, face: a.face ?? F('neutral'), heldA: a.heldA, heldB: a.heldB,
   toonOpts: { torchLit: a.torchLit, heldAng: a.heldAng }, scale: SC, res: a.res ?? 1400, tint: a.tint ?? TINT, seed: a.seed ?? 3, contact: .85, lean: .2 } as ActorState);
-const TINT: [number, number, number] = [1.0, .9, .8];
+const TINT: [number, number, number] = [.94, .85, .76];
 /** walk with planted feet; dist in metres */
 const walk = (l: ToonLook, dist: number, dir: number, o: { turn?: number; carryB?: [number, number] } = {}) => walkPose(dist / (UNIT * SC * sy(l)), dir, { step: .6, turn: o.turn, carryB: o.carryB });
 
@@ -91,10 +91,10 @@ const S: Shot[] = [
   // 2 ─ 5–10  he reads the fire, turns to the fuel beside the line, readies and lights the drip torch; she watches
   { t0: 5, t1: 10.0, f: t => {
     const m = mainFF(t);
-    const cam = t < 7.2 ? cp(t, 5, 7.2, [{ p: [7.6, 1.85, 4.2], l: [3.2, 1.45, -1], f: 40 }, { p: [7.2, 1.8, 3.6], l: [3.4, 1.4, -.6], f: 37 }])
+    const cam = t < 7.2 ? cp(t, 5, 7.2, [{ p: [7.9, 2.3, 4.9], l: [3.0, 1.2, -1.6], f: 42 }, { p: [7.4, 2.2, 4.4], l: [3.2, 1.2, -1.4], f: 39 }])
       : cp(t, 7.2, 10, [{ p: [3.1, 1.5, -3.2], l: [3.6, 1.35, .6], f: 36 }, { p: [3.25, 1.45, -2.6], l: [3.55, 1.3, .6], f: 32 }]);
     const watch = secondFF(t, { face: F('curious', 'suspicious', k01(t, 8.4, 9.2) * .6), pz: t < 7.2 ? pose(t, 9, { back: 1, turn: .2, headTurn: -.3, arms: [Hm(LB, -.36, .8), Hm(LB, .36, .8)] }) : pose(t, 9, { turn: -.35, headTurn: .2, arms: [Hm(LB, -.36, .8), Hm(LB, .36, .8)] }) });
-    return base(t, hand(cam, t, .01), { rel: true, actors: [m.act, watch], torch: m.torch, props: [truck], grade: { focus: t < 7.2 ? 4.4 : 3.6, aperture: .6 } });
+    return base(t, hand(cam, t, .01), { rel: true, actors: [m.act, watch], torch: m.torch, props: [truck], grade: { focus: t < 7.2 ? 5.6 : 3.6, aperture: t < 7.2 ? .3 : .6, exposure: t < 7.2 ? 1.12 : 1 } });
   } },
   // 3 ─ 10–15  the burnout begins: drips ignite a small line of fire; she is startled; push in on the flames consuming the dry fuel
   { t0: 10.0, t1: 15.0, f: t => {
@@ -105,8 +105,8 @@ const S: Shot[] = [
       const sh = k01(t, 11.85, 12.05);
       cam = cp(t, 11.7, 13.0, [{ p: [6.3, 1.55, -.9], l: [6.1, 1.5, 1.7], f: 32 }, { p: [6.27, 1.55, -.6], l: [6.1, 1.5, 1.7], f: 29 }]);
       acts = [secondFF(t, { face: F('curious', 'shocked', sh), pz: pose(t, 9, { turn: -.2, headLift: .06 * sh, lean: -.05 * sh, arms: [Hm(LB, mix(-.36, -.25, sh), mix(.8, 1.3, sh)), Hm(LB, mix(.36, .28, sh), mix(.8, 1.25, sh))], shapeA: sh > .5 ? 'open' : 'fist', shapeB: sh > .5 ? 'open' : 'fist', bendA: -1, bendB: -1 }) })];
-    } else { cam = cp(t, 13, 15, [{ p: [3.6, 1.45, 3.4], l: [-1.0, .65, -2.4], f: 42 }, { p: [1.6, 1.1, 1.9], l: [-2.0, .6, -2.6], f: 36 }]); acts = [m.act, secondFF(t, { face: F('shocked', 'worried', .5) })]; }
-    return base(t, t < 11.7 || t > 13 ? hand(cam, t, .015) : cam, { rel: true, actors: acts, torch: m.torch, props: [truck], grade: { focus: t < 11.7 ? 4.2 : t < 13 ? 2.4 : 4, aperture: .35 } });
+    } else { const k = kk(t, 13, 15), xa = xA(t); cam = { pos: [xa + mix(1.6, 1.2, k), mix(2.3, 1.7, k), mix(8.6, 6.0, k)], look: [xa + .1, .8, -1.6], fov: mix(48, 42, k) }; acts = [m.act]; }
+    return base(t, t < 11.7 || t > 13 ? hand(cam, t, .015) : cam, { rel: true, actors: acts, torch: m.torch, props: [truck], grade: { focus: t < 11.7 ? 4.2 : t < 13 ? 2.4 : 6, aperture: .35, exposure: t > 13 ? .86 : .98 } });
   } },
   // 4 ─ 15–20  overhead: the black band grows from the line toward the wildfire — the fuel is gone
   { t0: 15.0, t1: 20.0, f: t => {
@@ -125,9 +125,9 @@ const S: Shot[] = [
     const Bp = pose(t, 9, { turn: -.55, headTurn: und > .5 ? -.25 : .3, arms: [Hm(LB, -.36, .8), thumb > 0 ? Hm(LB, mix(.36, .5, thumb), mix(.8, 1.45, thumb)) : Hm(LB, .36, .8)], shapeB: thumb > .5 ? 'thumb' : 'fist', bendB: -1 });
     const Ap = pose(t, 2, { turn: .55, headTilt: nodA, arms: [Hm(LA, -.35, .85), Hm(LA, .42, .8)], shapeB: 'hold' });
     const k1: CamKey = { p: [5.4, 1.75, -5.2], l: [5.15, 1.45, 1.2], f: 40 };
-    const cam = t < 26.6 ? cp(t, 25, 26.6, [{ p: [5.3, 1.6, -4.6], l: [5.15, 1.45, 1.2], f: 40 }, k1]) : cp(t, 26.6, 29.2, [k1, { p: [16, 34, -16], l: [0, 0, -14], f: 46 }, { p: [22, 52, -12], l: [0, 0, -18], f: 46 }]);
+    const cam = t < 26.6 ? cp(t, 25, 26.6, [{ p: [5.3, 1.6, -4.6], l: [5.15, 1.45, 1.2], f: 40 }, k1]) : cp(t, 26.6, 29.2, [k1, { p: [14, 14, 6], l: [-2, 0, -10], f: 46 }, { p: [34, 34, 22], l: [-6, 0, -16], f: 48 }]);
     return base(t, hand(cam, t, .01), { actors: [actor({ id: 'A', L: LA, pose: Ap, pos: g(4.2, .9), t, face: F('happy', 'confident', .5), heldB: 'driptorch', res: 1500 }),
-      secondFF(t, { face: und < .5 ? F('curious', 'surprise', .3) : F('happy', 'excited', thumb * .5), pz: Bp })], props: [truck], rel: t < 26.6, smokeK: t < 26.6 ? 1 : .5, embersK: t < 26.6 ? 1 : .25, grade: { focus: t < 26.6 ? 3.6 : 40, aperture: t < 26.6 ? .6 : 0 } });
+      secondFF(t, { face: und < .5 ? F('curious', 'surprise', .3) : F('happy', 'excited', thumb * .5), pz: Bp })], props: [truck], rel: t < 26.6, smokeK: t < 26.6 ? 1 : .22, embersK: t < 26.6 ? 1 : .25, grade: { focus: t < 26.6 ? 3.6 : 40, aperture: t < 26.6 ? .6 : 0 } });
   } },
 ];
 
