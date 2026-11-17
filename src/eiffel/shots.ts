@@ -153,7 +153,7 @@ const S: Shot[] = [
     if (t < 8.55) {   // buying the paper
       const buy = gesture(t, 7.45, .45), take = gesture(t, 7.9, .4);
       const pz = pose(t, 2, { turn: .55, arms: [H(L.lustig, -.32, 1.0 + .2 * take), H(L.lustig, .45 + .1 * buy, 1.05 + .25 * buy)], shapeA: 'hold', shapeB: 'hold', bendB: -1 });
-      const cam = cp(t, 7.3, 8.55, [{ p: [-7.4, 1.55, 58.2], l: [-10.9, 1.35, 54.3], f: 42 }, { p: [-7.8, 1.6, 57.7], l: [-10.9, 1.4, 54.4], f: 40 }]);
+      const cam = cp(t, 7.3, 8.55, [{ p: [-7.2, 1.55, 58.0], l: [-10.6, 1.35, 54.1], f: 44 }, { p: [-7.6, 1.6, 57.5], l: [-10.6, 1.4, 54.2], f: 42 }]);
       return base(t, hand(cam, t, .012), AM(KIOSK), {
         actors: [actor({ id: 'lus', who: 'lustig', t, pos: [-11.05, .15, 54.9], pose: pz, face: F('calm', 'curious', take), heldB: t < 7.75 ? 'coin' : undefined, heldA: take > .5 ? 'newspaper' : undefined, tint: WARM_TINT, res: 1500 }), vendor],
         grade: { focus: 4.6, aperture: .4 },
