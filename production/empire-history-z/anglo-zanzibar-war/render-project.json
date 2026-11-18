@@ -1,0 +1,22 @@
+{
+ "composition": "EhzAngloZanzibar",
+ "artifactPrefix": "ehz-anglo-zanzibar-chunk",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil/fonts",
+  "public/ehz-sound"
+ ],
+ "sourceDirectories": [
+  "src/brazil",
+  "src/ehz"
+ ],
+ "audioScript": "scripts/ehz/make-audio.py",
+ "soundtrack": "public/ehz-sound/bed.flac",
+ "soundtrackLUFS": -16,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "empire_history_z_anglo_zanzibar_war_38_minutes.mp4"
+}
