@@ -1,0 +1,22 @@
+{
+ "composition": "YwAlcatraz",
+ "artifactPrefix": "yw-alcatraz-escape",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil/fonts"
+ ],
+ "sourceDirectories": [
+  "src/brazil",
+  "src/ehz",
+  "src/ff2d",
+  "src/yw3"
+ ],
+ "soundtrack": "public/yw-alcatraz-sound/bed.flac",
+ "soundtrackLUFS": -16,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "YunoWorld_Alcatraz_Escape.mp4"
+}
