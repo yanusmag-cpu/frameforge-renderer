@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Empire History Z — The War That Lasted Only 38 Minutes: original synthesized SFX + score (no samples, no voice).
-Writes public/ehz-sound/bed.flac. --stems DIR also writes music.wav / sfx.wav for the narration mix."""
+Writes public/ehz-sound/bed.flac (final mix). --vo DIR adds the voice lines (kept out of this public repo). --stems DIR writes music/sfx/voice stems."""
 import json, os, subprocess, sys, tempfile, wave
 from pathlib import Path
 import numpy as np
@@ -141,96 +141,134 @@ def brass(fs, d, g=.1):
     return (lp(s, 3200) * e + lp(s, 750) * (1 - e)) * gate(d, .02, .25) * g
 def string(f, d, g=.1): x = T(d); vib = 1 + .006 * np.sin(2 * np.pi * 5.2 * x) * sm(.2, .8, x); return lp(saw(1, d) * 0 + (2 * ((np.cumsum(f * vib) / SR) % 1) - 1), 1400) * gate(d, .25, .5) * g
 D2, A2, D3, F3, A3, C3, Bb2 = NOTE(38), NOTE(45), NOTE(50), NOTE(53), NOTE(57), NOTE(48), NOTE(46)
+# ------------------------------------------------------------------- edit list (matches src/ehz/shots.ts EDL)
+# output seconds = story seconds + offset; story ranges cut from the edit return None
+STORY_SEGS = [(0, 9.6, 0), (14.0, 18.4, 4.4), (18.8, 19.6, 4.0), (20.0, 20.7, 3.6), (21.2, 41.9, 3.1), (45.0, 60.01, 0)]
+def M(ts):
+    for a, b, off in STORY_SEGS:
+        if a <= ts < b: return ts + off
+    return None
+
+# ------------------------------------------------------------------- voice (user's recordings: trimmed + level only, never altered)
+VO_DIR = Path(sys.argv[sys.argv.index('--vo') + 1]) if '--vo' in sys.argv else None
+VO = np.zeros((N, 2))
+LINES = {   # line id -> output-time onset of the first spoken word
+    'D1': 1.80, 'D2': 3.88, 'D3': 6.15, 'D4': 8.12, 'D5': 9.72, 'D6': 20.30, 'D7': 30.42,
+    'N1': 11.25, 'N2': 18.50, 'N3': 25.00, 'N4': 31.76, 'N5': 37.30, 'N6': 47.60, 'N7': 51.30, 'N8': 54.30}
+def write(p, x):
+    y = np.clip(x, -1, 1); w = wave.open(str(p), 'wb'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((y * 32767).astype('<i2').tobytes()); w.close()
+def lufs(x):
+    with tempfile.TemporaryDirectory() as d:
+        p = Path(d) / 'a.wav'; write(p, x if x.ndim == 2 else np.stack([x, x], 1))
+        out = subprocess.run(['ffmpeg', '-hide_banner', '-nostats', '-i', str(p), '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+        return float([l for l in out.splitlines() if l.strip().startswith('I:')][-1].split()[1])
+def load_wav(p):
+    w = wave.open(str(p)); a = np.frombuffer(w.readframes(w.getnframes()), '<i2').astype(np.float64) / 32768; w.close(); return a
+if VO_DIR:
+    meta = json.load(open(VO_DIR / 'lines.json'))
+    for src in 'DN':   # one gain per source recording (gentle normalisation, relative levels inside a file untouched)
+        ids = [k for k in LINES if k[0] == src]; cat = np.concatenate([load_wav(VO_DIR / f'{k}.wav') for k in ids])
+        g = 10 ** ((-17.0 - lufs(cat)) / 20)
+        for k in ids:
+            x = load_wav(VO_DIR / f'{k}.wav') * g; at = LINES[k] - meta[k]['lead']; i0 = int(at * SR); n = min(len(x), N - i0)
+            VO[i0:i0 + n] += x[:n, None]
+
+# ------------------------------------------------------------------- score (original), output time
 def music():
-    put(MUS, 0.0, drone(D2, 22.6, .1, 260))
-    put(MUS, 0.0, tom(44, .5)); [put(MUS, c, tom(48, .3)) for c in (1.75, 3.7, 6.0, 8.0)]
+    put(MUS, 0.0, drone(D2, 25.6, .1, 260))
+    put(MUS, 0.0, tom(44, .5)); [put(MUS, c, tom(48, .3)) for c in (1.75, 3.8, 6.0, 8.0)]
     t0 = 1.75; n = 0
-    while t0 < 22.4:   # low string ostinato, rising intensity
-        g = .05 + .07 * min(1, t0 / 22); f = [D3, D3, F3, D3, A3 / 2 * 2 if n % 8 > 5 else D3][n % 5]
+    while t0 < 25.5:   # low string ostinato, rising intensity
+        g = .05 + .07 * min(1, t0 / 25); f = [D3, D3, F3, D3, D3][n % 5]
         put(MUS, t0, pulse(f / 2, .2, g * 1.4)); t0 += BEAT / 2; n += 1
-    put(MUS, 9.6, string(A2, 2.0, .06)); put(MUS, 11.0, riser(1.4, .2, 150, 1200)); put(MUS, 12.45, brass([D3, F3, A3], 1.4, .09)); put(MUS, 12.45, tom(42, .7))
-    put(MUS, 14.0, pad([D3, F3, A3], 8.5, .045, 700, 1.0, .4))
-    for k in range(14):   # heartbeat under the countdown
-        tt = 14.2 + k * .62
-        if tt < 22.4: put(MUS, tt, thump(.18 + k * .012)); put(MUS, tt + .17, thump(.12 + k * .008))
-    put(MUS, 19.2, riser(3.2, .28, 120, 2400))
-    # silence 22.5 – 23.35, then battle
+    put(MUS, 9.6, string(A2, 2.0, .06)); put(MUS, 11.2, riser(1.6, .2, 150, 1200)); put(MUS, 14.4, brass([D3, F3, A3], 1.4, .09)); put(MUS, 14.4, tom(42, .7))
+    put(MUS, 14.75, tom(50, .35)); put(MUS, 16.35, tom(46, .45)); put(MUS, 16.35, brass([A2, NOTE(49), NOTE(52)], .9, .06))
+    put(MUS, 14.4, pad([D3, F3, A3], 11.1, .045, 700, 1.0, .4))
+    for k in range(12):   # heartbeat under the countdown
+        tt = 18.4 + k * .62
+        if tt < 25.5: put(MUS, tt, thump(.18 + k * .012)); put(MUS, tt + .17, thump(.12 + k * .008))
+    put(MUS, 22.3, riser(3.2, .28, 120, 2400))
+    # silence 25.6 – 26.45, then battle from the first salvo
     bars = [[D3, F3, A3], [Bb2, D3, F3], [C3, NOTE(52), NOTE(55)], [A2, NOTE(49), NOTE(52)]]
-    tt = T_OPEN = 23.4; b = 0
+    tt = M(23.4); b = 0
     while tt < 49.9:
-        sec = 1 if 34 <= tt < 40 else 0
-        for i, (dt, f, g) in enumerate([(0, 46, .55), (BEAT * 1.5, 52, .35), (BEAT * 2, 46, .45), (BEAT * 3, 58, .3), (BEAT * 3.5, 52, .3)]):
+        sec = 1 if 37.1 <= tt < 43.1 else 0
+        for dt, f, g in [(0, 46, .55), (BEAT * 1.5, 52, .35), (BEAT * 2, 46, .45), (BEAT * 3, 58, .3), (BEAT * 3.5, 52, .3)]:
             put(MUS, tt + dt, tom(f, g * (.7 if sec else 1)))
         put(MUS, tt + BEAT, snare(.12)); put(MUS, tt + BEAT * 3, snare(.14))
         if b % 2 == 0: put(MUS, tt, brass(bars[(b // 2) % 4], BEAT * 1.6, .07 if not sec else .05))
         for i in range(8): put(MUS, tt + i * BEAT / 2, pulse(bars[(b // 2) % 4][0] / 2, .16, .07))
         tt += BEAT * 4; b += 1
-    # lament after the guns stop
-    for i, (f, d) in enumerate([(D3, .9), (C3, .6), (Bb2, .7), (A2, 1.3)]): put(MUS, 51.2 + sum(x[1] for x in [(D3, .9), (C3, .6), (Bb2, .7), (A2, 1.3)][:i]), string(f * 2, d + .3, .08))
+    lam = [(D3, .9), (C3, .6), (Bb2, .7), (A2, 1.3)]
+    for i, (f, d) in enumerate(lam): put(MUS, 51.9 + sum(x[1] for x in lam[:i]), string(f * 2, d + .3, .08))
     put(MUS, 51.0, drone(D2, 3.4, .05, 200))
-    put(MUS, 54.3, riser(1.45, .25, 200, 3000)); put(MUS, 55.75, tom(40, .9)); put(MUS, 55.75, brass([D3, NOTE(54), A3, NOTE(62)], 4.2, .1))
-    put(MUS, 55.75, pad([D2, A2, D3, NOTE(54)], 4.25, .06, 1200, .05, 1.6))
+    put(MUS, 54.3, riser(1.6, .22, 200, 3000)); put(MUS, 55.95, tom(40, .9)); put(MUS, 55.95, brass([D3, NOTE(54), A3, NOTE(62)], 4.0, .1))
+    put(MUS, 55.95, pad([D2, A2, D3, NOTE(54)], 4.05, .06, 1200, .05, 1.6))
 
-# ------------------------------------------------------------------- sfx
+# ------------------------------------------------------------------- sfx, output time
 def sfx():
     put(AMB, 0, waves(60, .09)); put(AMB, 0, wind(60, .05), pan=.2)
-    put(AMB, 26, crackle(34, 26, .05) * np.linspace(.2, 1, int(34 * SR)))
-    # ticking clock under the confrontation, louder in the countdown
-    for s in range(60):
-        tt = s * 1.0 + .5
-        if tt < 14: put(SFX, tt, ticktock(.05, s % 2 == 0))
-        elif tt < 22.4: put(SFX, tt, ticktock(.14 if not 14 <= tt < 15.6 else .24, s % 2 == 0))
-    put(SFX, 22.0, bell(.75)); put(SFX, 22.25, popfx(0))
-    # speech bubbles
-    for b in (1.85, 3.8, 6.15, 8.1, 9.75, 15.75, 27.3): put(SFX, b, popfx(.1))
-    # ball motion
-    put(SFX, .25, boing(.05)); put(SFX, 23.78, boing(.09)); put(SFX, 27.05, boing(.12, .5)); put(SFX, 15.65, whoosh(1.2, .06)); put(SFX, 51.0, boing(.05, .6))
-    # cut whooshes + map reveal
-    for c in (11.0, 34.0, 40.0): put(SFX, c - .2, whoosh(.6, .1))
-    put(SFX, 11.0, whoosh(1.5, .16)); put(SFX, 12.4, whoosh(1.6, .12))
-    put(SFX, 10.8, engine(3.6, .14)); put(SFX, 17.2, engine(1.6, .06))
-    # guns readied (Thrush close-up)
-    put(SFX, 16.6, ratchet(1.5, 12, .06)); put(SFX, 17.9, clunk(.25)); put(SFX, 18.3, clack(.2)); put(SFX, 18.9, ratchet(.8, 9, .04))
-    # battle cues from the render timeline
-    for e in CUES:
+    put(AMB, M(26), crackle(60 - M(26), 26, .05) * np.linspace(.2, 1, int((60 - M(26)) * SR)))
+    for s_ in range(60):   # ticking clock; the watch is loud in its close-up
+        tt = s_ * 1.0 + .5
+        if tt < 18.4: put(SFX, tt, ticktock(.05, s_ % 2 == 0))
+        elif tt < 25.5: put(SFX, tt, ticktock(.26 if tt < 20.0 else .14, s_ % 2 == 0))
+    put(SFX, M(22.0), bell(.6))
+    for k, at in LINES.items():
+        if k[0] == 'D': put(SFX, at - .06, popfx(.09))   # speech-bubble pop
+    put(SFX, M(23.78), boing(.09)); put(SFX, M(27.05), boing(.12, .5)); put(SFX, 20.25, whoosh(1.0, .05))
+    for c in (M(34.0), M(40.0)): put(SFX, c - .2, whoosh(.6, .1))
+    put(SFX, 11.2, whoosh(1.6, .16)); put(SFX, 12.8, whoosh(1.6, .12)); put(SFX, 14.75, popfx(.07)); put(SFX, 16.35, popfx(.07))
+    put(SFX, 10.8, engine(4.4, .14)); put(SFX, M(17.2), engine(1.3, .06))
+    put(SFX, M(17.2), ratchet(1.0, 12, .06)); put(SFX, M(17.9), clunk(.25)); put(SFX, M(18.3), clack(.2)); put(SFX, M(18.9), ratchet(.6, 9, .04))
+    for e in CUES:   # battle cues from the render timeline, re-timed by the edit list
         if e['t'] > 50.5: continue
+        at = M(e['t'])
+        if at is None: continue
         g = .75 if e['map'] else 1.0; dist = max(1.5, e['dist'])
-        if e['kind'] == 'fire': put(SFX, e['t'], cannon(dist, e['ship'] == 'stgeorge') * g, pan=float(np.clip(-.3 + rng.uniform(-.2, .2), -1, 1)))
-        elif e['kind'] == 'zzfire': put(SFX, e['t'], cannon(dist, powder=True) * g, pan=.1)
+        if e['kind'] == 'fire': put(SFX, at, cannon(dist, e['ship'] == 'stgeorge') * g, pan=float(np.clip(-.3 + rng.uniform(-.2, .2), -1, 1)))
+        elif e['kind'] == 'zzfire': put(SFX, at, cannon(dist, powder=True) * g, pan=.1)
         elif e['kind'] == 'impact':
-            if dist < 14 and not e['map']: put(SFX, e['t'] - .55, whistle(.55, .05))
-            put(SFX, e['t'], boom(dist, e['target'][0] < -10) * g, pan=float(np.clip(rng.uniform(-.3, .3), -1, 1)))
-        else: put(SFX, e['t'], splash(dist) * g)
-    # set pieces
-    put(SFX, 26.3, A(creak(1.0, .18), rumble(1.6, .25))); put(SFX, 27.35, A(boom(4), crumble(1.8, .5)) * .7)
-    put(SFX, 32.8, A(creak(2.4, .14), bubbles(3.2, .07), hp(noise(3.0), 2000) * gate(3.0, .3, 1.5) * .05))
+            if dist < 14 and not e['map'] and M(e['t'] - .55) is not None: put(SFX, at - .55, whistle(.55, .05))
+            put(SFX, at, boom(dist, e['target'][0] < -10) * g, pan=float(np.clip(rng.uniform(-.3, .3), -1, 1)))
+        else: put(SFX, at, splash(dist) * g)
+    put(SFX, M(26.3), A(creak(1.0, .18), rumble(1.6, .25))); put(SFX, M(27.35), A(boom(4), crumble(1.8, .5)) * .7)
+    put(SFX, M(32.8), A(creak(2.4, .14), bubbles(3.2, .07), hp(noise(3.0), 2000) * gate(3.0, .3, 1.5) * .05))
     put(SFX, 48.25, A(clack(.5), hp(noise(.3), 2500) * env(.3, .0005, .05) * .4)); put(SFX, 48.3, creak(.9, .1)); put(SFX, 49.3, clunk(.35))
-    # silence after the last gun: ringing, then quiet fire
     put(SFX, 50.1, np.sin(2 * np.pi * 3600 * T(1.6)) * gate(1.6, .2, 1.2) * .012)
-    # final reveal
-    put(SFX, 54.3, ratchet(1.45, 30, .05)); put(SFX, 55.75, bell(.55, 147)); put(SFX, 56.9, whoosh(.5, .08)); put(SFX, 57.1, popfx(.08))
+    put(SFX, 54.3, ratchet(1.6, 30, .05)); put(SFX, 55.95, bell(.5, 147)); put(SFX, 56.9, whoosh(.5, .08)); put(SFX, 57.1, popfx(.08))
 
 music(); sfx()
 def norm_lufs(x, target):
-    with tempfile.TemporaryDirectory() as d:
-        p = Path(d) / 'a.wav'; write(p, x)
-        out = subprocess.run(['ffmpeg', '-hide_banner', '-nostats', '-i', str(p), '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
-        I = float([l for l in out.splitlines() if l.strip().startswith('I:')][-1].split()[1])
-    return x * 10 ** ((target - I) / 20)
-def write(p, x):
-    y = np.clip(x, -1, 1); w = wave.open(str(p), 'wb'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((y * 32767).astype('<i2').tobytes()); w.close()
+    return x * 10 ** ((target - lufs(x)) / 20)
 def limit(x, ceiling):
     e = maximum_filter1d(np.abs(x).max(axis=1), int(SR * .006)); g = np.minimum(1, ceiling / np.maximum(e, 1e-9))
     g = -maximum_filter1d(-g, int(SR * .012)); g = uniform_filter1d(g, int(SR * .01)); return x * g[:, None]
 fade = np.minimum(1, t / .3) * (1 - np.clip((t - 59.2) / .8, 0, 1))
-# music sits under the effects; dip it during the silence after the war
-duck = 1 - .85 * (sm(49.9, 50.2, t) * (1 - sm(51.0, 51.3, t)))
-mg = 2.6 * (1 - sm(22.3, 22.6, t)) + 1.0 * sm(22.3, 22.6, t) * (1 - sm(50.8, 51.2, t)) + 2.2 * sm(50.8, 51.2, t)
-MUSm = MUS * (duck * fade * mg)[:, None] * .8; SFXm = (SFX + AMB * (1.8 - .8 * sm(22, 24, t))[:, None]) * fade[:, None]
+duck = 1 - .85 * (sm(49.9, 50.2, t) * (1 - sm(51.0, 51.3, t)))          # dramatic silence when the guns stop
+reveal = 1 - .55 * (sm(55.2, 55.9, t) * (1 - sm(56.0, 56.25, t)))       # brief dip before the 38-minute hit
+mg = 2.6 * (1 - sm(25.5, 25.7, t)) + 1.0 * sm(25.5, 25.7, t) * (1 - sm(50.8, 51.2, t)) + 2.2 * sm(50.8, 51.2, t)
+# voice-keyed ducking: music ~-11 dB, effects ~-5 dB under any spoken word
+ve = uniform_filter1d(np.abs(VO).max(axis=1), int(SR * .03)); ve = maximum_filter1d(ve, int(SR * .35)); ve = uniform_filter1d(ve, int(SR * .12))
+vk = np.clip(ve / (np.percentile(ve[ve > 1e-4], 50) if np.any(ve > 1e-4) else 1), 0, 1)
+span = np.zeros(N)
+if VO_DIR:
+    for k_, at_ in LINES.items(): span[int((at_ - .2) * SR):int((at_ + meta[k_]['dur'] + .05) * SR)] = 1
+span = uniform_filter1d(span, int(SR * .15)); vk = np.maximum(vk, span)
+battle = np.zeros(N)   # lines spoken over the bombardment get an extra -6 dB on the effects
+if VO_DIR:
+    for k_ in ('N3', 'D7', 'N4', 'N6'): at_ = LINES[k_]; battle[int((at_ - .2) * SR):int((at_ + meta[k_]['dur'] + .05) * SR)] = 1
+battle = uniform_filter1d(battle, int(SR * .15))
+MUSm = MUS * (duck * reveal * fade * mg * (1 - .8 * vk))[:, None] * .8
+SFXm = (SFX + AMB * (1.8 - .8 * sm(24.5, 26.5, t))[:, None]) * (fade * (1 - .86 * vk) * (1 - .5 * battle))[:, None]
 bed = MUSm + SFXm
-for _ in range(6): bed = limit(norm_lufs(bed, -16.0), .85)
+if VO_DIR:   # set the bed under the voices, then master the full mix
+    bed = norm_lufs(bed, -20.5); VOm = VO * fade[:, None]; mix = bed + VOm
+else: mix = bed
+for _ in range(6): mix = limit(norm_lufs(mix, -16.0), .89)
+bed = mix
 if '--stems' in sys.argv:
-    d = Path(sys.argv[sys.argv.index('--stems') + 1]); d.mkdir(parents=True, exist_ok=True); write(d / 'sfx.wav', SFXm); write(d / 'music.wav', MUSm)
+    d = Path(sys.argv[sys.argv.index('--stems') + 1]); d.mkdir(parents=True, exist_ok=True); write(d / 'sfx.wav', SFXm); write(d / 'music.wav', MUSm); write(d / 'voice.wav', VO)
 OUT.mkdir(parents=True, exist_ok=True); tmp = OUT / 'bed.wav'; write(tmp, bed)
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(tmp), '-c:a', 'flac', str(OUT / 'bed.flac')], check=True); tmp.unlink()
 print('bed written', OUT / 'bed.flac', 'peak', float(np.max(np.abs(bed))))

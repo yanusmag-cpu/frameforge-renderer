@@ -52,10 +52,10 @@ export function plate(text: string, sub: string, y: number, k: number) {
   return `<div style="position:absolute;left:50%;top:${y}px;transform:translate(-50%,-50%) scale(${.8 + .2 * k});opacity:${k};${F}text-align:center;background:rgba(14,18,28,.78);border:3px solid #d4a63a;border-radius:18px;padding:16px 34px;box-shadow:0 10px 30px rgba(0,0,0,.4)">
     <div style="font-weight:900;font-size:52px;letter-spacing:6px;color:#f5e6c0">${text}</div><div style="font-weight:700;font-size:36px;letter-spacing:4px;color:#d4a63a;margin-top:4px">${sub}</div></div>`;
 }
-export function versus(k: number, y: number) {
+export function versus(k: number, y: number, k2 = 1) {
   if (k <= 0) return '';
   const cell = (n: string, l: string, bg: string) => `<div style="flex:1;background:${bg};border:4px solid #fff;border-radius:18px;padding:12px 8px;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.4)"><div style="font-weight:900;font-size:66px;color:#fff;line-height:1">${n}</div><div style="font-weight:900;font-size:25px;color:#fff;letter-spacing:2px">${l}</div></div>`;
-  return `<div style="position:absolute;left:90px;width:900px;top:${y}px;display:flex;gap:26px;align-items:center;${F}opacity:${k};transform:scale(${.85 + .15 * k})">${cell('5', 'BRITISH WARSHIPS', '#13306e')}<div style="font-weight:900;font-size:46px;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill">VS</div>${cell('1', 'ROYAL YACHT', '#b3141b')}</div>`;
+  return `<div style="position:absolute;left:90px;width:900px;top:${y}px;display:flex;gap:26px;align-items:center;${F}opacity:${k};transform:scale(${.85 + .15 * k})">${cell('5', 'BRITISH WARSHIPS', '#13306e')}<div style="font-weight:900;font-size:46px;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;opacity:${k2}">VS</div><div style="flex:1;opacity:${k2};transform:scale(${.8 + .2 * k2})">${cell('1', 'ROYAL YACHT', '#b3141b')}</div></div>`;
 }
 export function clockBadge(min: number, k: number) {
   if (k <= 0) return ''; const h = Math.floor(min / 60), m = Math.floor(min % 60);
