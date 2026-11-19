@@ -1,0 +1,5 @@
+{
+ "composition": "YwTts",
+ "blenderScript": "scripts/yw-tts/make_tts.py",
+ "assetDirectories": ["public/yw-tts"]
+}
