@@ -22,7 +22,7 @@ export type Pose = {
 export type Look = {
   outfit: 'hoodie' | 'suit' | 'uniform' | 'lab' | 'jacket' | 'dress' | 'jumpsuit' | 'coat' | 'vest';
   color: string; pants: string; shoe?: string;
-  hat?: 'helmet' | 'headset' | 'cap' | 'officer' | 'bun' | 'hood' | 'hardhat';
+  hat?: 'helmet' | 'headset' | 'cap' | 'officer' | 'bun' | 'hood' | 'hardhat' | 'pressure';
   glasses?: boolean | 'heavy'; tie?: string; hair?: string; mask?: boolean;
   hairStyle?: 'sidepart' | 'slick' | 'fringe' | 'crop' | 'curlyTop' | 'bun';
   streak?: string;              // contrasting hair streak colour (temples)
@@ -238,6 +238,7 @@ export function stickman(p: Pose, L: Look, o: DrawOpts): { svg: string; j: Joint
 function hat(L: Look, turn: number, back: boolean): string {
   const o = `stroke="${OUT}" stroke-width="${LW}"`;
   switch (L.hat) {
+    case 'pressure': { const vx = turn * .2; return `<path fill-rule="evenodd" d="M-.68 0 A.68 .7 0 1 1 .68 0 A.68 .7 0 1 1 -.68 0 Z M${n(vx - .42)} -.02 A.42 .36 0 1 0 ${n(vx + .42)} -.02 A.42 .36 0 1 0 ${n(vx - .42)} -.02 Z" fill="#f1f0ea" ${o}/><ellipse cx="${n(vx)}" cy="-.02" rx=".42" ry=".36" fill="rgba(255,196,90,.16)" ${o}/><path d="M${n(vx - .28)} -.24 q.12 -.1 .3 -.08" stroke="#fff" stroke-width=".05" fill="none" stroke-linecap="round"/><rect x="-.36" y=".58" width=".72" height=".14" rx=".05" fill="#c9c8c0" ${o}/>`; }
     case 'helmet': return `<path d="M-.56 -.02 Q-.6 -.68 0 -.7 Q.6 -.68 .56 -.02 Z" fill="#5d6b3a" ${o}/><path d="M-.62 -.02 H.62" ${o} stroke-linecap="round"/><path d="M-.3 -.45 q.1 -.08 .2 0 M.12 -.52 q.1 -.06 .18 .02" stroke="#46522c" stroke-width=".05" fill="none"/>`;
     case 'hardhat': return `<path d="M-.52 -.12 Q-.54 -.7 0 -.72 Q.54 -.7 .52 -.12 Z" fill="#f2f2ee" ${o}/><path d="M-.64 -.1 H.64" stroke="${OUT}" stroke-width=".11" stroke-linecap="round"/><path d="M-.64 -.1 H.64" stroke="#f2f2ee" stroke-width=".05" stroke-linecap="round"/><path d="M0 -.7 V-.2" stroke="#d7d7d0" stroke-width=".07"/>`;
     case 'cap': return `<path d="M-.5 -.12 Q-.5 -.62 0 -.6 Q.5 -.62 .5 -.12 Z" fill="${L.hair ?? '#222'}" ${o}/><path d="M${turn >= 0 ? '.3' : '-.3'} -.14 h${turn >= 0 ? '.42' : '-.42'}" stroke="${OUT}" stroke-width=".13" stroke-linecap="round"/><path d="M${turn >= 0 ? '.3' : '-.3'} -.14 h${turn >= 0 ? '.42' : '-.42'}" stroke="${L.hair ?? '#222'}" stroke-width=".05" stroke-linecap="round"/>`;
@@ -279,7 +280,7 @@ export function walkPose(dist: number, dir: number, o: { step?: number; carryB?:
 
 /** Hair styles in head-local units (head radius .5). Shapes shift with the face turn so partings / waves read in 3/4 views. */
 function hairSvg(L: Look, turn: number, back: boolean): string {
-  if (!L.hairStyle || L.hat === 'officer' || L.hat === 'helmet' || L.hat === 'hardhat' || L.hat === 'hood') return '';
+  if (!L.hairStyle || L.hat === 'officer' || L.hat === 'helmet' || L.hat === 'hardhat' || L.hat === 'hood' || L.hat === 'pressure') return '';
   const col = L.hair ?? '#2b211b', dk = shade(col.startsWith('#') ? col : '#2b211b', .6), o = `stroke="${OUT}" stroke-width="${LW}" stroke-linejoin="round"`;
   const k = turn * .22, sx = Math.sign(turn) || 1;
   switch (L.hairStyle) {

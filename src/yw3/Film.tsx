@@ -4,6 +4,8 @@ import { AbsoluteFill, continueRender, delayRender, staticFile, useCurrentFrame,
 import type { YFrame } from './core.ts';
 import { AtomicEngine } from './atomic/engine.ts';
 import { frameAt as atomicAt } from './atomic/shots.ts';
+import { StratoEngine } from './strato/engine.ts';
+import { frameAt as stratoAt } from './strato/shots.ts';
 
 type Eng = { render: (F: YFrame, frame: number) => Promise<void> };
 const FONTS: [string, string][] = [['900', 'Inter-Black.otf'], ['700', 'Inter-Bold.otf'], ['400', 'Inter-Regular.otf']];
@@ -28,3 +30,4 @@ function makeFilm(load: () => { make: (cv: HTMLCanvasElement, w: number, h: numb
   };
 }
 export const YwAtomic = makeFilm(() => ({ make: (cv, w, h) => new AtomicEngine(cv, w, h) as unknown as Eng, frameAt: atomicAt as (n: number) => YFrame }));
+export const YwStrato = makeFilm(() => ({ make: (cv, w, h) => new StratoEngine(cv, w, h) as unknown as Eng, frameAt: stratoAt as (n: number) => YFrame }));
