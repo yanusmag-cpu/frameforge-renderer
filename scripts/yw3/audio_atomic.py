@@ -55,6 +55,6 @@ put(MUS, 36.2, drone(NOTE(31), 7.6, .1, 200))
 for i, (n, at, d) in enumerate([(69, 44.5, 2.5), (72, 46.0, 2.5), (71, 47.5, 2.5), (67, 49.0, 3.0), (69, 51.4, 2.5), (72, 52.9, 2.2), (76, 54.4, 2.6), (74, 55.4, 2.0), (72, 56.6, 3.0)]): put(MUS, at, piano(NOTE(n), d, .13))
 put(MUS, 44.3, pad(Am, 6.8, .04, 800)); put(MUS, 51.0, pad(F_, 4.2, .04, 800)); put(MUS, 55.1, pad(C_, 2.4, .045, 900)); put(MUS, 57.4, pad(G_ + [NOTE(67)], 2.6, .045, 900))
 
-VO = narration('atomic', NARR)
-mix = master(MUS, SFX, AMB, VO, ROOT / 'public/yw-atomic-sound')
+VO = narration_fit('atomic', NARR)
+mix = master(MUS, SFX, AMB, VO, ROOT / 'public/yw-atomic-sound-v2')
 print('atomic bed', float(np.abs(mix).max()), lufs(mix))

@@ -36,6 +36,6 @@ put(MUS, 41.3, pad([NOTE(50), NOTE(57), NOTE(62), NOTE(66)], 5.0, .045, 1200)); 
 for i, (n, at) in enumerate([(74, 46.4), (78, 47.0), (81, 47.6), (86, 48.6)]): put(MUS, at, piano(NOTE(n), 2.4, .1))
 put(MUS, 48.6, brass([NOTE(50), NOTE(54), NOTE(57), NOTE(62)], 4.0, .07)); put(MUS, 49.4, pad([NOTE(50), NOTE(54), NOTE(57)], 5.6, .045, 1400)); put(MUS, 55.0, pad([NOTE(55), NOTE(59), NOTE(62), NOTE(66)], 5.0, .05, 1500))
 for i, n in enumerate([74, 78, 81, 79, 78, 74]): put(MUS, 55.2 + i * .7, piano(NOTE(n), 2.0, .09))
-VO = narration('strato', NARR)
-mix = master(MUS, SFX, AMB, VO, ROOT / 'public/yw-strato-sound')
+VO = narration_fit('strato', NARR)
+mix = master(MUS, SFX, AMB, VO, ROOT / 'public/yw-strato-sound-v2')
 print('strato bed', float(np.abs(mix).max()), lufs(mix))

@@ -15,7 +15,7 @@
   "src/ff2d",
   "src/yw3"
  ],
- "soundtrack": "public/yw-alcatraz-sound/bed.flac",
+ "soundtrack": "public/yw-alcatraz-sound-v2/bed.flac",
  "soundtrackLUFS": -16,
  "silentTailSeconds": 0.3,
  "outputFilename": "YunoWorld_Alcatraz_Escape.mp4"

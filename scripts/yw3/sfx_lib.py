@@ -174,3 +174,29 @@ def narration(film, starts, gain_lufs=-17.0):
     for st, c in zip(starts, clips):
         i0 = int(st * SR); n = min(len(c), N - i0); VO[i0:i0 + n] += (c[:n] * g)[:, None]
     return VO
+
+def _stretch(c, ratio):
+    """Speed a clip up by `ratio` without changing pitch (ffmpeg atempo)."""
+    with tempfile.TemporaryDirectory() as d:
+        a, b = f'{d}/a.wav', f'{d}/b.wav'; write(a, np.stack([c, c], 1))
+        subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', a, '-af', f'atempo={ratio:.4f}', '-ar', str(SR), b], check=True)
+        return load_mono(b)
+def narration_fit(film, starts, tts='public/yw-tts-male', gain_lufs=-17.0, gap=.12, max_push=.35, end=59.7):
+    """Place each sentence at its cue; if it would run into the next line, push the next cue up to `max_push` s,
+    then gently speed the clip (≤ 8 %) so nothing overlaps. Adds a light high-pass and a short room tail so the
+    voice sits in the mix instead of sounding dry."""
+    timing = json.load(open(ROOT / tts / 'timing.json'))['films'][film]
+    clips = [load_mono(ROOT / r['file']) for r in timing]; st = list(starts); out = []
+    for i, c in enumerate(clips):
+        nxt = st[i + 1] if i + 1 < len(st) else end
+        over = st[i] + len(c) / SR - (nxt - gap)
+        if over > 0 and i + 1 < len(st): push = min(over, max_push); st[i + 1] += push; nxt += push; over -= push
+        if over > 0: r = min(1.08, (len(c) / SR) / (nxt - gap - st[i])); c = _stretch(c, r); print(f'  {film} s{i+1:02d} tempo x{r:.3f}')
+        out.append(c)
+    g = 10 ** ((gain_lufs - lufs(np.concatenate(out))) / 20)
+    tail = rng.standard_normal(int(.35 * SR)) * np.exp(-np.arange(int(.35 * SR)) / SR / .07) * .018
+    VO = np.zeros((N, 2))
+    for s0, c in zip(st, out):
+        c = hp(c, 75); c = c + np.convolve(c, tail)[:len(c)]
+        i0 = int(s0 * SR); n = min(len(c), N - i0); VO[i0:i0 + n] += (c[:n] * g)[:, None]
+    print(f'  {film} cues', [round(x, 2) for x in st]); return VO

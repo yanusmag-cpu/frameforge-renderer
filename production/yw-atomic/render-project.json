@@ -8,7 +8,7 @@
  "concurrency": 2,
  "assetDirectories": ["public/brazil/fonts"],
  "sourceDirectories": ["src/brazil", "src/ehz", "src/ff2d", "src/yw3"],
- "soundtrack": "public/yw-atomic-sound/bed.flac",
+ "soundtrack": "public/yw-atomic-sound-v2/bed.flac",
  "soundtrackLUFS": -16,
  "silentTailSeconds": 0.3,
  "outputFilename": "YunoWorld_Two_Atomic_Bombs.mp4"
