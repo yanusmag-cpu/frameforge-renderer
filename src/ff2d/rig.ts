@@ -30,6 +30,7 @@ export type Look = {
   inner?: string;               // shirt / turtleneck colour under a coat, vest or suit
   patch?: string;               // jumpsuit number patch text
   pencil?: boolean; badge?: boolean; radio?: boolean; hiVis?: boolean;
+  bandage?: boolean;            // head wrap (injury) — optional, absent on every existing cast
 };
 export const HERO: Look = { outfit: 'hoodie', color: '#d8262b', pants: '#151515' };
 
@@ -219,6 +220,7 @@ export function stickman(p: Pose, L: Look, o: DrawOpts): { svg: string; j: Joint
   if (L.beard && !back) hd += beardSvg(L, fturn);
   if (L.mask && !back) hd += `<path d="M${n(fturn * .3 - .3)} .02 Q${n(fturn * .3)} -.04 ${n(fturn * .3 + .3)} .02 L${n(fturn * .3 + .24)} .3 Q${n(fturn * .3)} .4 ${n(fturn * .3 - .24)} .3Z" fill="#e9eef2" stroke="${OUT}" stroke-width="${LW * .8}"/><path d="M${n(fturn * .3 - .2)} .12 H${n(fturn * .3 + .2)} M${n(fturn * .3 - .18)} .22 H${n(fturn * .3 + .18)}" stroke="#b8c2cc" stroke-width=".02"/>`;
   hd += hairSvg(L, fturn, back) + hat(L, fturn, back);
+  if (L.bandage) hd += `<path d="M-.5 -.16 Q0 -.3 .5 -.16 L.5 .02 Q0 -.12 -.5 .02 Z" fill="#f4f1ea" stroke="${OUT}" stroke-width="${LW * .7}"/><path d="M-.3 -.2 L-.24 -.04 M.08 -.24 L.12 -.08" stroke="#d9d3c6" stroke-width=".02"/>${back ? '' : `<path d="M${n(-.5 + fturn * .1)} -.08 l-.16 .1 l.02 .12" fill="none" stroke="${OUT}" stroke-width="${LW * .7}"/>`}`;
   if (!back) hd += drawEmanata(F, fturn, LW);
   hd += '</g>';
 
