@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Empire History Z — The War That Lasted Only 38 Minutes: original synthesized SFX + score (no samples, no voice).
-Writes public/ehz-sound/bed.flac (final mix). --vo DIR adds the voice lines (kept out of this public repo). --stems DIR writes music/sfx/voice stems."""
+Writes public/ehz-final-mix/bed.flac (final mix). --vo DIR adds the voice lines (kept out of this public repo). --stems DIR writes music/sfx/voice stems."""
 import json, os, subprocess, sys, tempfile, wave
 from pathlib import Path
 import numpy as np
 from scipy.signal import butter, fftconvolve, sosfilt, resample_poly
 from scipy.ndimage import maximum_filter1d, uniform_filter1d
-ROOT = Path(__file__).resolve().parents[2]; OUT = ROOT / 'public/ehz-sound'
+ROOT = Path(__file__).resolve().parents[2]; OUT = ROOT / 'public/ehz-final-mix'
 SR, DUR = 48000, 60.0; N = int(SR * DUR); t = np.arange(N) / SR; rng = np.random.default_rng(5)
 MUS = np.zeros((N, 2)); SFX = np.zeros((N, 2)); AMB = np.zeros((N, 2))
 def sos(kind, f, order=2): return butter(order, f, kind, fs=SR, output='sos')
@@ -265,7 +265,7 @@ bed = MUSm + SFXm
 if VO_DIR:   # set the bed under the voices, then master the full mix
     bed = norm_lufs(bed, -20.5); VOm = VO * fade[:, None]; mix = bed + VOm
 else: mix = bed
-for _ in range(6): mix = limit(norm_lufs(mix, -16.0), .89)
+for _ in range(6): mix = limit(norm_lufs(mix, -16.0), .66)
 bed = mix
 if '--stems' in sys.argv:
     d = Path(sys.argv[sys.argv.index('--stems') + 1]); d.mkdir(parents=True, exist_ok=True); write(d / 'sfx.wav', SFXm); write(d / 'music.wav', MUSm); write(d / 'voice.wav', VO)

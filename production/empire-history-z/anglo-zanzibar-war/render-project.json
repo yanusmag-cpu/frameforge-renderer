@@ -15,7 +15,7 @@
   "src/ehz"
  ],
  "audioScript": "scripts/ehz/make-audio.py",
- "soundtrack": "public/ehz-sound/bed.flac",
+ "soundtrack": "public/ehz-final-mix/bed.flac",
  "soundtrackLUFS": -16,
  "silentTailSeconds": 0.3,
  "outputFilename": "Empire_History_Z_38_Minute_War_Final.mp4"
