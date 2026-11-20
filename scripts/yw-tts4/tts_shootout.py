@@ -47,7 +47,8 @@ json.dump(res, open('OUT/results.json', 'w'), indent=1)
 for k, r in sorted(res.items(), key=lambda kv: -kv[1]['MOS']): print(f"{k:34s} MOS {r['MOS']:.2f}  pitch-var {r['PITCH_ST']:.2f} st  f0 {r['median_hz']}", flush=True)
 ''').replace('OUT', OUT)
 for n, s in [('kok', kok), ('cbx', cbx), ('score', score)]: open(f'/tmp/{n}.py', 'w').write(s)
-sh = r'''set -e
+sh = r'''exec > >(tee -a OUT/log.txt) 2>&1
+set -x
 sudo apt-get install -y -qq espeak-ng >/dev/null
 python3 -m pip install -q --user --break-system-packages uv || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
@@ -63,9 +64,6 @@ for v in en_US/ryan/high/en_US-ryan-high en_US/joe/medium/en_US-joe-medium en_GB
 uv venv -q -p 3.11 /tmp/c && VIRTUAL_ENV=/tmp/c uv pip install -q --python /tmp/c/bin/python chatterbox-tts && (/tmp/c/bin/python /tmp/cbx.py || echo "chatterbox failed")
 /tmp/k/bin/python /tmp/score.py
 '''.replace('OUT', OUT)
-r = subprocess.run(['bash', '-c', sh], text=True, capture_output=True)
-[print('exported| ' + ln) for ln in r.stdout.splitlines()[-60:]]
-if r.returncode != 0:
-    for ln in (r.stdout + r.stderr).splitlines()[-40:]: print('Error: ' + ln)
-    sys.exit(1)
+r = subprocess.run(['bash', '-c', sh], text=True)
+print('exported shoot-out rc', r.returncode)
 print('ALL ASSETS DONE')
