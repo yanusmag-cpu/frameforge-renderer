@@ -1,0 +1,343 @@
++ sudo apt-get install -y -qq espeak-ng
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
++ python3 -m pip install -q --user --break-system-packages uv
++ export PATH=/home/runner/.local/bin:/home/runner/work/_temp/blender-4.2.3-linux-x64:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ PATH=/home/runner/.local/bin:/home/runner/work/_temp/blender-4.2.3-linux-x64:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ uv venv -q -p 3.11 /tmp/k
++ VIRTUAL_ENV=/tmp/k
++ uv pip install -q --python /tmp/k/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu
++ VIRTUAL_ENV=/tmp/k
++ uv pip install -q --python /tmp/k/bin/python 'kokoro>=0.9.4' soundfile librosa
++ /tmp/k/bin/python /tmp/kok.py
+/tmp/k/lib/python3.11/site-packages/torch/nn/modules/rnn.py:1012: UserWarning: dropout option adds dropout after all but last recurrent layer, so non-zero dropout expects num_layers greater than 1, but got dropout=0.2 and num_layers=1
+  super().__init__("LSTM", *args, **kwargs)
+/tmp/k/lib/python3.11/site-packages/torch/nn/utils/weight_norm.py:145: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+error: No virtual environment found; run `uv venv` to create an environment, or pass `--system` to install into a non-virtual environment
++ uv venv -q -p 3.11 /tmp/p
++ VIRTUAL_ENV=/tmp/p
++ uv pip install -q --python /tmp/p/bin/python piper-tts
++ for v in en_US/ryan/high/en_US-ryan-high en_US/joe/medium/en_US-joe-medium en_GB/alan/medium/en_GB-alan-medium
+++ basename en_US/ryan/high/en_US-ryan-high
++ b=en_US-ryan-high
++ curl -sL -o /tmp/en_US-ryan-high.onnx https://huggingface.co/rhasspy/piper-voices/resolve/main/en_US/ryan/high/en_US-ryan-high.onnx
++ curl -sL -o /tmp/en_US-ryan-high.onnx.json https://huggingface.co/rhasspy/piper-voices/resolve/main/en_US/ryan/high/en_US-ryan-high.onnx.json
++ i=0
++ read -r line
+++ cat /tmp/lines.txt
+++ echo
++ echo 'Imagine working on an oil rig... when the entire lake beneath you starts disappearing.'
++ /tmp/p/bin/piper -m /tmp/en_US-ryan-high.onnx -f public/yw-tts-test/piper_en_US-ryan-high_0.wav
++ echo 'Imagine working on an oil rig... when the entire lake beneath you starts disappearing.'
++ /tmp/p/bin/piper --model /tmp/en_US-ryan-high.onnx --output_file public/yw-tts-test/piper_en_US-ryan-high_0.wav
+Traceback (most recent call last):
+  File "/tmp/p/bin/piper", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/__main__.py", line 149, in main
+    voice = PiperVoice.load(model_path, use_cuda=args.cuda)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/voice.py", line 149, in load
+    config_dict = json.load(config_file)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
++ i=1
++ read -r line
++ echo 'But here'\''s the terrifying part. Nobody on the surface knew what was happening below.'
++ /tmp/p/bin/piper -m /tmp/en_US-ryan-high.onnx -f public/yw-tts-test/piper_en_US-ryan-high_1.wav
++ echo 'But here'\''s the terrifying part. Nobody on the surface knew what was happening below.'
++ /tmp/p/bin/piper --model /tmp/en_US-ryan-high.onnx --output_file public/yw-tts-test/piper_en_US-ryan-high_1.wav
+Traceback (most recent call last):
+  File "/tmp/p/bin/piper", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/__main__.py", line 149, in main
+    voice = PiperVoice.load(model_path, use_cuda=args.cuda)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/voice.py", line 149, in load
+    config_dict = json.load(config_file)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
++ i=2
++ read -r line
++ echo 'Within hours, the lake was gone. And somehow, every single person got out alive!'
++ /tmp/p/bin/piper -m /tmp/en_US-ryan-high.onnx -f public/yw-tts-test/piper_en_US-ryan-high_2.wav
++ echo 'Within hours, the lake was gone. And somehow, every single person got out alive!'
++ /tmp/p/bin/piper --model /tmp/en_US-ryan-high.onnx --output_file public/yw-tts-test/piper_en_US-ryan-high_2.wav
+Traceback (most recent call last):
+  File "/tmp/p/bin/piper", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/__main__.py", line 149, in main
+    voice = PiperVoice.load(model_path, use_cuda=args.cuda)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/voice.py", line 149, in load
+    config_dict = json.load(config_file)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
++ i=3
++ read -r line
++ echo piper en_US-ryan-high
+piper en_US-ryan-high
++ for v in en_US/ryan/high/en_US-ryan-high en_US/joe/medium/en_US-joe-medium en_GB/alan/medium/en_GB-alan-medium
+++ basename en_US/joe/medium/en_US-joe-medium
++ b=en_US-joe-medium
++ curl -sL -o /tmp/en_US-joe-medium.onnx https://huggingface.co/rhasspy/piper-voices/resolve/main/en_US/joe/medium/en_US-joe-medium.onnx
++ curl -sL -o /tmp/en_US-joe-medium.onnx.json https://huggingface.co/rhasspy/piper-voices/resolve/main/en_US/joe/medium/en_US-joe-medium.onnx.json
++ i=0
++ read -r line
+++ cat /tmp/lines.txt
+++ echo
++ echo 'Imagine working on an oil rig... when the entire lake beneath you starts disappearing.'
++ /tmp/p/bin/piper -m /tmp/en_US-joe-medium.onnx -f public/yw-tts-test/piper_en_US-joe-medium_0.wav
++ echo 'Imagine working on an oil rig... when the entire lake beneath you starts disappearing.'
++ /tmp/p/bin/piper --model /tmp/en_US-joe-medium.onnx --output_file public/yw-tts-test/piper_en_US-joe-medium_0.wav
+Traceback (most recent call last):
+  File "/tmp/p/bin/piper", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/__main__.py", line 149, in main
+    voice = PiperVoice.load(model_path, use_cuda=args.cuda)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/voice.py", line 149, in load
+    config_dict = json.load(config_file)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
++ i=1
++ read -r line
++ echo 'But here'\''s the terrifying part. Nobody on the surface knew what was happening below.'
++ /tmp/p/bin/piper -m /tmp/en_US-joe-medium.onnx -f public/yw-tts-test/piper_en_US-joe-medium_1.wav
++ echo 'But here'\''s the terrifying part. Nobody on the surface knew what was happening below.'
++ /tmp/p/bin/piper --model /tmp/en_US-joe-medium.onnx --output_file public/yw-tts-test/piper_en_US-joe-medium_1.wav
+Traceback (most recent call last):
+  File "/tmp/p/bin/piper", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/__main__.py", line 149, in main
+    voice = PiperVoice.load(model_path, use_cuda=args.cuda)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/voice.py", line 149, in load
+    config_dict = json.load(config_file)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
++ i=2
++ read -r line
++ echo 'Within hours, the lake was gone. And somehow, every single person got out alive!'
++ /tmp/p/bin/piper -m /tmp/en_US-joe-medium.onnx -f public/yw-tts-test/piper_en_US-joe-medium_2.wav
++ echo 'Within hours, the lake was gone. And somehow, every single person got out alive!'
++ /tmp/p/bin/piper --model /tmp/en_US-joe-medium.onnx --output_file public/yw-tts-test/piper_en_US-joe-medium_2.wav
+Traceback (most recent call last):
+  File "/tmp/p/bin/piper", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/__main__.py", line 149, in main
+    voice = PiperVoice.load(model_path, use_cuda=args.cuda)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/voice.py", line 149, in load
+    config_dict = json.load(config_file)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
++ i=3
++ read -r line
++ echo piper en_US-joe-medium
+piper en_US-joe-medium
++ for v in en_US/ryan/high/en_US-ryan-high en_US/joe/medium/en_US-joe-medium en_GB/alan/medium/en_GB-alan-medium
+++ basename en_GB/alan/medium/en_GB-alan-medium
++ b=en_GB-alan-medium
++ curl -sL -o /tmp/en_GB-alan-medium.onnx https://huggingface.co/rhasspy/piper-voices/resolve/main/en_GB/alan/medium/en_GB-alan-medium.onnx
++ curl -sL -o /tmp/en_GB-alan-medium.onnx.json https://huggingface.co/rhasspy/piper-voices/resolve/main/en_GB/alan/medium/en_GB-alan-medium.onnx.json
++ i=0
++ read -r line
+++ cat /tmp/lines.txt
+++ echo
++ /tmp/p/bin/piper -m /tmp/en_GB-alan-medium.onnx -f public/yw-tts-test/piper_en_GB-alan-medium_0.wav
++ echo 'Imagine working on an oil rig... when the entire lake beneath you starts disappearing.'
++ echo 'Imagine working on an oil rig... when the entire lake beneath you starts disappearing.'
++ /tmp/p/bin/piper --model /tmp/en_GB-alan-medium.onnx --output_file public/yw-tts-test/piper_en_GB-alan-medium_0.wav
+Traceback (most recent call last):
+  File "/tmp/p/bin/piper", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/__main__.py", line 149, in main
+    voice = PiperVoice.load(model_path, use_cuda=args.cuda)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/voice.py", line 149, in load
+    config_dict = json.load(config_file)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
++ i=1
++ read -r line
++ echo 'But here'\''s the terrifying part. Nobody on the surface knew what was happening below.'
++ /tmp/p/bin/piper -m /tmp/en_GB-alan-medium.onnx -f public/yw-tts-test/piper_en_GB-alan-medium_1.wav
++ echo 'But here'\''s the terrifying part. Nobody on the surface knew what was happening below.'
++ /tmp/p/bin/piper --model /tmp/en_GB-alan-medium.onnx --output_file public/yw-tts-test/piper_en_GB-alan-medium_1.wav
+Traceback (most recent call last):
+  File "/tmp/p/bin/piper", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/__main__.py", line 149, in main
+    voice = PiperVoice.load(model_path, use_cuda=args.cuda)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/voice.py", line 149, in load
+    config_dict = json.load(config_file)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
++ i=2
++ read -r line
++ echo 'Within hours, the lake was gone. And somehow, every single person got out alive!'
++ /tmp/p/bin/piper -m /tmp/en_GB-alan-medium.onnx -f public/yw-tts-test/piper_en_GB-alan-medium_2.wav
++ echo 'Within hours, the lake was gone. And somehow, every single person got out alive!'
++ /tmp/p/bin/piper --model /tmp/en_GB-alan-medium.onnx --output_file public/yw-tts-test/piper_en_GB-alan-medium_2.wav
+Traceback (most recent call last):
+  File "/tmp/p/bin/piper", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/__main__.py", line 149, in main
+    voice = PiperVoice.load(model_path, use_cuda=args.cuda)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/p/lib/python3.11/site-packages/piper/voice.py", line 149, in load
+    config_dict = json.load(config_file)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+           ^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/.local/share/uv/python/cpython-3.11.18-linux-x86_64-gnu/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
++ i=3
++ read -r line
++ echo piper en_GB-alan-medium
+piper en_GB-alan-medium
++ uv venv -q -p 3.11 /tmp/c
++ VIRTUAL_ENV=/tmp/c
++ uv pip install -q --python /tmp/c/bin/python chatterbox-tts
++ /tmp/c/bin/python /tmp/cbx.py
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/tmp/c/lib/python3.11/site-packages/diffusers/models/lora.py:393: FutureWarning: `LoRACompatibleLinear` is deprecated and will be removed in version 1.0.0. Use of `LoRACompatibleLinear` is deprecated. Please switch to PEFT backend by installing PEFT: `pip install peft`.
+  deprecate("LoRACompatibleLinear", "1.0.0", deprecation_message)
+Traceback (most recent call last):
+  File "/tmp/cbx.py", line 4, in <module>
+    m = ChatterboxTTS.from_pretrained(device='cpu'); L = open('/tmp/lines.txt').read().split('\n')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/c/lib/python3.11/site-packages/chatterbox/tts.py", line 180, in from_pretrained
+    return cls.from_local(Path(local_path).parent, device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/c/lib/python3.11/site-packages/chatterbox/tts.py", line 165, in from_local
+    return cls(t3, s3gen, ve, tokenizer, device, conds=conds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/c/lib/python3.11/site-packages/chatterbox/tts.py", line 126, in __init__
+    self.watermarker = perth.PerthImplicitWatermarker()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not callable
++ echo 'chatterbox failed'
+chatterbox failed
++ /tmp/k/bin/python /tmp/score.py
+/tmp/k/lib/python3.11/site-packages/torch/nn/utils/weight_norm.py:145: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+Downloading: "https://github.com/tarepan/SpeechMOS/zipball/v1.2.0" to /home/runner/.cache/torch/hub/v1.2.0.zip
+Downloading: "https://github.com/tarepan/SpeechMOS/releases/download/v1.0.0/utmos22_strong_step7459_v1.pt" to /home/runner/.cache/torch/hub/checkpoints/utmos22_strong_step7459_v1.pt
+  0%|          | 0.00/392M [00:00<?, ?B/s]  5%|▌         | 21.2M/392M [00:00<00:01, 223MB/s] 16%|█▌        | 62.0M/392M [00:00<00:01, 343MB/s] 24%|██▍       | 94.8M/392M [00:00<00:01, 209MB/s] 30%|███       | 119M/392M [00:00<00:01, 219MB/s]  39%|███▉      | 154M/392M [00:00<00:00, 262MB/s] 49%|████▉     | 192M/392M [00:00<00:00, 302MB/s] 57%|█████▋    | 224M/392M [00:00<00:00, 299MB/s] 65%|██████▍   | 254M/392M [00:00<00:00, 291MB/s] 75%|███████▍  | 294M/392M [00:01<00:00, 326MB/s] 84%|████████▍ | 329M/392M [00:01<00:00, 338MB/s] 92%|█████████▏| 362M/392M [00:01<00:00, 334MB/s]100%|██████████| 392M/392M [00:01<00:00, 302MB/s]
