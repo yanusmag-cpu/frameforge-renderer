@@ -63,6 +63,9 @@ for v in en_US/ryan/high/en_US-ryan-high en_US/joe/medium/en_US-joe-medium en_GB
 uv venv -q -p 3.11 /tmp/c && uv pip install -q -p /tmp/c/bin/python chatterbox-tts && (/tmp/c/bin/python /tmp/cbx.py || echo "chatterbox failed")
 /tmp/k/bin/python /tmp/score.py
 '''.replace('OUT', OUT)
-r = subprocess.run(['bash', '-c', sh], text=True)
-if r.returncode != 0: print('Error: shoot-out failed', r.returncode); sys.exit(1)
+r = subprocess.run(['bash', '-c', sh], text=True, capture_output=True)
+print(r.stdout[-3000:].replace('\n', '\nexported| '), flush=True)
+if r.returncode != 0:
+    for ln in (r.stdout + r.stderr).splitlines()[-40:]: print('Error: ' + ln)
+    sys.exit(1)
 print('ALL ASSETS DONE')
