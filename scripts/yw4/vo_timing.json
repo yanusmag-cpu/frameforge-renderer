@@ -46,9 +46,10 @@
     "i": 6,
     "text": "It had punched straight into the mine.",
     "style": "u",
-    "dur": 2.573,
+    "dur": 2.22,
     "mos": 4.401,
-    "file": "public/yw4-vo-peigneur/peigneur/s06.wav"
+    "file": "public/yw4-vo-peigneur/peigneur/s06.wav",
+    "note": "re-voiced (Whisper check: \"mine\" unclear)"
    },
    {
     "i": 7,
@@ -128,9 +129,10 @@
     "i": 3,
     "text": "Boston. January fifteenth, nineteen nineteen.",
     "style": "n",
-    "dur": 2.808,
+    "dur": 3.1,
     "mos": 4.431,
-    "file": "public/yw4-vo-molasses/molasses/s03.wav"
+    "file": "public/yw4-vo-molasses/molasses/s03.wav",
+    "note": "re-voiced (Whisper check: \"Boston\" was missing); internal pause tightened"
    },
    {
     "i": 4,
