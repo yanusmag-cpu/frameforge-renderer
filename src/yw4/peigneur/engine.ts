@@ -44,7 +44,7 @@ function lakeMat(U: Record<string, T.IUniform>) {
         col = mix(col, sky, fr * .75);
         col += vec3(1., .85, .6) * pow(max(dot(R, sunDir), 0.), 220.) * 3.;
         // spiral foam lanes on the funnel wall + churn at the throat
-        float lanes = smoothstep(.62, .95, sin(a * 7. + log(vR + 1.) * 9. - t * 3.) * .5 + .5 + (n2 - .5) * .6);
+        float lanes = smoothstep(.6, .95, sin(a * 3. + log(vR + 1.) * 5. - t * 2.2) * .5 + .5 + (n2 - .5) * .7) * (.6 + .4 * n1);
         float fz = foam * (smoothstep(r0 * 2.6, r0 * .8, vR) * lanes * .9 + smoothstep(r0 * 1.2, 0., vR) * .8);
         col = mix(col, vec3(.92, .96, .95), clamp(fz, 0., 1.));
         float d = length(camP - vW); col = mix(col, fogC, 1. - exp(-pow(d * fogD, 2.)));
