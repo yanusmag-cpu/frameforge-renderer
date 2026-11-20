@@ -1,0 +1,301 @@
+{
+ "peigneur/1": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s01_t0.wav",
+   "mos": 4.513,
+   "dur": 4.501,
+   "wps": 3.11,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s01_t1.wav",
+   "mos": 4.379,
+   "dur": 4.864,
+   "wps": 2.88,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s01_t2.wav",
+   "mos": 4.517,
+   "dur": 4.821,
+   "wps": 2.9,
+   "ok": true
+  }
+ ],
+ "peigneur/2": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s02_t0.wav",
+   "mos": 4.463,
+   "dur": 2.859,
+   "wps": 3.85,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s02_t1.wav",
+   "mos": 4.477,
+   "dur": 3.179,
+   "wps": 3.46,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s02_t2.wav",
+   "mos": 4.476,
+   "dur": 3.328,
+   "wps": 3.31,
+   "ok": true
+  }
+ ],
+ "peigneur/3": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s03_t0.wav",
+   "mos": 4.467,
+   "dur": 3.947,
+   "wps": 2.53,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s03_t1.wav",
+   "mos": 4.486,
+   "dur": 4.16,
+   "wps": 2.4,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s03_t2.wav",
+   "mos": 4.505,
+   "dur": 4.48,
+   "wps": 2.23,
+   "ok": true
+  }
+ ],
+ "peigneur/4": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s04_t0.wav",
+   "mos": 4.492,
+   "dur": 3.904,
+   "wps": 3.84,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s04_t1.wav",
+   "mos": 4.493,
+   "dur": 4.309,
+   "wps": 3.48,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s04_t2.wav",
+   "mos": 4.505,
+   "dur": 4.053,
+   "wps": 3.7,
+   "ok": true
+  }
+ ],
+ "peigneur/5": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s05_t0.wav",
+   "mos": 4.469,
+   "dur": 3.925,
+   "wps": 3.31,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s05_t1.wav",
+   "mos": 4.458,
+   "dur": 3.733,
+   "wps": 3.48,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s05_t2.wav",
+   "mos": 4.424,
+   "dur": 3.605,
+   "wps": 3.61,
+   "ok": true
+  }
+ ],
+ "peigneur/6": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s06_t0.wav",
+   "mos": 4.391,
+   "dur": 2.155,
+   "wps": 3.25,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s06_t1.wav",
+   "mos": 4.367,
+   "dur": 2.048,
+   "wps": 3.42,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s06_t2.wav",
+   "mos": 4.401,
+   "dur": 2.453,
+   "wps": 2.85,
+   "ok": true
+  }
+ ],
+ "peigneur/7": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s07_t0.wav",
+   "mos": 4.449,
+   "dur": 3.499,
+   "wps": 3.43,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s07_t1.wav",
+   "mos": 4.409,
+   "dur": 3.563,
+   "wps": 3.37,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s07_t2.wav",
+   "mos": 4.425,
+   "dur": 3.243,
+   "wps": 3.7,
+   "ok": true
+  }
+ ],
+ "peigneur/8": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s08_t0.wav",
+   "mos": 4.46,
+   "dur": 3.584,
+   "wps": 3.35,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s08_t1.wav",
+   "mos": 4.483,
+   "dur": 4.309,
+   "wps": 2.78,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s08_t2.wav",
+   "mos": 4.447,
+   "dur": 3.669,
+   "wps": 3.27,
+   "ok": true
+  }
+ ],
+ "peigneur/9": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s09_t0.wav",
+   "mos": 4.456,
+   "dur": 4.523,
+   "wps": 3.1,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s09_t1.wav",
+   "mos": 4.473,
+   "dur": 4.736,
+   "wps": 2.96,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s09_t2.wav",
+   "mos": 4.456,
+   "dur": 4.779,
+   "wps": 2.93,
+   "ok": true
+  }
+ ],
+ "peigneur/10": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s10_t0.wav",
+   "mos": 4.471,
+   "dur": 4.565,
+   "wps": 2.85,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s10_t1.wav",
+   "mos": 4.489,
+   "dur": 4.715,
+   "wps": 2.76,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s10_t2.wav",
+   "mos": 4.465,
+   "dur": 4.117,
+   "wps": 3.16,
+   "ok": true
+  }
+ ],
+ "peigneur/11": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s11_t0.wav",
+   "mos": 4.456,
+   "dur": 1.365,
+   "wps": 3.66,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s11_t1.wav",
+   "mos": 4.467,
+   "dur": 1.579,
+   "wps": 3.17,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s11_t2.wav",
+   "mos": 4.481,
+   "dur": 1.941,
+   "wps": 2.58,
+   "ok": true
+  }
+ ],
+ "peigneur/12": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s12_t0.wav",
+   "mos": 4.436,
+   "dur": 3.477,
+   "wps": 3.74,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s12_t1.wav",
+   "mos": 4.413,
+   "dur": 4.096,
+   "wps": 3.17,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s12_t2.wav",
+   "mos": 4.413,
+   "dur": 3.776,
+   "wps": 3.44,
+   "ok": true
+  }
+ ],
+ "peigneur/13": [
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s13_t0.wav",
+   "mos": 4.47,
+   "dur": 3.349,
+   "wps": 3.58,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s13_t1.wav",
+   "mos": 4.489,
+   "dur": 3.755,
+   "wps": 3.2,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-peigneur/peigneur/takes/s13_t2.wav",
+   "mos": 4.493,
+   "dur": 3.691,
+   "wps": 3.25,
+   "ok": true
+  }
+ ]
+}
