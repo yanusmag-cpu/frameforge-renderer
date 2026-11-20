@@ -49,7 +49,7 @@ for k, r in sorted(res.items(), key=lambda kv: -kv[1]['MOS']): print(f"{k:34s} M
 for n, s in [('kok', kok), ('cbx', cbx), ('score', score)]: open(f'/tmp/{n}.py', 'w').write(s)
 sh = r'''set -e
 sudo apt-get install -y -qq espeak-ng >/dev/null
-python3 -m pip install -q --user uv || pip install -q uv
+python3 -m pip install -q --user --break-system-packages uv || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
 uv venv -q -p 3.11 /tmp/k && uv pip install -q -p /tmp/k/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu && uv pip install -q -p /tmp/k/bin/python "kokoro>=0.9.4" soundfile librosa
 /tmp/k/bin/python /tmp/kok.py
