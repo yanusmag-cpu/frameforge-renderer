@@ -1,0 +1,301 @@
+{
+ "molasses/1": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s01_t0.wav",
+   "mos": 4.485,
+   "dur": 5.248,
+   "wps": 3.24,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s01_t1.wav",
+   "mos": 4.49,
+   "dur": 5.077,
+   "wps": 3.35,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s01_t2.wav",
+   "mos": 4.512,
+   "dur": 5.568,
+   "wps": 3.05,
+   "ok": true
+  }
+ ],
+ "molasses/2": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s02_t0.wav",
+   "mos": 4.445,
+   "dur": 2.581,
+   "wps": 1.94,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s02_t1.wav",
+   "mos": 4.475,
+   "dur": 2.389,
+   "wps": 2.09,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s02_t2.wav",
+   "mos": 4.423,
+   "dur": 2.496,
+   "wps": 2.0,
+   "ok": true
+  }
+ ],
+ "molasses/3": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s03_t0.wav",
+   "mos": 4.49,
+   "dur": 3.029,
+   "wps": 1.65,
+   "ok": false
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s03_t1.wav",
+   "mos": 4.431,
+   "dur": 2.688,
+   "wps": 1.86,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s03_t2.wav",
+   "mos": 4.478,
+   "dur": 3.136,
+   "wps": 1.59,
+   "ok": false
+  }
+ ],
+ "molasses/4": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s04_t0.wav",
+   "mos": 4.48,
+   "dur": 5.547,
+   "wps": 2.88,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s04_t1.wav",
+   "mos": 4.477,
+   "dur": 5.291,
+   "wps": 3.02,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s04_t2.wav",
+   "mos": 4.51,
+   "dur": 5.632,
+   "wps": 2.84,
+   "ok": true
+  }
+ ],
+ "molasses/5": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s05_t0.wav",
+   "mos": 4.465,
+   "dur": 3.477,
+   "wps": 3.45,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s05_t1.wav",
+   "mos": 4.431,
+   "dur": 3.221,
+   "wps": 3.73,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s05_t2.wav",
+   "mos": 4.491,
+   "dur": 3.499,
+   "wps": 3.43,
+   "ok": true
+  }
+ ],
+ "molasses/6": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s06_t0.wav",
+   "mos": 4.456,
+   "dur": 3.968,
+   "wps": 3.02,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s06_t1.wav",
+   "mos": 4.466,
+   "dur": 4.416,
+   "wps": 2.72,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s06_t2.wav",
+   "mos": 4.484,
+   "dur": 4.587,
+   "wps": 2.62,
+   "ok": true
+  }
+ ],
+ "molasses/7": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s07_t0.wav",
+   "mos": 4.455,
+   "dur": 4.821,
+   "wps": 3.94,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s07_t1.wav",
+   "mos": 4.49,
+   "dur": 5.205,
+   "wps": 3.65,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s07_t2.wav",
+   "mos": 4.46,
+   "dur": 4.544,
+   "wps": 4.18,
+   "ok": true
+  }
+ ],
+ "molasses/8": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s08_t0.wav",
+   "mos": 4.426,
+   "dur": 4.245,
+   "wps": 2.59,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s08_t1.wav",
+   "mos": 4.393,
+   "dur": 3.627,
+   "wps": 3.03,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s08_t2.wav",
+   "mos": 4.473,
+   "dur": 3.819,
+   "wps": 2.88,
+   "ok": true
+  }
+ ],
+ "molasses/9": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s09_t0.wav",
+   "mos": 4.497,
+   "dur": 5.056,
+   "wps": 3.16,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s09_t1.wav",
+   "mos": 4.509,
+   "dur": 4.821,
+   "wps": 3.32,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s09_t2.wav",
+   "mos": 4.419,
+   "dur": 4.949,
+   "wps": 3.23,
+   "ok": true
+  }
+ ],
+ "molasses/10": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s10_t0.wav",
+   "mos": 4.42,
+   "dur": 1.792,
+   "wps": 3.35,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s10_t1.wav",
+   "mos": 4.42,
+   "dur": 1.856,
+   "wps": 3.23,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s10_t2.wav",
+   "mos": 4.454,
+   "dur": 1.749,
+   "wps": 3.43,
+   "ok": true
+  }
+ ],
+ "molasses/11": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s11_t0.wav",
+   "mos": 4.382,
+   "dur": 3.776,
+   "wps": 2.65,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s11_t1.wav",
+   "mos": 4.136,
+   "dur": 3.669,
+   "wps": 2.73,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s11_t2.wav",
+   "mos": 4.443,
+   "dur": 3.477,
+   "wps": 2.88,
+   "ok": true
+  }
+ ],
+ "molasses/12": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s12_t0.wav",
+   "mos": 4.477,
+   "dur": 3.264,
+   "wps": 3.37,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s12_t1.wav",
+   "mos": 4.482,
+   "dur": 3.264,
+   "wps": 3.37,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s12_t2.wav",
+   "mos": 4.5,
+   "dur": 3.115,
+   "wps": 3.53,
+   "ok": true
+  }
+ ],
+ "molasses/13": [
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s13_t0.wav",
+   "mos": 4.509,
+   "dur": 5.099,
+   "wps": 2.94,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s13_t1.wav",
+   "mos": 4.51,
+   "dur": 5.291,
+   "wps": 2.84,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-molasses/molasses/takes/s13_t2.wav",
+   "mos": 4.503,
+   "dur": 5.248,
+   "wps": 2.86,
+   "ok": true
+  }
+ ]
+}

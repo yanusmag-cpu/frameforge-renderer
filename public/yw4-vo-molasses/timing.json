@@ -1,0 +1,112 @@
+{
+ "engine": "Chatterbox TTS (MIT) + synthetic Kokoro am_puck reference",
+ "sr": 24000,
+ "films": {
+  "molasses": [
+   {
+    "i": 1,
+    "text": "Imagine walking down the street... when a giant wave of thick, sticky liquid comes rushing toward you.",
+    "style": "c",
+    "dur": 5.688,
+    "mos": 4.512,
+    "file": "public/yw4-vo-molasses/molasses/s01.wav"
+   },
+   {
+    "i": 2,
+    "text": "It's not water. It's molasses.",
+    "style": "x",
+    "dur": 2.509,
+    "mos": 4.475,
+    "file": "public/yw4-vo-molasses/molasses/s02.wav"
+   },
+   {
+    "i": 3,
+    "text": "Boston. January fifteenth, nineteen nineteen.",
+    "style": "n",
+    "dur": 2.808,
+    "mos": 4.431,
+    "file": "public/yw4-vo-molasses/molasses/s03.wav"
+   },
+   {
+    "i": 4,
+    "text": "On the waterfront stood a fifty-foot steel tank, holding over two million gallons of molasses.",
+    "style": "n",
+    "dur": 5.752,
+    "mos": 4.51,
+    "file": "public/yw4-vo-molasses/molasses/s04.wav"
+   },
+   {
+    "i": 5,
+    "text": "It leaked so badly, it was painted brown to hide the stains.",
+    "style": "n",
+    "dur": 3.619,
+    "mos": 4.491,
+    "file": "public/yw4-vo-molasses/molasses/s05.wav"
+   },
+   {
+    "i": 6,
+    "text": "Then the rivets started popping, like gunfire... and the tank burst apart.",
+    "style": "u",
+    "dur": 4.707,
+    "mos": 4.484,
+    "file": "public/yw4-vo-molasses/molasses/s06.wav"
+   },
+   {
+    "i": 7,
+    "text": "A wave up to twenty-five feet high tore through the streets at around thirty-five miles an hour.",
+    "style": "u",
+    "dur": 5.325,
+    "mos": 4.49,
+    "file": "public/yw4-vo-molasses/molasses/s07.wav"
+   },
+   {
+    "i": 8,
+    "text": "It crushed buildings, and twisted the steel of an elevated railway.",
+    "style": "u",
+    "dur": 3.939,
+    "mos": 4.473,
+    "file": "public/yw4-vo-molasses/molasses/s08.wav"
+   },
+   {
+    "i": 9,
+    "text": "And here's what made it so deadly. In the freezing air, the molasses thickened like glue.",
+    "style": "s",
+    "dur": 4.941,
+    "mos": 4.509,
+    "file": "public/yw4-vo-molasses/molasses/s09.wav"
+   },
+   {
+    "i": 10,
+    "text": "Anyone caught in it couldn't escape.",
+    "style": "u",
+    "dur": 1.869,
+    "mos": 4.454,
+    "file": "public/yw4-vo-molasses/molasses/s10.wav"
+   },
+   {
+    "i": 11,
+    "text": "Sailors, police and Red Cross nurses waded in to help.",
+    "style": "m",
+    "dur": 3.597,
+    "mos": 4.443,
+    "file": "public/yw4-vo-molasses/molasses/s11.wav"
+   },
+   {
+    "i": 12,
+    "text": "Twenty-one people died. About a hundred and fifty were injured.",
+    "style": "m",
+    "dur": 3.235,
+    "mos": 4.5,
+    "file": "public/yw4-vo-molasses/molasses/s12.wav"
+   },
+   {
+    "i": 13,
+    "text": "It sounds unbelievable. But it was real... and it changed building safety rules for good.",
+    "style": "h",
+    "dur": 5.411,
+    "mos": 4.51,
+    "file": "public/yw4-vo-molasses/molasses/s13.wav"
+   }
+  ]
+ }
+}
