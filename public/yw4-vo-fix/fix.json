@@ -1,0 +1,96 @@
+{
+ "molasses/3": {
+  "chosen": "public/yw4-vo-fix/molasses/takes/s03_t1.wav",
+  "takes": [
+   {
+    "file": "public/yw4-vo-fix/molasses/takes/s03_t0.wav",
+    "heard": "Boston, January 15th, 1919.",
+    "wer": 0.0,
+    "mos": 4.475,
+    "dur": 3.157
+   },
+   {
+    "file": "public/yw4-vo-fix/molasses/takes/s03_t1.wav",
+    "heard": "Boston, January 15th, 1919.",
+    "wer": 0.0,
+    "mos": 4.478,
+    "dur": 3.371
+   },
+   {
+    "file": "public/yw4-vo-fix/molasses/takes/s03_t2.wav",
+    "heard": "Boston, January 15th, 1919",
+    "wer": 0.0,
+    "mos": 4.46,
+    "dur": 2.816
+   },
+   {
+    "file": "public/yw4-vo-fix/molasses/takes/s03_t3.wav",
+    "heard": "Boston, January 15th, 1919.",
+    "wer": 0.0,
+    "mos": 4.472,
+    "dur": 2.795
+   },
+   {
+    "file": "public/yw4-vo-fix/molasses/takes/s03_t4.wav",
+    "heard": "Boston, January 15th, 1919",
+    "wer": 0.0,
+    "mos": 4.475,
+    "dur": 2.688
+   },
+   {
+    "file": "public/yw4-vo-fix/molasses/takes/s03_t5.wav",
+    "heard": "Boston, January 15th, 1919.",
+    "wer": 0.0,
+    "mos": 4.476,
+    "dur": 3.008
+   }
+  ]
+ },
+ "peigneur/6": {
+  "chosen": "public/yw4-vo-fix/peigneur/takes/s06_t4.wav",
+  "takes": [
+   {
+    "file": "public/yw4-vo-fix/peigneur/takes/s06_t0.wav",
+    "heard": "It had punched straight into the mine.",
+    "wer": 0.0,
+    "mos": 4.395,
+    "dur": 2.112
+   },
+   {
+    "file": "public/yw4-vo-fix/peigneur/takes/s06_t1.wav",
+    "heard": "It had punched straight into the mine.",
+    "wer": 0.0,
+    "mos": 4.304,
+    "dur": 1.835
+   },
+   {
+    "file": "public/yw4-vo-fix/peigneur/takes/s06_t2.wav",
+    "heard": "It had punched straight into the mind.",
+    "wer": 0.143,
+    "mos": 4.395,
+    "dur": 2.581
+   },
+   {
+    "file": "public/yw4-vo-fix/peigneur/takes/s06_t3.wav",
+    "heard": "It had punched straight into the mine.",
+    "wer": 0.0,
+    "mos": 4.374,
+    "dur": 1.963
+   },
+   {
+    "file": "public/yw4-vo-fix/peigneur/takes/s06_t4.wav",
+    "heard": "It had punched straight into the mine.",
+    "wer": 0.0,
+    "mos": 4.434,
+    "dur": 2.197
+   },
+   {
+    "file": "public/yw4-vo-fix/peigneur/takes/s06_t5.wav",
+    "heard": "It had punched straight into the mine.",
+    "wer": 0.0,
+    "mos": 4.366,
+    "dur": 2.112
+   }
+  ]
+ }
+}
