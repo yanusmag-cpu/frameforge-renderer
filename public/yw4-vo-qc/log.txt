@@ -1,0 +1,46 @@
++ python3 -m pip install -q --user --break-system-packages uv
++ export PATH=/home/runner/.local/bin:/home/runner/work/_temp/blender-4.2.3-linux-x64:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ PATH=/home/runner/.local/bin:/home/runner/work/_temp/blender-4.2.3-linux-x64:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ uv venv -q --seed -p 3.11 /tmp/w
++ VIRTUAL_ENV=/tmp/w
++ uv pip install -q --python /tmp/w/bin/python faster-whisper
++ /tmp/w/bin/python /tmp/asr.py
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+peigneur 1 0.0
+peigneur 2 0.0
+peigneur 3 0.5
+peigneur 4 0.067
+peigneur 5 0.154
+peigneur 6 0.143
+peigneur 7 0.0
+peigneur 8 0.0
+peigneur 9 0.071
+peigneur 10 0.231
+peigneur 11 0.0
+peigneur 12 0.154
+peigneur 13 0.0
+molasses 1 0.0
+molasses 2 0.0
+molasses 3 0.8
+molasses 4 0.125
+molasses 5 0.0
+molasses 6 0.083
+molasses 7 0.211
+molasses 8 0.0
+molasses 9 0.062
+molasses 10 0.0
+molasses 11 0.1
+molasses 12 0.545
+molasses 13 0.0
+sinkhole 1 0.0
+sinkhole 2 0.545
+sinkhole 3 0.0
+sinkhole 4 0.0
+sinkhole 5 0.071
+sinkhole 6 0.0
+sinkhole 7 0.0
+sinkhole 8 0.0
+sinkhole 9 0.0
+sinkhole 10 0.0
+sinkhole 11 0.0
+sinkhole 12 0.0

@@ -1,0 +1,192 @@
+{
+ "peigneur/1": {
+  "script": "Imagine working on an oil rig... when the entire lake beneath you starts disappearing.",
+  "heard": "Imagine working on an oil rig when the entire lake beneath you starts disappearing.",
+  "wer": 0.0
+ },
+ "peigneur/2": {
+  "script": "The water begins to spin. And the rig starts to tilt.",
+  "heard": "The water begins to spin, and the rig starts to tilt.",
+  "wer": 0.0
+ },
+ "peigneur/3": {
+  "script": "This is Lake Peigneur, in Louisiana. November twentieth, nineteen eighty.",
+  "heard": "This is Lake Pe\u00f1or in Louisiana, November 20th, 1980.",
+  "wer": 0.5
+ },
+ "peigneur/4": {
+  "script": "The lake was only ten feet deep. But beneath it was a giant salt mine.",
+  "heard": "The lake was only 10 feet deep, but beneath it was a giant salt mine.",
+  "wer": 0.067
+ },
+ "peigneur/5": {
+  "script": "That morning, an oil drill got stuck more than twelve hundred feet down.",
+  "heard": "That morning, an oil drill got stuck more than 1,200 feet down.",
+  "wer": 0.154
+ },
+ "peigneur/6": {
+  "script": "It had punched straight into the mine.",
+  "heard": "it had punched straight into the mime.",
+  "wer": 0.143
+ },
+ "peigneur/7": {
+  "script": "Water poured in, dissolving the salt pillars that held the tunnels up.",
+  "heard": "water poured in, dissolving the salt pillars that held the tunnels up",
+  "wer": 0.0
+ },
+ "peigneur/8": {
+  "script": "The hole grew wider... and the lake drained, like a giant bathtub.",
+  "heard": "The hole grew wider and the lake drained like a giant bathtub.",
+  "wer": 0.0
+ },
+ "peigneur/9": {
+  "script": "A whirlpool swallowed the rig, a tugboat, eleven barges, and part of an island.",
+  "heard": "A whirlpool swallowed the rig, a tugboat, 11 barges, and part of an island.",
+  "wer": 0.071
+ },
+ "peigneur/10": {
+  "script": "Even a nearby canal flowed backwards, into a hundred-and-sixty-foot waterfall.",
+  "heard": "Even a nearby canal flowed backwards into a 160-foot waterfall.",
+  "wer": 0.231
+ },
+ "peigneur/11": {
+  "script": "But here's the incredible part.",
+  "heard": "But here's the incredible part.",
+  "wer": 0.0
+ },
+ "peigneur/12": {
+  "script": "All seven men on the rig escaped. So did all fifty-five miners.",
+  "heard": "All seven men on the rig escaped, so did all 55 miners.",
+  "wer": 0.154
+ },
+ "peigneur/13": {
+  "script": "Nobody was killed. But when the lake refilled... it was salt water.",
+  "heard": "Nobody was killed, but when the lake refilled, it was salt water.",
+  "wer": 0.0
+ },
+ "molasses/1": {
+  "script": "Imagine walking down the street... when a giant wave of thick, sticky liquid comes rushing toward you.",
+  "heard": "Imagine walking down the street when a giant wave of thick, sticky liquid comes rushing toward you.",
+  "wer": 0.0
+ },
+ "molasses/2": {
+  "script": "It's not water. It's molasses.",
+  "heard": "It's not water, it's molasses.",
+  "wer": 0.0
+ },
+ "molasses/3": {
+  "script": "Boston. January fifteenth, nineteen nineteen.",
+  "heard": "January 15th, 1919",
+  "wer": 0.8
+ },
+ "molasses/4": {
+  "script": "On the waterfront stood a fifty-foot steel tank, holding over two million gallons of molasses.",
+  "heard": "On the waterfront stood a 50-foot steel tank holding over 2 million gallons of molasses.",
+  "wer": 0.125
+ },
+ "molasses/5": {
+  "script": "It leaked so badly, it was painted brown to hide the stains.",
+  "heard": "It leaked so badly, it was painted brown to hide the stains.",
+  "wer": 0.0
+ },
+ "molasses/6": {
+  "script": "Then the rivets started popping, like gunfire... and the tank burst apart.",
+  "heard": "Then the rivet started popping like gunfire and the tank burst apart.",
+  "wer": 0.083
+ },
+ "molasses/7": {
+  "script": "A wave up to twenty-five feet high tore through the streets at around thirty-five miles an hour.",
+  "heard": "A wave up to 25 feet high tore through the streets at around 35 miles an hour.",
+  "wer": 0.211
+ },
+ "molasses/8": {
+  "script": "It crushed buildings, and twisted the steel of an elevated railway.",
+  "heard": "It crushed buildings and twisted the steel of an elevated railway.",
+  "wer": 0.0
+ },
+ "molasses/9": {
+  "script": "And here's what made it so deadly. In the freezing air, the molasses thickened like glue.",
+  "heard": "And here's what made it so deadly.  In the freezing air, the molasses thicken like glue.",
+  "wer": 0.062
+ },
+ "molasses/10": {
+  "script": "Anyone caught in it couldn't escape.",
+  "heard": "Anyone caught in it couldn't escape.",
+  "wer": 0.0
+ },
+ "molasses/11": {
+  "script": "Sailors, police and Red Cross nurses waded in to help.",
+  "heard": "Sailors, police, and Red Cross nurses waited in to help.",
+  "wer": 0.1
+ },
+ "molasses/12": {
+  "script": "Twenty-one people died. About a hundred and fifty were injured.",
+  "heard": "21 people died, about 150 were injured.",
+  "wer": 0.545
+ },
+ "molasses/13": {
+  "script": "It sounds unbelievable. But it was real... and it changed building safety rules for good.",
+  "heard": "It sounds unbelievable, but it was real and it changed building safety rules for good.",
+  "wer": 0.0
+ },
+ "sinkhole/1": {
+  "script": "Imagine falling asleep in your own bed... and the ground beneath your bedroom opens up.",
+  "heard": "Imagine falling asleep in your own bed, and the ground beneath your bedroom opens up.",
+  "wer": 0.0
+ },
+ "sinkhole/2": {
+  "script": "Seffner, Florida. February twenty-eighth, twenty thirteen. Around eleven at night.",
+  "heard": "Sefner, Florida, February 28, 2013, around 11 at night.",
+  "wer": 0.545
+ },
+ "sinkhole/3": {
+  "script": "The family was getting ready for bed, when a loud crash rang out.",
+  "heard": "The family was getting ready for bed when a loud crash rang out.",
+  "wer": 0.0
+ },
+ "sinkhole/4": {
+  "script": "Jeremy Bush ran to his brother Jeff's bedroom... and the room was gone.",
+  "heard": "Jeremy Bush ran to his brother Jeff's bedroom and the room was gone.",
+  "wer": 0.0
+ },
+ "sinkhole/5": {
+  "script": "Jeff, and everything in his room, had dropped into a hole thirty feet wide.",
+  "heard": "Jeff and everything in his room had dropped into a hole 30 feet wide.",
+  "wer": 0.071
+ },
+ "sinkhole/6": {
+  "script": "Jeremy jumped in, digging desperately, calling his brother's name.",
+  "heard": "Jeremy jumped in, digging desperately, calling his brother's name.",
+  "wer": 0.0
+ },
+ "sinkhole/7": {
+  "script": "But the floor kept collapsing. A sheriff's deputy reached in, and pulled him out.",
+  "heard": "But the floor kept collapsing.  A sheriff's deputy reached in and pulled him out.",
+  "wer": 0.0
+ },
+ "sinkhole/8": {
+  "script": "So how does the ground just... vanish?",
+  "heard": "So how does the ground just...vanish?",
+  "wer": 0.0
+ },
+ "sinkhole/9": {
+  "script": "Much of Florida sits on limestone, and rainwater slowly eats it away, leaving hidden caverns.",
+  "heard": "Much of Florida sits on limestone and rainwater slowly eats it away, leaving hidden caverns.",
+  "wer": 0.0
+ },
+ "sinkhole/10": {
+  "script": "The soil above can hold... until suddenly, it can't.",
+  "heard": "The soil above can hold until suddenly it can't.",
+  "wer": 0.0
+ },
+ "sinkhole/11": {
+  "script": "Rescuers searched, but the ground was too unstable. Jeff's body was never recovered.",
+  "heard": "Rescuers searched, but the ground was too unstable. Jeff's body was never recovered.",
+  "wer": 0.0
+ },
+ "sinkhole/12": {
+  "script": "And here's the haunting part. That same sinkhole has opened up again. Twice.",
+  "heard": "And here's the haunting part. That same sinkhole has opened up again, twice.",
+  "wer": 0.0
+ }
+}
