@@ -52,16 +52,16 @@ set -x
 sudo apt-get install -y -qq espeak-ng >/dev/null
 python3 -m pip install -q --user --break-system-packages uv || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
-uv venv -q -p 3.11 /tmp/k && VIRTUAL_ENV=/tmp/k uv pip install -q --python /tmp/k/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu && VIRTUAL_ENV=/tmp/k uv pip install -q --python /tmp/k/bin/python "kokoro>=0.9.4" soundfile librosa
+uv venv -q --seed -p 3.11 /tmp/k && VIRTUAL_ENV=/tmp/k uv pip install -q --python /tmp/k/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu && VIRTUAL_ENV=/tmp/k uv pip install -q --python /tmp/k/bin/python "kokoro>=0.9.4" soundfile librosa pip https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
 /tmp/k/bin/python /tmp/kok.py
 # Piper (MIT engine; voices from rhasspy/piper-voices)
-uv venv -q -p 3.11 /tmp/p && VIRTUAL_ENV=/tmp/p uv pip install -q --python /tmp/p/bin/python piper-tts
-for v in en_US/ryan/high/en_US-ryan-high en_US/joe/medium/en_US-joe-medium en_GB/alan/medium/en_GB-alan-medium; do b=$(basename $v)
+uv venv -q --seed -p 3.11 /tmp/p && VIRTUAL_ENV=/tmp/p uv pip install -q --python /tmp/p/bin/python piper-tts
+for v in en/en_US/ryan/high/en_US-ryan-high en/en_US/joe/medium/en_US-joe-medium en/en_GB/alan/medium/en_GB-alan-medium; do b=$(basename $v)
   curl -sL -o /tmp/$b.onnx https://huggingface.co/rhasspy/piper-voices/resolve/main/$v.onnx; curl -sL -o /tmp/$b.onnx.json https://huggingface.co/rhasspy/piper-voices/resolve/main/$v.onnx.json
   i=0; while read -r line; do echo "$line" | /tmp/p/bin/piper -m /tmp/$b.onnx -f OUT/piper_${b}_$i.wav >/dev/null 2>&1 || echo "$line" | /tmp/p/bin/piper --model /tmp/$b.onnx --output_file OUT/piper_${b}_$i.wav; i=$((i+1)); done < <(cat /tmp/lines.txt; echo)
   echo piper $b; done
 # Chatterbox (Resemble AI, MIT)
-uv venv -q -p 3.11 /tmp/c && VIRTUAL_ENV=/tmp/c uv pip install -q --python /tmp/c/bin/python chatterbox-tts && (/tmp/c/bin/python /tmp/cbx.py || echo "chatterbox failed")
+uv venv -q --seed -p 3.11 /tmp/c && VIRTUAL_ENV=/tmp/c uv pip install -q --python /tmp/c/bin/python chatterbox-tts 'setuptools<81' && (/tmp/c/bin/python /tmp/cbx.py || echo "chatterbox failed")
 /tmp/k/bin/python /tmp/score.py
 '''.replace('OUT', OUT)
 r = subprocess.run(['bash', '-c', sh], text=True)
