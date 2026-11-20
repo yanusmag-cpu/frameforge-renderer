@@ -1,0 +1,278 @@
+{
+ "sinkhole/1": [
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s01_t0.wav",
+   "mos": 4.47,
+   "dur": 4.203,
+   "wps": 3.57,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s01_t1.wav",
+   "mos": 4.121,
+   "dur": 4.181,
+   "wps": 3.59,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s01_t2.wav",
+   "mos": 4.294,
+   "dur": 4.437,
+   "wps": 3.38,
+   "ok": true
+  }
+ ],
+ "sinkhole/2": [
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s02_t0.wav",
+   "mos": 4.356,
+   "dur": 4.331,
+   "wps": 2.54,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s02_t1.wav",
+   "mos": 4.21,
+   "dur": 4.352,
+   "wps": 2.53,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s02_t2.wav",
+   "mos": 4.51,
+   "dur": 5.056,
+   "wps": 2.18,
+   "ok": true
+  }
+ ],
+ "sinkhole/3": [
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s03_t0.wav",
+   "mos": 4.436,
+   "dur": 3.136,
+   "wps": 4.15,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s03_t1.wav",
+   "mos": 4.486,
+   "dur": 3.264,
+   "wps": 3.98,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s03_t2.wav",
+   "mos": 4.471,
+   "dur": 3.349,
+   "wps": 3.88,
+   "ok": true
+  }
+ ],
+ "sinkhole/4": [
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s04_t0.wav",
+   "mos": 4.435,
+   "dur": 3.691,
+   "wps": 3.52,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s04_t1.wav",
+   "mos": 4.476,
+   "dur": 4.224,
+   "wps": 3.08,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s04_t2.wav",
+   "mos": 4.478,
+   "dur": 3.883,
+   "wps": 3.35,
+   "ok": true
+  }
+ ],
+ "sinkhole/5": [
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s05_t0.wav",
+   "mos": 4.455,
+   "dur": 4.267,
+   "wps": 3.28,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s05_t1.wav",
+   "mos": 4.483,
+   "dur": 4.139,
+   "wps": 3.38,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s05_t2.wav",
+   "mos": 4.455,
+   "dur": 4.587,
+   "wps": 3.05,
+   "ok": true
+  }
+ ],
+ "sinkhole/6": [
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s06_t0.wav",
+   "mos": 4.442,
+   "dur": 3.435,
+   "wps": 2.62,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s06_t1.wav",
+   "mos": 4.468,
+   "dur": 3.349,
+   "wps": 2.69,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s06_t2.wav",
+   "mos": 4.42,
+   "dur": 3.691,
+   "wps": 2.44,
+   "ok": true
+  }
+ ],
+ "sinkhole/7": [
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s07_t0.wav",
+   "mos": 4.448,
+   "dur": 4.181,
+   "wps": 3.35,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s07_t1.wav",
+   "mos": 4.47,
+   "dur": 4.139,
+   "wps": 3.38,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s07_t2.wav",
+   "mos": 4.451,
+   "dur": 4.352,
+   "wps": 3.22,
+   "ok": true
+  }
+ ],
+ "sinkhole/8": [
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s08_t0.wav",
+   "mos": 4.483,
+   "dur": 2.56,
+   "wps": 2.73,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s08_t1.wav",
+   "mos": 4.463,
+   "dur": 2.517,
+   "wps": 2.78,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s08_t2.wav",
+   "mos": 4.508,
+   "dur": 2.432,
+   "wps": 2.88,
+   "ok": true
+  }
+ ],
+ "sinkhole/9": [
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s09_t0.wav",
+   "mos": 4.475,
+   "dur": 5.333,
+   "wps": 2.81,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s09_t1.wav",
+   "mos": 4.499,
+   "dur": 5.675,
+   "wps": 2.64,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s09_t2.wav",
+   "mos": 4.497,
+   "dur": 5.504,
+   "wps": 2.73,
+   "ok": true
+  }
+ ],
+ "sinkhole/10": [
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s10_t0.wav",
+   "mos": 4.454,
+   "dur": 3.157,
+   "wps": 2.85,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s10_t1.wav",
+   "mos": 4.471,
+   "dur": 3.2,
+   "wps": 2.81,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s10_t2.wav",
+   "mos": 4.491,
+   "dur": 3.392,
+   "wps": 2.65,
+   "ok": true
+  }
+ ],
+ "sinkhole/11": [
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s11_t0.wav",
+   "mos": 4.51,
+   "dur": 4.864,
+   "wps": 2.67,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s11_t1.wav",
+   "mos": 4.505,
+   "dur": 5.077,
+   "wps": 2.56,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s11_t2.wav",
+   "mos": 4.487,
+   "dur": 5.013,
+   "wps": 2.59,
+   "ok": true
+  }
+ ],
+ "sinkhole/12": [
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s12_t0.wav",
+   "mos": 4.529,
+   "dur": 4.629,
+   "wps": 2.81,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s12_t1.wav",
+   "mos": 4.509,
+   "dur": 4.309,
+   "wps": 3.02,
+   "ok": true
+  },
+  {
+   "file": "public/yw4-vo-sinkhole/sinkhole/takes/s12_t2.wav",
+   "mos": 4.529,
+   "dur": 4.437,
+   "wps": 2.93,
+   "ok": true
+  }
+ ]
+}

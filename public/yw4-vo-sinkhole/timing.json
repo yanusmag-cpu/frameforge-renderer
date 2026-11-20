@@ -1,0 +1,104 @@
+{
+ "engine": "Chatterbox TTS (MIT) + synthetic Kokoro am_puck reference",
+ "sr": 24000,
+ "films": {
+  "sinkhole": [
+   {
+    "i": 1,
+    "text": "Imagine falling asleep in your own bed... and the ground beneath your bedroom opens up.",
+    "style": "c",
+    "dur": 4.323,
+    "mos": 4.47,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s01.wav"
+   },
+   {
+    "i": 2,
+    "text": "Seffner, Florida. February twenty-eighth, twenty thirteen. Around eleven at night.",
+    "style": "n",
+    "dur": 5.176,
+    "mos": 4.51,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s02.wav"
+   },
+   {
+    "i": 3,
+    "text": "The family was getting ready for bed, when a loud crash rang out.",
+    "style": "n",
+    "dur": 3.384,
+    "mos": 4.486,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s03.wav"
+   },
+   {
+    "i": 4,
+    "text": "Jeremy Bush ran to his brother Jeff's bedroom... and the room was gone.",
+    "style": "u",
+    "dur": 4.003,
+    "mos": 4.478,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s04.wav"
+   },
+   {
+    "i": 5,
+    "text": "Jeff, and everything in his room, had dropped into a hole thirty feet wide.",
+    "style": "u",
+    "dur": 4.259,
+    "mos": 4.483,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s05.wav"
+   },
+   {
+    "i": 6,
+    "text": "Jeremy jumped in, digging desperately, calling his brother's name.",
+    "style": "u",
+    "dur": 3.469,
+    "mos": 4.468,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s06.wav"
+   },
+   {
+    "i": 7,
+    "text": "But the floor kept collapsing. A sheriff's deputy reached in, and pulled him out.",
+    "style": "m",
+    "dur": 4.259,
+    "mos": 4.47,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s07.wav"
+   },
+   {
+    "i": 8,
+    "text": "So how does the ground just... vanish?",
+    "style": "m",
+    "dur": 2.552,
+    "mos": 4.508,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s08.wav"
+   },
+   {
+    "i": 9,
+    "text": "Much of Florida sits on limestone, and rainwater slowly eats it away, leaving hidden caverns.",
+    "style": "s",
+    "dur": 5.795,
+    "mos": 4.499,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s09.wav"
+   },
+   {
+    "i": 10,
+    "text": "The soil above can hold... until suddenly, it can't.",
+    "style": "n",
+    "dur": 3.512,
+    "mos": 4.491,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s10.wav"
+   },
+   {
+    "i": 11,
+    "text": "Rescuers searched, but the ground was too unstable. Jeff's body was never recovered.",
+    "style": "m",
+    "dur": 4.984,
+    "mos": 4.51,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s11.wav"
+   },
+   {
+    "i": 12,
+    "text": "And here's the haunting part. That same sinkhole has opened up again. Twice.",
+    "style": "h",
+    "dur": 4.749,
+    "mos": 4.529,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s12.wav"
+   }
+  ]
+ }
+}
