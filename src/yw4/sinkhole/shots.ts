@@ -31,9 +31,9 @@ const END_A = C[1] - .35;
 // A — cold open: asleep, lamp glowing… a rumble, the lamp rattles, cracks race across the floor — the floor drops — CUT TO BLACK
 shot(0, C[1], t => { const k = kk(t, 0, END_A); const rum = ss(1.3, 2.0, t); const crack = ss(2.0, 3.4, t); const col = ss(3.5, END_A, t) * .3; const wake = ss(2.4, 3.0, t);
   const S: Sprite[] = []; if (crack > 0) dust([HOLE[0], .1, HOLE[2]], 10, crack, Math.floor(t * 10), S, .5); if (col > 0) dust([HOLE[0], .2, HOLE[2]], 22, 1, Math.floor(t * 14) + 3, S, 1);
-  return { t, set: 'home', ...NIGHT, ...INSIDE, sun: MOON(W('home', HOLE), 8, .9), cam: cam('home', [lerp(-3.0, -3.6, k), lerp(1.75, 1.55, k), lerp(-1.9, -2.6, k)], [-6.2, .95, -4.6], lerp(48, 40, k), { roll: rum * Math.sin(t * 30) * .006 }),
+  return { t, set: 'home', ...NIGHT, ...INSIDE, sun: MOON(W('home', HOLE), 8, .9), cam: cam('home', [lerp(-2.6, -3.3, k), lerp(1.55, 1.4, k), lerp(-4.0, -4.25, k)], [-6.2, .95, -4.55], lerp(56, 48, k), { roll: rum * Math.sin(t * 30) * .006 }),
     room: { shake: rum + col * 3, crack, collapse: col, lamp: 1 - ss(3.2, 3.5, t) * (Math.sin(t * 40) * .5 + .5) }, sprites: S, shake: rum * .02 + col * .12,
-    actors: [act('sleeper', HERO, 'home', [-6.2, .98, -3.65], lyingPose(wake * .6), wake < .5 ? { ...EXPR.calm, eyeOpen: 0, smile: .1 } : expr('confused', 'terrified', ss(3, 3.6, t)), t, { roll: -Math.PI / 2, contact: 0, shadow: false })],
+    actors: [act('sleeper', HERO, 'home', [-6.2, .98, -3.75], lyingPose(wake * .6), wake < .5 ? { ...EXPR.calm, eyeOpen: 0, smile: .1 } : expr('confused', 'terrified', ss(3, 3.6, t)), t, { roll: -Math.PI / 2, contact: 0, shadow: false })],
     lights: [{ p: W('home', [-3, 2, -5.9]), c: [.5, .6, 1], i: 1.2, d: 6 }], grade: { ...VIVID, fade: Math.max((1 - ss(0, .5, t)) * .6, ss(END_A - .05, END_A, t)) } }; });
 // B — establishing: quiet Florida street at night, the blue house
 shot(C[1], C[2], t => { const k = kk(t, C[1], C[2]);
@@ -56,8 +56,8 @@ shot(C[3] + (C[4] - C[3]) * .5, C[4], t => { const S: Sprite[] = []; dust([HOLE[
     grade: VIVID }; });
 // E — looking straight down into the hole: ~30 ft across
 shot(C[4], C[5], t => { const k = kk(t, C[4], C[5]); const S: Sprite[] = []; dust([HOLE[0], -3, HOLE[2]], 4, .35, Math.floor(t * 7), S, 1.2);
-  return { t, set: 'home', ...NIGHT, ...INSIDE, cam: cam('home', [HOLE[0] + .5, lerp(2.5, 2.2, k), HOLE[2] + 1.6], [HOLE[0], -6, HOLE[2] - .2], lerp(70, 64, k)), room: { collapse: 1 }, sprites: S,
-    lights: [{ p: W('home', [-3.9, 2.2, .5]), c: [1, .8, .55], i: 8, d: 10 }, { p: W('home', [HOLE[0], 1.2, HOLE[2]]), c: [.6, .7, 1], i: 2, d: 8 }],
+  return { t, set: 'home', ...NIGHT, ...INSIDE, cam: cam('home', [lerp(-3.4, -3.7, k), lerp(1.75, 1.6, k), lerp(1.3, .9, k)], [HOLE[0] - .4, -1.6, HOLE[2] - .6], 58), fog: { color: '#1a1622', density: .008 }, room: { collapse: 1 }, sprites: S,
+    lights: [{ p: W('home', [-3.9, 2.2, .5]), c: [1, .8, .55], i: 8, d: 10 }, { p: W('home', [HOLE[0], -2, HOLE[2]]), c: [.75, .8, 1], i: 12, d: 16 }],
     grade: VIVID, overlay: chip('A HOLE ~30 FT ACROSS', 540, 1320, ss(C[4] + .6, C[4] + 1, t)) }; });
 // F — Jeremy goes in after him, digging, calling his brother's name
 shot(C[5], C[6], t => { const k = kk(t, C[5], C[6]); const dig = Math.sin(t * 7); const p: V3 = [-3.75, 0, .15]; const S: Sprite[] = []; dust([p[0] - .4, -.6, p[2] - 1.2], 4, .4, Math.floor(t * 9), S, .5);

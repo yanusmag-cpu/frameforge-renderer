@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'yw3'))
 from sfx_lib import SR, load_mono, lufs, write, ROOT   # noqa: E402
 CHAIN = ('highpass=f=75:poles=2,equalizer=f=230:t=q:w=1.1:g=-2.0,equalizer=f=3400:t=q:w=1.2:g=1.8,'
          'deesser=i=0.3:m=0.5:f=0.5:s=o,acompressor=threshold=0.125:ratio=2.2:attack=8:release=140:knee=4')
-timing = json.load(open(ROOT / 'public/yw4-vo/timing.json'))['films']
+timing = json.load(open(ROOT / 'scripts/yw4/vo_timing.json'))['films']
 cues = json.load(open(ROOT / 'scripts/yw4/cues.json'))
 out = ROOT / 'public/yw4-vo-clean'
 for film, rows in timing.items():

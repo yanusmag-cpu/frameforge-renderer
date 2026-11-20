@@ -66,7 +66,7 @@ shot(C[5] - .8, C[6], t => { const k = kk(t, C[5] - .8, C[6]); const d = ss(C[5]
 shot(C[6], C[6] + (C[7] - C[6]) * .55, t => { const k = kk(t, C[6], C[7]); const run = (t - C[6]) * 3.6; const S: Sprite[] = []; const R = rng(Math.floor(t * 14));
   for (let i = 0; i < 14; i++) S.push({ p: W('mine', [(R() - .5) * 26, .3 + R() * .5, -20 - R() * 70]), s: .8 + R(), rot: R() * 6, c: [.85, .95, 1], a: .35, kind: 3, seed: R(), age: R() });
   return { t, set: 'mine', cam: cam('mine', [lerp(-6, -4, k), 2.2, lerp(14, 8, k)], [2, 3, -40], 50), mineWater: .05 + ss(C[6], C[7], t) * .25, bg: '#111',
-    hemi: { sky: '#fff1d6', ground: '#8a7f70', i: 1.1 }, lights: [{ p: W('mine', [0, 20, 0]), c: [1, .85, .6], i: 60, d: 40 }, { p: W('mine', [0, 20, -30]), c: [1, .85, .6], i: 60, d: 40 }, { p: W('mine', [0, 20, -60]), c: [1, .85, .6], i: 50, d: 40 }],
+    hemi: { sky: '#ffe9c6', ground: '#6a6058', i: .7 }, lights: [{ p: W('mine', [0, 20, 0]), c: [1, .82, .55], i: 22, d: 40 }, { p: W('mine', [0, 20, -30]), c: [1, .82, .55], i: 22, d: 40 }, { p: W('mine', [0, 20, -60]), c: [1, .82, .55], i: 18, d: 40 }],
     sprites: S, actors: [act('m1', MINER, 'mine', [-2 + Math.sin(t) * .1, .2, -6 + run * .2], pose({ turn: -.2, headTurn: -.4, handA: [-.7, -1.6], shapeA: 'point' }, t, .5, 4), EXPR.shocked, t, { scale: 1, rim: '#ffd9a0' }),
       act('m2', { ...MINER, color: '#c4532c' }, 'mine', [3, .2, -12], pose({ turn: .3, handB: [.6, -.4] }, t, .5, 9), EXPR.worried, t, { rim: '#ffd9a0' })],
     grade: { ...VIVID, exposure: 1.05 } }; });

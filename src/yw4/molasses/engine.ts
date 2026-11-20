@@ -7,6 +7,7 @@ import { Core, Builder, M, GLSL_NOISE, rng, canvasTex, clamp, type YFrame, type 
 
 export const TANK: V3 = [150, 0, 0]; export const TANK_R = 13.7, TANK_H = 15.2;   // 90 ft wide, 50 ft tall
 export type MFrame = YFrame & {
+  mired?: number;                    // the stuck wagon + hat shot
   sky?: { top: string; hor: string; sun: V3 };
   wave?: { R: number; H?: number; settle?: number; vis?: number; stiff?: number };   // front radius from the tank (m), lip height
   tank?: { burst: number; leak?: number; crack?: number };
@@ -33,7 +34,7 @@ function uvScale(g: T.BufferGeometry, sx: number, sy: number) { const uv = g.get
 
 export class MolassesEngine extends Core {
   skyU: Record<string, T.IUniform>; sky: T.Mesh; waveU: Record<string, T.IUniform>; wave: T.Mesh;
-  tank: T.Mesh; tankU: Record<string, T.IUniform>; panels: { m: T.Mesh; dir: T.Vector3; spin: T.Vector3 }[] = []; elSpan: T.Group; house: T.Group; props: { m: T.Object3D; home: V3 }[] = [];
+  mired: T.Mesh; tank: T.Mesh; tankU: Record<string, T.IUniform>; panels: { m: T.Mesh; dir: T.Vector3; spin: T.Vector3 }[] = []; elSpan: T.Group; house: T.Group; props: { m: T.Object3D; home: V3 }[] = [];
   constructor(cv: HTMLCanvasElement, w: number, h: number) {
     super(cv, w, h, '#9cc7f0', '#7a6a58'); this.scene.environment = this.env;
     this.skyU = { top: { value: new T.Color('#2f7ad6') }, hor: { value: new T.Color('#f3dcb6') }, sun: { value: new T.Vector3(.3, .35, -.88).normalize() }, t: { value: 0 } };
@@ -93,6 +94,10 @@ export class MolassesEngine extends Core {
       if (kind === 0) { pb.box(3.4, 1.2, 1.8, [0, 1.3, 0], '#7a4a2a'); for (const x of [-1.2, 1.2]) for (const z of [-1, 1]) pb.cyl(.6, .6, .12, [x, .6, z], '#3a2a1c', 12, [Math.PI / 2, 0, 0]); pb.box(1.2, .9, 1.4, [-.5, 2.3, 0], '#d8c9a8'); }
       else if (kind === 1) pb.cyl(.45, .45, 1.1, [0, .55, 0], '#8a5a32', 12); else pb.box(1, 1, 1, [0, .5, 0], '#b58a54');
       const m = pb.mesh(std()); const home: V3 = [60 - R() * 300, 0, (R() - .5) * 16]; m.position.set(...home); m.rotation.y = R() * 6; this.scene.add(m); this.props.push({ m, home }); }
+    // a wagon mired to the axles, a hat on the surface (no people shown)
+    { const mb = new Builder(); mb.box(3.6, 1.3, 1.9, [0, 1.2, 0], '#6a3f22'); mb.box(3.8, .2, 2.1, [0, 1.9, 0], '#4a2c18'); for (const x of [-1.3, 1.3]) for (const z of [-1.05, 1.05]) mb.cyl(.75, .75, .12, [x, .7, z], '#3a2a1c', 14, [Math.PI / 2, 0, 0]);
+      mb.box(.8, .9, .8, [.6, 2.4, 0], '#c9a26b'); mb.cyl(.32, .32, .9, [-.8, 2.4, .2], '#8a5a32', 10); mb.cyl(.36, .42, .14, [2.6, .05, 2.2], '#2a2a2a', 14); mb.cyl(.22, .24, .2, [2.6, .2, 2.2], '#2a2a2a', 14);
+      this.mired = mb.mesh(std()); this.mired.position.set(30, -.9, 4); this.mired.rotation.set(.08, .5, -.12); this.scene.add(this.mired); }
     // molasses wave: radial heightfield around the tank (polar grid, dense near the front)
     this.waveU = { R: { value: 0 }, H: { value: 8 }, settle: { value: 0 }, t: { value: 0 }, sunDir: { value: this.skyU.sun.value }, camP: { value: new T.Vector3() }, vis: { value: 1 }, stiff: { value: 0 },
       fogC: { value: new T.Color('#e8d8c0') }, fogD: { value: .002 }, skyTop: { value: this.skyU.top.value }, skyHor: { value: this.skyU.hor.value } };
@@ -136,7 +141,7 @@ export class MolassesEngine extends Core {
     const tk = F.tank ?? { burst: 0 }; this.tankU.leak.value = tk.leak ?? 0; this.tankU.crack.value = tk.crack ?? 0; const b = clamp(tk.burst);
     this.tank.visible = b < .02; this.panels.forEach((p, i) => { p.m.visible = b >= .02; if (!p.m.visible) return; const k = b * (1 + i % 3 * .2);
       p.m.position.set(TANK[0] + p.dir.x * k * 40, TANK_H / 2 + p.dir.y * k * 22 - k * k * 20, TANK[2] + p.dir.z * k * 40); p.m.position.y = Math.max(1, p.m.position.y); p.m.rotation.set(p.spin.x * k * 4, p.spin.y * k * 3, p.spin.z * k * 4); });
-    const e = F.el ?? 0; this.elSpan.rotation.set(e * .18, 0, -e * .12); this.elSpan.position.set(100, 7.9 - e * 3.2, e * 2.5);
+    this.mired.visible = (F.mired ?? 0) > 0; const e = F.el ?? 0; this.elSpan.rotation.set(e * .18, 0, -e * .12); this.elSpan.position.set(100, 7.9 - e * 3.2, e * 2.5);
     const hs = F.house ?? 0; this.house.position.set(112 - hs * 9, 0, 26 + hs * 2); this.house.rotation.set(0, hs * .35, hs * .08);
     const R = w?.R ?? 0; this.props.forEach(p => { const dx = p.home[0] - TANK[0], dz = p.home[2] - TANK[2]; const r = Math.hypot(dx, dz); const k = clamp((R - r) / 40) * (F.props ?? 0);
       p.m.position.set(p.home[0] - k * 26, k * 1.6, p.home[2] + Math.sin(r) * k * 3); p.m.rotation.z = k * 1.2 * Math.sin(r * 3); });

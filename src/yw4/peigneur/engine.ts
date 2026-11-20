@@ -178,8 +178,8 @@ export class PeigneurEngine extends Core {
     for (let i = 0; i < 11; i++) { const b = barge(R); const a = .3 + i * .55, r = 80 + (i % 4) * 34; const p: V3 = [Math.cos(a) * r + 40, 0, Math.sin(a) * r * .8 + 20]; b.position.set(...p); b.rotation.y = a + 1.6; this.barges.push(b); this.bargeHome.push(p); L.add(b); }
     this.tug = tug(); L.add(this.tug);
     // canal waterfall (curved sheet into the crater)
-    this.fallMesh = new T.Mesh(new T.PlaneGeometry(26, 46, 20, 30), new T.ShaderMaterial({ uniforms: this.fallU, transparent: true, side: T.DoubleSide, depthWrite: false,
-      vertexShader: 'uniform float t; varying vec2 vU; void main(){ vU = uv; vec3 p = position; p.z -= pow(1. - uv.y, 2.) * 14.; gl_Position = projectionMatrix * modelViewMatrix * vec4(p,1.); }',
+    this.fallMesh = new T.Mesh(new T.PlaneGeometry(40, 46, 24, 30), new T.ShaderMaterial({ uniforms: this.fallU, transparent: true, side: T.DoubleSide, depthWrite: false,
+      vertexShader: 'uniform float t; varying vec2 vU; void main(){ vU = uv; vec3 p = position; p.z -= pow(1. - uv.y, 1.6) * 28.; gl_Position = projectionMatrix * modelViewMatrix * vec4(p,1.); }',
       fragmentShader: `uniform float t, k; varying vec2 vU; ${GLSL_NOISE} void main(){ float n = fbm(vec2(vU.x * 9., vU.y * 3. + t * 2.2)); float s = fbm(vec2(vU.x * 30., vU.y * 8. + t * 4.));
         vec3 c = mix(vec3(.2, .5, .5), vec3(.95, .98, .97), smoothstep(.45, .75, n * .6 + s * .5)); float a = k * smoothstep(0., .08, vU.x) * smoothstep(1., .92, vU.x) * (.75 + .25 * n); gl_FragColor = vec4(c, a); }` }));
     L.add(this.fallMesh);
@@ -225,7 +225,7 @@ export class PeigneurEngine extends Core {
       const a = a0 + k * 3.5, r = r0 * (1 - k * .92); const x = Math.cos(a) * r, z = Math.sin(a) * r; b.position.set(x, funnel(x, z) - k * k * 30, z); b.rotation.set(k * .6, a + 1.6, k * .4); b.visible = k < .99 && !(rg.gone && i > 8); });
     { const k = F.tug ?? 0; const a = 2.4 + k * 3, r = 260 * (1 - k * .9); const x = Math.cos(a) * r, z = Math.sin(a) * r; this.tug.position.set(x, funnel(x, z) - k * k * 25, z); this.tug.rotation.set(k * .5, a + 1.4, 0); this.tug.visible = k < .99; }
     const fk = F.fall ?? 0; this.fallMesh.visible = this.canal.visible = fk > .01; this.fallU.k.value = fk; const ca = CANAL_A;
-    this.fallMesh.position.set(Math.cos(ca) * 150, -3 - 23, Math.sin(ca) * 150); this.fallMesh.rotation.set(0, -ca + Math.PI / 2, 0);
+    this.fallMesh.position.set(Math.cos(ca) * 140, -3 - 23, Math.sin(ca) * 140); this.fallMesh.rotation.set(0, -ca + Math.PI / 2, 0);
     this.canal.position.set(Math.cos(ca) * 750, -1.6, Math.sin(ca) * 750); this.canal.rotation.set(-Math.PI / 2, 0, -ca + Math.PI / 2);
     const xs = F.xs ?? {}; if (F.set === 'xsec') {
       const px = (x: number) => (x / 1024 - .5) * XS.W, py = (y: number) => -y / 2048 * XS.H; const dx = px(XS.drillX);

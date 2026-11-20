@@ -1,0 +1,315 @@
+{
+ "engine": "Chatterbox TTS (MIT) + synthetic Kokoro am_puck reference",
+ "films": {
+  "peigneur": [
+   {
+    "i": 1,
+    "text": "Imagine working on an oil rig... when the entire lake beneath you starts disappearing.",
+    "style": "c",
+    "dur": 4.941,
+    "mos": 4.517,
+    "file": "public/yw4-vo-peigneur/peigneur/s01.wav"
+   },
+   {
+    "i": 2,
+    "text": "The water begins to spin. And the rig starts to tilt.",
+    "style": "u",
+    "dur": 3.299,
+    "mos": 4.477,
+    "file": "public/yw4-vo-peigneur/peigneur/s02.wav"
+   },
+   {
+    "i": 3,
+    "text": "This is Lake Peigneur, in Louisiana. November twentieth, nineteen eighty.",
+    "style": "n",
+    "dur": 4.6,
+    "mos": 4.505,
+    "file": "public/yw4-vo-peigneur/peigneur/s03.wav"
+   },
+   {
+    "i": 4,
+    "text": "The lake was only ten feet deep. But beneath it was a giant salt mine.",
+    "style": "n",
+    "dur": 4.173,
+    "mos": 4.505,
+    "file": "public/yw4-vo-peigneur/peigneur/s04.wav"
+   },
+   {
+    "i": 5,
+    "text": "That morning, an oil drill got stuck more than twelve hundred feet down.",
+    "style": "n",
+    "dur": 4.045,
+    "mos": 4.469,
+    "file": "public/yw4-vo-peigneur/peigneur/s05.wav"
+   },
+   {
+    "i": 6,
+    "text": "It had punched straight into the mine.",
+    "style": "u",
+    "dur": 2.573,
+    "mos": 4.401,
+    "file": "public/yw4-vo-peigneur/peigneur/s06.wav"
+   },
+   {
+    "i": 7,
+    "text": "Water poured in, dissolving the salt pillars that held the tunnels up.",
+    "style": "u",
+    "dur": 3.619,
+    "mos": 4.449,
+    "file": "public/yw4-vo-peigneur/peigneur/s07.wav"
+   },
+   {
+    "i": 8,
+    "text": "The hole grew wider... and the lake drained, like a giant bathtub.",
+    "style": "u",
+    "dur": 4.429,
+    "mos": 4.483,
+    "file": "public/yw4-vo-peigneur/peigneur/s08.wav"
+   },
+   {
+    "i": 9,
+    "text": "A whirlpool swallowed the rig, a tugboat, eleven barges, and part of an island.",
+    "style": "u",
+    "dur": 4.856,
+    "mos": 4.473,
+    "file": "public/yw4-vo-peigneur/peigneur/s09.wav"
+   },
+   {
+    "i": 10,
+    "text": "Even a nearby canal flowed backwards, into a hundred-and-sixty-foot waterfall.",
+    "style": "x",
+    "dur": 4.835,
+    "mos": 4.489,
+    "file": "public/yw4-vo-peigneur/peigneur/s10.wav"
+   },
+   {
+    "i": 11,
+    "text": "But here's the incredible part.",
+    "style": "s",
+    "dur": 2.061,
+    "mos": 4.481,
+    "file": "public/yw4-vo-peigneur/peigneur/s11.wav"
+   },
+   {
+    "i": 12,
+    "text": "All seven men on the rig escaped. So did all fifty-five miners.",
+    "style": "x",
+    "dur": 3.597,
+    "mos": 4.436,
+    "file": "public/yw4-vo-peigneur/peigneur/s12.wav"
+   },
+   {
+    "i": 13,
+    "text": "Nobody was killed. But when the lake refilled... it was salt water.",
+    "style": "h",
+    "dur": 3.811,
+    "mos": 4.493,
+    "file": "public/yw4-vo-peigneur/peigneur/s13.wav"
+   }
+  ],
+  "molasses": [
+   {
+    "i": 1,
+    "text": "Imagine walking down the street... when a giant wave of thick, sticky liquid comes rushing toward you.",
+    "style": "c",
+    "dur": 5.688,
+    "mos": 4.512,
+    "file": "public/yw4-vo-molasses/molasses/s01.wav"
+   },
+   {
+    "i": 2,
+    "text": "It's not water. It's molasses.",
+    "style": "x",
+    "dur": 2.509,
+    "mos": 4.475,
+    "file": "public/yw4-vo-molasses/molasses/s02.wav"
+   },
+   {
+    "i": 3,
+    "text": "Boston. January fifteenth, nineteen nineteen.",
+    "style": "n",
+    "dur": 2.808,
+    "mos": 4.431,
+    "file": "public/yw4-vo-molasses/molasses/s03.wav"
+   },
+   {
+    "i": 4,
+    "text": "On the waterfront stood a fifty-foot steel tank, holding over two million gallons of molasses.",
+    "style": "n",
+    "dur": 5.752,
+    "mos": 4.51,
+    "file": "public/yw4-vo-molasses/molasses/s04.wav"
+   },
+   {
+    "i": 5,
+    "text": "It leaked so badly, it was painted brown to hide the stains.",
+    "style": "n",
+    "dur": 3.619,
+    "mos": 4.491,
+    "file": "public/yw4-vo-molasses/molasses/s05.wav"
+   },
+   {
+    "i": 6,
+    "text": "Then the rivets started popping, like gunfire... and the tank burst apart.",
+    "style": "u",
+    "dur": 4.707,
+    "mos": 4.484,
+    "file": "public/yw4-vo-molasses/molasses/s06.wav"
+   },
+   {
+    "i": 7,
+    "text": "A wave up to twenty-five feet high tore through the streets at around thirty-five miles an hour.",
+    "style": "u",
+    "dur": 5.325,
+    "mos": 4.49,
+    "file": "public/yw4-vo-molasses/molasses/s07.wav"
+   },
+   {
+    "i": 8,
+    "text": "It crushed buildings, and twisted the steel of an elevated railway.",
+    "style": "u",
+    "dur": 3.939,
+    "mos": 4.473,
+    "file": "public/yw4-vo-molasses/molasses/s08.wav"
+   },
+   {
+    "i": 9,
+    "text": "And here's what made it so deadly. In the freezing air, the molasses thickened like glue.",
+    "style": "s",
+    "dur": 4.941,
+    "mos": 4.509,
+    "file": "public/yw4-vo-molasses/molasses/s09.wav"
+   },
+   {
+    "i": 10,
+    "text": "Anyone caught in it couldn't escape.",
+    "style": "u",
+    "dur": 1.869,
+    "mos": 4.454,
+    "file": "public/yw4-vo-molasses/molasses/s10.wav"
+   },
+   {
+    "i": 11,
+    "text": "Sailors, police and Red Cross nurses waded in to help.",
+    "style": "m",
+    "dur": 3.597,
+    "mos": 4.443,
+    "file": "public/yw4-vo-molasses/molasses/s11.wav"
+   },
+   {
+    "i": 12,
+    "text": "Twenty-one people died. About a hundred and fifty were injured.",
+    "style": "m",
+    "dur": 3.235,
+    "mos": 4.5,
+    "file": "public/yw4-vo-molasses/molasses/s12.wav"
+   },
+   {
+    "i": 13,
+    "text": "It sounds unbelievable. But it was real... and it changed building safety rules for good.",
+    "style": "h",
+    "dur": 5.411,
+    "mos": 4.51,
+    "file": "public/yw4-vo-molasses/molasses/s13.wav"
+   }
+  ],
+  "sinkhole": [
+   {
+    "i": 1,
+    "text": "Imagine falling asleep in your own bed... and the ground beneath your bedroom opens up.",
+    "style": "c",
+    "dur": 4.323,
+    "mos": 4.47,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s01.wav"
+   },
+   {
+    "i": 2,
+    "text": "Seffner, Florida. February twenty-eighth, twenty thirteen. Around eleven at night.",
+    "style": "n",
+    "dur": 5.176,
+    "mos": 4.51,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s02.wav"
+   },
+   {
+    "i": 3,
+    "text": "The family was getting ready for bed, when a loud crash rang out.",
+    "style": "n",
+    "dur": 3.384,
+    "mos": 4.486,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s03.wav"
+   },
+   {
+    "i": 4,
+    "text": "Jeremy Bush ran to his brother Jeff's bedroom... and the room was gone.",
+    "style": "u",
+    "dur": 4.003,
+    "mos": 4.478,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s04.wav"
+   },
+   {
+    "i": 5,
+    "text": "Jeff, and everything in his room, had dropped into a hole thirty feet wide.",
+    "style": "u",
+    "dur": 4.259,
+    "mos": 4.483,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s05.wav"
+   },
+   {
+    "i": 6,
+    "text": "Jeremy jumped in, digging desperately, calling his brother's name.",
+    "style": "u",
+    "dur": 3.469,
+    "mos": 4.468,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s06.wav"
+   },
+   {
+    "i": 7,
+    "text": "But the floor kept collapsing. A sheriff's deputy reached in, and pulled him out.",
+    "style": "m",
+    "dur": 4.259,
+    "mos": 4.47,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s07.wav"
+   },
+   {
+    "i": 8,
+    "text": "So how does the ground just... vanish?",
+    "style": "m",
+    "dur": 2.552,
+    "mos": 4.508,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s08.wav"
+   },
+   {
+    "i": 9,
+    "text": "Much of Florida sits on limestone, and rainwater slowly eats it away, leaving hidden caverns.",
+    "style": "s",
+    "dur": 5.795,
+    "mos": 4.499,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s09.wav"
+   },
+   {
+    "i": 10,
+    "text": "The soil above can hold... until suddenly, it can't.",
+    "style": "n",
+    "dur": 3.512,
+    "mos": 4.491,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s10.wav"
+   },
+   {
+    "i": 11,
+    "text": "Rescuers searched, but the ground was too unstable. Jeff's body was never recovered.",
+    "style": "m",
+    "dur": 4.984,
+    "mos": 4.51,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s11.wav"
+   },
+   {
+    "i": 12,
+    "text": "And here's the haunting part. That same sinkhole has opened up again. Twice.",
+    "style": "h",
+    "dur": 4.749,
+    "mos": 4.529,
+    "file": "public/yw4-vo-sinkhole/sinkhole/s12.wav"
+   }
+  ]
+ }
+}
