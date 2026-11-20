@@ -4,7 +4,8 @@
 # Each sentence gets a delivery style (expression strength + pacing); 3 takes per sentence, the best is chosen automatically by
 # UTMOS22 naturalness with a speaking-rate sanity check. Writes public/yw4-vo/<film>/sNN.wav (raw, 24 kHz), takes.json, timing.json.
 import subprocess, sys, os, textwrap, json
-OUT = 'public/yw4-vo'; os.makedirs(OUT, exist_ok=True)
+FILM = os.environ.get('YW_FILM', '')
+OUT = f'public/yw4-vo-{FILM}' if FILM else 'public/yw4-vo'; os.makedirs(OUT, exist_ok=True)
 PRESET = {'name': 'YunoWorld Narrator v1', 'engine': 'Chatterbox TTS (MIT)', 'reference': 'Kokoro-82M am_puck (synthetic)',
   'styles': {'c': [.55, .45, .8], 'u': [.72, .38, .85], 'n': [.42, .5, .75], 's': [.5, .26, .75], 'x': [.75, .42, .85], 'm': [.36, .34, .7], 'h': [.48, .28, .75]},
   'style_names': {'c': 'curious', 'u': 'urgent', 'n': 'setup', 's': 'suspense (slower)', 'x': 'excited reveal', 'm': 'somber', 'h': 'haunting'}}
@@ -23,6 +24,7 @@ gen = textwrap.dedent(r'''
 import json, os, re, numpy as np, torch, torchaudio as ta, librosa
 from chatterbox.tts import ChatterboxTTS
 P = json.load(open('OUT/narrator_preset.json')); D = json.load(open('scripts/yw-tts4/scripts.json'))
+if 'FILMSEL': D['lines'] = {k: v for k, v in D['lines'].items() if k == 'FILMSEL'}
 m = ChatterboxTTS.from_pretrained(device='cpu')
 for film, lines in D['lines'].items():
     os.makedirs(f'OUT/{film}/takes', exist_ok=True)
@@ -37,7 +39,9 @@ for film, lines in D['lines'].items():
 pick = textwrap.dedent(r'''
 import glob, json, os, re, shutil, numpy as np, librosa, soundfile as sf, torch
 pred = torch.hub.load('/tmp/SpeechMOS', 'utmos22_strong', source='local', trust_repo=True)
-D = json.load(open('scripts/yw-tts4/scripts.json')); timing = {'engine': 'Chatterbox TTS (MIT) + synthetic Kokoro am_puck reference', 'sr': 24000, 'films': {}}; takes = {}
+D = json.load(open('scripts/yw-tts4/scripts.json'))
+if 'FILMSEL': D['lines'] = {k: v for k, v in D['lines'].items() if k == 'FILMSEL'}
+timing = {'engine': 'Chatterbox TTS (MIT) + synthetic Kokoro am_puck reference', 'sr': 24000, 'films': {}}; takes = {}
 for film, lines in D['lines'].items():
     rows = []
     for i, text in enumerate(lines):
@@ -55,7 +59,7 @@ for film, lines in D['lines'].items():
     shutil.rmtree(f'OUT/{film}/takes')
 json.dump(timing, open('OUT/timing.json', 'w'), indent=1); json.dump(takes, open('OUT/takes.json', 'w'), indent=1)
 ''').replace('OUT', OUT)
-for n, s in [('kok', kok), ('gen', gen), ('pick', pick)]: open(f'/tmp/{n}.py', 'w').write(s)
+for n, s in [('kok', kok), ('gen', gen), ('pick', pick)]: open(f'/tmp/{n}.py', 'w').write(s.replace('FILMSEL', FILM))
 sh = r'''exec > >(tee -a OUT/log.txt) 2>&1
 set -x
 sudo apt-get install -y -qq espeak-ng >/dev/null

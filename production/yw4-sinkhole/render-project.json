@@ -1,0 +1,26 @@
+{
+ "composition": "YwSinkhole",
+ "artifactPrefix": "yw-bedroom-sinkhole",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil/fonts"
+ ],
+ "sourceDirectories": [
+  "src/brazil",
+  "src/ehz",
+  "src/ff2d",
+  "src/yw3/core.ts",
+  "src/yw4/sinkhole",
+  "src/yw4/ui.ts",
+  "src/yw4/cues.ts",
+  "src/yw4/Film.tsx"
+ ],
+ "soundtrack": "public/yw4-sinkhole-sound/bed.flac",
+ "soundtrackLUFS": -16,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "YunoWorld_Bedroom_Sinkhole.mp4"
+}
