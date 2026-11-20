@@ -13,7 +13,7 @@ const C = CUES.sinkhole;
 const HERO: Look = { outfit: 'hoodie', color: '#d8262b', pants: '#151515' };
 const JEREMY: Look = { outfit: 'jacket', color: '#5d6b78', pants: '#2b3a55', inner: '#d9d4c8', hairStyle: 'crop', hair: '#3a2a1a', beard: 'goatee', beardColor: '#3a2a1a' };
 const DEPUTY: Look = { outfit: 'uniform', color: '#3f5a3a', pants: '#3f5a3a', hat: 'officer', hair: '#2a2a2a', badge: true, radio: true };
-const CREW: Look = { outfit: 'coat', color: '#2a2f38', pants: '#2a2f38', hat: 'helmet', hiVis: true, hair: '#2a2a2a' };
+const CREW: Look = { outfit: 'coat', color: '#2a2f38', pants: '#2a2f38', hat: 'hardhat', hiVis: true, hair: '#2a2a2a' };
 const W = (s: SetName, v: V3): V3 => [v[0] + SET[s][0], v[1] + SET[s][1], v[2] + SET[s][2]];
 const cam = (s: SetName, pos: V3, look: V3, fov: number, o: Partial<Cam> = {}): Cam => ({ pos: W(s, pos), look: W(s, look), fov, ...o });
 const pose = (p: Partial<Pose>, t = 0, amt = 1, seed = 3): Pose => ({ ...STAND, ...idle(t, seed, amt), ...p });
