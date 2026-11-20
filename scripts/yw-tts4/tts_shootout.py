@@ -51,20 +51,20 @@ sh = r'''set -e
 sudo apt-get install -y -qq espeak-ng >/dev/null
 python3 -m pip install -q --user --break-system-packages uv || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
-uv venv -q -p 3.11 /tmp/k && uv pip install -q -p /tmp/k/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu && uv pip install -q -p /tmp/k/bin/python "kokoro>=0.9.4" soundfile librosa
+uv venv -q -p 3.11 /tmp/k && VIRTUAL_ENV=/tmp/k uv pip install -q --python /tmp/k/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu && VIRTUAL_ENV=/tmp/k uv pip install -q --python /tmp/k/bin/python "kokoro>=0.9.4" soundfile librosa
 /tmp/k/bin/python /tmp/kok.py
 # Piper (MIT engine; voices from rhasspy/piper-voices)
-uv venv -q -p 3.11 /tmp/p && uv pip install -q -p /tmp/p/bin/python piper-tts
+uv venv -q -p 3.11 /tmp/p && VIRTUAL_ENV=/tmp/p uv pip install -q --python /tmp/p/bin/python piper-tts
 for v in en_US/ryan/high/en_US-ryan-high en_US/joe/medium/en_US-joe-medium en_GB/alan/medium/en_GB-alan-medium; do b=$(basename $v)
   curl -sL -o /tmp/$b.onnx https://huggingface.co/rhasspy/piper-voices/resolve/main/$v.onnx; curl -sL -o /tmp/$b.onnx.json https://huggingface.co/rhasspy/piper-voices/resolve/main/$v.onnx.json
   i=0; while read -r line; do echo "$line" | /tmp/p/bin/piper -m /tmp/$b.onnx -f OUT/piper_${b}_$i.wav >/dev/null 2>&1 || echo "$line" | /tmp/p/bin/piper --model /tmp/$b.onnx --output_file OUT/piper_${b}_$i.wav; i=$((i+1)); done < <(cat /tmp/lines.txt; echo)
   echo piper $b; done
 # Chatterbox (Resemble AI, MIT)
-uv venv -q -p 3.11 /tmp/c && uv pip install -q -p /tmp/c/bin/python chatterbox-tts && (/tmp/c/bin/python /tmp/cbx.py || echo "chatterbox failed")
+uv venv -q -p 3.11 /tmp/c && VIRTUAL_ENV=/tmp/c uv pip install -q --python /tmp/c/bin/python chatterbox-tts && (/tmp/c/bin/python /tmp/cbx.py || echo "chatterbox failed")
 /tmp/k/bin/python /tmp/score.py
 '''.replace('OUT', OUT)
 r = subprocess.run(['bash', '-c', sh], text=True, capture_output=True)
-print(r.stdout[-3000:].replace('\n', '\nexported| '), flush=True)
+[print('exported| ' + ln) for ln in r.stdout.splitlines()[-60:]]
 if r.returncode != 0:
     for ln in (r.stdout + r.stderr).splitlines()[-40:]: print('Error: ' + ln)
     sys.exit(1)
