@@ -1,0 +1,446 @@
+{
+ "cbx-builtin-e065": {
+  "mos": [
+   4.466,
+   4.46,
+   4.463
+  ],
+  "range_st": [
+   8.16,
+   6.67,
+   8.46
+  ],
+  "std_st": [
+   3.05,
+   2.98,
+   3.8
+  ],
+  "wps": [
+   3.47,
+   2.51,
+   2.68
+  ],
+  "wer": [
+   0.077,
+   0.182,
+   0.0
+  ],
+  "heard": [
+   "This soldier kept fighting World War II for 29 years after it ended.",
+   "Lt. Inota, a panda and the abominable snowman, in that order.",
+   "After 29 years, Onoda finally lowered his rifle."
+  ],
+  "MOS": 4.463,
+  "RANGE_ST": 7.763,
+  "STD_ST": 3.277,
+  "WPS": 2.887,
+  "WER": 0.086
+ },
+ "cbx-fableref-e07": {
+  "mos": [
+   4.361,
+   4.318,
+   4.435
+  ],
+  "range_st": [
+   7.36,
+   8.94,
+   17.74
+  ],
+  "std_st": [
+   3.79,
+   3.45,
+   6.36
+  ],
+  "wps": [
+   3.81,
+   2.51,
+   2.47
+  ],
+  "wer": [
+   0.077,
+   0.182,
+   0.111
+  ],
+  "heard": [
+   "This soldier kept fighting World War II for 29 years after it ended.",
+   "Lt. Honada, a panda, and the abominable snowman in that order.",
+   "After 29 years, Onorda finally lowered his rifle."
+  ],
+  "MOS": 4.371,
+  "RANGE_ST": 11.347,
+  "STD_ST": 4.533,
+  "WPS": 2.93,
+  "WER": 0.123
+ },
+ "cbx-fenrirref-e07": {
+  "mos": [
+   4.447,
+   4.491,
+   4.462
+  ],
+  "range_st": [
+   9.49,
+   11.39,
+   14.3
+  ],
+  "std_st": [
+   3.77,
+   5.43,
+   5.34
+  ],
+  "wps": [
+   3.53,
+   2.06,
+   3.02
+  ],
+  "wer": [
+   0.077,
+   0.273,
+   0.0
+  ],
+  "heard": [
+   "This soldier kept fighting World War II for 29 years after it ended.",
+   "Lt. Onoda, Appanda, and the Abominable Snowman, in that order.",
+   "After 29 years, Onoda finally lowered his rifle."
+  ],
+  "MOS": 4.467,
+  "RANGE_ST": 11.727,
+  "STD_ST": 4.847,
+  "WPS": 2.87,
+  "WER": 0.117
+ },
+ "cbx-puckref-e05": {
+  "mos": [
+   4.482,
+   4.243,
+   4.445
+  ],
+  "range_st": [
+   6.01,
+   11.28,
+   6.06
+  ],
+  "std_st": [
+   2.57,
+   7.14,
+   2.88
+  ],
+  "wps": [
+   3.25,
+   2.34,
+   2.93
+  ],
+  "wer": [
+   0.077,
+   0.091,
+   0.0
+  ],
+  "heard": [
+   "This soldier kept fighting World War II for 29 years after it ended.",
+   "Lt. Onoda, a panda, and the abominable snowman.  In that order.",
+   "After 29 years, Onoda finally lowered his rifle."
+  ],
+  "MOS": 4.39,
+  "RANGE_ST": 7.783,
+  "STD_ST": 4.197,
+  "WPS": 2.84,
+  "WER": 0.056
+ },
+ "cbx-puckref-e07": {
+  "mos": [
+   4.475,
+   4.447,
+   4.025
+  ],
+  "range_st": [
+   7.68,
+   13.08,
+   8.28
+  ],
+  "std_st": [
+   3.43,
+   4.42,
+   3.76
+  ],
+  "wps": [
+   3.25,
+   2.71,
+   2.38
+  ],
+  "wer": [
+   0.077,
+   0.091,
+   0.0
+  ],
+  "heard": [
+   "This soldier kept fighting World War II for 29 years after it ended.",
+   "Lt. Onoda, a panda, and the abominable snowman, in that order.",
+   "After 29 years, Onoda finally lowered his rifle."
+  ],
+  "MOS": 4.316,
+  "RANGE_ST": 9.68,
+  "STD_ST": 3.87,
+  "WPS": 2.78,
+  "WER": 0.056
+ },
+ "cbx-puckref-e09": {
+  "mos": [
+   4.467,
+   4.488,
+   4.343
+  ],
+  "range_st": [
+   10.6,
+   9.16,
+   13.62
+  ],
+  "std_st": [
+   4.13,
+   3.84,
+   5.81
+  ],
+  "wps": [
+   3.39,
+   1.83,
+   2.68
+  ],
+  "wer": [
+   0.077,
+   0.091,
+   0.0
+  ],
+  "heard": [
+   "This soldier kept fighting World War II for 29 years after it ended.",
+   "Lt. Onoda, a panda, and the abominable snowman, in that order.",
+   "After 29 years, Onoda finally lowered his rifle."
+  ],
+  "MOS": 4.433,
+  "RANGE_ST": 11.127,
+  "STD_ST": 4.593,
+  "WPS": 2.633,
+  "WER": 0.056
+ },
+ "kokoro-am_fenrir": {
+  "mos": [
+   4.495,
+   4.329,
+   4.477
+  ],
+  "range_st": [
+   11.85,
+   9.88,
+   11.3
+  ],
+  "std_st": [
+   4.73,
+   4.78,
+   4.38
+  ],
+  "wps": [
+   2.84,
+   2.58,
+   2.76
+  ],
+  "wer": [
+   0.077,
+   0.091,
+   0.0
+  ],
+  "heard": [
+   "This soldier kept fighting World War II for 29 years after it ended.",
+   "Lt. Onoda, a panda and the abominable snowman, in that order.",
+   "After 29 years, Onoda finally lowered his rifle."
+  ],
+  "MOS": 4.434,
+  "RANGE_ST": 11.01,
+  "STD_ST": 4.63,
+  "WPS": 2.727,
+  "WER": 0.056
+ },
+ "kokoro-am_michael": {
+  "mos": [
+   4.413,
+   4.281,
+   4.338
+  ],
+  "range_st": [
+   7.83,
+   8.23,
+   7.65
+  ],
+  "std_st": [
+   2.92,
+   3.02,
+   3.02
+  ],
+  "wps": [
+   2.71,
+   2.42,
+   2.38
+  ],
+  "wer": [
+   0.077,
+   0.091,
+   0.0
+  ],
+  "heard": [
+   "This soldier kept fighting World War II for 29 years after it ended.",
+   "Lt. Onoda, a panda and the abominable snowman, in that order.",
+   "After 29 years, Onoda finally lowered his rifle."
+  ],
+  "MOS": 4.344,
+  "RANGE_ST": 7.903,
+  "STD_ST": 2.987,
+  "WPS": 2.503,
+  "WER": 0.056
+ },
+ "kokoro-am_puck": {
+  "mos": [
+   4.483,
+   4.407,
+   4.461
+  ],
+  "range_st": [
+   10.59,
+   7.29,
+   9.22
+  ],
+  "std_st": [
+   3.85,
+   3.63,
+   3.26
+  ],
+  "wps": [
+   2.99,
+   2.62,
+   2.9
+  ],
+  "wer": [
+   0.077,
+   0.091,
+   0.0
+  ],
+  "heard": [
+   "This soldier kept fighting World War II for 29 years after it ended.",
+   "Lt. Onoda, a panda, and the abominable snowman, in that order.",
+   "After 29 years, Onoda finally lowered his rifle."
+  ],
+  "MOS": 4.45,
+  "RANGE_ST": 9.033,
+  "STD_ST": 3.58,
+  "WPS": 2.837,
+  "WER": 0.056
+ },
+ "kokoro-bm_fable": {
+  "mos": [
+   4.387,
+   4.157,
+   4.357
+  ],
+  "range_st": [
+   17.2,
+   17.5,
+   17.94
+  ],
+  "std_st": [
+   5.64,
+   6.14,
+   6.22
+  ],
+  "wps": [
+   2.6,
+   2.18,
+   2.23
+  ],
+  "wer": [
+   0.077,
+   0.0,
+   0.0
+  ],
+  "heard": [
+   "This soldier kept fighting World War II for 29 years after it ended.",
+   "Lieutenant Onoda, a panda and the abominable snowman, in that order.",
+   "After 29 years, Onoda finally lowered his rifle."
+  ],
+  "MOS": 4.3,
+  "RANGE_ST": 17.547,
+  "STD_ST": 6.0,
+  "WPS": 2.337,
+  "WER": 0.026
+ },
+ "kokoro-bm_george": {
+  "mos": [
+   4.293,
+   4.066,
+   4.335
+  ],
+  "range_st": [
+   12.23,
+   11.7,
+   13.12
+  ],
+  "std_st": [
+   4.4,
+   4.4,
+   4.8
+  ],
+  "wps": [
+   2.6,
+   2.2,
+   2.31
+  ],
+  "wer": [
+   0.077,
+   0.0,
+   0.0
+  ],
+  "heard": [
+   "This soldier kept fighting World War II for 29 years after it ended.",
+   "Lieutenant Onoda, a panda and the abominable snowman, in that order.",
+   "After 29 years, Onoda finally lowered his rifle."
+  ],
+  "MOS": 4.231,
+  "RANGE_ST": 12.35,
+  "STD_ST": 4.533,
+  "WPS": 2.37,
+  "WER": 0.026
+ },
+ "piper-en_US-ryan-high": {
+  "mos": [
+   4.4,
+   4.417,
+   4.048
+  ],
+  "range_st": [
+   7.38,
+   9.74,
+   4.26
+  ],
+  "std_st": [
+   3.31,
+   3.7,
+   2.64
+  ],
+  "wps": [
+   3.59,
+   2.79,
+   3.27
+  ],
+  "wer": [
+   0.077,
+   0.182,
+   0.222
+  ],
+  "heard": [
+   "This soldier kept fighting World War II for 29 years after it ended.",
+   "Lieutenant Onoda, Epanda, and the Abominable Snowman, in that order.",
+   "after 29 years on ota finally lowered his rifle"
+  ],
+  "MOS": 4.288,
+  "RANGE_ST": 7.127,
+  "STD_ST": 3.217,
+  "WPS": 3.217,
+  "WER": 0.16
+ }
+}
