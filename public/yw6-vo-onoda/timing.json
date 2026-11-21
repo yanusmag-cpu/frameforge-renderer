@@ -1,0 +1,970 @@
+{
+ "engine": "Chatterbox TTS (MIT) + synthetic narrator reference (Kokoro am_fenrir)",
+ "films": {
+  "onoda": [
+   {
+    "i": 1,
+    "text": "This soldier kept fighting World War Two... for twenty-nine years after it ended.",
+    "style": "h",
+    "dur": 3.917,
+    "mos": 4.437,
+    "wer": 0.0,
+    "heard": "This soldier kept fighting World War II for 29 years after it ended.",
+    "words": [
+     [
+      -0.109,
+      0.211,
+      "This"
+     ],
+     [
+      0.211,
+      0.551,
+      "soldier"
+     ],
+     [
+      0.551,
+      0.771,
+      "kept"
+     ],
+     [
+      0.771,
+      1.091,
+      "fighting"
+     ],
+     [
+      1.091,
+      1.291,
+      "World"
+     ],
+     [
+      1.291,
+      1.511,
+      "War"
+     ],
+     [
+      1.511,
+      1.771,
+      "II"
+     ],
+     [
+      1.771,
+      2.051,
+      "for"
+     ],
+     [
+      2.051,
+      2.551,
+      "29"
+     ],
+     [
+      2.551,
+      2.871,
+      "years"
+     ],
+     [
+      2.871,
+      3.271,
+      "after"
+     ],
+     [
+      3.271,
+      3.431,
+      "it"
+     ],
+     [
+      3.431,
+      3.691,
+      "ended."
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s01.wav"
+   },
+   {
+    "i": 2,
+    "text": "In nineteen forty-four, Japan sent Lieutenant Hiroo Onoda to a jungle island in the Philippines.",
+    "style": "n",
+    "dur": 5.197,
+    "mos": 4.482,
+    "wer": 0.062,
+    "heard": "In 1944, Japan sent Lieutenant Hiru Onoda to a jungle island in the Philippines.",
+    "words": [
+     [
+      -0.131,
+      0.169,
+      "In"
+     ],
+     [
+      0.169,
+      0.849,
+      "1944,"
+     ],
+     [
+      1.329,
+      1.569,
+      "Japan"
+     ],
+     [
+      1.569,
+      1.909,
+      "sent"
+     ],
+     [
+      1.909,
+      2.329,
+      "Lieutenant"
+     ],
+     [
+      2.329,
+      2.789,
+      "Hiru"
+     ],
+     [
+      2.789,
+      3.169,
+      "Onoda"
+     ],
+     [
+      3.169,
+      3.449,
+      "to"
+     ],
+     [
+      3.449,
+      3.589,
+      "a"
+     ],
+     [
+      3.589,
+      3.829,
+      "jungle"
+     ],
+     [
+      3.829,
+      4.169,
+      "island"
+     ],
+     [
+      4.169,
+      4.369,
+      "in"
+     ],
+     [
+      4.369,
+      4.469,
+      "the"
+     ],
+     [
+      4.469,
+      4.829,
+      "Philippines."
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s02.wav"
+   },
+   {
+    "i": 3,
+    "text": "His orders? Hold out. And never surrender.",
+    "style": "s",
+    "dur": 3.149,
+    "mos": 4.461,
+    "wer": 0.0,
+    "heard": "His orders? Hold out and never surrender.",
+    "words": [
+     [
+      -0.173,
+      0.187,
+      "His"
+     ],
+     [
+      0.187,
+      0.507,
+      "orders?"
+     ],
+     [
+      1.107,
+      1.227,
+      "Hold"
+     ],
+     [
+      1.227,
+      1.507,
+      "out"
+     ],
+     [
+      1.507,
+      1.987,
+      "and"
+     ],
+     [
+      1.987,
+      2.307,
+      "never"
+     ],
+     [
+      2.307,
+      2.787,
+      "surrender."
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s03.wav"
+   },
+   {
+    "i": 4,
+    "text": "Then, leaflets fell from the sky. The war is over. Come out.",
+    "style": "s",
+    "dur": 3.725,
+    "mos": 4.489,
+    "wer": 0.0,
+    "heard": "Then, leaflets fell from the sky, the war is over, come out.",
+    "words": [
+     [
+      -0.024,
+      0.376,
+      "Then,"
+     ],
+     [
+      0.616,
+      0.836,
+      "leaflets"
+     ],
+     [
+      0.836,
+      1.136,
+      "fell"
+     ],
+     [
+      1.136,
+      1.336,
+      "from"
+     ],
+     [
+      1.336,
+      1.476,
+      "the"
+     ],
+     [
+      1.476,
+      1.776,
+      "sky,"
+     ],
+     [
+      2.096,
+      2.216,
+      "the"
+     ],
+     [
+      2.216,
+      2.436,
+      "war"
+     ],
+     [
+      2.436,
+      2.556,
+      "is"
+     ],
+     [
+      2.556,
+      2.896,
+      "over,"
+     ],
+     [
+      3.136,
+      3.256,
+      "come"
+     ],
+     [
+      3.256,
+      3.556,
+      "out."
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s04.wav"
+   },
+   {
+    "i": 5,
+    "text": "He was sure it was an enemy trick.",
+    "style": "x",
+    "dur": 1.891,
+    "mos": 4.314,
+    "wer": 0.0,
+    "heard": "He was sure it was an enemy trick.",
+    "words": [
+     [
+      -0.109,
+      0.211,
+      "He"
+     ],
+     [
+      0.211,
+      0.391,
+      "was"
+     ],
+     [
+      0.391,
+      0.711,
+      "sure"
+     ],
+     [
+      0.711,
+      0.871,
+      "it"
+     ],
+     [
+      0.871,
+      0.991,
+      "was"
+     ],
+     [
+      0.991,
+      1.131,
+      "an"
+     ],
+     [
+      1.131,
+      1.351,
+      "enemy"
+     ],
+     [
+      1.351,
+      1.651,
+      "trick."
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s05.wav"
+   },
+   {
+    "i": 6,
+    "text": "So he stayed. Patching his uniform, cleaning his rifle, raiding farms for food...",
+    "style": "n",
+    "dur": 5.069,
+    "mos": 4.504,
+    "wer": 0.0,
+    "heard": "so he stayed. Patching his uniform, cleaning his rifle, raiding farms for food,",
+    "words": [
+     [
+      -0.109,
+      0.231,
+      "so"
+     ],
+     [
+      0.231,
+      0.371,
+      "he"
+     ],
+     [
+      0.371,
+      0.671,
+      "stayed."
+     ],
+     [
+      1.531,
+      1.771,
+      "Patching"
+     ],
+     [
+      1.771,
+      1.871,
+      "his"
+     ],
+     [
+      1.871,
+      2.331,
+      "uniform,"
+     ],
+     [
+      2.611,
+      2.791,
+      "cleaning"
+     ],
+     [
+      2.791,
+      3.031,
+      "his"
+     ],
+     [
+      3.031,
+      3.371,
+      "rifle,"
+     ],
+     [
+      3.951,
+      3.951,
+      "raiding"
+     ],
+     [
+      3.951,
+      4.311,
+      "farms"
+     ],
+     [
+      4.311,
+      4.571,
+      "for"
+     ],
+     [
+      4.571,
+      4.831,
+      "food,"
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s06.wav"
+   },
+   {
+    "i": 7,
+    "text": "for a war that no longer existed. His raids even cost lives on the island.",
+    "style": "m",
+    "dur": 4.365,
+    "mos": 4.492,
+    "wer": 0.0,
+    "heard": "for a war that no longer existed.  His raids even cost lives on the island.",
+    "words": [
+     [
+      -0.088,
+      0.192,
+      "for"
+     ],
+     [
+      0.192,
+      0.352,
+      "a"
+     ],
+     [
+      0.352,
+      0.592,
+      "war"
+     ],
+     [
+      0.592,
+      0.812,
+      "that"
+     ],
+     [
+      0.812,
+      1.032,
+      "no"
+     ],
+     [
+      1.032,
+      1.332,
+      "longer"
+     ],
+     [
+      1.332,
+      1.872,
+      "existed."
+     ],
+     [
+      2.172,
+      2.292,
+      "His"
+     ],
+     [
+      2.292,
+      2.612,
+      "raids"
+     ],
+     [
+      2.612,
+      2.832,
+      "even"
+     ],
+     [
+      2.832,
+      3.112,
+      "cost"
+     ],
+     [
+      3.112,
+      3.492,
+      "lives"
+     ],
+     [
+      3.492,
+      3.712,
+      "on"
+     ],
+     [
+      3.712,
+      3.812,
+      "the"
+     ],
+     [
+      3.812,
+      4.072,
+      "island."
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s07.wav"
+   },
+   {
+    "i": 8,
+    "text": "Then, in nineteen seventy-four, a young traveller came looking for three things.",
+    "style": "n",
+    "dur": 4.344,
+    "mos": 4.498,
+    "wer": 0.077,
+    "heard": "Then, in 1974, a young traveler came looking for three things.",
+    "words": [
+     [
+      -0.088,
+      0.372,
+      "Then,"
+     ],
+     [
+      0.712,
+      0.932,
+      "in"
+     ],
+     [
+      0.932,
+      1.732,
+      "1974,"
+     ],
+     [
+      2.152,
+      2.192,
+      "a"
+     ],
+     [
+      2.192,
+      2.392,
+      "young"
+     ],
+     [
+      2.392,
+      2.752,
+      "traveler"
+     ],
+     [
+      2.752,
+      3.032,
+      "came"
+     ],
+     [
+      3.032,
+      3.272,
+      "looking"
+     ],
+     [
+      3.272,
+      3.512,
+      "for"
+     ],
+     [
+      3.512,
+      3.732,
+      "three"
+     ],
+     [
+      3.732,
+      4.092,
+      "things."
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s08.wav"
+   },
+   {
+    "i": 9,
+    "text": "Lieutenant Onoda, a panda, and the Abominable Snowman. In that order.",
+    "style": "f",
+    "dur": 4.813,
+    "mos": 4.422,
+    "wer": 0.0,
+    "heard": "Lt. Onoda, a panda and the abominable snowman. In that order,",
+    "words": [
+     [
+      -0.152,
+      0.368,
+      "Lt."
+     ],
+     [
+      0.628,
+      0.928,
+      "Onoda,"
+     ],
+     [
+      1.228,
+      1.288,
+      "a"
+     ],
+     [
+      1.288,
+      1.648,
+      "panda"
+     ],
+     [
+      1.648,
+      2.008,
+      "and"
+     ],
+     [
+      2.008,
+      2.128,
+      "the"
+     ],
+     [
+      2.128,
+      2.848,
+      "abominable"
+     ],
+     [
+      2.848,
+      3.408,
+      "snowman."
+     ],
+     [
+      3.788,
+      3.948,
+      "In"
+     ],
+     [
+      3.948,
+      4.268,
+      "that"
+     ],
+     [
+      4.268,
+      4.608,
+      "order,"
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s09.wav"
+   },
+   {
+    "i": 10,
+    "text": "He found Onoda in four days. But Onoda still refused to quit.",
+    "style": "x",
+    "dur": 4.173,
+    "mos": 4.412,
+    "wer": 0.0,
+    "heard": "He found Onoda in four days, but Onoda still refused to quit.",
+    "words": [
+     [
+      -0.045,
+      0.215,
+      "He"
+     ],
+     [
+      0.215,
+      0.535,
+      "found"
+     ],
+     [
+      0.535,
+      0.935,
+      "Onoda"
+     ],
+     [
+      0.935,
+      1.195,
+      "in"
+     ],
+     [
+      1.195,
+      1.435,
+      "four"
+     ],
+     [
+      1.435,
+      1.815,
+      "days,"
+     ],
+     [
+      2.155,
+      2.255,
+      "but"
+     ],
+     [
+      2.255,
+      2.655,
+      "Onoda"
+     ],
+     [
+      2.655,
+      2.995,
+      "still"
+     ],
+     [
+      2.995,
+      3.395,
+      "refused"
+     ],
+     [
+      3.395,
+      3.675,
+      "to"
+     ],
+     [
+      3.675,
+      3.875,
+      "quit."
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s10.wav"
+   },
+   {
+    "i": 11,
+    "text": "He'd only stop on an order from his commanding officer.",
+    "style": "s",
+    "dur": 2.787,
+    "mos": 4.428,
+    "wer": 0.0,
+    "heard": "He'd only stop on an order from his commanding officer.",
+    "words": [
+     [
+      -0.088,
+      0.292,
+      "He'd"
+     ],
+     [
+      0.292,
+      0.552,
+      "only"
+     ],
+     [
+      0.552,
+      0.912,
+      "stop"
+     ],
+     [
+      0.912,
+      1.072,
+      "on"
+     ],
+     [
+      1.072,
+      1.192,
+      "an"
+     ],
+     [
+      1.192,
+      1.412,
+      "order"
+     ],
+     [
+      1.412,
+      1.612,
+      "from"
+     ],
+     [
+      1.612,
+      1.732,
+      "his"
+     ],
+     [
+      1.732,
+      2.052,
+      "commanding"
+     ],
+     [
+      2.052,
+      2.492,
+      "officer."
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s11.wav"
+   },
+   {
+    "i": 12,
+    "text": "So they found his old major, now a bookseller, and flew him to the island.",
+    "style": "n",
+    "dur": 4.387,
+    "mos": 4.493,
+    "wer": 0.0,
+    "heard": "So, they found his old major, now a bookseller, and flew him to the island.",
+    "words": [
+     [
+      -0.152,
+      0.288,
+      "So,"
+     ],
+     [
+      0.588,
+      0.688,
+      "they"
+     ],
+     [
+      0.688,
+      0.888,
+      "found"
+     ],
+     [
+      0.888,
+      1.068,
+      "his"
+     ],
+     [
+      1.068,
+      1.368,
+      "old"
+     ],
+     [
+      1.368,
+      1.708,
+      "major,"
+     ],
+     [
+      2.008,
+      2.108,
+      "now"
+     ],
+     [
+      2.108,
+      2.248,
+      "a"
+     ],
+     [
+      2.248,
+      2.648,
+      "bookseller,"
+     ],
+     [
+      3.048,
+      3.108,
+      "and"
+     ],
+     [
+      3.108,
+      3.408,
+      "flew"
+     ],
+     [
+      3.408,
+      3.608,
+      "him"
+     ],
+     [
+      3.608,
+      3.748,
+      "to"
+     ],
+     [
+      3.748,
+      3.848,
+      "the"
+     ],
+     [
+      3.848,
+      4.148,
+      "island."
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s12.wav"
+   },
+   {
+    "i": 13,
+    "text": "And on March ninth, he read the order out loud.",
+    "style": "s",
+    "dur": 2.68,
+    "mos": 4.468,
+    "wer": 0.111,
+    "heard": "And on March 9, he read the order out loud.",
+    "words": [
+     [
+      -0.173,
+      0.147,
+      "And"
+     ],
+     [
+      0.147,
+      0.287,
+      "on"
+     ],
+     [
+      0.287,
+      0.487,
+      "March"
+     ],
+     [
+      0.487,
+      0.907,
+      "9,"
+     ],
+     [
+      1.167,
+      1.287,
+      "he"
+     ],
+     [
+      1.287,
+      1.467,
+      "read"
+     ],
+     [
+      1.467,
+      1.627,
+      "the"
+     ],
+     [
+      1.627,
+      1.867,
+      "order"
+     ],
+     [
+      1.867,
+      2.127,
+      "out"
+     ],
+     [
+      2.127,
+      2.407,
+      "loud."
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s13.wav"
+   },
+   {
+    "i": 14,
+    "text": "After twenty-nine years... Onoda finally lowered his rifle.",
+    "style": "m",
+    "dur": 3.32,
+    "mos": 4.468,
+    "wer": 0.0,
+    "heard": "After 29 years, Onoda finally lowered his rifle.",
+    "words": [
+     [
+      -0.088,
+      0.312,
+      "After"
+     ],
+     [
+      0.312,
+      0.752,
+      "29"
+     ],
+     [
+      0.752,
+      1.132,
+      "years,"
+     ],
+     [
+      1.452,
+      1.712,
+      "Onoda"
+     ],
+     [
+      1.712,
+      2.152,
+      "finally"
+     ],
+     [
+      2.152,
+      2.532,
+      "lowered"
+     ],
+     [
+      2.532,
+      2.732,
+      "his"
+     ],
+     [
+      2.732,
+      3.032,
+      "rifle."
+     ]
+    ],
+    "file": "public/yw6-vo-onoda/s14.wav"
+   }
+  ]
+ }
+}
