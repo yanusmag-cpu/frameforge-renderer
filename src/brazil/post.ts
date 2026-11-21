@@ -12,7 +12,7 @@ function rt(w: number, h: number, samples = 0, depth = false) {
 }
 const bright = new T.ShaderMaterial({ uniforms: { t: { value: null }, th: { value: 1.0 }, knee: { value: .6 } }, vertexShader: VS,
   fragmentShader: `uniform sampler2D t; uniform float th, knee; varying vec2 vUv;
-  void main(){ vec3 c = texture2D(t, vUv).rgb; float l = max(c.r, max(c.g, c.b)); float s = clamp(l - th + knee, 0., 2. * knee); s = s * s / (4. * knee + 1e-4);
+  void main(){ vec3 c = texture2D(t, vUv).rgb; c = (c.r == c.r && c.g == c.g && c.b == c.b) ? min(c, vec3(64.)) : vec3(0.); float l = max(c.r, max(c.g, c.b)); float s = clamp(l - th + knee, 0., 2. * knee); s = s * s / (4. * knee + 1e-4);
   gl_FragColor = vec4(c * max(s, l - th) / max(l, 1e-4), 1.); }` });
 const blur = new T.ShaderMaterial({ uniforms: { t: { value: null }, d: { value: new T.Vector2() } }, vertexShader: VS,
   fragmentShader: `uniform sampler2D t; uniform vec2 d; varying vec2 vUv;
@@ -41,7 +41,7 @@ const final = new T.ShaderMaterial({
   vec3 aces(vec3 x){ return clamp((x * (2.51 * x + .03)) / (x * (2.43 * x + .59) + .14), 0., 1.); }
   float h(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233)) + seed) * 43758.5453); }
   vec3 scene(vec2 uv){
-    vec2 o = (uv - .5) * ca; vec3 c = vec3(texture2D(tS, uv + o).r, texture2D(tS, uv).g, texture2D(tS, uv - o).b);
+    vec2 o = (uv - .5) * ca; vec3 c = vec3(texture2D(tS, uv + o).r, texture2D(tS, uv).g, texture2D(tS, uv - o).b); c = (c.r == c.r && c.g == c.g && c.b == c.b) ? min(c, vec3(64.)) : vec3(0.);
     if (aperture > 0.) { float z = lin(texture2D(tD, uv).r); float coc = clamp(abs(z - focus) / max(z, .01) * aperture, 0., 1.); c = mix(c, texture2D(tSoft, uv).rgb, smoothstep(.0, .6, coc)); }
     return c; }
   void main(){

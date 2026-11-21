@@ -29,8 +29,8 @@ export class LightEngine extends Core {
         'vec2 D[4]; D[0] = normalize(vec2(1.,.3)); D[1] = normalize(vec2(.6,1.)); D[2] = normalize(vec2(-.4,1.)); D[3] = normalize(vec2(1.,-.7)); float L[4]; L[0] = 38.; L[1] = 21.; L[2] = 11.; L[3] = 6.;' +
         'for(int i=0;i<4;i++){ float k = 6.283/L[i]; float w = sqrt(9.8*k); float ph = k*dot(D[i], p.xz) - w*t; float A = a * L[i]/38. * (i==0 ? 1. : .6); p.xz += D[i] * A * .6 * cos(ph); p.y += A * sin(ph); f += sin(ph); }' +
         'vF = f; vW = p; gl_Position = projectionMatrix * viewMatrix * vec4(p,1.); }',
-      fragmentShader: 'uniform float t, storm, night, fogD; uniform vec3 fogC; varying vec3 vW; varying float vF; ' + GLSL_N + ' void main(){ vec3 nx = normalize(cross(dFdx(vW), dFdy(vW))); if (nx.y < 0.) nx = -nx; vec3 V = normalize(cameraPosition - vW);' +
-        'float fr = pow(1. - max(dot(nx, V), 0.), 4.); vec3 deep = mix(vec3(.05,.16,.24), vec3(.02,.04,.07), night); vec3 skyc = mix(vec3(.55,.66,.78), vec3(.08,.1,.16), night); skyc = mix(skyc, vec3(.25,.27,.3) * (1. - night * .6), storm * .6);' +
+      fragmentShader: 'uniform float t, storm, night, fogD; uniform vec3 fogC; varying vec3 vW; varying float vF; ' + GLSL_N + ' void main(){ vec3 cx0 = cross(dFdx(vW), dFdy(vW)); vec3 nx = dot(cx0, cx0) > 1e-14 ? normalize(cx0) : vec3(0., 1., 0.); if (nx.y < 0.) nx = -nx; vec3 V = normalize(cameraPosition - vW);' +
+        'float fr = pow(clamp(1. - max(dot(nx, V), 0.), 0., 1.), 4.); vec3 deep = mix(vec3(.05,.16,.24), vec3(.02,.04,.07), night); vec3 skyc = mix(vec3(.55,.66,.78), vec3(.08,.1,.16), night); skyc = mix(skyc, vec3(.25,.27,.3) * (1. - night * .6), storm * .6);' +
         'vec3 c = mix(deep, skyc, .15 + fr * .7); float foam = smoothstep(1.9 - storm * .6, 2.8 - storm * .5, vF + fb(vW.xz * .15 + t * .05) * 1.2) * (.2 + storm * .6); c = mix(c, vec3(.85,.88,.9) * (1. - night * .65), clamp(foam, 0., 1.));' +
         'float d = length(cameraPosition - vW); c = mix(c, fogC, 1. - exp(-fogD * fogD * d * d)); gl_FragColor = vec4(c, 1.); }', extensions: { derivatives: true } as never }));
     sea.position.y = -.4; G.add(sea);
@@ -65,7 +65,7 @@ export class LightEngine extends Core {
     // ---- the Fresnel lens (first order ≈1.84 m Ø) at LENS ----
     const glass = new T.MeshStandardMaterial({ color: '#b8d8d8', transparent: true, opacity: .26, roughness: .04, metalness: .3, envMapIntensity: 1.3, emissive: '#ffd8a0', emissiveIntensity: 0, depthWrite: false, side: T.DoubleSide });
     this.lensF.position.set(...LENS); G.add(this.lensF);
-    const ring = (r0: number, y: number, hgt: number, out: number) => new T.LatheGeometry([new T.Vector2(r0, y), new T.Vector2(r0 + out, y + hgt * .5), new T.Vector2(r0, y + hgt), new T.Vector2(r0, y)], 40);
+    const ring = (r0: number, y: number, hgt: number, out: number) => new T.LatheGeometry([new T.Vector2(r0, y), new T.Vector2(r0 + out, y + hgt * .5), new T.Vector2(r0, y + hgt)], 40);
     for (let k = 0; k < 7; k++) { const m = new T.Mesh(ring(.9 - k * .05, .55 + k * .17, .15, .1), glass); this.lensF.add(m); const m2 = new T.Mesh(ring(.9 - k * .05, -.7 - k * .17, .15, .1), glass); this.lensF.add(m2); }
     for (let p = 0; p < 8; p++) { const a = p / 8 * Math.PI * 2; const pan = new T.Group(); pan.position.set(Math.cos(a) * .92, 0, Math.sin(a) * .92); pan.lookAt(0, 0, 0); this.lensF.add(pan);
       for (let k = 0; k < 6; k++) { const tr = new T.Mesh(new T.TorusGeometry(.08 + k * .075, .03, 6, 40), glass); pan.add(tr); } const cen = new T.Mesh(new T.CircleGeometry(.07, 24), glass); pan.add(cen); }
