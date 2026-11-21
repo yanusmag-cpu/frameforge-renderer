@@ -1,0 +1,682 @@
+{
+ "1": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s01_t0.wav",
+   "heard": "Why would anyone lock a grave inside an iron cage?",
+   "wer": 0.0,
+   "mos": 4.491,
+   "range_st": 9.1,
+   "dur": 3.861
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s01_t1.wav",
+   "heard": "Why would anyone lock a grave inside an iron cage?",
+   "wer": 0.0,
+   "mos": 4.26,
+   "range_st": 11.56,
+   "dur": 3.008
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s01_t2.wav",
+   "heard": "Why would anyone lock a grave inside an iron cage?",
+   "wer": 0.0,
+   "mos": 4.467,
+   "range_st": 10.81,
+   "dur": 3.115
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s01_t3.wav",
+   "heard": "Why would anyone lock a grave inside an iron cage?",
+   "wer": 0.0,
+   "mos": 4.472,
+   "range_st": 13.8,
+   "dur": 3.243
+  }
+ ],
+ "2": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s02_t0.wav",
+   "heard": "It wasn't built to keep something in.",
+   "wer": 0.0,
+   "mos": 4.376,
+   "range_st": 6.74,
+   "dur": 1.813
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s02_t1.wav",
+   "heard": "It wasn't built to keep something in.",
+   "wer": 0.0,
+   "mos": 4.288,
+   "range_st": 13.29,
+   "dur": 1.749
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s02_t2.wav",
+   "heard": "It wasn't built to keep something in.",
+   "wer": 0.0,
+   "mos": 3.762,
+   "range_st": 7.3,
+   "dur": 1.621
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s02_t3.wav",
+   "heard": "It wasn't built to keep something in.",
+   "wer": 0.0,
+   "mos": 3.907,
+   "range_st": 15.06,
+   "dur": 1.173
+  }
+ ],
+ "3": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s03_t0.wav",
+   "heard": "It was built to keep people out.",
+   "wer": 0.0,
+   "mos": 4.372,
+   "range_st": 10.53,
+   "dur": 2.027
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s03_t1.wav",
+   "heard": "It was built to keep people out.",
+   "wer": 0.0,
+   "mos": 4.362,
+   "range_st": 10.4,
+   "dur": 1.728
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s03_t2.wav",
+   "heard": "It was built to keep people out.",
+   "wer": 0.0,
+   "mos": 4.058,
+   "range_st": 4.38,
+   "dur": 1.451
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s03_t3.wav",
+   "heard": "It was built to keep people out.",
+   "wer": 0.0,
+   "mos": 4.368,
+   "range_st": 10.2,
+   "dur": 1.813
+  }
+ ],
+ "4": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s04_t0.wav",
+   "heard": "Scotland, the early 1800s",
+   "wer": 0.6,
+   "mos": 4.35,
+   "range_st": 12.36,
+   "dur": 2.091
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s04_t1.wav",
+   "heard": "Scotland, the early 1800s.",
+   "wer": 0.6,
+   "mos": 4.307,
+   "range_st": 6.68,
+   "dur": 2.112
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s04_t2.wav",
+   "heard": "Scotland, the early 1800s, so...",
+   "wer": 0.8,
+   "mos": 4.406,
+   "range_st": 7.66,
+   "dur": 2.411
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s04_t3.wav",
+   "heard": "Scotland, the early 1800s",
+   "wer": 0.6,
+   "mos": 4.398,
+   "range_st": 8.75,
+   "dur": 2.112
+  }
+ ],
+ "5": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s05_t0.wav",
+   "heard": "Medical schools needed bodies to study anatomy.",
+   "wer": 0.0,
+   "mos": 4.449,
+   "range_st": 9.18,
+   "dur": 3.008
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s05_t1.wav",
+   "heard": "medical schools needed bodies to study anatomy.",
+   "wer": 0.0,
+   "mos": 4.374,
+   "range_st": 7.06,
+   "dur": 2.56
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s05_t2.wav",
+   "heard": "Medical schools needed bodies to study anatomy.",
+   "wer": 0.0,
+   "mos": 4.451,
+   "range_st": 11.4,
+   "dur": 2.688
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s05_t3.wav",
+   "heard": "Medical schools needed bodies to study anatomy,",
+   "wer": 0.0,
+   "mos": 4.324,
+   "range_st": 7.37,
+   "dur": 2.261
+  }
+ ],
+ "6": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s06_t0.wav",
+   "heard": "But almost the only legal supply was executed criminals.",
+   "wer": 0.0,
+   "mos": 4.44,
+   "range_st": 15.7,
+   "dur": 3.307
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s06_t1.wav",
+   "heard": "But almost the only legal supply was executed criminals.",
+   "wer": 0.0,
+   "mos": 3.881,
+   "range_st": 12.98,
+   "dur": 2.901
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s06_t2.wav",
+   "heard": "But almost the only legal supply was executed criminals.",
+   "wer": 0.0,
+   "mos": 4.333,
+   "range_st": 5.5,
+   "dur": 3.008
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s06_t3.wav",
+   "heard": "but almost the only legal supply was executed criminals.",
+   "wer": 0.0,
+   "mos": 4.326,
+   "range_st": 10.0,
+   "dur": 3.2
+  }
+ ],
+ "7": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s07_t0.wav",
+   "heard": "So gangs crept into graveyards at night.",
+   "wer": 0.0,
+   "mos": 4.394,
+   "range_st": 10.05,
+   "dur": 2.475
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s07_t1.wav",
+   "heard": "So gangs crept into graveyards at night.",
+   "wer": 0.0,
+   "mos": 4.47,
+   "range_st": 13.5,
+   "dur": 2.432
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s07_t2.wav",
+   "heard": "So gangs crept into graveyards at night.",
+   "wer": 0.0,
+   "mos": 3.956,
+   "range_st": 14.83,
+   "dur": 2.603
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s07_t3.wav",
+   "heard": "so gangs crept into graveyards at night.",
+   "wer": 0.0,
+   "mos": 4.34,
+   "range_st": 7.55,
+   "dur": 2.24
+  }
+ ],
+ "8": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s08_t0.wav",
+   "heard": "DUG UP FRESH COFFINS",
+   "wer": 0.0,
+   "mos": 4.412,
+   "range_st": 7.53,
+   "dur": 1.472
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s08_t1.wav",
+   "heard": "Dug up fresh coffins",
+   "wer": 0.0,
+   "mos": 4.276,
+   "range_st": 7.02,
+   "dur": 1.899
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s08_t2.wav",
+   "heard": "DUG UP FRESH COFFINS",
+   "wer": 0.0,
+   "mos": 4.264,
+   "range_st": 7.61,
+   "dur": 1.429
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s08_t3.wav",
+   "heard": "Dug up fresh coffins.",
+   "wer": 0.0,
+   "mos": 4.281,
+   "range_st": 2.66,
+   "dur": 1.237
+  }
+ ],
+ "9": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s09_t0.wav",
+   "heard": "and sold the bodies to surgeons.",
+   "wer": 0.0,
+   "mos": 4.461,
+   "range_st": 5.24,
+   "dur": 2.091
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s09_t1.wav",
+   "heard": "and sold the bodies to surgeons?",
+   "wer": 0.0,
+   "mos": 4.315,
+   "range_st": 20.24,
+   "dur": 2.219
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s09_t2.wav",
+   "heard": "and sold the bodies to surgeons.",
+   "wer": 0.0,
+   "mos": 4.371,
+   "range_st": 15.06,
+   "dur": 2.517
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s09_t3.wav",
+   "heard": "and sold the bodies to surgeons.",
+   "wer": 0.0,
+   "mos": 4.399,
+   "range_st": 18.95,
+   "dur": 2.176
+  }
+ ],
+ "10": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s10_t0.wav",
+   "heard": "People called them resurrection men.",
+   "wer": 0.0,
+   "mos": 4.392,
+   "range_st": 10.01,
+   "dur": 1.984
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s10_t1.wav",
+   "heard": "People called them resurrection men.",
+   "wer": 0.0,
+   "mos": 4.364,
+   "range_st": 9.18,
+   "dur": 1.792
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s10_t2.wav",
+   "heard": "People called them resurrection men.",
+   "wer": 0.0,
+   "mos": 4.462,
+   "range_st": 10.57,
+   "dur": 2.581
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s10_t3.wav",
+   "heard": "People called them resurrection men.",
+   "wer": 0.0,
+   "mos": 4.43,
+   "range_st": 8.29,
+   "dur": 2.176
+  }
+ ],
+ "11": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s11_t0.wav",
+   "heard": "Families were terrified.",
+   "wer": 0.0,
+   "mos": 4.003,
+   "range_st": 3.62,
+   "dur": 1.515
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s11_t1.wav",
+   "heard": "Families were terrified.",
+   "wer": 0.0,
+   "mos": 4.337,
+   "range_st": 4.28,
+   "dur": 1.344
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s11_t2.wav",
+   "heard": "families were terrified.",
+   "wer": 0.0,
+   "mos": 4.372,
+   "range_st": 0.85,
+   "dur": 1.835
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s11_t3.wav",
+   "heard": "Families were terrified.",
+   "wer": 0.0,
+   "mos": 4.396,
+   "range_st": 5.54,
+   "dur": 1.451
+  }
+ ],
+ "12": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s12_t0.wav",
+   "heard": "so they bolted a heavy iron cage over the grave.",
+   "wer": 0.0,
+   "mos": 4.415,
+   "range_st": 11.89,
+   "dur": 2.923
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s12_t1.wav",
+   "heard": "So, they bolted a heavy iron cage over the grave.",
+   "wer": 0.0,
+   "mos": 4.013,
+   "range_st": 12.09,
+   "dur": 3.883
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s12_t2.wav",
+   "heard": "so they bolted a heavy iron cage over the grave.",
+   "wer": 0.0,
+   "mos": 4.384,
+   "range_st": 11.04,
+   "dur": 2.816
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s12_t3.wav",
+   "heard": "So they bolted a heavy iron cage over the grave.",
+   "wer": 0.0,
+   "mos": 4.379,
+   "range_st": 14.67,
+   "dur": 3.221
+  }
+ ],
+ "13": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s13_t0.wav",
+   "heard": "Some weighed around a ton!",
+   "wer": 0.0,
+   "mos": 4.246,
+   "range_st": 5.0,
+   "dur": 1.579
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s13_t1.wav",
+   "heard": "Some weighed around a ton.",
+   "wer": 0.0,
+   "mos": 3.648,
+   "range_st": 23.54,
+   "dur": 2.411
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s13_t2.wav",
+   "heard": "Some weighed around a ton.",
+   "wer": 0.0,
+   "mos": 4.368,
+   "range_st": 9.0,
+   "dur": 2.389
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s13_t3.wav",
+   "heard": "Some weighed around a ton!",
+   "wer": 0.0,
+   "mos": 3.892,
+   "range_st": 0.93,
+   "dur": 2.325
+  }
+ ],
+ "14": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s14_t0.wav",
+   "heard": "and it only had to stay for about six weeks.",
+   "wer": 0.0,
+   "mos": 4.321,
+   "range_st": 8.05,
+   "dur": 2.283
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s14_t1.wav",
+   "heard": "and it only had to stay for about six weeks.",
+   "wer": 0.0,
+   "mos": 4.421,
+   "range_st": 9.47,
+   "dur": 2.261
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s14_t2.wav",
+   "heard": "And it only had to stay for about six weeks.",
+   "wer": 0.0,
+   "mos": 4.414,
+   "range_st": 9.1,
+   "dur": 2.453
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s14_t3.wav",
+   "heard": "and it only had to stay for about six weeks.",
+   "wer": 0.0,
+   "mos": 4.445,
+   "range_st": 12.59,
+   "dur": 2.731
+  }
+ ],
+ "15": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s15_t0.wav",
+   "heard": "until the body was no use to any surgeon.",
+   "wer": 0.0,
+   "mos": 4.444,
+   "range_st": 8.6,
+   "dur": 2.091
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s15_t1.wav",
+   "heard": "until the body was no use to any surgeon.",
+   "wer": 0.0,
+   "mos": 4.45,
+   "range_st": 9.39,
+   "dur": 2.219
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s15_t2.wav",
+   "heard": "until the body was no use to any surgeon.",
+   "wer": 0.0,
+   "mos": 4.471,
+   "range_st": 11.48,
+   "dur": 2.261
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s15_t3.wav",
+   "heard": "until the body was no use to any surgeon.",
+   "wer": 0.0,
+   "mos": 4.457,
+   "range_st": 12.45,
+   "dur": 2.539
+  }
+ ],
+ "16": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s16_t0.wav",
+   "heard": "Then it was lifted off and moved to the next new grave.",
+   "wer": 0.0,
+   "mos": 4.451,
+   "range_st": 11.44,
+   "dur": 3.136
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s16_t1.wav",
+   "heard": "Then it was lifted off and moved to the next new grave.",
+   "wer": 0.0,
+   "mos": 4.072,
+   "range_st": 5.96,
+   "dur": 2.645
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s16_t2.wav",
+   "heard": "Then it was lifted off and moved to the next new grave.",
+   "wer": 0.0,
+   "mos": 4.398,
+   "range_st": 10.59,
+   "dur": 2.581
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s16_t3.wav",
+   "heard": "Then it was lifted off and moved to the next new grave.",
+   "wer": 0.0,
+   "mos": 4.425,
+   "range_st": 10.59,
+   "dur": 3.328
+  }
+ ],
+ "17": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s17_t0.wav",
+   "heard": "Many were even rented out by the day.",
+   "wer": 0.0,
+   "mos": 4.238,
+   "range_st": 3.84,
+   "dur": 1.941
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s17_t1.wav",
+   "heard": "Many were even rented out by the day!",
+   "wer": 0.0,
+   "mos": 4.112,
+   "range_st": 12.4,
+   "dur": 2.304
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s17_t2.wav",
+   "heard": "Many were even rented out by the day!",
+   "wer": 0.0,
+   "mos": 4.131,
+   "range_st": 11.47,
+   "dur": 2.859
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s17_t3.wav",
+   "heard": "Many were even rented out by the day.",
+   "wer": 0.0,
+   "mos": 4.376,
+   "range_st": 9.57,
+   "dur": 2.688
+  }
+ ],
+ "18": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s18_t0.wav",
+   "heard": "In 1832, the Anatomy Act gave medical schools a legal supply.",
+   "wer": 0.0,
+   "mos": 4.507,
+   "range_st": 11.5,
+   "dur": 4.395
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s18_t1.wav",
+   "heard": "In 1832, the Anatomy Act gave medical schools a legal supply.",
+   "wer": 0.0,
+   "mos": 4.459,
+   "range_st": 14.4,
+   "dur": 3.584
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s18_t2.wav",
+   "heard": "In 1832, the Anatomy Act gave medical schools a legal supply",
+   "wer": 0.0,
+   "mos": 4.502,
+   "range_st": 14.94,
+   "dur": 4.651
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s18_t3.wav",
+   "heard": "In 1832, the Anatomy Act gave medical schools a legal supply.",
+   "wer": 0.0,
+   "mos": 4.479,
+   "range_st": 14.82,
+   "dur": 4.501
+  }
+ ],
+ "19": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s19_t0.wav",
+   "heard": "and the body snatcher's trade died away.",
+   "wer": 0.167,
+   "mos": 4.477,
+   "range_st": 5.92,
+   "dur": 1.963
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s19_t1.wav",
+   "heard": "and the body snatcher's trade died away.",
+   "wer": 0.167,
+   "mos": 4.467,
+   "range_st": 6.0,
+   "dur": 2.048
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s19_t2.wav",
+   "heard": "and the body snatchers trade died away.",
+   "wer": 0.167,
+   "mos": 4.494,
+   "range_st": 8.21,
+   "dur": 2.219
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s19_t3.wav",
+   "heard": "and the body snatcher's trade died away.",
+   "wer": 0.167,
+   "mos": 4.488,
+   "range_st": 11.3,
+   "dur": 2.091
+  }
+ ],
+ "20": [
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s20_t0.wav",
+   "heard": "But some of these iron cages are still standing in Scottish churchyards today.",
+   "wer": 0.0,
+   "mos": 4.491,
+   "range_st": 14.98,
+   "dur": 4.885
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s20_t1.wav",
+   "heard": "But, some of these iron cages are still standing in Scottish churchyards today.",
+   "wer": 0.0,
+   "mos": 4.503,
+   "range_st": 12.84,
+   "dur": 5.035
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s20_t2.wav",
+   "heard": "But some of these iron cages are still standing in Scottish churchyards today.",
+   "wer": 0.0,
+   "mos": 4.452,
+   "range_st": 8.88,
+   "dur": 3.733
+  },
+  {
+   "file": "public/yw8-vo-mortsafe/takes/s20_t3.wav",
+   "heard": "But some of these iron cages are still standing in Scottish churchyards today.",
+   "wer": 0.0,
+   "mos": 4.422,
+   "range_st": 10.8,
+   "dur": 3.84
+  }
+ ]
+}
