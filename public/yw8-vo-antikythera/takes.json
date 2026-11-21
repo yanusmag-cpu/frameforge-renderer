@@ -274,35 +274,51 @@
  "9": [
   {
    "file": "public/yw8-vo-antikythera/takes/s09_t0.wav",
-   "heard": "It's called the anti-key-the-raw mechanism.",
-   "wer": 0.8,
-   "mos": 4.454,
-   "range_st": 9.84,
-   "dur": 2.475
+   "heard": "It's called the anti-KV-RA mechanism.",
+   "wer": 0.6,
+   "mos": 4.419,
+   "range_st": 7.61,
+   "dur": 3.008
   },
   {
    "file": "public/yw8-vo-antikythera/takes/s09_t1.wav",
-   "heard": "It's called the anti-KV-raw mechanism.",
+   "heard": "It's called the anti-Keevee-Raw Mechanism.",
    "wer": 0.6,
-   "mos": 4.452,
-   "range_st": 13.76,
-   "dur": 2.667
+   "mos": 4.442,
+   "range_st": 11.22,
+   "dur": 2.859
   },
   {
    "file": "public/yw8-vo-antikythera/takes/s09_t2.wav",
-   "heard": "It's called the Anti-Kethi Ray Mechanism.",
-   "wer": 0.6,
-   "mos": 4.155,
-   "range_st": 10.4,
-   "dur": 2.56
+   "heard": "It's called the anti-key, the raw mechanism.",
+   "wer": 0.8,
+   "mos": 4.283,
+   "range_st": 11.24,
+   "dur": 2.965
   },
   {
    "file": "public/yw8-vo-antikythera/takes/s09_t3.wav",
    "heard": "It's called the anti-key-thee-raw mechanism.",
    "wer": 0.8,
-   "mos": 4.47,
-   "range_st": 14.02,
-   "dur": 2.773
+   "mos": 4.46,
+   "range_st": 6.26,
+   "dur": 2.944
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s09_t4.wav",
+   "heard": "It's called the Anti-Kethi Ray Mechanism.",
+   "wer": 0.6,
+   "mos": 4.446,
+   "range_st": 9.06,
+   "dur": 2.411
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s09_t5.wav",
+   "heard": "It's called the anti-key-thee-raw mechanism.",
+   "wer": 0.8,
+   "mos": 4.448,
+   "range_st": 14.1,
+   "dur": 2.816
   }
  ],
  "10": [
