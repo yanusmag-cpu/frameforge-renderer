@@ -19,6 +19,6 @@
  ],
  "soundtrack": "public/yw7-galveston-sound/bed.flac",
  "soundtrackLUFS": -14,
- "silentTailSeconds": 0.3,
+ "silentTailSeconds": 2.0,
  "outputFilename": "YunoWorld_Galveston_Warning_Flag.mp4"
 }

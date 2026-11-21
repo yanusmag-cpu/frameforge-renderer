@@ -39,7 +39,11 @@ for film in films:
     S = sum(x for i, x in enumerate(d_raw) if i not in sk); win = END - START
     tp = round(min(1.08, max(1.0, S / (win - sum(d_raw[i] for i in sk) - sum(p) * .8))), 3); tempo[film] = tp
     d = [x if i in sk else x / tp for i, x in enumerate(d_raw)]; free = win - sum(d); k = free / sum(p)
-    gaps = [max(.15, min(x * k, x + .9)) for x in p]
+    lo, hi = 0.0, 20.0                                   # water-fill: scale pauses, but no single pause longer than 0.85 s
+    for _ in range(60):
+        k = (lo + hi) / 2; tot = sum(max(.15, min(x * k, .85)) for x in p)
+        lo, hi = (k, hi) if tot < free else (lo, k)
+    gaps = [max(.15, min(x * k, .85)) for x in p]
     t = START; st = []
     for i, x in enumerate(d): st.append(round(t, 2)); t += x + (gaps[i] if i < len(gaps) else 0)
     cues[film] = st; wl = []

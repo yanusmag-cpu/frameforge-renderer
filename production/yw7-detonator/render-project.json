@@ -19,6 +19,6 @@
  ],
  "soundtrack": "public/yw7-detonator-sound/bed.flac",
  "soundtrackLUFS": -14,
- "silentTailSeconds": 0.3,
+ "silentTailSeconds": 2.0,
  "outputFilename": "YunoWorld_Explosives_On_Train_Tracks.mp4"
 }
