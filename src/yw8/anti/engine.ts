@@ -21,7 +21,7 @@ const bronze = () => new T.MeshStandardMaterial({ color: '#c8964e', metalness: .
 /** spur gear with trapezoid teeth and spoke windows */
 export function gearGeo(r: number, teeth: number, th: number, spokes = 4) {
   const s = new T.Shape(); const tH = Math.min(.05, r * .09), n = teeth * 4;
-  for (let i = 0; i <= n; i++) { const a = i / n * Math.PI * 2, k = i % 4; const rr = k === 1 || k === 2 ? r + tH : r; const p = [Math.cos(a) * rr, Math.sin(a) * rr]; i ? s.lineTo(p[0], p[1]) : s.moveTo(p[0], p[1]); }
+  for (let i = 0; i <= n; i++) { const a = i / n * Math.PI * 2, k = i % 4; const rr = k === 1 || k === 2 ? r + tH : r; const p = [Math.cos(a) * rr, Math.sin(a) * rr]; if (i) s.lineTo(p[0], p[1]); else s.moveTo(p[0], p[1]); }
   const hub = r * .16; const h0 = new T.Path(); h0.absarc(0, 0, r * .06, 0, Math.PI * 2, true); s.holes.push(h0);
   if (spokes && r > .08) for (let k = 0; k < spokes; k++) { const a0 = k / spokes * Math.PI * 2 + .22, a1 = (k + 1) / spokes * Math.PI * 2 - .22; const h = new T.Path(); h.absarc(0, 0, r * .8, a0, a1, false); h.lineTo(Math.cos(a1) * hub * 1.6, Math.sin(a1) * hub * 1.6); h.absarc(0, 0, hub * 1.6, a1, a0, true); s.holes.push(h); }
   return new T.ExtrudeGeometry(s, { depth: th, bevelEnabled: false, curveSegments: 6 });
