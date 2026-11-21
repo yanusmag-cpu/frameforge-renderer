@@ -1,0 +1,332 @@
+{
+ "films": {
+  "canary": [
+   [
+    "If this tiny bird fell over...",
+    "c",
+    0.5
+   ],
+   [
+    "EVERY miner had to run.",
+    "e",
+    0.7
+   ],
+   [
+    "Down here, the deadliest danger was invisible.",
+    "s",
+    0.35
+   ],
+   [
+    "Carbon monoxide.",
+    "s",
+    0.25
+   ],
+   [
+    "No color. No smell.",
+    "s",
+    0.3
+   ],
+   [
+    "A man could breathe it... and never notice.",
+    "s",
+    0.55
+   ],
+   [
+    "So miners carried a canary.",
+    "n",
+    0.3
+   ],
+   [
+    "Scientist John Haldane had found this gas behind deadly mine explosions.",
+    "n",
+    0.35
+   ],
+   [
+    "His idea? Send a small bird down first.",
+    "c",
+    0.35
+   ],
+   [
+    "Its tiny body breathes so fast, the gas hits it first.",
+    "n",
+    0.45
+   ],
+   [
+    "So the men kept glancing at it... all day long.",
+    "s",
+    0.4
+   ],
+   [
+    "If it started to sway...",
+    "s",
+    0.25
+   ],
+   [
+    "or dropped from its perch...",
+    "s",
+    0.3
+   ],
+   [
+    "that was the alarm.",
+    "e",
+    0.4
+   ],
+   [
+    "Get out. NOW.",
+    "e",
+    0.7
+   ],
+   [
+    "But here's the part almost nobody knows.",
+    "c",
+    0.4
+   ],
+   [
+    "Some cages had their own OXYGEN tank.",
+    "x",
+    0.4
+   ],
+   [
+    "Rescue teams carried them into poisoned tunnels.",
+    "n",
+    0.3
+   ],
+   [
+    "Shut the little door, open the valve...",
+    "n",
+    0.35
+   ],
+   [
+    "and the bird could be REVIVED.",
+    "x",
+    0.5
+   ],
+   [
+    "British mines kept canaries until nineteen eighty-six.",
+    "n",
+    0.35
+   ],
+   [
+    "A tiny bird... watching over every man underground.",
+    "m",
+    0.3
+   ]
+  ],
+  "detonator": [
+   [
+    "They used to put EXPLOSIVES on train tracks...",
+    "c",
+    0.45
+   ],
+   [
+    "to STOP trains from crashing.",
+    "e",
+    0.6
+   ],
+   [
+    "This little metal disc is a railway detonator.",
+    "n",
+    0.3
+   ],
+   [
+    "About the size of a coin.",
+    "n",
+    0.25
+   ],
+   [
+    "It's strapped to the rail with two soft lead clips.",
+    "n",
+    0.4
+   ],
+   [
+    "Why? Because of fog.",
+    "s",
+    0.45
+   ],
+   [
+    "In thick fog, drivers couldn't see the signals.",
+    "s",
+    0.3
+   ],
+   [
+    "Red or green... it all disappeared.",
+    "s",
+    0.5
+   ],
+   [
+    "So when a signal showed danger, a fogman placed detonators on the line.",
+    "n",
+    0.4
+   ],
+   [
+    "Fogmen stood beside the signals for hours, in the cold.",
+    "m",
+    0.35
+   ],
+   [
+    "Usually two or three of them, spaced apart.",
+    "n",
+    0.35
+   ],
+   [
+    "The wheel hits the disc...",
+    "s",
+    0.25
+   ],
+   [
+    "BANG.",
+    "e",
+    0.6
+   ],
+   [
+    "A sound no driver could miss... even in total fog.",
+    "x",
+    0.4
+   ],
+   [
+    "It meant: DANGER ahead. Slow down... or stop.",
+    "e",
+    0.5
+   ],
+   [
+    "Edward Cowper invented it around eighteen forty-one...",
+    "n",
+    0.3
+   ],
+   [
+    "and trains still carry detonators today.",
+    "n",
+    0.45
+   ],
+   [
+    "Not an attack.",
+    "s",
+    0.3
+   ],
+   [
+    "A WARNING... loud enough to stop a train.",
+    "e",
+    0.3
+   ]
+  ],
+  "galveston": [
+   [
+    "This flag warned a whole city that disaster was coming.",
+    "c",
+    0.45
+   ],
+   [
+    "Red, with a black square in the middle.",
+    "n",
+    0.3
+   ],
+   [
+    "It meant: a STORM is on its way.",
+    "s",
+    0.5
+   ],
+   [
+    "Galveston, Texas. September seventh, nineteen hundred.",
+    "n",
+    0.4
+   ],
+   [
+    "Weather Bureau chief Isaac Cline watched the waves grow bigger...",
+    "s",
+    0.3
+   ],
+   [
+    "and raised the warning flags above the city.",
+    "n",
+    0.5
+   ],
+   [
+    "But the sky was calm.",
+    "s",
+    0.3
+   ],
+   [
+    "Shops stayed open. People came to the beach to watch the waves.",
+    "n",
+    0.45
+   ],
+   [
+    "And Galveston was flat. Its highest point was under nine feet.",
+    "s",
+    0.5
+   ],
+   [
+    "The next day, the sky turned black.",
+    "s",
+    0.35
+   ],
+   [
+    "Winds over one hundred and thirty miles an hour.",
+    "x",
+    0.3
+   ],
+   [
+    "A storm surge over FIFTEEN feet.",
+    "x",
+    0.55
+   ],
+   [
+    "The sea swept across the whole island.",
+    "m",
+    0.5
+   ],
+   [
+    "At least six thousand people died...",
+    "m",
+    0.35
+   ],
+   [
+    "the deadliest natural disaster in American history.",
+    "m",
+    0.6
+   ],
+   [
+    "The survivors built a giant seawall... and RAISED their entire city.",
+    "x",
+    0.4
+   ],
+   [
+    "That wall still protects Galveston today.",
+    "n",
+    0.3
+   ]
+  ]
+ },
+ "styles": {
+  "c": [
+   0.72,
+   0.38,
+   0.85
+  ],
+  "n": [
+   0.6,
+   0.42,
+   0.8
+  ],
+  "s": [
+   0.62,
+   0.32,
+   0.78
+  ],
+  "e": [
+   0.95,
+   0.3,
+   0.9
+  ],
+  "x": [
+   0.85,
+   0.33,
+   0.88
+  ],
+  "m": [
+   0.5,
+   0.38,
+   0.75
+  ]
+ }
+}
