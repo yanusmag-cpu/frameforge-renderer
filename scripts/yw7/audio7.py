@@ -65,6 +65,6 @@ elif film == 'galveston':
     put(C[12] + 1.2, snap(.25))                                              # the flagstaff breaks
 mix = VO + SFX; fade = np.minimum(1, np.arange(N) / SR / .05) * (1 - np.clip((np.arange(N) / SR - 59.5) / .5, 0, 1)); mix *= fade
 mix = np.stack([mix, mix], 1)
-for _ in range(6): mix = limit(norm_lufs(mix, -14.0), .89)
+for _ in range(6): mix = limit(norm_lufs(mix, -14.0), .74)
 write(tmpd / 'bed.wav', mix); subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(tmpd / 'bed.wav'), '-c:a', 'flac', str(tmpd / 'bed.flac')], check=True); (tmpd / 'bed.wav').unlink()
 print(film, 'lufs', round(lufs(mix), 2), 'peak', round(float(np.abs(mix).max()), 3), 'sfx events placed')
