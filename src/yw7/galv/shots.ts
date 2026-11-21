@@ -42,10 +42,10 @@ shot(0, C[3], t => {
 });
 // 2 — Galveston, 7 Sept 1900: Isaac Cline on the beach studying the swells… then on the roof, the flags run up the staff
 shot(C[3], C[6], t => {
-  if (t < C[5]) { const keys: Key[] = [{ t: C[3], pos: [-4, 30, -30], look: [4, 0, -130], fov: 50 }, { t: C[4], pos: [-2.2, 2.6, -134], look: [2.8, 1.3, -150], fov: 44, focus: [1.2, 1.6, -141.5] }, { t: C[5], pos: [-.8, 2.0, -137.2], look: [3.4, 1.5, -146], fov: 38, focus: [1.2, 1.6, -141.5] }];
+  if (t < C[5]) { const keys: Key[] = [{ t: C[3], pos: [-4, 30, -30], look: [4, 0, -130], fov: 50 }, { t: C[4], pos: [-1.6, 2.4, -134.5], look: [2.2, 1.2, -143.5], fov: 44, focus: [2.2, 1.6, -143] }, { t: C[5], pos: [-.6, 1.95, -137.6], look: [3.0, 1.5, -146], fov: 38, focus: [2.2, 1.6, -143] }];
     const cam = rig(keys, t); const look = ss(C[4] + .2, C[4] + 1, t);
-    return frame(t, cam, { storm: .1, sea: .55, sun: SUN([0, 0, -140], 3.2, 26), actors: [act('cline', CLINE, [1.2, 0, -141.5], pose({ turn: lerp(.35, .8, look), headTurn: -.2 * look, handB: [.5, -2.9], shapeB: 'grip', frontB: 1, headLift: .04 }, t, .3), EXPR.concentrating, t, { b: 'telescope' })],
-      overlay: chip('GALVESTON, TEXAS', 260, ss(C[3] + .2, C[3] + .5, t)) + chip('7 SEPTEMBER 1900', 370, ss(C[3] + .9, C[3] + 1.2, t), '#ffd23f') + chip('ISAAC CLINE · WEATHER BUREAU', 260, ss(C[4] + .4, C[4] + .7, t) * (1 - ss(C[5] - .3, C[5], t)), '#5fd1ff') + captions(F, t) }, .3); }
+    return frame(t, cam, { storm: .1, sea: .55, sun: SUN([0, 0, -140], 3.2, 26), actors: [act('cline', CLINE, [1.0, 0, -143], pose({ turn: lerp(.35, .8, look), headTurn: -.2 * look, handB: [.5, -2.9], shapeB: 'grip', frontB: 1, headLift: .04 }, t, .3), EXPR.concentrating, t, { b: 'telescope' })],
+      overlay: chip('GALVESTON, TEXAS', 260, ss(C[3] + .2, C[3] + .5, t) * (1 - ss(C[4], C[4] + .3, t))) + chip('7 SEPTEMBER 1900', 370, ss(C[3] + .9, C[3] + 1.2, t) * (1 - ss(C[4], C[4] + .3, t)), '#ffd23f') + chip('ISAAC CLINE · WEATHER BUREAU', 260, ss(C[4] + .4, C[4] + .7, t) * (1 - ss(C[5] - .3, C[5], t)), '#5fd1ff') + captions(F, t) }, .3); }
   const pull = ss(C[5] + .2, C[6] - .3, t); const yank = Math.sin((t - C[5]) * 7) * .5 + .5;
   const keys: Key[] = [{ t: C[5], pos: [ST[0] - 3.2, 19.7, ST[2] + 4.4], look: [ST[0] + .4, 19.3, ST[2]], fov: 44 }, { t: C[6], pos: [ST[0] - 4.8, 19.3, ST[2] + 6.2], look: [ST[0] + .6, 20.9, ST[2]], fov: 50 }];
   const cam = rig(keys, t);

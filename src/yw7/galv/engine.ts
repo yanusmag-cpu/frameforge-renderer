@@ -105,7 +105,8 @@ export class GalvEngine extends Core {
         float d = length(cameraPosition.xz - vW.xz); vec3 c = mix(sh, deep, smoothstep(10., 250., d)); float foam = smoothstep(.55, .95, vH + fbm(vW.xz * .2 + t * .3) * .4); c = mix(c, mix(vec3(.92,.94,.92), vec3(.5,.5,.46), storm), foam * (.35 + storm * .4));
         c += vec3(1.,.8,.6) * pow(fbm(vW.xz * .05 - t * .02), 5.) * (1. - storm) * .8; c = mix(c, vec3(.9,.7,.55), dawn * .25); c = mix(c, fogC, 1. - exp(-fogD * fogD * d * d)); gl_FragColor = vec4(c, 1.); }` }));
     this.sea.rotation.x = -Math.PI / 2; this.sea.position.set(0, -.6, -852); G.add(this.sea);
-    this.surge = new T.Mesh(new T.PlaneGeometry(60, 400, 60, 120), this.sea.material); this.surge.rotation.x = -Math.PI / 2; this.surge.position.set(0, -2, -60); G.add(this.surge);
+    this.surge = new T.Mesh(new T.PlaneGeometry(700, 500, 1, 1), new T.MeshStandardMaterial({ color: '#4e4a3e', roughness: .18, metalness: .05, envMapIntensity: .8, transparent: true, opacity: .94, map: canvasTex(256, 256, g => { const R2 = rng(11); g.fillStyle = '#8a8a80'; g.fillRect(0, 0, 256, 256); for (let i = 0; i < 260; i++) { g.fillStyle = `rgba(230,230,220,${R2() * .25})`; g.fillRect(R2() * 256, R2() * 256, 8 + R2() * 30, 2); } }) }));
+    (this.surge.material as T.MeshStandardMaterial).map!.wrapS = (this.surge.material as T.MeshStandardMaterial).map!.wrapT = T.RepeatWrapping; (this.surge.material as T.MeshStandardMaterial).map!.repeat.set(70, 50); this.surge.rotation.x = -Math.PI / 2; this.surge.position.set(0, -2, -60); G.add(this.surge);
     // seawall (curved concrete face with steps) + a house raised on jacks (shown in the ending)
     const swM = new T.MeshStandardMaterial({ map: canvasTex(512, 256, g => { const R2 = rng(7); g.fillStyle = '#a89c86'; g.fillRect(0, 0, 512, 256); for (let i = 0; i < 800; i++) { g.fillStyle = `rgba(80,80,80,${R2() * .12})`; g.fillRect(R2() * 512, R2() * 256, 6, 3); } for (let x = 0; x < 512; x += 64) { g.fillStyle = 'rgba(0,0,0,.18)'; g.fillRect(x, 0, 3, 256); } }), roughness: .9 });
     const prof = new T.Shape(); prof.moveTo(0, 0); prof.lineTo(0, 5.2); prof.lineTo(1.5, 5.2); prof.quadraticCurveTo(3.5, 2, 6, 0); prof.lineTo(0, 0);
@@ -123,7 +124,7 @@ export class GalvEngine extends Core {
     this.flags.position.y = 18 + up * 4.1 - .4;
     this.staff.scale.y = F.staffBroken ? .45 : 1; this.staff.position.y = 18 + (F.staffBroken ? 1.03 : 2.3); this.staff.rotation.z = F.staffBroken ? .25 : 0; this.staffTop.visible = !F.staffBroken;
     for (const p of this.palms) { const c = p.children[1] as T.Group; c.rotation.z = Math.sin(F.t * (1.4 + wind * 3) + p.position.z) * .05 * (1 + wind * 3) + wind * .35; p.children[0].rotation.z = wind * .08; }
-    const sg = F.surge ?? -2; this.surge.position.y = sg; this.surge.visible = sg > -1.5;
+    const sg = F.surge ?? -2; this.surge.position.y = sg + Math.sin(F.t * 1.3) * .06; (this.surge.material as T.MeshStandardMaterial).map!.offset.set(F.t * .02, -F.t * .25); this.surge.visible = sg > -1.5;
     this.sw.visible = (F.seawall ?? 0) > 0; this.jacked.visible = (F.raise ?? -1) >= 0; this.jacked.position.y = Math.max(0, F.raise ?? 0) * 2.2;
     const S: Sprite[] = [...(F.sprites ?? [])]; const L: Light[] = [...(F.lights ?? []), ...(F.extra ?? [])];
     const rn = F.rain ?? Math.max(0, st - .35) * 1.4; if (rn > 0) { const cp = F.cam.pos; const R = rng(Math.floor(F.t * 24)); for (let i = 0; i < 160; i++) S.push({ p: [cp[0] + (R() - .5) * 14 + wind * 1.5, cp[1] + (R() - .5) * 8, cp[2] - 1 - R() * 14], s: .06, rot: 0, c: [.8, .85, .95], a: .35 * rn, kind: 2, seed: R(), age: 0 }); }
