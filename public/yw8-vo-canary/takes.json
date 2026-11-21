@@ -1,0 +1,750 @@
+{
+ "1": [
+  {
+   "file": "public/yw8-vo-canary/takes/s01_t0.wav",
+   "heard": "if this tiny bird fell over.",
+   "wer": 0.0,
+   "mos": 4.378,
+   "range_st": 10.52,
+   "dur": 1.813
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s01_t1.wav",
+   "heard": "If this tiny bird fell over...",
+   "wer": 0.0,
+   "mos": 4.386,
+   "range_st": 18.49,
+   "dur": 1.92
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s01_t2.wav",
+   "heard": "If this tiny bird fell over...",
+   "wer": 0.0,
+   "mos": 4.211,
+   "range_st": 8.2,
+   "dur": 2.027
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s01_t3.wav",
+   "heard": "If this tiny bird fell over...",
+   "wer": 0.0,
+   "mos": 3.984,
+   "range_st": 10.48,
+   "dur": 1.664
+  }
+ ],
+ "2": [
+  {
+   "file": "public/yw8-vo-canary/takes/s02_t0.wav",
+   "heard": "Every miner had to run.",
+   "wer": 0.0,
+   "mos": 4.383,
+   "range_st": 8.5,
+   "dur": 1.621
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s02_t1.wav",
+   "heard": "Every miner had to run.",
+   "wer": 0.0,
+   "mos": 4.364,
+   "range_st": 10.2,
+   "dur": 1.365
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s02_t2.wav",
+   "heard": "Every miner had to run.",
+   "wer": 0.0,
+   "mos": 4.287,
+   "range_st": 14.0,
+   "dur": 1.301
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s02_t3.wav",
+   "heard": "Every miner had to run.",
+   "wer": 0.0,
+   "mos": 4.364,
+   "range_st": 13.2,
+   "dur": 1.984
+  }
+ ],
+ "3": [
+  {
+   "file": "public/yw8-vo-canary/takes/s03_t0.wav",
+   "heard": "Down here, the deadliest danger was invisible.",
+   "wer": 0.0,
+   "mos": 4.488,
+   "range_st": 6.33,
+   "dur": 2.731
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s03_t1.wav",
+   "heard": "Down here, the deadliest danger was invisible.",
+   "wer": 0.0,
+   "mos": 4.475,
+   "range_st": 8.14,
+   "dur": 3.029
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s03_t2.wav",
+   "heard": "Down here, the deadliest danger was invisible.",
+   "wer": 0.0,
+   "mos": 4.478,
+   "range_st": 7.88,
+   "dur": 2.581
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s03_t3.wav",
+   "heard": "Down here, the deadliest danger was invisible.",
+   "wer": 0.0,
+   "mos": 4.482,
+   "range_st": 8.28,
+   "dur": 2.965
+  }
+ ],
+ "4": [
+  {
+   "file": "public/yw8-vo-canary/takes/s04_t0.wav",
+   "heard": "carbon monoxide.",
+   "wer": 0.0,
+   "mos": 4.232,
+   "range_st": 6.7,
+   "dur": 1.088
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s04_t1.wav",
+   "heard": "Carbon monoxide",
+   "wer": 0.0,
+   "mos": 4.245,
+   "range_st": 18.72,
+   "dur": 1.024
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s04_t2.wav",
+   "heard": "Carbon monoxide.",
+   "wer": 0.0,
+   "mos": 4.301,
+   "range_st": 8.2,
+   "dur": 1.024
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s04_t3.wav",
+   "heard": "Carbon monoxide.",
+   "wer": 0.0,
+   "mos": 4.237,
+   "range_st": 7.9,
+   "dur": 1.109
+  }
+ ],
+ "5": [
+  {
+   "file": "public/yw8-vo-canary/takes/s05_t0.wav",
+   "heard": "no color, no smell,",
+   "wer": 0.0,
+   "mos": 4.418,
+   "range_st": 6.12,
+   "dur": 1.707
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s05_t1.wav",
+   "heard": "No color, no smell.",
+   "wer": 0.0,
+   "mos": 3.949,
+   "range_st": 4.78,
+   "dur": 1.621
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s05_t2.wav",
+   "heard": "No color, no smell.",
+   "wer": 0.0,
+   "mos": 4.405,
+   "range_st": 7.82,
+   "dur": 1.387
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s05_t3.wav",
+   "heard": "No color, no smell.",
+   "wer": 0.0,
+   "mos": 4.394,
+   "range_st": 4.7,
+   "dur": 1.685
+  }
+ ],
+ "6": [
+  {
+   "file": "public/yw8-vo-canary/takes/s06_t0.wav",
+   "heard": "A man could breathe it and never notice.",
+   "wer": 0.0,
+   "mos": 4.429,
+   "range_st": 5.41,
+   "dur": 2.24
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s06_t1.wav",
+   "heard": "A man could breathe it, and never notice.",
+   "wer": 0.0,
+   "mos": 4.444,
+   "range_st": 3.12,
+   "dur": 2.56
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s06_t2.wav",
+   "heard": "A man could breathe it and never notice.",
+   "wer": 0.0,
+   "mos": 4.431,
+   "range_st": 10.26,
+   "dur": 2.197
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s06_t3.wav",
+   "heard": "A man could breathe it and never notice.",
+   "wer": 0.0,
+   "mos": 4.4,
+   "range_st": 8.47,
+   "dur": 2.133
+  }
+ ],
+ "7": [
+  {
+   "file": "public/yw8-vo-canary/takes/s07_t0.wav",
+   "heard": "So miners carried a canary.",
+   "wer": 0.0,
+   "mos": 4.465,
+   "range_st": 14.66,
+   "dur": 2.027
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s07_t1.wav",
+   "heard": "So miners carried a canary.",
+   "wer": 0.0,
+   "mos": 4.459,
+   "range_st": 15.36,
+   "dur": 1.771
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s07_t2.wav",
+   "heard": "So miners carried a canary.",
+   "wer": 0.0,
+   "mos": 4.477,
+   "range_st": 14.6,
+   "dur": 2.133
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s07_t3.wav",
+   "heard": "so miners carried a canary.",
+   "wer": 0.0,
+   "mos": 4.375,
+   "range_st": 8.94,
+   "dur": 1.835
+  }
+ ],
+ "8": [
+  {
+   "file": "public/yw8-vo-canary/takes/s08_t0.wav",
+   "heard": "Scientist John Haldane had found this gas behind deadly mine explosions.",
+   "wer": 0.0,
+   "mos": 4.48,
+   "range_st": 13.8,
+   "dur": 4.288
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s08_t1.wav",
+   "heard": "Scientist John Haldane had found this gas behind deadly mine explosions.",
+   "wer": 0.0,
+   "mos": 4.498,
+   "range_st": 12.24,
+   "dur": 4.864
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s08_t2.wav",
+   "heard": "Scientist John Haldane had found this gas behind deadly mine explosions.",
+   "wer": 0.0,
+   "mos": 4.436,
+   "range_st": 12.76,
+   "dur": 4.096
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s08_t3.wav",
+   "heard": "Scientist John Haldane had found this gas behind deadly mine explosions.",
+   "wer": 0.0,
+   "mos": 4.434,
+   "range_st": 10.7,
+   "dur": 4.075
+  }
+ ],
+ "9": [
+  {
+   "file": "public/yw8-vo-canary/takes/s09_t0.wav",
+   "heard": "His idea? Send a small bird down first.",
+   "wer": 0.0,
+   "mos": 4.442,
+   "range_st": 8.5,
+   "dur": 2.752
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s09_t1.wav",
+   "heard": "His idea? Send a small bird down first.",
+   "wer": 0.0,
+   "mos": 4.446,
+   "range_st": 19.81,
+   "dur": 2.987
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s09_t2.wav",
+   "heard": "His idea? Send a small bird down first.",
+   "wer": 0.0,
+   "mos": 4.465,
+   "range_st": 13.4,
+   "dur": 3.179
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s09_t3.wav",
+   "heard": "His idea? Send a small bird down first.",
+   "wer": 0.0,
+   "mos": 4.331,
+   "range_st": 14.79,
+   "dur": 2.283
+  }
+ ],
+ "10": [
+  {
+   "file": "public/yw8-vo-canary/takes/s10_t0.wav",
+   "heard": "Its tiny body breathes so fast, the gas hits it first.",
+   "wer": 0.0,
+   "mos": 4.456,
+   "range_st": 7.11,
+   "dur": 3.947
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s10_t1.wav",
+   "heard": "Its tiny body breathes so fast, the gas hits it first.",
+   "wer": 0.0,
+   "mos": 4.472,
+   "range_st": 5.79,
+   "dur": 3.328
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s10_t2.wav",
+   "heard": "Its tiny body breathes so fast, the gas hits it first.",
+   "wer": 0.0,
+   "mos": 4.459,
+   "range_st": 1.84,
+   "dur": 3.712
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s10_t3.wav",
+   "heard": "Its tiny body breathes so fast, the gas hits it first.",
+   "wer": 0.0,
+   "mos": 4.467,
+   "range_st": 11.42,
+   "dur": 3.776
+  }
+ ],
+ "11": [
+  {
+   "file": "public/yw8-vo-canary/takes/s11_t0.wav",
+   "heard": "So the men kept glancing at it all day long.",
+   "wer": 0.0,
+   "mos": 4.391,
+   "range_st": 14.2,
+   "dur": 2.325
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s11_t1.wav",
+   "heard": "So the men kept glancing at it all day long.",
+   "wer": 0.0,
+   "mos": 4.439,
+   "range_st": 12.8,
+   "dur": 2.219
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s11_t2.wav",
+   "heard": "So the men kept glancing at it all day long.",
+   "wer": 0.0,
+   "mos": 4.405,
+   "range_st": 16.8,
+   "dur": 2.411
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s11_t3.wav",
+   "heard": "So the men kept glancing at it all day long.",
+   "wer": 0.0,
+   "mos": 4.437,
+   "range_st": 13.51,
+   "dur": 2.603
+  }
+ ],
+ "12": [
+  {
+   "file": "public/yw8-vo-canary/takes/s12_t0.wav",
+   "heard": "if it started to sway.",
+   "wer": 0.0,
+   "mos": 4.262,
+   "range_st": 17.72,
+   "dur": 1.216
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s12_t1.wav",
+   "heard": "If it started to sway?",
+   "wer": 0.0,
+   "mos": 4.24,
+   "range_st": 10.3,
+   "dur": 1.408
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s12_t2.wav",
+   "heard": "if it started to sway.",
+   "wer": 0.0,
+   "mos": 4.396,
+   "range_st": 4.53,
+   "dur": 1.493
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s12_t3.wav",
+   "heard": "If it started to sway...",
+   "wer": 0.0,
+   "mos": 4.273,
+   "range_st": 9.93,
+   "dur": 1.451
+  }
+ ],
+ "13": [
+  {
+   "file": "public/yw8-vo-canary/takes/s13_t0.wav",
+   "heard": "or dropped from its perch.",
+   "wer": 0.0,
+   "mos": 4.166,
+   "range_st": 4.47,
+   "dur": 1.664
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s13_t1.wav",
+   "heard": "or dropped from its perch.",
+   "wer": 0.0,
+   "mos": 4.246,
+   "range_st": 2.25,
+   "dur": 1.408
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s13_t2.wav",
+   "heard": "or drop from its perch.",
+   "wer": 0.2,
+   "mos": 4.319,
+   "range_st": 4.3,
+   "dur": 1.749
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s13_t3.wav",
+   "heard": "or drop from its perch.",
+   "wer": 0.2,
+   "mos": 4.339,
+   "range_st": 2.27,
+   "dur": 1.237
+  }
+ ],
+ "14": [
+  {
+   "file": "public/yw8-vo-canary/takes/s14_t0.wav",
+   "heard": "That was the alarm.",
+   "wer": 0.0,
+   "mos": 4.371,
+   "range_st": 12.1,
+   "dur": 1.301
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s14_t1.wav",
+   "heard": "That was the alarm.",
+   "wer": 0.0,
+   "mos": 4.372,
+   "range_st": 18.5,
+   "dur": 1.131
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s14_t2.wav",
+   "heard": "That was the alarm.",
+   "wer": 0.0,
+   "mos": 4.321,
+   "range_st": 12.3,
+   "dur": 1.237
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s14_t3.wav",
+   "heard": "That was the alarm.",
+   "wer": 0.0,
+   "mos": 3.841,
+   "range_st": 0.0,
+   "dur": 0.747
+  }
+ ],
+ "15": [
+  {
+   "file": "public/yw8-vo-canary/takes/s15_t0.wav",
+   "heard": "Heh, heh, heh, get out now.",
+   "wer": 1.0,
+   "mos": 3.04,
+   "range_st": 9.51,
+   "dur": 1.472
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s15_t1.wav",
+   "heard": "Get out.  Now.",
+   "wer": 0.0,
+   "mos": 4.383,
+   "range_st": 10.84,
+   "dur": 1.6
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s15_t2.wav",
+   "heard": "Get out, now!",
+   "wer": 0.0,
+   "mos": 3.833,
+   "range_st": 9.21,
+   "dur": 1.109
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s15_t3.wav",
+   "heard": "Get out, now!",
+   "wer": 0.0,
+   "mos": 4.069,
+   "range_st": 0.0,
+   "dur": 1.28
+  }
+ ],
+ "16": [
+  {
+   "file": "public/yw8-vo-canary/takes/s16_t0.wav",
+   "heard": "But here's the part almost nobody knows.",
+   "wer": 0.0,
+   "mos": 4.437,
+   "range_st": 13.96,
+   "dur": 2.176
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s16_t1.wav",
+   "heard": "But here's the part almost nobody knows.",
+   "wer": 0.0,
+   "mos": 4.394,
+   "range_st": 13.28,
+   "dur": 2.069
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s16_t2.wav",
+   "heard": "But here's the part almost nobody knows.",
+   "wer": 0.0,
+   "mos": 4.394,
+   "range_st": 11.46,
+   "dur": 1.856
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s16_t3.wav",
+   "heard": "But here's the part almost nobody knows.",
+   "wer": 0.0,
+   "mos": 4.456,
+   "range_st": 13.0,
+   "dur": 2.261
+  }
+ ],
+ "17": [
+  {
+   "file": "public/yw8-vo-canary/takes/s17_t0.wav",
+   "heard": "Some cages had their own oxygen tank.",
+   "wer": 0.0,
+   "mos": 4.369,
+   "range_st": 4.78,
+   "dur": 2.24
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s17_t1.wav",
+   "heard": "Some cages had their own oxygen tank.",
+   "wer": 0.0,
+   "mos": 4.386,
+   "range_st": 10.27,
+   "dur": 1.984
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s17_t2.wav",
+   "heard": "Some cages had their own oxygen tank.  The way...",
+   "wer": 0.286,
+   "mos": 4.486,
+   "range_st": 14.87,
+   "dur": 3.051
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s17_t3.wav",
+   "heard": "Some cages had their own oxygen tank.",
+   "wer": 0.0,
+   "mos": 4.308,
+   "range_st": 4.12,
+   "dur": 2.731
+  }
+ ],
+ "18": [
+  {
+   "file": "public/yw8-vo-canary/takes/s18_t0.wav",
+   "heard": "Rescue teams carried them into poison tunnels.",
+   "wer": 0.143,
+   "mos": 4.455,
+   "range_st": 14.61,
+   "dur": 2.453
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s18_t1.wav",
+   "heard": "Rescue teams carried them into poison tunnels.",
+   "wer": 0.143,
+   "mos": 4.441,
+   "range_st": 13.1,
+   "dur": 2.283
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s18_t2.wav",
+   "heard": "Rescue teams carried them into poison tunnels.",
+   "wer": 0.143,
+   "mos": 4.47,
+   "range_st": 11.54,
+   "dur": 2.432
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s18_t3.wav",
+   "heard": "Rescue teams carried them into poisoned tunnels.",
+   "wer": 0.0,
+   "mos": 4.485,
+   "range_st": 9.61,
+   "dur": 2.987
+  }
+ ],
+ "19": [
+  {
+   "file": "public/yw8-vo-canary/takes/s19_t0.wav",
+   "heard": "Shut the little door, open the valve.",
+   "wer": 0.0,
+   "mos": 4.397,
+   "range_st": 16.0,
+   "dur": 2.261
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s19_t1.wav",
+   "heard": "Shut the little door, open the valve.",
+   "wer": 0.0,
+   "mos": 4.314,
+   "range_st": 7.14,
+   "dur": 2.155
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s19_t2.wav",
+   "heard": "Shut the little door, open the valve,",
+   "wer": 0.0,
+   "mos": 3.994,
+   "range_st": 3.8,
+   "dur": 2.389
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s19_t3.wav",
+   "heard": "Shut the little door, open the valve.",
+   "wer": 0.0,
+   "mos": 3.736,
+   "range_st": 13.29,
+   "dur": 1.941
+  }
+ ],
+ "20": [
+  {
+   "file": "public/yw8-vo-canary/takes/s20_t0.wav",
+   "heard": "and the bird could be revived.",
+   "wer": 0.0,
+   "mos": 4.281,
+   "range_st": 13.57,
+   "dur": 1.6
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s20_t1.wav",
+   "heard": "and the bird could be revived.",
+   "wer": 0.0,
+   "mos": 3.411,
+   "range_st": 9.5,
+   "dur": 1.963
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s20_t2.wav",
+   "heard": "and the burr could be revived.",
+   "wer": 0.2,
+   "mos": 4.142,
+   "range_st": 4.74,
+   "dur": 1.344
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s20_t3.wav",
+   "heard": "and the bird could be revived.",
+   "wer": 0.0,
+   "mos": 4.225,
+   "range_st": 8.05,
+   "dur": 1.621
+  }
+ ],
+ "21": [
+  {
+   "file": "public/yw8-vo-canary/takes/s21_t0.wav",
+   "heard": "British mines kept canaries until 1986.",
+   "wer": 0.0,
+   "mos": 4.461,
+   "range_st": 5.34,
+   "dur": 3.157
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s21_t1.wav",
+   "heard": "British minds kept canaries until 1986.",
+   "wer": 0.125,
+   "mos": 4.484,
+   "range_st": 8.5,
+   "dur": 3.392
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s21_t2.wav",
+   "heard": "British mines kept canaries until 1986.",
+   "wer": 0.0,
+   "mos": 4.359,
+   "range_st": 4.2,
+   "dur": 2.496
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s21_t3.wav",
+   "heard": "British mines kept canaries until 1986.",
+   "wer": 0.0,
+   "mos": 4.457,
+   "range_st": 6.6,
+   "dur": 2.944
+  }
+ ],
+ "22": [
+  {
+   "file": "public/yw8-vo-canary/takes/s22_t0.wav",
+   "heard": "A tiny bird, watching over every man underground.",
+   "wer": 0.0,
+   "mos": 4.437,
+   "range_st": 6.34,
+   "dur": 3.136
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s22_t1.wav",
+   "heard": "A tiny bird watching over every man underground.",
+   "wer": 0.0,
+   "mos": 4.478,
+   "range_st": 5.76,
+   "dur": 3.093
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s22_t2.wav",
+   "heard": "A tiny bird, watching over every man underground.",
+   "wer": 0.0,
+   "mos": 4.462,
+   "range_st": 12.14,
+   "dur": 3.008
+  },
+  {
+   "file": "public/yw8-vo-canary/takes/s22_t3.wav",
+   "heard": "A tiny bird, watching over every man underground.",
+   "wer": 0.0,
+   "mos": 4.452,
+   "range_st": 8.74,
+   "dur": 2.667
+  }
+ ]
+}
