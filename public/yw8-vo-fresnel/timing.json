@@ -73,19 +73,39 @@
    },
    {
     "i": 2,
-    "text": "How?",
+    "text": "So how does it WORK?",
     "style": "e",
-    "pause": 0.5,
-    "dur": 0.739,
-    "mos": 2.369,
-    "range_st": 0.0,
-    "wer": 1.0,
-    "heard": "Haggle!",
+    "pause": 0.45,
+    "dur": 1.016,
+    "mos": 4.092,
+    "range_st": 6.68,
+    "wer": 0.0,
+    "heard": "So how does it work?",
     "words": [
      [
-      -0.045,
-      0.615,
-      "Haggle!"
+      -0.067,
+      0.193,
+      "So"
+     ],
+     [
+      0.193,
+      0.353,
+      "how"
+     ],
+     [
+      0.353,
+      0.473,
+      "does"
+     ],
+     [
+      0.473,
+      0.573,
+      "it"
+     ],
+     [
+      0.573,
+      0.773,
+      "work?"
      ]
     ],
     "file": "public/yw8-vo-fresnel/s02.wav"

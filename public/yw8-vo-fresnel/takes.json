@@ -36,35 +36,51 @@
  "2": [
   {
    "file": "public/yw8-vo-fresnel/takes/s02_t0.wav",
-   "heard": "Haggle!",
-   "wer": 1.0,
-   "mos": 2.369,
-   "range_st": 0.0,
-   "dur": 0.619
+   "heard": "So how does it work?",
+   "wer": 0.0,
+   "mos": 4.092,
+   "range_st": 6.68,
+   "dur": 0.896
   },
   {
    "file": "public/yw8-vo-fresnel/takes/s02_t1.wav",
-   "heard": "I gotta heal.",
-   "wer": 3.0,
-   "mos": 2.31,
+   "heard": "So how does it work? All...",
+   "wer": 0.2,
+   "mos": 3.797,
    "range_st": 0.0,
-   "dur": 1.088
+   "dur": 2.411
   },
   {
    "file": "public/yw8-vo-fresnel/takes/s02_t2.wav",
-   "heard": "Cattle",
-   "wer": 1.0,
-   "mos": 2.01,
+   "heard": "So, how does it work?",
+   "wer": 0.0,
+   "mos": 3.597,
    "range_st": 0.0,
-   "dur": 0.533
+   "dur": 1.131
   },
   {
    "file": "public/yw8-vo-fresnel/takes/s02_t3.wav",
-   "heard": "Oh!",
-   "wer": 1.0,
-   "mos": 1.445,
-   "range_st": 0.0,
-   "dur": 0.299
+   "heard": "So how does it work?",
+   "wer": 0.0,
+   "mos": 3.857,
+   "range_st": 2.8,
+   "dur": 0.981
+  },
+  {
+   "file": "public/yw8-vo-fresnel/takes/s02_t4.wav",
+   "heard": "So how does it work?",
+   "wer": 0.0,
+   "mos": 3.824,
+   "range_st": 6.48,
+   "dur": 1.749
+  },
+  {
+   "file": "public/yw8-vo-fresnel/takes/s02_t5.wav",
+   "heard": "So how does it work?",
+   "wer": 0.0,
+   "mos": 4.078,
+   "range_st": 4.29,
+   "dur": 0.917
   }
  ],
  "3": [
