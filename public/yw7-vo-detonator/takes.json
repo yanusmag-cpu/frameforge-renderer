@@ -1,0 +1,496 @@
+{
+ "1": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s01_t0.wav",
+   "heard": "They used to put explosives on train tracks.",
+   "wer": 0.0,
+   "mos": 4.374,
+   "range_st": 10.53,
+   "dur": 2.133
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s01_t1.wav",
+   "heard": "They used to put explosives on train tracks.",
+   "wer": 0.0,
+   "mos": 4.476,
+   "range_st": 9.3,
+   "dur": 2.624
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s01_t2.wav",
+   "heard": "They used to put explosives on train tracks.",
+   "wer": 0.0,
+   "mos": 4.437,
+   "range_st": 16.16,
+   "dur": 2.816
+  }
+ ],
+ "2": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s02_t0.wav",
+   "heard": "to stop trains from crashing.",
+   "wer": 0.0,
+   "mos": 4.4,
+   "range_st": 4.14,
+   "dur": 1.728
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s02_t1.wav",
+   "heard": "Ah, to stop trains from crashing.",
+   "wer": 0.2,
+   "mos": 4.218,
+   "range_st": 8.0,
+   "dur": 2.773
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s02_t2.wav",
+   "heard": "To stop trains from crashing?",
+   "wer": 0.0,
+   "mos": 4.409,
+   "range_st": 8.43,
+   "dur": 1.856
+  }
+ ],
+ "3": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s03_t0.wav",
+   "heard": "This little metal disc is a railway detonator.",
+   "wer": 0.0,
+   "mos": 4.391,
+   "range_st": 12.6,
+   "dur": 2.581
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s03_t1.wav",
+   "heard": "This little metal disc is a railway detonator.",
+   "wer": 0.0,
+   "mos": 4.416,
+   "range_st": 9.3,
+   "dur": 2.88
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s03_t2.wav",
+   "heard": "This little metal disc is a railway detonator.",
+   "wer": 0.0,
+   "mos": 4.415,
+   "range_st": 7.8,
+   "dur": 2.432
+  }
+ ],
+ "4": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s04_t0.wav",
+   "heard": "about the size of a coin.",
+   "wer": 0.0,
+   "mos": 4.364,
+   "range_st": 3.02,
+   "dur": 1.259
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s04_t1.wav",
+   "heard": "about the size of a coin.",
+   "wer": 0.0,
+   "mos": 4.22,
+   "range_st": 0.0,
+   "dur": 1.067
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s04_t2.wav",
+   "heard": "about the size of a coin.",
+   "wer": 0.0,
+   "mos": 4.33,
+   "range_st": 6.53,
+   "dur": 1.323
+  }
+ ],
+ "5": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s05_t0.wav",
+   "heard": "It's strapped to the rail with two soft lead clips.",
+   "wer": 0.0,
+   "mos": 4.398,
+   "range_st": 8.84,
+   "dur": 2.752
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s05_t1.wav",
+   "heard": "It's strapped to the rail with two soft lead clips.",
+   "wer": 0.0,
+   "mos": 4.423,
+   "range_st": 9.58,
+   "dur": 2.581
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s05_t2.wav",
+   "heard": "It's strapped to the rail with two soft lead clips.",
+   "wer": 0.0,
+   "mos": 4.334,
+   "range_st": 9.64,
+   "dur": 2.261
+  }
+ ],
+ "6": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s06_t0.wav",
+   "heard": "Why? Because of fog.",
+   "wer": 0.0,
+   "mos": 4.487,
+   "range_st": 10.48,
+   "dur": 1.6
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s06_t1.wav",
+   "heard": "Why? Because of fog.",
+   "wer": 0.0,
+   "mos": 4.453,
+   "range_st": 0.0,
+   "dur": 1.728
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s06_t2.wav",
+   "heard": "Why? Because of fog.",
+   "wer": 0.0,
+   "mos": 4.388,
+   "range_st": 11.4,
+   "dur": 1.493
+  }
+ ],
+ "7": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s07_t0.wav",
+   "heard": "In thick fog, drivers couldn't see the signals.",
+   "wer": 0.0,
+   "mos": 4.382,
+   "range_st": 7.02,
+   "dur": 2.432
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s07_t1.wav",
+   "heard": "and thick fog drivers couldn't see the signals.",
+   "wer": 0.125,
+   "mos": 4.373,
+   "range_st": 6.64,
+   "dur": 2.432
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s07_t2.wav",
+   "heard": "In thick fog, drivers couldn't see the signals.",
+   "wer": 0.0,
+   "mos": 4.336,
+   "range_st": 7.22,
+   "dur": 2.432
+  }
+ ],
+ "8": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s08_t0.wav",
+   "heard": "red or green, it all disappeared.",
+   "wer": 0.0,
+   "mos": 4.435,
+   "range_st": 3.4,
+   "dur": 2.133
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s08_t1.wav",
+   "heard": "red or green, it all disappeared.",
+   "wer": 0.0,
+   "mos": 4.428,
+   "range_st": 10.1,
+   "dur": 2.133
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s08_t2.wav",
+   "heard": "Red or green, it all disappeared.",
+   "wer": 0.0,
+   "mos": 4.385,
+   "range_st": 9.26,
+   "dur": 1.707
+  }
+ ],
+ "9": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s09_t0.wav",
+   "heard": "So when a signal showed danger, a fogman placed detonators on the line.",
+   "wer": 0.0,
+   "mos": 4.47,
+   "range_st": 12.53,
+   "dur": 3.84
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s09_t1.wav",
+   "heard": "So when a signal showed danger, a fogman placed detonators on the line.",
+   "wer": 0.0,
+   "mos": 4.421,
+   "range_st": 15.3,
+   "dur": 3.755
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s09_t2.wav",
+   "heard": "So, when a signal showed danger, a fogman placed detonators on the line.",
+   "wer": 0.0,
+   "mos": 4.452,
+   "range_st": 16.37,
+   "dur": 4.011
+  }
+ ],
+ "10": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s10_t0.wav",
+   "heard": "Fogmen stood beside the signals for hours in the cold.",
+   "wer": 0.0,
+   "mos": 4.407,
+   "range_st": 11.4,
+   "dur": 3.029
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s10_t1.wav",
+   "heard": "Fogmen stood beside the signals for hours in the cold.",
+   "wer": 0.0,
+   "mos": 4.425,
+   "range_st": 9.34,
+   "dur": 3.243
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s10_t2.wav",
+   "heard": "Fogman stood beside the signals for hours in the cold.",
+   "wer": 0.1,
+   "mos": 4.447,
+   "range_st": 6.4,
+   "dur": 3.179
+  }
+ ],
+ "11": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s11_t0.wav",
+   "heard": "usually two or three of them spaced apart.",
+   "wer": 0.0,
+   "mos": 4.476,
+   "range_st": 8.92,
+   "dur": 2.176
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s11_t1.wav",
+   "heard": "Usually, two or three of them spaced apart.",
+   "wer": 0.0,
+   "mos": 4.477,
+   "range_st": 11.16,
+   "dur": 2.176
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s11_t2.wav",
+   "heard": "usually two or three of them spaced apart.",
+   "wer": 0.0,
+   "mos": 4.454,
+   "range_st": 3.4,
+   "dur": 2.219
+  }
+ ],
+ "12": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s12_t0.wav",
+   "heard": "The wheel hits the disc.",
+   "wer": 0.0,
+   "mos": 4.406,
+   "range_st": 5.26,
+   "dur": 1.237
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s12_t1.wav",
+   "heard": "The wheel hits the disc.",
+   "wer": 0.0,
+   "mos": 4.39,
+   "range_st": 8.24,
+   "dur": 1.301
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s12_t2.wav",
+   "heard": "The wheel hits the disc.",
+   "wer": 0.0,
+   "mos": 4.39,
+   "range_st": 7.5,
+   "dur": 1.195
+  }
+ ],
+ "13": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s13_t0.wav",
+   "heard": "BAM!",
+   "wer": 1.0,
+   "mos": 1.516,
+   "range_st": 0.0,
+   "dur": 0.448
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s13_t1.wav",
+   "heard": "Ink-a-ning!",
+   "wer": 3.0,
+   "mos": 1.752,
+   "range_st": 7.76,
+   "dur": 0.661
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s13_t2.wav",
+   "heard": "Yep, they calling!",
+   "wer": 3.0,
+   "mos": 1.501,
+   "range_st": 21.6,
+   "dur": 1.067
+  }
+ ],
+ "14": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s14_t0.wav",
+   "heard": "a sound no driver could miss even in total fog.",
+   "wer": 0.0,
+   "mos": 4.325,
+   "range_st": 8.1,
+   "dur": 2.667
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s14_t1.wav",
+   "heard": "a sound no driver could miss, even in Total Fog.",
+   "wer": 0.0,
+   "mos": 4.376,
+   "range_st": 8.41,
+   "dur": 2.987
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s14_t2.wav",
+   "heard": "A sound no driver could miss even in total fog.",
+   "wer": 0.0,
+   "mos": 4.415,
+   "range_st": 6.02,
+   "dur": 2.816
+  }
+ ],
+ "15": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s15_t0.wav",
+   "heard": "It meant, danger ahead, slow down, or stop.",
+   "wer": 0.0,
+   "mos": 4.418,
+   "range_st": 10.86,
+   "dur": 3.456
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s15_t1.wav",
+   "heard": "It meant, danger ahead, slow down, or stop.",
+   "wer": 0.0,
+   "mos": 4.327,
+   "range_st": 13.49,
+   "dur": 3.925
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s15_t2.wav",
+   "heard": "Emmett, danger ahead! Slow down or stop!",
+   "wer": 0.25,
+   "mos": 3.897,
+   "range_st": 5.48,
+   "dur": 2.816
+  }
+ ],
+ "16": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s16_t0.wav",
+   "heard": "Edward Calper invented it around 1841.",
+   "wer": 0.125,
+   "mos": 4.418,
+   "range_st": 6.86,
+   "dur": 2.859
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s16_t1.wav",
+   "heard": "Edward Cowper invented it around 1841.",
+   "wer": 0.0,
+   "mos": 4.405,
+   "range_st": 9.63,
+   "dur": 2.688
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s16_t2.wav",
+   "heard": "Edward Calper invented it around 1841.",
+   "wer": 0.125,
+   "mos": 4.393,
+   "range_st": 7.76,
+   "dur": 2.773
+  }
+ ],
+ "17": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s17_t0.wav",
+   "heard": "and trains still carry detonators today.",
+   "wer": 0.0,
+   "mos": 4.417,
+   "range_st": 5.88,
+   "dur": 2.197
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s17_t1.wav",
+   "heard": "and trains still carry detonators today.",
+   "wer": 0.0,
+   "mos": 4.481,
+   "range_st": 9.29,
+   "dur": 2.453
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s17_t2.wav",
+   "heard": "And trains still carry detonators today.",
+   "wer": 0.0,
+   "mos": 4.449,
+   "range_st": 6.87,
+   "dur": 2.56
+  }
+ ],
+ "18": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s18_t0.wav",
+   "heard": "Not an attack.",
+   "wer": 0.0,
+   "mos": 4.374,
+   "range_st": 4.2,
+   "dur": 1.067
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s18_t1.wav",
+   "heard": "Not an attack.",
+   "wer": 0.0,
+   "mos": 4.402,
+   "range_st": 9.42,
+   "dur": 0.896
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s18_t2.wav",
+   "heard": "Not an attack.",
+   "wer": 0.0,
+   "mos": 4.418,
+   "range_st": 9.96,
+   "dur": 0.939
+  }
+ ],
+ "19": [
+  {
+   "file": "public/yw7-vo-detonator/takes/s19_t0.wav",
+   "heard": "warning loud enough to stop a train.",
+   "wer": 0.125,
+   "mos": 4.404,
+   "range_st": 7.0,
+   "dur": 1.963
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s19_t1.wav",
+   "heard": "A warning! Loud enough to stop a train!",
+   "wer": 0.0,
+   "mos": 4.342,
+   "range_st": 8.97,
+   "dur": 2.24
+  },
+  {
+   "file": "public/yw7-vo-detonator/takes/s19_t2.wav",
+   "heard": "Warning! Loud enough to stop a train!",
+   "wer": 0.125,
+   "mos": 4.289,
+   "range_st": 10.95,
+   "dur": 2.24
+  }
+ ]
+}

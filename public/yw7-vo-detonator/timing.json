@@ -1,0 +1,938 @@
+{
+ "engine": "Chatterbox TTS (MIT) + synthetic narrator reference (Kokoro am_fenrir)",
+ "films": {
+  "detonator": [
+   {
+    "i": 1,
+    "text": "They used to put EXPLOSIVES on train tracks...",
+    "style": "c",
+    "pause": 0.45,
+    "dur": 2.936,
+    "mos": 4.437,
+    "range_st": 16.16,
+    "wer": 0.0,
+    "heard": "They used to put explosives on train tracks.",
+    "words": [
+     [
+      -0.195,
+      0.165,
+      "They"
+     ],
+     [
+      0.165,
+      0.305,
+      "used"
+     ],
+     [
+      0.305,
+      0.445,
+      "to"
+     ],
+     [
+      0.445,
+      0.605,
+      "put"
+     ],
+     [
+      0.605,
+      1.285,
+      "explosives"
+     ],
+     [
+      1.285,
+      1.845,
+      "on"
+     ],
+     [
+      1.845,
+      2.205,
+      "train"
+     ],
+     [
+      2.205,
+      2.625,
+      "tracks."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s01.wav"
+   },
+   {
+    "i": 2,
+    "text": "to STOP trains from crashing.",
+    "style": "e",
+    "pause": 0.6,
+    "dur": 1.976,
+    "mos": 4.409,
+    "range_st": 8.43,
+    "wer": 0.0,
+    "heard": "To stop trains from crashing?",
+    "words": [
+     [
+      -0.131,
+      0.169,
+      "To"
+     ],
+     [
+      0.169,
+      0.449,
+      "stop"
+     ],
+     [
+      0.449,
+      0.869,
+      "trains"
+     ],
+     [
+      0.869,
+      1.149,
+      "from"
+     ],
+     [
+      1.149,
+      1.629,
+      "crashing?"
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s02.wav"
+   },
+   {
+    "i": 3,
+    "text": "This little metal disc is a railway detonator.",
+    "style": "n",
+    "pause": 0.3,
+    "dur": 2.701,
+    "mos": 4.391,
+    "range_st": 12.6,
+    "wer": 0.0,
+    "heard": "This little metal disc is a railway detonator.",
+    "words": [
+     [
+      -0.067,
+      0.293,
+      "This"
+     ],
+     [
+      0.293,
+      0.553,
+      "little"
+     ],
+     [
+      0.553,
+      0.813,
+      "metal"
+     ],
+     [
+      0.813,
+      1.193,
+      "disc"
+     ],
+     [
+      1.193,
+      1.433,
+      "is"
+     ],
+     [
+      1.433,
+      1.573,
+      "a"
+     ],
+     [
+      1.573,
+      1.893,
+      "railway"
+     ],
+     [
+      1.893,
+      2.493,
+      "detonator."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s03.wav"
+   },
+   {
+    "i": 4,
+    "text": "About the size of a coin.",
+    "style": "n",
+    "pause": 0.25,
+    "dur": 1.443,
+    "mos": 4.33,
+    "range_st": 6.53,
+    "wer": 0.0,
+    "heard": "about the size of a coin.",
+    "words": [
+     [
+      -0.045,
+      0.255,
+      "about"
+     ],
+     [
+      0.255,
+      0.435,
+      "the"
+     ],
+     [
+      0.435,
+      0.655,
+      "size"
+     ],
+     [
+      0.655,
+      0.815,
+      "of"
+     ],
+     [
+      0.815,
+      0.935,
+      "a"
+     ],
+     [
+      0.935,
+      1.155,
+      "coin."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s04.wav"
+   },
+   {
+    "i": 5,
+    "text": "It's strapped to the rail with two soft lead clips.",
+    "style": "n",
+    "pause": 0.4,
+    "dur": 2.701,
+    "mos": 4.423,
+    "range_st": 9.58,
+    "wer": 0.0,
+    "heard": "It's strapped to the rail with two soft lead clips.",
+    "words": [
+     [
+      -0.024,
+      0.296,
+      "It's"
+     ],
+     [
+      0.296,
+      0.496,
+      "strapped"
+     ],
+     [
+      0.496,
+      0.696,
+      "to"
+     ],
+     [
+      0.696,
+      0.796,
+      "the"
+     ],
+     [
+      0.796,
+      0.996,
+      "rail"
+     ],
+     [
+      0.996,
+      1.236,
+      "with"
+     ],
+     [
+      1.236,
+      1.516,
+      "two"
+     ],
+     [
+      1.516,
+      1.876,
+      "soft"
+     ],
+     [
+      1.876,
+      2.076,
+      "lead"
+     ],
+     [
+      2.076,
+      2.396,
+      "clips."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s05.wav"
+   },
+   {
+    "i": 6,
+    "text": "Why? Because of fog.",
+    "style": "s",
+    "pause": 0.45,
+    "dur": 1.72,
+    "mos": 4.487,
+    "range_st": 10.48,
+    "wer": 0.0,
+    "heard": "Why? Because of fog.",
+    "words": [
+     [
+      -0.088,
+      0.412,
+      "Why?"
+     ],
+     [
+      0.832,
+      0.992,
+      "Because"
+     ],
+     [
+      0.992,
+      1.172,
+      "of"
+     ],
+     [
+      1.172,
+      1.452,
+      "fog."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s06.wav"
+   },
+   {
+    "i": 7,
+    "text": "In thick fog, drivers couldn't see the signals.",
+    "style": "s",
+    "pause": 0.3,
+    "dur": 2.552,
+    "mos": 4.382,
+    "range_st": 7.02,
+    "wer": 0.0,
+    "heard": "In thick fog, drivers couldn't see the signals.",
+    "words": [
+     [
+      -0.088,
+      0.192,
+      "In"
+     ],
+     [
+      0.192,
+      0.392,
+      "thick"
+     ],
+     [
+      0.392,
+      0.752,
+      "fog,"
+     ],
+     [
+      0.952,
+      1.152,
+      "drivers"
+     ],
+     [
+      1.152,
+      1.572,
+      "couldn't"
+     ],
+     [
+      1.572,
+      1.772,
+      "see"
+     ],
+     [
+      1.772,
+      1.932,
+      "the"
+     ],
+     [
+      1.932,
+      2.252,
+      "signals."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s07.wav"
+   },
+   {
+    "i": 8,
+    "text": "Red or green... it all disappeared.",
+    "style": "s",
+    "pause": 0.5,
+    "dur": 2.253,
+    "mos": 4.428,
+    "range_st": 10.1,
+    "wer": 0.0,
+    "heard": "red or green, it all disappeared.",
+    "words": [
+     [
+      -0.088,
+      0.332,
+      "red"
+     ],
+     [
+      0.332,
+      0.592,
+      "or"
+     ],
+     [
+      0.592,
+      0.952,
+      "green,"
+     ],
+     [
+      1.232,
+      1.392,
+      "it"
+     ],
+     [
+      1.392,
+      1.532,
+      "all"
+     ],
+     [
+      1.532,
+      1.972,
+      "disappeared."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s08.wav"
+   },
+   {
+    "i": 9,
+    "text": "So when a signal showed danger, a fogman placed detonators on the line.",
+    "style": "n",
+    "pause": 0.4,
+    "dur": 4.131,
+    "mos": 4.452,
+    "range_st": 16.37,
+    "wer": 0.0,
+    "heard": "So, when a signal showed danger, a fogman placed detonators on the line.",
+    "words": [
+     [
+      -0.173,
+      0.367,
+      "So,"
+     ],
+     [
+      0.447,
+      0.467,
+      "when"
+     ],
+     [
+      0.467,
+      0.607,
+      "a"
+     ],
+     [
+      0.607,
+      0.847,
+      "signal"
+     ],
+     [
+      0.847,
+      1.127,
+      "showed"
+     ],
+     [
+      1.127,
+      1.667,
+      "danger,"
+     ],
+     [
+      2.187,
+      2.187,
+      "a"
+     ],
+     [
+      2.187,
+      2.567,
+      "fogman"
+     ],
+     [
+      2.567,
+      2.867,
+      "placed"
+     ],
+     [
+      2.867,
+      3.407,
+      "detonators"
+     ],
+     [
+      3.407,
+      3.607,
+      "on"
+     ],
+     [
+      3.607,
+      3.687,
+      "the"
+     ],
+     [
+      3.687,
+      3.907,
+      "line."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s09.wav"
+   },
+   {
+    "i": 10,
+    "text": "Fogmen stood beside the signals for hours, in the cold.",
+    "style": "m",
+    "pause": 0.35,
+    "dur": 3.149,
+    "mos": 4.407,
+    "range_st": 11.4,
+    "wer": 0.0,
+    "heard": "Fogmen stood beside the signals for hours in the cold.",
+    "words": [
+     [
+      -0.237,
+      0.423,
+      "Fogmen"
+     ],
+     [
+      0.423,
+      0.663,
+      "stood"
+     ],
+     [
+      0.663,
+      1.003,
+      "beside"
+     ],
+     [
+      1.003,
+      1.183,
+      "the"
+     ],
+     [
+      1.183,
+      1.443,
+      "signals"
+     ],
+     [
+      1.443,
+      1.703,
+      "for"
+     ],
+     [
+      1.703,
+      2.023,
+      "hours"
+     ],
+     [
+      2.023,
+      2.563,
+      "in"
+     ],
+     [
+      2.563,
+      2.663,
+      "the"
+     ],
+     [
+      2.663,
+      2.923,
+      "cold."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s10.wav"
+   },
+   {
+    "i": 11,
+    "text": "Usually two or three of them, spaced apart.",
+    "style": "n",
+    "pause": 0.35,
+    "dur": 2.296,
+    "mos": 4.477,
+    "range_st": 11.16,
+    "wer": 0.0,
+    "heard": "Usually, two or three of them spaced apart.",
+    "words": [
+     [
+      -0.131,
+      0.409,
+      "Usually,"
+     ],
+     [
+      0.609,
+      0.769,
+      "two"
+     ],
+     [
+      0.769,
+      0.889,
+      "or"
+     ],
+     [
+      0.889,
+      1.089,
+      "three"
+     ],
+     [
+      1.089,
+      1.169,
+      "of"
+     ],
+     [
+      1.169,
+      1.369,
+      "them"
+     ],
+     [
+      1.369,
+      1.749,
+      "spaced"
+     ],
+     [
+      1.749,
+      2.109,
+      "apart."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s11.wav"
+   },
+   {
+    "i": 12,
+    "text": "The wheel hits the disc...",
+    "style": "s",
+    "pause": 0.25,
+    "dur": 1.421,
+    "mos": 4.39,
+    "range_st": 8.24,
+    "wer": 0.0,
+    "heard": "The wheel hits the disc.",
+    "words": [
+     [
+      -0.152,
+      0.128,
+      "The"
+     ],
+     [
+      0.128,
+      0.348,
+      "wheel"
+     ],
+     [
+      0.348,
+      0.668,
+      "hits"
+     ],
+     [
+      0.668,
+      0.868,
+      "the"
+     ],
+     [
+      0.868,
+      1.168,
+      "disc."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s12.wav"
+   },
+   {
+    "i": 13,
+    "text": "BANG.",
+    "style": "e",
+    "pause": 0.6,
+    "dur": 0.568,
+    "mos": 1.516,
+    "range_st": 0.0,
+    "wer": 1.0,
+    "heard": "BAM!",
+    "words": [
+     [
+      -0.173,
+      0.267,
+      "BAM!"
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s13.wav"
+   },
+   {
+    "i": 14,
+    "text": "A sound no driver could miss... even in total fog.",
+    "style": "x",
+    "pause": 0.4,
+    "dur": 3.107,
+    "mos": 4.376,
+    "range_st": 8.41,
+    "wer": 0.0,
+    "heard": "a sound no driver could miss, even in Total Fog.",
+    "words": [
+     [
+      0.04,
+      0.22,
+      "a"
+     ],
+     [
+      0.22,
+      0.54,
+      "sound"
+     ],
+     [
+      0.54,
+      0.86,
+      "no"
+     ],
+     [
+      0.86,
+      1.2,
+      "driver"
+     ],
+     [
+      1.2,
+      1.46,
+      "could"
+     ],
+     [
+      1.46,
+      1.76,
+      "miss,"
+     ],
+     [
+      1.86,
+      2.18,
+      "even"
+     ],
+     [
+      2.18,
+      2.38,
+      "in"
+     ],
+     [
+      2.38,
+      2.54,
+      "Total"
+     ],
+     [
+      2.54,
+      2.84,
+      "Fog."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s14.wav"
+   },
+   {
+    "i": 15,
+    "text": "It meant: DANGER ahead. Slow down... or stop.",
+    "style": "e",
+    "pause": 0.5,
+    "dur": 3.576,
+    "mos": 4.418,
+    "range_st": 10.86,
+    "wer": 0.0,
+    "heard": "It meant, danger ahead, slow down, or stop.",
+    "words": [
+     [
+      -0.131,
+      0.169,
+      "It"
+     ],
+     [
+      0.169,
+      0.449,
+      "meant,"
+     ],
+     [
+      0.729,
+      1.129,
+      "danger"
+     ],
+     [
+      1.129,
+      1.629,
+      "ahead,"
+     ],
+     [
+      2.169,
+      2.249,
+      "slow"
+     ],
+     [
+      2.249,
+      2.569,
+      "down,"
+     ],
+     [
+      2.929,
+      2.989,
+      "or"
+     ],
+     [
+      2.989,
+      3.329,
+      "stop."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s15.wav"
+   },
+   {
+    "i": 16,
+    "text": "Edward Cowper invented it around eighteen forty-one...",
+    "style": "n",
+    "pause": 0.3,
+    "dur": 2.808,
+    "mos": 4.405,
+    "range_st": 9.63,
+    "wer": 0.0,
+    "heard": "Edward Cowper invented it around 1841.",
+    "words": [
+     [
+      -0.131,
+      0.309,
+      "Edward"
+     ],
+     [
+      0.309,
+      0.689,
+      "Cowper"
+     ],
+     [
+      0.689,
+      0.989,
+      "invented"
+     ],
+     [
+      0.989,
+      1.229,
+      "it"
+     ],
+     [
+      1.229,
+      1.489,
+      "around"
+     ],
+     [
+      1.489,
+      2.489,
+      "1841."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s16.wav"
+   },
+   {
+    "i": 17,
+    "text": "and trains still carry detonators today.",
+    "style": "n",
+    "pause": 0.45,
+    "dur": 2.573,
+    "mos": 4.481,
+    "range_st": 9.29,
+    "wer": 0.0,
+    "heard": "and trains still carry detonators today.",
+    "words": [
+     [
+      -0.109,
+      0.191,
+      "and"
+     ],
+     [
+      0.191,
+      0.631,
+      "trains"
+     ],
+     [
+      0.631,
+      1.051,
+      "still"
+     ],
+     [
+      1.051,
+      1.451,
+      "carry"
+     ],
+     [
+      1.451,
+      1.971,
+      "detonators"
+     ],
+     [
+      1.971,
+      2.351,
+      "today."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s17.wav"
+   },
+   {
+    "i": 18,
+    "text": "Not an attack.",
+    "style": "s",
+    "pause": 0.3,
+    "dur": 1.059,
+    "mos": 4.418,
+    "range_st": 9.96,
+    "wer": 0.0,
+    "heard": "Not an attack.",
+    "words": [
+     [
+      -0.088,
+      0.332,
+      "Not"
+     ],
+     [
+      0.332,
+      0.492,
+      "an"
+     ],
+     [
+      0.492,
+      0.812,
+      "attack."
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s18.wav"
+   },
+   {
+    "i": 19,
+    "text": "A WARNING... loud enough to stop a train.",
+    "style": "e",
+    "pause": 0.3,
+    "dur": 2.36,
+    "mos": 4.342,
+    "range_st": 8.97,
+    "wer": 0.0,
+    "heard": "A warning! Loud enough to stop a train!",
+    "words": [
+     [
+      -0.195,
+      0.165,
+      "A"
+     ],
+     [
+      0.165,
+      0.485,
+      "warning!"
+     ],
+     [
+      0.725,
+      0.905,
+      "Loud"
+     ],
+     [
+      0.905,
+      1.065,
+      "enough"
+     ],
+     [
+      1.065,
+      1.245,
+      "to"
+     ],
+     [
+      1.245,
+      1.525,
+      "stop"
+     ],
+     [
+      1.525,
+      1.685,
+      "a"
+     ],
+     [
+      1.685,
+      2.045,
+      "train!"
+     ]
+    ],
+    "file": "public/yw7-vo-detonator/s19.wav"
+   }
+  ]
+ }
+}
