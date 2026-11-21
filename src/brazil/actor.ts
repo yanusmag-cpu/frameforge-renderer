@@ -4,9 +4,10 @@ import * as T from 'three';
 import { type Look, type Pose, stickman, type Joints } from '../ff2d/rig.ts';
 import { type Face } from '../ff2d/face.ts';
 import { toon, type ToonLook, type Held } from '../ff2d/toon.ts';
+import { folk, type FolkLook, type Prop } from '../yw6/folk.ts';
 
 export const UNIT = 1.75 / 4.2;           // rig unit (head diameter) in metres for a 1.75 m stickman
-const VB = { x0: -1.8, x1: 1.8, y0: -5.4, y1: .35 }; // rig viewBox (y down, 0 = ground)
+const VB = { x0: -2.8, x1: 2.8, y0: -5.4, y1: .35 }; // rig viewBox (y down, 0 = ground)
 const VW = VB.x1 - VB.x0, VH = VB.y1 - VB.y0;
 
 export type ActorState = {
@@ -23,6 +24,7 @@ export type ActorState = {
   roll?: number;                    // rotate the cut-out in its own plane about the feet (lying down = ±PI/2)
   toon?: ToonLook; heldA?: Held; heldB?: Held; hatOff?: number; toonOpts?: { torchLit?: number; heldAng?: number };   // YunoWorld cartoon cast instead of the stickman
   flip?: boolean;                   // mirror the cut-out (reflections)
+  folk?: FolkLook; propA?: Prop; propB?: Prop;   // YunoWorld Folk (v6 character system)
 };
 const blobTex = (() => { let t: T.Texture | null = null; return () => {
   if (t) return t; const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d')!;
@@ -53,7 +55,8 @@ export class Actor {
     const sc = s.scale ?? 1; this.scale = sc;
     const res = s.res ?? 1024;
     if (res !== this.res) { this.res = res; this.canvas.height = res; this.canvas.width = Math.round(res * VW / VH); this.lastSvg = ''; this.tex.dispose(); }
-    const r = s.toon ? toon(s.pose, s.toon, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, heldA: s.heldA, heldB: s.heldB, hatOff: s.hatOff, ...s.toonOpts })
+    const r = s.folk ? folk(s.pose, s.folk, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, heldA: s.propA, heldB: s.propB, rim: s.rim, rimSide: s.rimSide })
+      : s.toon ? toon(s.pose, s.toon, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, heldA: s.heldA, heldB: s.heldB, hatOff: s.hatOff, ...s.toonOpts })
       : stickman(s.pose, s.look, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, lighting: s.rim ? { rim: s.rim, rimSide: s.rimSide } : undefined });
     this.joints = r.j;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${this.canvas.width}" height="${this.canvas.height}" viewBox="${VB.x0} ${VB.y0} ${VW} ${VH}">${s.under ?? ''}${r.svg}${s.extra ?? ''}</svg>`;

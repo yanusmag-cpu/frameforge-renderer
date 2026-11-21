@@ -1,0 +1,55 @@
+{
+ "lines": {
+  "onoda": [
+   "This soldier kept fighting World War Two... for twenty-nine years after it ended.",
+   "In nineteen forty-four, Japan sent Lieutenant Hiroo Onoda to a jungle island in the Philippines.",
+   "His orders? Hold out. And never surrender.",
+   "Then, leaflets fell from the sky. The war is over. Come out.",
+   "He was sure it was an enemy trick.",
+   "So he stayed. Patching his uniform, cleaning his rifle, raiding farms for food...",
+   "for a war that no longer existed. His raids even cost lives on the island.",
+   "Then, in nineteen seventy-four, a young traveller came looking for three things.",
+   "Lieutenant Onoda, a panda, and the Abominable Snowman. In that order.",
+   "He found Onoda in four days. But Onoda still refused to quit.",
+   "He'd only stop on an order from his commanding officer.",
+   "So they found his old major, now a bookseller, and flew him to the island.",
+   "And on March ninth, he read the order out loud.",
+   "After twenty-nine years... Onoda finally lowered his rifle."
+  ]
+ },
+ "style": {
+  "onoda": "hnssxnmnfxsnsm"
+ },
+ "styles": {
+  "h": [
+   0.75,
+   0.35,
+   0.85
+  ],
+  "n": [
+   0.62,
+   0.4,
+   0.8
+  ],
+  "s": [
+   0.62,
+   0.3,
+   0.8
+  ],
+  "x": [
+   0.85,
+   0.32,
+   0.9
+  ],
+  "m": [
+   0.5,
+   0.36,
+   0.75
+  ],
+  "f": [
+   0.8,
+   0.35,
+   0.9
+  ]
+ }
+}
