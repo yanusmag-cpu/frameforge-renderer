@@ -66,7 +66,7 @@ function shoe(at: V2, facing: number, col: string): string {
   return `<ellipse cx="${n(cx)}" cy="${n(at[1] - .08)}" rx="${n(rx)}" ry=".13" fill="${col}" stroke="${OUT}" stroke-width="${LW}"/><path d="M${n(cx - rx * .85)} ${n(at[1] - .02)}H${n(cx + rx * .85)}" stroke="${shade(col, .6)}" stroke-width=".04"/>`;
 }
 /** 2D props held in a hand (drawn in rig space), dir = forearm direction */
-function propSvg(p: Prop, at: V2, dir: number, o: FolkOpts, other?: V2): string {
+function propSvg(p: Prop, at: V2, dir: number, other?: V2): string {
   const cd = Math.cos(dir), sd = Math.sin(dir); const s = `stroke="${OUT}" stroke-width="${LW * .7}"`;
   const R = (x: number, y: number): V2 => [at[0] + x * cd - y * sd, at[1] + x * sd + y * cd];
   const poly = (pts: [number, number][], fill: string) => `<path d="M${pts.map(([x, y]) => P(R(x, y))).join('L')}Z" fill="${fill}" ${s} stroke-linejoin="round"/>`;
@@ -275,8 +275,8 @@ export function folk(p: Pose, L: FolkLook, o: FolkOpts): { svg: string; j: Joint
   }
   const headG = `<g transform="translate(${n(hc[0])} ${n(hc[1])}) rotate(${n((tilt + p.lean * .5) * 57.3)})">${hg}</g>`;
   // ---- props
-  const pA = A.held ? propSvg(A.held, A.end, A.dir, o, A.held === 'rifle' ? B.end : undefined) : '';
-  const pB = B.held ? propSvg(B.held, B.end, B.dir, o, B.held === 'rifle' ? A.end : undefined) : '';
+  const pA = A.held ? propSvg(A.held, A.end, A.dir, A.held === 'rifle' ? B.end : undefined) : '';
+  const pB = B.held ? propSvg(B.held, B.end, B.dir, B.held === 'rifle' ? A.end : undefined) : '';
   // ---- order
   const farSide = at > .15 ? -sgn : 0;
   const frontA = (p.frontA ?? (farSide === -1 ? 0 : 1)) > .5 && !back, frontB = (p.frontB ?? (farSide === 1 ? 0 : 1)) > .5 && !back;

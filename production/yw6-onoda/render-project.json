@@ -1,0 +1,23 @@
+{
+ "composition": "YwOnoda",
+ "artifactPrefix": "yw-soldier-never-surrendered",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil/fonts"
+ ],
+ "sourceDirectories": [
+  "src/brazil",
+  "src/ehz",
+  "src/ff2d",
+  "src/yw3/core.ts",
+  "src/yw6"
+ ],
+ "soundtrack": "public/yw6-onoda-sound/bed.flac",
+ "soundtrackLUFS": -14,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "YunoWorld_Soldier_Who_Never_Surrendered.mp4"
+}

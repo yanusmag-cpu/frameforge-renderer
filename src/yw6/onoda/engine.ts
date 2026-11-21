@@ -71,8 +71,8 @@ function sway(mat: T.MeshStandardMaterial, U: { value: number }, amp: number) {
 // ------------------------------------------------------------------ engine
 export class OnodaEngine extends Core {
   groups: Record<SetName, T.Group>; skyU: Record<string, T.IUniform>; sky: T.Mesh; U = { value: 0 };
-  firePos: V3 = W('jungle', [1.2, 0, 1.6]); tallyMarks: T.Mesh; tent: T.Group; flag: T.Mesh; plane: T.Group; prop: T.Mesh; shafts: T.Mesh[] = []; leafletMesh: T.InstancedMesh;
-  sea: T.Mesh; seaU = { value: 0 }; lamp: V3 = W('shop', [0, 3.1, 0]);
+  firePos: V3 = W('jungle', [1.2, 0, 1.6]); tallyMarks!: T.Mesh; tent!: T.Group; flag!: T.Mesh; plane: T.Group; prop: T.Mesh; shafts: T.Mesh[] = []; leafletMesh: T.InstancedMesh;
+  sea!: T.Mesh; seaU = { value: 0 }; lamp: V3 = W('shop', [0, 3.1, 0]);
   constructor(cv: HTMLCanvasElement, w: number, h: number) {
     super(cv, w, h, '#a8c8e8', '#3a4a2a'); this.scene.environment = this.env;
     const mk = (n: SetName) => { const g = new T.Group(); g.position.set(...SET[n] as unknown as V3); this.scene.add(g); return g; };
@@ -91,7 +91,7 @@ export class OnodaEngine extends Core {
       b.add(new T.SphereGeometry(.6, 12, 8), M([0, .25, 1.2], [0, 0, 0], [.9, .7, 1.4]), '#5a7a9a'); b.cyl(.12, .12, 1.2, [-1.2, -.7, .8], '#3a3a3a'); b.cyl(.12, .12, 1.2, [1.2, -.7, .8], '#3a3a3a'); b.cyl(.3, .3, .2, [-1.2, -1.3, .8], '#222', 12, [0, 0, Math.PI / 2]); b.cyl(.3, .3, .2, [1.2, -1.3, .8], '#222', 12, [0, 0, Math.PI / 2]);
       this.plane.add(b.mesh(new T.MeshStandardMaterial({ vertexColors: true, roughness: .5, metalness: .3 }))); this.prop = new T.Mesh(new T.BoxGeometry(3, .2, .05), new T.MeshStandardMaterial({ color: '#333' })); this.prop.position.z = 3.6; this.plane.add(this.prop); }
     this.scene.add(this.plane);
-    this.leafletMesh = new T.InstancedMesh(new T.PlaneGeometry(.21, .3), new T.MeshStandardMaterial({ map: leafletTex, side: T.DoubleSide, roughness: .9 }), 160); this.leafletMesh.castShadow = true; this.scene.add(this.leafletMesh);
+    this.leafletMesh = new T.InstancedMesh(new T.PlaneGeometry(.21, .3), new T.MeshStandardMaterial({ map: leafletTex, side: T.DoubleSide, roughness: .9 }), 160); this.leafletMesh.castShadow = true; this.leafletMesh.frustumCulled = false; this.scene.add(this.leafletMesh);
   }
   private foliage(parent: T.Object3D, tex: T.Texture, geo: T.BufferGeometry, mats: T.Matrix4[], amp: number, tint = '#ffffff', rough = .75) {
     const m = new T.MeshStandardMaterial({ map: tex, alphaTest: .45, side: T.DoubleSide, roughness: rough, color: tint }); sway(m, this.U, amp);
@@ -104,8 +104,8 @@ export class OnodaEngine extends Core {
     g.computeVertexNormals(); soil.repeat.set(18, 18); const ground = new T.Mesh(g, new T.MeshStandardMaterial({ map: soil, roughness: .95, color: '#c8b8a0' })); ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; G.add(ground);
     // trees: trunks with buttress roots and canopy clusters
     const trunks = new Builder(); const canopy: T.Matrix4[] = [], canopy2: T.Matrix4[] = []; const vines: T.Matrix4[] = [];
-    const trees: V3[] = []; for (let i = 0; i < 46; i++) { const a = R() * 6.28, d = 9 + R() * 34; trees.push([Math.cos(a) * d, 0, Math.sin(a) * d]); }
-    trees.push([-6.5, 0, -6], [6.8, 0, -7.5], [-9, 0, 2.5], [8.5, 0, 3.8]);
+    const trees: V3[] = []; for (let i = 0; i < 60; i++) { const a = R() * 6.28, d = 9 + R() * 34, x = Math.cos(a) * d, z = Math.sin(a) * d; if (Math.abs(x) < 12 && z > -1 && z < 24) continue; trees.push([x, 0, z]); }
+    trees.push([-6.5, 0, -6], [6.8, 0, -7.5], [-10.5, 0, -1.5]);
     const trunkMat = new T.MeshStandardMaterial({ map: bark, roughness: .9, color: '#d8c8b0' }); bark.repeat.set(2, 3);
     for (const [x, , z] of trees) { const h = 16 + R() * 14, r = .45 + R() * .5;
       const tr = new T.Mesh(new T.CylinderGeometry(r * .7, r * 1.2, h, 10), trunkMat); tr.position.set(x, h / 2, z); tr.rotation.z = (R() - .5) * .08; tr.castShadow = tr.receiveShadow = true; G.add(tr);
@@ -118,7 +118,7 @@ export class OnodaEngine extends Core {
     this.foliage(G, leafCluster(0), cross, canopy, .12, '#d8f0c0'); this.foliage(G, leafCluster(1), cross, canopy2, .1, '#c8e8b0');
     // palms around the clearing
     const palmT = new Builder(); const palmF: T.Matrix4[] = [];
-    for (let i = 0; i < 16; i++) { const a = R() * 6.28, d = 8 + R() * 22; const x = Math.cos(a) * d, z = Math.sin(a) * d, h = 7 + R() * 6, lean = (R() - .5) * .5;
+    for (let i = 0; i < 24; i++) { const a = R() * 6.28, d = 8 + R() * 22; const x = Math.cos(a) * d, z = Math.sin(a) * d, h = 7 + R() * 6, lean = (R() - .5) * .5; if (Math.abs(x) < 12 && z > -1 && z < 24) continue;
       for (let s = 0; s < 8; s++) { const k0 = s / 8; palmT.cyl(.2, .24, h / 8 + .05, [x + Math.sin(lean) * h * k0 * k0, h * (k0 + .06), z], s % 2 ? '#8a7656' : '#7a684a', 8, [0, 0, -lean * k0 * 2]); }
       const tx = x + Math.sin(lean) * h, ty = h; for (let f = 0; f < 9; f++) { const fa = f / 9 * 6.28 + R(); palmF.push(M([tx, ty, z], [0, fa, 0], [1, 1, 1]).multiply(M([0, 0, 0], [-.9 - R() * .6, 0, 0], [2.4, 4.2, 1]))); } }
     G.add(palmT.mesh(new T.MeshStandardMaterial({ vertexColors: true, roughness: .85 })));
@@ -150,6 +150,7 @@ export class OnodaEngine extends Core {
     for (let i = 0; i < 4; i++) b.cyl(.07, .07, .9, [fx, .1, fz], '#4a3020', 7, [Math.PI / 2, i * .8, 0]);
     for (let i = 0; i < 3; i++) { const a = i * 2.09; bam([fx + Math.cos(a) * .7, 0, fz + Math.sin(a) * .7], [fx, 1.3, fz], .035, '#8a7040'); }
     b.add(new T.SphereGeometry(.24, 12, 8, 0, 6.28, Math.PI * .35, Math.PI * .65), M([fx, .8, fz]), '#2a2a2a');
+    b.cyl(.2, .22, 1.8, [-.3, .21, 1.0], '#6a4a2c', 10, [0, .3, Math.PI / 2]);   // log seat by the fire
     // ammo box, gourd, coconut shells, sandals, sewing kit, rifle rack
     b.box(.7, .4, .45, [hx + 2.6, .2, hz + .6], '#5a4a2a'); b.box(.72, .06, .47, [hx + 2.6, .42, hz + .6], '#4a3a20');
     b.add(new T.SphereGeometry(.18, 10, 8), M([hx + 2.4, .62, hz + .6], [0, 0, 0], [1, 1.3, 1]), '#b89a5a');
@@ -183,7 +184,7 @@ export class OnodaEngine extends Core {
     this.sea.rotation.x = -Math.PI / 2; this.sea.position.set(0, -.5, -200); G.add(this.sea);
     const isl = new Builder(); for (let i = 0; i < 7; i++) isl.add(new T.SphereGeometry(30 + R() * 40, 18, 10, 0, 6.28, 0, Math.PI / 2), M([-300 + i * 110 + R() * 40, -4, -500 - R() * 300], [0, 0, 0], [1.6, .45 + R() * .3, 1]), R() > .5 ? '#5a8a5a' : '#4a7a5a');
     G.add(isl.mesh(new T.MeshStandardMaterial({ vertexColors: true, roughness: 1, flatShading: true })));
-    const grass: T.Matrix4[] = [], palms: T.Matrix4[] = []; for (let i = 0; i < 1400; i++) { const x = (R() - .5) * 120, z = -10 + (R() - .5) * 60; const h = Math.exp(-((-z + 10 - 10) ** 2) / 900) * 0; void h; grass.push(M([x, 0, z], [0, R() * 6.28, 0], [.7 + R() * .5, .35 + R() * .3, .7 + R() * .5])); }
+    const grass: T.Matrix4[] = [], palms: T.Matrix4[] = []; for (let i = 0; i < 1400; i++) { const x = (R() - .5) * 120, z = -10 + (R() - .5) * 60; if (x > -8 && x < 5 && z > 5 && z < 24) continue; const h = Math.exp(-((-z + 10 - 10) ** 2) / 900) * 0; void h; grass.push(M([x, 0, z], [0, R() * 6.28, 0], [.7 + R() * .5, .35 + R() * .3, .7 + R() * .5])); }
     const gm2 = new T.PlaneGeometry(1, 1); gm2.translate(0, .5, 0);
     // conform grass to terrain via raycast-free height function
     const hAt = hillY;
