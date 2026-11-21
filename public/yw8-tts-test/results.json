@@ -1,0 +1,335 @@
+{
+ "cbx-blend-e85": {
+  "mos": [
+   4.457,
+   3.864,
+   4.443
+  ],
+  "range_st": [
+   9.76,
+   11.71,
+   12.39
+  ],
+  "std_st": [
+   3.65,
+   4.47,
+   4.79
+  ],
+  "wps": [
+   3.02,
+   2.21,
+   2.6
+  ],
+  "wer": [
+   0.0,
+   0.25,
+   0.0
+  ],
+  "heard": [
+   "This iron cage wasn't built to keep something in.",
+   "Wait, it was built to keep people-  OH! UT!",
+   "Divers pulled up a lump of bronze, and inside? Gears! Dozens of them!"
+  ],
+  "MOS": 4.255,
+  "RANGE_ST": 11.287,
+  "STD_ST": 4.303,
+  "WPS": 2.61,
+  "WER": 0.083
+ },
+ "cbx-blend-hot": {
+  "mos": [
+   4.369,
+   4.322,
+   3.65
+  ],
+  "range_st": [
+   8.44,
+   11.86,
+   14.66
+  ],
+  "std_st": [
+   3.5,
+   4.77,
+   6.55
+  ],
+  "wps": [
+   2.7,
+   2.63,
+   2.43
+  ],
+  "wer": [
+   0.0,
+   0.375,
+   0.077
+  ],
+  "heard": [
+   "This iron cage wasn't built to keep something in.",
+   "Wait, it was built to keep people.  Oh, you tea!",
+   "Fuck, divers pulled up a lump of bronze and inside, gears, dozens of them!"
+  ],
+  "MOS": 4.114,
+  "RANGE_ST": 11.653,
+  "STD_ST": 4.94,
+  "WPS": 2.587,
+  "WER": 0.151
+ },
+ "cbx-fenrir-hot": {
+  "mos": [
+   4.389,
+   3.651,
+   3.96
+  ],
+  "range_st": [
+   15.72,
+   8.3,
+   17.1
+  ],
+  "std_st": [
+   5.91,
+   3.36,
+   6.01
+  ],
+  "wps": [
+   3.02,
+   2.5,
+   2.69
+  ],
+  "wer": [
+   0.0,
+   0.25,
+   0.0
+  ],
+  "heard": [
+   "This iron cage wasn't built to keep something in!",
+   "Wait, it was built to keep people, oh, you.",
+   "Divers pulled up a lump of bronze, and inside, gears, dozens of them!"
+  ],
+  "MOS": 4.0,
+  "RANGE_ST": 13.707,
+  "STD_ST": 5.093,
+  "WPS": 2.737,
+  "WER": 0.083
+ },
+ "cbx-fenrir-v7": {
+  "mos": [
+   4.474,
+   4.467,
+   4.458
+  ],
+  "range_st": [
+   10.4,
+   15.8,
+   12.16
+  ],
+  "std_st": [
+   4.32,
+   6.33,
+   4.81
+  ],
+  "wps": [
+   2.93,
+   2.98,
+   2.52
+  ],
+  "wer": [
+   0.0,
+   0.375,
+   0.0
+  ],
+  "heard": [
+   "This iron cage wasn't built to keep something in.",
+   "Wait, it was built to keep people.  O.U.T.",
+   "Divers pulled up a lump of bronze, and inside, gears. Dozens of them."
+  ],
+  "MOS": 4.466,
+  "RANGE_ST": 12.787,
+  "STD_ST": 5.153,
+  "WPS": 2.81,
+  "WER": 0.125
+ },
+ "kokoro-blend": {
+  "mos": [
+   4.444,
+   4.286,
+   4.496
+  ],
+  "range_st": [
+   9.72,
+   8.53,
+   10.12
+  ],
+  "std_st": [
+   4.25,
+   3.74,
+   3.99
+  ],
+  "wps": [
+   3.35,
+   4.39,
+   3.17
+  ],
+  "wer": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "heard": [
+   "This iron cage wasn't built to keep something in.",
+   "Wait, it was built to keep people out.",
+   "Divers pulled up a lump of bronze, and inside, gears dozens of them."
+  ],
+  "MOS": 4.409,
+  "RANGE_ST": 9.457,
+  "STD_ST": 3.993,
+  "WPS": 3.637,
+  "WER": 0.0
+ },
+ "kokoro-fenrir": {
+  "mos": [
+   4.429,
+   4.334,
+   4.47
+  ],
+  "range_st": [
+   12.4,
+   11.12,
+   12.02
+  ],
+  "std_st": [
+   4.64,
+   4.14,
+   4.8
+  ],
+  "wps": [
+   3.23,
+   4.31,
+   3.17
+  ],
+  "wer": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "heard": [
+   "This iron cage wasn't built to keep something in.",
+   "Wait, it was built to keep people out.",
+   "Divers pulled up a lump of bronze and inside gears dozens of them."
+  ],
+  "MOS": 4.411,
+  "RANGE_ST": 11.847,
+  "STD_ST": 4.527,
+  "WPS": 3.57,
+  "WER": 0.0
+ },
+ "turbo-blend-tags": {
+  "mos": [
+   4.375,
+   3.941,
+   4.451
+  ],
+  "range_st": [
+   5.54,
+   9.0,
+   13.02
+  ],
+  "std_st": [
+   2.22,
+   3.37,
+   6.35
+  ],
+  "wps": [
+   3.31,
+   1.59,
+   2.54
+  ],
+  "wer": [
+   0.0,
+   0.5,
+   0.0
+  ],
+  "heard": [
+   "This iron cage wasn't built to keep something in.",
+   "Wait, it was built to keep people public, we ATC's test.",
+   "Divers pulled up a lump of bronze, and inside, gears, dozens of them..."
+  ],
+  "MOS": 4.256,
+  "RANGE_ST": 9.187,
+  "STD_ST": 3.98,
+  "WPS": 2.48,
+  "WER": 0.167
+ },
+ "turbo-blend": {
+  "mos": [
+   4.375,
+   4.478,
+   4.451
+  ],
+  "range_st": [
+   5.54,
+   5.06,
+   13.02
+  ],
+  "std_st": [
+   2.22,
+   2.36,
+   6.35
+  ],
+  "wps": [
+   3.31,
+   3.16,
+   2.54
+  ],
+  "wer": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "heard": [
+   "This iron cage wasn't built to keep something in.",
+   "Wait, it was built to keep people out.",
+   "Divers pulled up a lump of bronze, and inside, gears, dozens of them..."
+  ],
+  "MOS": 4.435,
+  "RANGE_ST": 7.873,
+  "STD_ST": 3.643,
+  "WPS": 3.003,
+  "WER": 0.0
+ },
+ "turbo-fenrir": {
+  "mos": [
+   4.388,
+   4.358,
+   4.435
+  ],
+  "range_st": [
+   9.9,
+   5.4,
+   9.65
+  ],
+  "std_st": [
+   4.63,
+   2.5,
+   3.81
+  ],
+  "wps": [
+   3.06,
+   3.12,
+   2.66
+  ],
+  "wer": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "heard": [
+   "This iron cage wasn't built to keep something in.",
+   "Wait, it was built to keep people out.",
+   "divers pulled up a lump of bronze and inside, gears, dozens of them."
+  ],
+  "MOS": 4.394,
+  "RANGE_ST": 8.317,
+  "STD_ST": 3.647,
+  "WPS": 2.947,
+  "WER": 0.0
+ }
+}
