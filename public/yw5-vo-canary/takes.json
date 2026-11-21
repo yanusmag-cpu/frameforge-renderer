@@ -1,0 +1,301 @@
+{
+ "1": [
+  {
+   "file": "public/yw5-vo-canary/takes/s01_t0.wav",
+   "heard": "These miners carried tiny birds underground, and some even had emergency oxygen tanks for them.",
+   "wer": 0.0,
+   "mos": 4.503,
+   "dur": 5.12
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s01_t1.wav",
+   "heard": "These miners carried tiny birds underground,  and some even had emergency oxygen tanks for them.",
+   "wer": 0.0,
+   "mos": 4.512,
+   "dur": 5.483
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s01_t2.wav",
+   "heard": "These miners carried tiny birds underground, and some even had emergency oxygen tanks for them.",
+   "wer": 0.0,
+   "mos": 4.494,
+   "dur": 5.525
+  }
+ ],
+ "2": [
+  {
+   "file": "public/yw5-vo-canary/takes/s02_t0.wav",
+   "heard": "a metal box, a glass window, a little round door, and on top an oxygen cylinder.",
+   "wer": 0.0,
+   "mos": 4.502,
+   "dur": 5.547
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s02_t1.wav",
+   "heard": "A metal box, a glass window, a little round door, and on top, an oxygen cylinder.",
+   "wer": 0.0,
+   "mos": 4.486,
+   "dur": 5.227
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s02_t2.wav",
+   "heard": "a metal box, a glass window, a little round door, and on top, an oxygen cylinder.",
+   "wer": 0.0,
+   "mos": 4.521,
+   "dur": 5.824
+  }
+ ],
+ "3": [
+  {
+   "file": "public/yw5-vo-canary/takes/s03_t0.wav",
+   "heard": "Why would a bird need its own oxygen?",
+   "wer": 0.0,
+   "mos": 4.469,
+   "dur": 2.219
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s03_t1.wav",
+   "heard": "Why would a bird need its own oxygen?",
+   "wer": 0.0,
+   "mos": 4.498,
+   "dur": 2.347
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s03_t2.wav",
+   "heard": "Why would a bird need its own oxygen?",
+   "wer": 0.0,
+   "mos": 4.491,
+   "dur": 2.368
+  }
+ ],
+ "4": [
+  {
+   "file": "public/yw5-vo-canary/takes/s04_t0.wav",
+   "heard": "Because down here, the deadliest danger has no smell, no color, and no taste.",
+   "wer": 0.0,
+   "mos": 4.542,
+   "dur": 4.949
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s04_t1.wav",
+   "heard": "Because down here the deadliest danger has no smell no color and no taste",
+   "wer": 0.0,
+   "mos": 4.527,
+   "dur": 5.205
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s04_t2.wav",
+   "heard": "Because down here, the deadliest danger has no smell, no color, and no taste.",
+   "wer": 0.0,
+   "mos": 4.536,
+   "dur": 5.013
+  }
+ ],
+ "5": [
+  {
+   "file": "public/yw5-vo-canary/takes/s05_t0.wav",
+   "heard": "Carbon monoxide after explosions and fires had filled the tunnels and miners couldn't tell",
+   "wer": 0.083,
+   "mos": 4.422,
+   "dur": 5.227
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s05_t1.wav",
+   "heard": "Carbon monoxide. After explosions and fires, it filled the tunnels and miners couldn't tell.",
+   "wer": 0.0,
+   "mos": 4.113,
+   "dur": 5.611
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s05_t2.wav",
+   "heard": "carbon monoxide. After explosions and fires, it filled the tunnels and miners couldn't tell.",
+   "wer": 0.0,
+   "mos": 4.436,
+   "dur": 5.525
+  }
+ ],
+ "6": [
+  {
+   "file": "public/yw5-vo-canary/takes/s06_t0.wav",
+   "heard": "In 1896, scientist John Haldane found carbon monoxide behind a deadly Welsh mine explosion.",
+   "wer": 0.0,
+   "mos": 4.521,
+   "dur": 6.357
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s06_t1.wav",
+   "heard": "In 1896, scientist John Haldane found carbon monoxide behind a deadly Welsh mine explosion.",
+   "wer": 0.0,
+   "mos": 4.527,
+   "dur": 6.485
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s06_t2.wav",
+   "heard": "In 1896, scientist John Haldane found carbon monoxide behind a deadly Welsh mine explosion.",
+   "wer": 0.0,
+   "mos": 4.528,
+   "dur": 6.571
+  }
+ ],
+ "7": [
+  {
+   "file": "public/yw5-vo-canary/takes/s07_t0.wav",
+   "heard": "His idea? Send a small animal first.",
+   "wer": 0.0,
+   "mos": 4.379,
+   "dur": 2.645
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s07_t1.wav",
+   "heard": "His idea? Send a small animal first.",
+   "wer": 0.0,
+   "mos": 4.365,
+   "dur": 2.688
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s07_t2.wav",
+   "heard": "His idea? Send a small animal first.",
+   "wer": 0.0,
+   "mos": 4.417,
+   "dur": 2.347
+  }
+ ],
+ "8": [
+  {
+   "file": "public/yw5-vo-canary/takes/s08_t0.wav",
+   "heard": "You see, a canary breathes fast, so the gas hits its tiny body long before a person's.",
+   "wer": 0.0,
+   "mos": 4.497,
+   "dur": 5.717
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s08_t1.wav",
+   "heard": "You see, a canary breathes fast, so the gas hits its tiny body long before a person's.",
+   "wer": 0.0,
+   "mos": 4.301,
+   "dur": 5.525
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s08_t2.wav",
+   "heard": "You see, a canary breathes fast, so the gas hits its tiny body long before a person's.",
+   "wer": 0.0,
+   "mos": 4.409,
+   "dur": 4.971
+  }
+ ],
+ "9": [
+  {
+   "file": "public/yw5-vo-canary/takes/s09_t0.wav",
+   "heard": "If the bird wobbled or dropped from its perch, everyone got out.",
+   "wer": 0.0,
+   "mos": 4.43,
+   "dur": 3.456
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s09_t1.wav",
+   "heard": "If the bird wobbled or dropped from its perch, everyone got out.",
+   "wer": 0.0,
+   "mos": 4.479,
+   "dur": 3.413
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s09_t2.wav",
+   "heard": "If the bird wobbled or dropped from its perch, everyone got out.",
+   "wer": 0.0,
+   "mos": 4.449,
+   "dur": 3.755
+  }
+ ],
+ "10": [
+  {
+   "file": "public/yw5-vo-canary/takes/s10_t0.wav",
+   "heard": "But rescue teams had a better cage.",
+   "wer": 0.0,
+   "mos": 4.48,
+   "dur": 2.155
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s10_t1.wav",
+   "heard": "But rescue teams had a better cage.",
+   "wer": 0.0,
+   "mos": 4.498,
+   "dur": 2.475
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s10_t2.wav",
+   "heard": "but rescue teams had a better cage.",
+   "wer": 0.0,
+   "mos": 4.471,
+   "dur": 1.813
+  }
+ ],
+ "11": [
+  {
+   "file": "public/yw5-vo-canary/takes/s11_t0.wav",
+   "heard": "When the bird collapsed, they shut the little door and opened the valve.",
+   "wer": 0.0,
+   "mos": 4.46,
+   "dur": 3.456
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s11_t1.wav",
+   "heard": "When the bird collapsed, they shut the little door and opened the valve.",
+   "wer": 0.0,
+   "mos": 4.494,
+   "dur": 3.648
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s11_t2.wav",
+   "heard": "When the bird collapsed, they shut the little door and opened the valve.",
+   "wer": 0.0,
+   "mos": 4.482,
+   "dur": 3.755
+  }
+ ],
+ "12": [
+  {
+   "file": "public/yw5-vo-canary/takes/s12_t0.wav",
+   "heard": "oxygen flooded in, and the canary could be brought back.",
+   "wer": 0.0,
+   "mos": 4.486,
+   "dur": 3.264
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s12_t1.wav",
+   "heard": "oxygen flooded in, and the canary could be brought back.",
+   "wer": 0.0,
+   "mos": 4.434,
+   "dur": 3.2
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s12_t2.wav",
+   "heard": "oxygen flooded in and the canary could be brought back.",
+   "wer": 0.0,
+   "mos": 4.434,
+   "dur": 2.987
+  }
+ ],
+ "13": [
+  {
+   "file": "public/yw5-vo-canary/takes/s13_t0.wav",
+   "heard": "British minds kept canaries on the job until 1986.",
+   "wer": 0.091,
+   "mos": 4.491,
+   "dur": 3.477
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s13_t1.wav",
+   "heard": "British mines kept canaries on the job until 1986.",
+   "wer": 0.0,
+   "mos": 4.462,
+   "dur": 3.755
+  },
+  {
+   "file": "public/yw5-vo-canary/takes/s13_t2.wav",
+   "heard": "British minds kept canaries on the job until 1986.",
+   "wer": 0.091,
+   "mos": 4.474,
+   "dur": 3.328
+  }
+ ]
+}
