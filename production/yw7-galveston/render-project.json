@@ -1,0 +1,24 @@
+{
+ "composition": "YwGalv",
+ "artifactPrefix": "yw-galveston-warning-flag",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil/fonts"
+ ],
+ "sourceDirectories": [
+  "src/brazil",
+  "src/ehz",
+  "src/ff2d",
+  "src/yw3/core.ts",
+  "src/yw6",
+  "src/yw7"
+ ],
+ "soundtrack": "public/yw7-galveston-sound/bed.flac",
+ "soundtrackLUFS": -14,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "YunoWorld_Galveston_Warning_Flag.mp4"
+}

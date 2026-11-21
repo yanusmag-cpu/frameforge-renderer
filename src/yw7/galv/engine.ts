@@ -5,8 +5,8 @@
 // blue to storm-black with lightning and rain, wind that bends palms and tears the flag, a storm surge that floods the street,
 // and the aftermath: a broken flagstaff at dawn, then the seawall and the raised city.
 import * as T from 'three';
-import { Core, Builder, M, GLSL_NOISE, rng, canvasTex, clamp, lerp, type V3, type Sprite, type Light } from '../../yw3/core.ts';
-import { woodTex, brickTex, clapTex, dirtTex, boxes, cyls, glowMat, type V7Frame } from '../kit7.ts';
+import { Core, Builder, GLSL_NOISE, rng, canvasTex, clamp, lerp, type V3, type Sprite, type Light } from '../../yw3/core.ts';
+import { woodTex, brickTex, clapTex, dirtTex, boxes, cyls, type V7Frame } from '../kit7.ts';
 
 export type GalvFrame = V7Frame & {
   storm?: number;          // 0 calm … 1 black sky, rain, wind

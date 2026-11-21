@@ -5,7 +5,7 @@
 // and raised the grade of the city; the seawall still protects Galveston. (The flag was torn apart and the staff later destroyed.)
 import { STAND, idle, walkPose, type Pose } from '../../ff2d/rig.ts';
 import { EXPR, expr } from '../../ff2d/face.ts';
-import { lerp, ss, kk, type V3, type ActorState } from '../../yw3/core.ts';
+import { lerp, ss, type V3, type ActorState } from '../../yw3/core.ts';
 import type { T7Look, T7Prop } from '../toon7.ts';
 import { rig, orbitKeys, ease, type Key } from '../cam7.ts';
 import { STAFF_TOP, type GalvFrame } from './engine.ts';
@@ -55,7 +55,7 @@ shot(C[3], C[6], t => {
 });
 // 3 — "But the sky was calm." a long tracking shot down the busy street: shops open, people strolling… to the beach crowd watching the waves… then the flatness
 shot(C[6], C[9], t => {
-  const k = kk(t, C[6], C[8]); const people = (z0: number) => [
+  const people = (z0: number) => [
     act('l1', LADY, [-3.6, .18, z0 - 4 + (t - C[6]) * .9], { ...walkPose((t - C[6]) * 1.1, 1, { turn: .55 }) } as Pose, EXPR.happy, t),
     act('g1', GENT, [3.4, .18, z0 - 10 - (t - C[6]) * 1.0], { ...walkPose((t - C[6]) * 1.15, -1, { turn: .45 }) } as Pose, EXPR.calm, t),
     act('l2', LADY2, [-1.2, 0, z0 - 16], pose({ turn: .3, handB: [.6, -2.1], frontB: 1 }, t, .5), EXPR.happy, t)];

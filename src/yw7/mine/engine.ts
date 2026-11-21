@@ -137,14 +137,14 @@ export class MineEngine extends Core {
       const ring = new T.Mesh(new T.TorusGeometry(.055, .009, 8, 24), alu); const grill = new T.Mesh(new T.CircleGeometry(.05, 20), new T.MeshStandardMaterial({ map: canvasTex(64, 64, g => { g.strokeStyle = '#9aa0aa'; g.lineWidth = 3; for (let i = 0; i < 64; i += 9) { g.beginPath(); g.moveTo(i, 0); g.lineTo(i, 64); g.stroke(); g.beginPath(); g.moveTo(0, i); g.lineTo(64, i); g.stroke(); } }, false), transparent: true, alphaTest: .3, metalness: .7 }));
       ring.position.x = .055; grill.position.x = .055; this.boxDoor.add(ring, grill); this.boxDoor.rotation.y = Math.PI / 2; this.boxDoor.position.set(W2 / 2 + .002, .16, -.06); bx.add(this.boxDoor);
       const cylM = new T.MeshStandardMaterial({ color: '#2a2e36', roughness: .3, metalness: .6 }); const cyl = new T.Mesh(new T.CapsuleGeometry(.035, .2, 6, 14), cylM); cyl.rotation.z = Math.PI / 2; cyl.position.set(0, H2 + .05, -.03); bx.add(cyl);
-      const band = new T.Mesh(new T.CylinderGeometry(.037, .037, .03, 14), glowMat('#e8e8e8')); band.material = new T.MeshStandardMaterial({ color: '#e8e8e8' }); band.rotation.z = Math.PI / 2; band.position.set(.06, H2 + .05, -.03); bx.add(band);
+      const band = new T.Mesh<T.BufferGeometry, T.Material>(new T.CylinderGeometry(.037, .037, .03, 14), glowMat('#e8e8e8')); band.material = new T.MeshStandardMaterial({ color: '#e8e8e8' }); band.rotation.z = Math.PI / 2; band.position.set(.06, H2 + .05, -.03); bx.add(band);
       this.valve = new T.Mesh(new T.CylinderGeometry(.024, .024, .012, 14), new T.MeshStandardMaterial({ color: '#c8322c', metalness: .4, roughness: .4 })); this.valve.position.set(-.15, H2 + .09, -.03); bx.add(this.valve);
       const pipe = new T.Mesh(new T.CylinderGeometry(.006, .006, .08, 6), alu); pipe.position.set(-.13, H2 + .03, -.03); bx.add(pipe);
       const handle = new T.Mesh(new T.TorusGeometry(.06, .01, 6, 16, Math.PI), alu); handle.position.set(0, H2 + .1, .02); bx.add(handle);
       const perch = new T.Mesh(new T.CylinderGeometry(.005, .005, W2 - .04, 6), new T.MeshStandardMaterial({ color: '#8a5a2e' })); perch.rotation.z = Math.PI / 2; perch.position.y = .1; bx.add(perch);
       this.o2 = new T.Mesh(new T.BoxGeometry(W2 - .03, H2 - .03, D2 - .03), new T.MeshBasicMaterial({ color: '#9fe0ff', transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false })); this.o2.position.y = H2 / 2; bx.add(this.o2);
       this.scene.add(bx); }
-    this.birdTex = Object.fromEntries((['perch', 'chirp', 'pant', 'sway', 'fall', 'down', 'revive'] as BirdState[]).map(s => [s, birdTex(s)])) as Record<BirdState, T.Texture>;
+    this.birdTex = Object.fromEntries((['perch', 'chirp', 'pant', 'sway', 'fall', 'down', 'revive'] as BirdState[]).map(s => [s, birdTex(s)])) as unknown as Record<BirdState, T.Texture>;
     this.bird = new T.Mesh(new T.PlaneGeometry(.2, .2), new T.MeshBasicMaterial({ map: this.birdTex.perch, transparent: true, alphaTest: .35, toneMapped: true })); this.scene.add(this.bird);
   }
   async render(F: MineFrame, frame: number) {

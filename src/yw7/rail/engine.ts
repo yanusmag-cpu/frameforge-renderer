@@ -5,7 +5,7 @@
 // moving coupling and connecting rods, buffers, lamps, tender coal). Railway detonators (fog signals) sit on the railhead.
 import * as T from 'three';
 import { Core, Builder, M, rng, canvasTex, clamp, type V3, type Sprite, type Light } from '../../yw3/core.ts';
-import { woodTex, dirtTex, brickTex, metalTex, boxes, cyls, glowMat, rockify, type V7Frame } from '../kit7.ts';
+import { woodTex, brickTex, boxes, cyls, glowMat, rockify, type V7Frame } from '../kit7.ts';
 
 export type Det = { x: number; z: number; burst?: number };          // detonator on a rail (burst: seconds since it fired, <0 = not yet)
 export type RailFrame = V7Frame & {
@@ -32,11 +32,11 @@ export class RailEngine extends Core {
     // ballast bed
     const bal = canvasTex(512, 512, g => { const R2 = rng(5); g.fillStyle = '#6a6862'; g.fillRect(0, 0, 512, 512); for (let i = 0; i < 4000; i++) { const v = 70 + R2() * 90; g.fillStyle = `rgb(${v},${v * .97},${v * .92})`; g.beginPath(); g.ellipse(R2() * 512, R2() * 512, 3 + R2() * 5, 2 + R2() * 4, R2() * 3, 0, 7); g.fill(); g.fillStyle = 'rgba(0,0,0,.2)'; g.fillRect(R2() * 512, R2() * 512, 3, 2); } }); bal.repeat.set(120, 1);
     const bg = new T.BoxGeometry(600, .32, 3.8, 1, 1, 1); const ballast = new T.Mesh(bg, new T.MeshStandardMaterial({ map: bal, roughness: .95 })); ballast.position.y = .0; ballast.receiveShadow = true; G.add(ballast);
-    const shoulder = new T.Mesh(new T.CylinderGeometry(.5, .5, 600, 6, 1, false, 0, Math.PI), ballast.material); shoulder.rotation.z = Math.PI / 2; [-1.9, 1.9].forEach(z => { const s = shoulder.clone(); s.position.set(0, -.04, z); s.scale.set(1, 1, .7); G.add(s); });
+    const shoulder = new T.Mesh(new T.CylinderGeometry(.5, .5, 600, 6, 1, false, 0, Math.PI), ballast.material); shoulder.rotation.z = Math.PI / 2; [-1.9, 1.9].forEach(z => { const s = shoulder.clone(); s.position.set(0, -.3, z * 1.1); s.scale.set(1, 1, .7); G.add(s); });
     // sleepers, rails, chairs
     const wood = new T.MeshStandardMaterial({ map: woodTex('#4a3a2c', 4), roughness: .9 });
     const sl: { p: V3; s: V3; r?: V3 }[] = []; for (let x = -200; x < 200; x += .75) sl.push({ p: [x, .2, 0], s: [.26, .14, 2.6], r: [0, (R() - .5) * .03, 0] }); boxes(G, wood, sl);
-    const steel = new T.MeshStandardMaterial({ color: '#7a7a7e', roughness: .3, metalness: .9, envMapIntensity: .6 });
+
     const rust = canvasTex(1024, 64, g => { const R2 = rng(8); g.fillStyle = '#6a4030'; g.fillRect(0, 0, 1024, 64); for (let i = 0; i < 900; i++) { g.fillStyle = `rgba(${90 + R2() * 70},${50 + R2() * 30},${30 + R2() * 20},${.3 + R2() * .4})`; g.fillRect(R2() * 1024, R2() * 64, 2 + R2() * 20, 1 + R2() * 4); } }); rust.repeat.set(200, 1);
     const rustM = new T.MeshStandardMaterial({ map: rust, roughness: .75, metalness: .4 }); const shine = new T.MeshStandardMaterial({ color: '#d8dade', roughness: .15, metalness: 1 });
     for (const z of [-RAIL_Z, RAIL_Z]) { const head = new T.Mesh(new T.BoxGeometry(400, .045, .07), rustM); head.position.set(0, .4, z); head.castShadow = true; G.add(head);

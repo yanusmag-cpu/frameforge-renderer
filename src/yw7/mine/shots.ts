@@ -65,7 +65,7 @@ shot(0, C[2], t => {
 shot(C[2], C[6], t => {
   const d = t - C[2]; const z = lerp(4.5, -3.5, kk(t, C[2], C[6])); const pos: V3 = [.15, 0, z]; const hb: [number, number] = [.62, -1.95];
   const cagePos = handW(pos, hb); cagePos[1] -= .47; cagePos[2] += .05;
-  const keys: Key[] = [{ t: C[2], pos: [.1, .28, z - 1.6], look: [.15, .2, z], fov: 42 }, { t: C[3] + .2, pos: [.0, .95, z - 2.2], look: [.15, .9, z], fov: 42 },
+  const keys: Key[] = [{ t: C[2], pos: [-.9, .55, z - 2.8], look: [.15, .75, z], fov: 46 }, { t: C[3] + .2, pos: [.0, .95, z - 2.2], look: [.15, .9, z], fov: 42 },
     { t: C[4] + .2, pos: [-.2, 1.62, z - 1.9], look: [.15, 1.55, z], fov: 38 }, { t: C[5] - .2, pos: [-.6, 1.7, z + .9], look: [cagePos[0], cagePos[1] + .2, cagePos[2] - .4], fov: 40 },
     { t: C[6], pos: [cagePos[0] - .45, cagePos[1] + .3, cagePos[2] + .75], look: [cagePos[0], cagePos[1] + .2, cagePos[2]], fov: 32 }];
   const cam = rig(keys.map(k => ({ ...k, pos: [k.pos[0], k.pos[1], k.t >= C[5] - .3 ? k.pos[2] : k.pos[2]] as V3 })), t);
@@ -121,17 +121,17 @@ shot(C[15], C[18], t => {
   const cam = rig(keys, t);
   return frame(t, cam, { lampsOn: .15, dust: .9, box: { pos: bp, rotY: -.3, door: 1, valve: 0, o2: 0 }, bird: { state: 'down', inBox: true },
     actors: [act('r1', RESCUE1, p1, frontWalk(t - C[15], 1.4, .1, hb), EXPR.determined, t, { rim: '#ffe2b0' }), act('r2', RESCUE2, p2, frontWalk(t - C[15] + .4, 1.4, -.1), EXPR.concentrating, t, { a: 'lamp', rim: '#ffe2b0' })],
-    extra: [camLamp([p1[0], 2.05, z - .2], 6), camLamp([p2[0], 2.05, z + .9], 5)], overlay: chip('OXYGEN', 260, ss(C[16] + .3, C[16] + .6, t), '#5fd1ff') + chip('RESCUE TEAMS', 370, ss(C[17], C[17] + .3, t), '#ffd23f') + captions(F, t) }, .5);
+    extra: [camLamp([p1[0], 2.05, z - .2], 6), camLamp([p2[0], 2.05, z + .9], 5), camLamp([bp[0] + .5, bp[1] + .6, bp[2] - 1.1], 1.6 * ss(C[16] - .5, C[16], t))], overlay: chip('OXYGEN', 260, ss(C[16] + .3, C[16] + .6, t), '#5fd1ff') + chip('RESCUE TEAMS', 370, ss(C[17], C[17] + .3, t), '#ffd23f') + captions(F, t) }, .5);
 });
 // 7 — shut the little door… open the valve… oxygen floods in… the bird comes back (orbit from the box to the rescuer's relief)
 const BOX: V3 = [-.2, 1.03, -18.6];
 shot(C[18], C[20], t => {
   const shut = ss(C[18] + .1, C[18] + .6, t), valve = ss(C[18] + 1.3, C[18] + 1.9, t), o2 = ss(C[18] + 1.7, C[18] + 2.4, t), rev = ss(C[19] + .2, C[19] + 1.4, t);
   const st: BirdState = rev < .3 ? 'down' : rev < .9 ? 'pant' : 'revive';
-  const keys: Key[] = [{ t: C[18], pos: [BOX[0] + .5, BOX[1] + .25, BOX[2] + .45], look: [BOX[0] + .1, BOX[1] + .16, BOX[2]], fov: 30 }, { t: C[18] + 1.4, pos: [BOX[0] + .15, BOX[1] + .62, BOX[2] + .5], look: [BOX[0] - .1, BOX[1] + .38, BOX[2]], fov: 30 },
+  const keys: Key[] = [{ t: C[18], pos: [BOX[0] + .55, BOX[1] + .3, BOX[2] + .7], look: [BOX[0] + .05, BOX[1] + .14, BOX[2]], fov: 32 }, { t: C[18] + 1.4, pos: [BOX[0] + .55, BOX[1] + .8, BOX[2] + .8], look: [BOX[0] - .1, BOX[1] + .38, BOX[2]], fov: 30 },
     { t: C[19] + .6, pos: [BOX[0] - .25, BOX[1] + .22, BOX[2] + .55], look: [BOX[0], BOX[1] + .16, BOX[2]], fov: 28 }, { t: C[20], pos: [BOX[0] - .9, BOX[1] + .6, BOX[2] + 1.6], look: [BOX[0] + .35, BOX[1] + .45, BOX[2] - .4], fov: 38 }];
   const cam = rig(keys, t);
-  return frame(t, cam, { lampsOn: .2, box: { pos: BOX, rotY: -.2, door: 1 - shut, valve, o2: o2 * (1 - rev * .6) }, bird: { state: st, inBox: true },
+  return frame(t, cam, { lampsOn: .2, box: { pos: BOX, rotY: -.2, door: 1 - shut, valve, o2: o2 * (1 - rev * .9) }, bird: { state: st, inBox: true },
     actors: t > C[19] + .5 ? [act('r1', RESCUE1, [BOX[0] + .55, 0, BOX[2] - .5], pose({ turn: -.4, handA: [-.6, -2.3], shapeA: 'open', frontA: 1, lean: .06 }, t, .3), st === 'revive' ? EXPR.relief : EXPR.concern, t, { rim: '#ffe2b0' })] : [],
     extra: [camLamp([BOX[0] + 1.2, BOX[1] + 1.0, BOX[2] + 1.4], 2.2), { p: [BOX[0], BOX[1] + .2, BOX[2] + .3], c: [.5, .85, 1], i: .5 * o2, d: 1 }],
     overlay: chip('SHUT THE DOOR', 260, shut * (1 - valve), '#ffd23f') + chip('OPEN THE VALVE', 260, valve * (1 - rev), '#5fd1ff') + chip('REVIVED', 260, ss(.85, .95, rev), '#5fd16f') + captions(F, t) }, .7);

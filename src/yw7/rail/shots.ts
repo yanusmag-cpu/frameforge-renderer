@@ -37,11 +37,13 @@ const locoX = (t: number) => { const tb = BANG(); return DX[0] - 3.8 + V * (t - 
 // 1 — HOOK: rail-level macro in fog: a gloved hand presses a little disc onto the railhead… far down the line, two lamps appear.
 shot(0, C[2], t => {
   const place = ss(.2, 1.4, t); const lamps = ss(C[1] - .3, C[2], t);
-  const keys: Key[] = [{ t: 0, pos: [DX[0] + .55, .5, RAIL_Z + .5], look: [DX[0], .4, RAIL_Z], fov: 32, focus: [DX[0] + .25, .6, RAIL_Z + 1] }, { t: C[1], pos: [DX[0] + .9, .62, RAIL_Z + .75], look: [DX[0] - 1, .5, RAIL_Z], fov: 36 },
-    { t: C[2], pos: [DX[0] + 1.6, .9, RAIL_Z + 1.4], look: [DX[0] - 20, 1.4, RAIL_Z - .3], fov: 40, focus: [DX[0] - 30, 1.5, 0] }];
+  const keys: Key[] = [{ t: 0, pos: [DX[0] + .5, .52, RAIL_Z + .55], look: [DX[0], .4, RAIL_Z], fov: 34, focus: [DX[0], .4, RAIL_Z] },
+    { t: C[1] * .5, pos: [DX[0] + 1.7, 1.0, RAIL_Z + 2.6], look: [DX[0] + .25, .6, RAIL_Z + 1.05], fov: 42 },
+    { t: C[1], pos: [DX[0] + 1.2, 1.6, RAIL_Z + 4.8], look: [DX[0] + .25, .7, RAIL_Z + 1.05], fov: 42, focus: [DX[0] + .25, .7, RAIL_Z + 1.05] },
+    { t: C[2], pos: [DX[0] + 2.8, 1.7, RAIL_Z + 3.4], look: [DX[0] - 25, 1.2, RAIL_Z], fov: 44, focus: [DX[0] - 30, 1.5, 0] }];
   const cam = rig(keys, t);
   return frame(t, cam, { dets: [det(0)], loco: lamps > 0 ? { x: lerp(-130, -95, lamps), speed: 1, steam: .8 } : undefined,
-    actors: [act('fog', FOGMAN, [DX[0] + .25, 0, RAIL_Z + 1.05], crouchPose(t, 1 - place * .4, -1), EXPR.concentrating, t)], overlay: captions(F, t) }, .45, .055);
+    actors: [act('fog', FOGMAN, [DX[0] + .25, .16, RAIL_Z + 1.05], crouchPose(t, 1 - place * .4, -1), EXPR.concentrating, t)], overlay: captions(F, t) }, .45, .055);
 });
 // 2 — product shot: orbit the detonator… a coin beside it… the two lead straps bent under the railhead
 shot(C[2], C[5], t => {
@@ -63,8 +65,8 @@ shot(C[5], C[8], t => {
 });
 // 4 — the fogman walks out with his lamp, kneels, clips a detonator… hours by the brazier… overhead: three of them along the rail
 shot(C[8], C[11], t => {
-  if (t < C[9]) { const k = kk(t, C[8], C[9]); const kneel = ss(.62, .78, k); const x = lerp(-8, DX[1] + .3, ss(0, .62, k)); const pos: V3 = [x, 0, RAIL_Z + 1.05];
-    const cam = rig([{ t: C[8], pos: [-4, 1.4, 6.5], look: [-8, 1.2, 1], fov: 40 }, { t: C[9], pos: [DX[1] + 2.6, 1.0, 3.6], look: [DX[1], .7, RAIL_Z], fov: 38 }], t);
+  if (t < C[9]) { const k = kk(t, C[8], C[9]); const kneel = ss(.62, .78, k); const x = lerp(-8, DX[1] + .3, ss(0, .62, k)); const pos: V3 = [x, .16, RAIL_Z + 1.05];
+    const cam = rig([{ t: C[8], pos: [-4, 1.4, 6.5], look: [-8, 1.2, 1], fov: 40 }, { t: C[9], pos: [DX[1] + 2.4, 1.9, 4.4], look: [DX[1] + .2, .7, RAIL_Z + .8], fov: 42 }], t);
     return frame(t, cam, { dets: [det(0), ...(kneel > .9 ? [det(1)] : [])], actors: [act('fog', FOGMAN, pos, kneel > .05 ? crouchPose(t, kneel, -1) : { ...walkPose((t - C[8]) * 1.3, -1, { turn: .7 }), handB: [-.8, -2.3], shapeB: 'grip', frontB: 1 } as Pose, EXPR.concentrating, t, { b: kneel > .05 ? undefined : 'flaglamp' })], overlay: captions(F, t) }, .4, .05); }
   if (t < C[10]) { const bp: V3 = [-7.2, 0, -3.4]; const fp: V3 = [-6.4, 0, -3.0]; const cam = rig(orbitKeys(C[9], C[10], bp, 3.2, .3, 1.1, 1.6, 1.9, 1.2, 40), t);
     return frame(t, cam, { brazier: 1, sprites: breath([fp[0] - .25, 1.65, fp[2]], t), actors: [act('fog', FOGMAN, fp, pose({ turn: -.6, crouch: .1, handA: [-.75, -2.05], handB: [-.45, -2.15], shapeA: 'open', shapeB: 'open', frontA: 1, frontB: 1, headTilt: -.06 }, t, .25), EXPR.tired, t, { rim: '#ffb070', rimSide: -1 })],
@@ -79,7 +81,7 @@ shot(C[11], C[14], t => {
   const shake = bursts.reduce((s, b) => s + (t > b && t < b + .25 ? .04 * (1 - (t - b) / .25) : 0), 0);
   if (t < C[13]) { const cam = rig([{ t: C[11], pos: [DX[0] + 1.3, .42, RAIL_Z + .55], look: [DX[0] - 3, .7, RAIL_Z], fov: 40, focus: [DX[0], .42, RAIL_Z] }, { t: C[13], pos: [DX[0] + 2.8, .9, RAIL_Z + 2.6], look: [DX[0] - 1, 1.2, 0], fov: 46 }], t);
     return frame(t, cam, { loco: { x: lx, speed: 1.2 }, dets: ds, shake, grade: { ...GR, focus: cam.focusDist ?? 6, aperture: .4, flash: ds.reduce((s, d) => s + (d.burst! >= 0 && d.burst! < .12 ? .5 : 0), 0) },
-      overlay: card('BANG!', '', ss(tb, tb + .08, t) * (1 - ss(tb + .7, tb + 1.0, t)), 360) + captions(F, t) } as Partial<RailFrame>, .4, .05); }
+      overlay: captions(F, t) } as Partial<RailFrame>, .4, .05); }
   const jolt = Math.max(0, 1 - Math.abs(t - (C[13] + .1)) * 4); const cx = lx - 2.5;
   const cam = rig([{ t: C[13], pos: [lx - 1.95, 2.95, .1], look: [cx, 2.85, .55], fov: 50 }, { t: C[14], pos: [lx - 2.0, 2.95, .2], look: [cx, 2.9, .55], fov: 46 }], t);
   return frame(t, breathe(cam, t, 1), { loco: { x: lx, speed: 1.2 }, dets: ds, shake: shake * .5,

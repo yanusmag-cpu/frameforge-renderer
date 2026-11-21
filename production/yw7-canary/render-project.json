@@ -1,0 +1,24 @@
+{
+ "composition": "YwMine",
+ "artifactPrefix": "yw-bird-saved-the-mine",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil/fonts"
+ ],
+ "sourceDirectories": [
+  "src/brazil",
+  "src/ehz",
+  "src/ff2d",
+  "src/yw3/core.ts",
+  "src/yw6",
+  "src/yw7"
+ ],
+ "soundtrack": "public/yw7-canary-sound/bed.flac",
+ "soundtrackLUFS": -14,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "YunoWorld_Bird_That_Saved_The_Mine.mp4"
+}

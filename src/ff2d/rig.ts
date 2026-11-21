@@ -3,7 +3,7 @@
 import { type Face, drawEmanata, drawFace, EXPR } from './face.ts';
 import { blink, clamp, ik2, mix, saccade, type V2, walk } from './motion.ts';
 
-export type Hand = 'fist' | 'open' | 'point' | 'hold' | 'thumb';
+export type Hand = 'fist' | 'open' | 'point' | 'hold' | 'thumb' | 'grip';
 export type Pose = {
   turn: number;        // -1 profile facing left … 0 front … +1 profile facing right
   back?: number;       // 1 = seen from behind
