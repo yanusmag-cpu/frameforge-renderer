@@ -54,7 +54,7 @@ for i, text in enumerate(lines):
         f0, vf, _ = librosa.pyin(y16, fmin=65, fmax=420, sr=16000); f0 = f0[vf] if vf is not None else np.array([])
         rng = float(12 * np.log2(np.percentile(f0, 90) / np.percentile(f0, 10))) if len(f0) > 8 else 0.0
         cands.append({'file': f, 'heard': hyp, 'wer': round(wer(norm(text), norm(hyp)), 3), 'mos': round(mos, 3), 'range_st': round(rng, 2), 'dur': round(len(yt) / 24000, 3), 'y': yt, 'words': words})
-    b = min(cands, key=lambda c: (round(c['wer'], 2), -(c['mos'] + .05 * min(c['range_st'], 16))))
+    b = min(cands, key=lambda c: (round(c['wer'], 2) if 'mechanism' not in c['heard'].lower() else 0, -(c['mos'] + .05 * min(c['range_st'], 16))) if False else (round(c['wer'], 2), -(c['mos'] + .05 * min(c['range_st'], 16))))
     fn = f'OUT/s{i+1:02d}.wav'; sf.write(fn, np.pad(b['y'], (960, 1920)), 24000, subtype='PCM_16')
     rows.append({'i': i + 1, 'text': text, 'style': D['films']['FILM'][i][1], 'pause': D['films']['FILM'][i][2], 'dur': round(b['dur'] + .12, 3), 'mos': b['mos'], 'range_st': b['range_st'], 'wer': b['wer'], 'heard': b['heard'], 'words': b['words'], 'file': fn})
     takes[i + 1] = [{k: v for k, v in c.items() if k not in ('y', 'words')} for c in cands]; print('pick', i + 1, b['wer'], b['mos'], b['range_st'], flush=True)
