@@ -1,0 +1,278 @@
+{
+ "1": [
+  {
+   "file": "public/yw5-vo-bridge/takes/s01_t0.wav",
+   "heard": "These soldiers were marching perfectly together until their footsteps started destroying the bridge beneath them.",
+   "wer": 0.0,
+   "mos": 4.465,
+   "dur": 5.355
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s01_t1.wav",
+   "heard": "These soldiers were marching perfectly together until their footsteps started destroying the bridge beneath them.",
+   "wer": 0.0,
+   "mos": 4.439,
+   "dur": 5.035
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s01_t2.wav",
+   "heard": "These soldiers were marching perfectly together until their footsteps started destroying the bridge beneath them.",
+   "wer": 0.0,
+   "mos": 4.476,
+   "dur": 5.781
+  }
+ ],
+ "2": [
+  {
+   "file": "public/yw5-vo-bridge/takes/s02_t0.wav",
+   "heard": "With every step, the deck dipped, then bounced back, then dipped again.",
+   "wer": 0.0,
+   "mos": 4.431,
+   "dur": 3.605
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s02_t1.wav",
+   "heard": "With every step, the deck dipped, then bounced back, then dipped again.",
+   "wer": 0.0,
+   "mos": 4.469,
+   "dur": 4.501
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s02_t2.wav",
+   "heard": "With every step, the deck dipped, then bounced back, then dipped again.",
+   "wer": 0.0,
+   "mos": 4.479,
+   "dur": 4.715
+  }
+ ],
+ "3": [
+  {
+   "file": "public/yw5-vo-bridge/takes/s03_t0.wav",
+   "heard": "England, 1831. About seventy riflemen, four abreast, on an iron chain bridge.",
+   "wer": 0.0,
+   "mos": 4.514,
+   "dur": 5.611
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s03_t1.wav",
+   "heard": "England, 1831. About seventy riflemen, four abreast on an iron chain bridge.",
+   "wer": 0.0,
+   "mos": 4.519,
+   "dur": 5.504
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s03_t2.wav",
+   "heard": "England, 1831. About seventy riflemen, four abreast, on an iron chain bridge.",
+   "wer": 0.0,
+   "mos": 4.494,
+   "dur": 5.483
+  }
+ ],
+ "4": [
+  {
+   "file": "public/yw5-vo-bridge/takes/s04_t0.wav",
+   "heard": "Then, a crack.  One end of the bridge collapsed and dozens of men fell into the river.",
+   "wer": 0.0,
+   "mos": 4.5,
+   "dur": 5.419
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s04_t1.wav",
+   "heard": "Then, a crack. One end of the bridge collapsed and dozens of men fell into the river.",
+   "wer": 0.0,
+   "mos": 4.476,
+   "dur": 4.885
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s04_t2.wav",
+   "heard": "Then a crack, one end of the bridge collapsed  and dozens of men fell into the river.",
+   "wer": 0.0,
+   "mos": 4.465,
+   "dur": 4.565
+  }
+ ],
+ "5": [
+  {
+   "file": "public/yw5-vo-bridge/takes/s05_t0.wav",
+   "heard": "But how can walking break an iron bridge?",
+   "wer": 0.0,
+   "mos": 4.483,
+   "dur": 2.261
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s05_t1.wav",
+   "heard": "But how can walking break an iron bridge?",
+   "wer": 0.0,
+   "mos": 4.16,
+   "dur": 2.667
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s05_t2.wav",
+   "heard": "But how can walking break an iron bridge?",
+   "wer": 0.0,
+   "mos": 4.469,
+   "dur": 2.283
+  }
+ ],
+ "6": [
+  {
+   "file": "public/yw5-vo-bridge/takes/s06_t0.wav",
+   "heard": "You see, a bridge is a bit like a swing.",
+   "wer": 0.0,
+   "mos": 4.377,
+   "dur": 1.707
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s06_t1.wav",
+   "heard": "You see, a bridge is a bit like a swing.",
+   "wer": 0.0,
+   "mos": 4.388,
+   "dur": 1.963
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s06_t2.wav",
+   "heard": "You see, a bridge is a bit like a swing.",
+   "wer": 0.0,
+   "mos": 4.412,
+   "dur": 2.005
+  }
+ ],
+ "7": [
+  {
+   "file": "public/yw5-vo-bridge/takes/s07_t0.wav",
+   "heard": "Push it at random, and nothing happens.  Push it on the same beat again and again, and it swings higher and higher.",
+   "wer": 0.0,
+   "mos": 4.502,
+   "dur": 6.485
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s07_t1.wav",
+   "heard": "push it at random, and nothing happens. Push it on the same beat, again and again,  and it swings higher and higher.",
+   "wer": 0.0,
+   "mos": 4.507,
+   "dur": 6.677
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s07_t2.wav",
+   "heard": "push it at random, and nothing happens. Push it on the same beat again and again,  and it swings higher and higher.",
+   "wer": 0.0,
+   "mos": 4.499,
+   "dur": 6.379
+  }
+ ],
+ "8": [
+  {
+   "file": "public/yw5-vo-bridge/takes/s08_t0.wav",
+   "heard": "70 men stepping together were pushing the bridge on one beat.",
+   "wer": 0.0,
+   "mos": 4.502,
+   "dur": 3.584
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s08_t1.wav",
+   "heard": "70 men stepping together were pushing the bridge on one beat.",
+   "wer": 0.0,
+   "mos": 4.504,
+   "dur": 3.755
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s08_t2.wav",
+   "heard": "70 men stepping together were pushing the bridge on one beat.",
+   "wer": 0.0,
+   "mos": 4.449,
+   "dur": 3.691
+  }
+ ],
+ "9": [
+  {
+   "file": "public/yw5-vo-bridge/takes/s09_t0.wav",
+   "heard": "Investigators found a badly made bolt had snapped.  It might have failed anyway, but the marching sped it up.",
+   "wer": 0.0,
+   "mos": 4.479,
+   "dur": 6.123
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s09_t1.wav",
+   "heard": "Investigators found a badly made bolt had snapped.  It might have failed anyway, but the marching sped it up.",
+   "wer": 0.0,
+   "mos": 4.391,
+   "dur": 5.76
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s09_t2.wav",
+   "heard": "Investigators found a badly made bolt had snapped.  It might have failed anyway, but the marching sped it up.",
+   "wer": 0.0,
+   "mos": 4.466,
+   "dur": 5.269
+  }
+ ],
+ "10": [
+  {
+   "file": "public/yw5-vo-bridge/takes/s10_t0.wav",
+   "heard": "No one was killed, but 20 men were injured.",
+   "wer": 0.0,
+   "mos": 4.489,
+   "dur": 2.901
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s10_t1.wav",
+   "heard": "No one was killed, but 20 men were injured.",
+   "wer": 0.0,
+   "mos": 4.456,
+   "dur": 2.325
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s10_t2.wav",
+   "heard": "No one was killed, but 20 men were injured.",
+   "wer": 0.0,
+   "mos": 4.395,
+   "dur": 2.667
+  }
+ ],
+ "11": [
+  {
+   "file": "public/yw5-vo-bridge/takes/s11_t0.wav",
+   "heard": "and the army gave a new order when you cross a bridge, break step.",
+   "wer": 0.0,
+   "mos": 4.487,
+   "dur": 3.349
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s11_t1.wav",
+   "heard": "and the army gave a new order when you cross a bridge, break step.",
+   "wer": 0.0,
+   "mos": 4.496,
+   "dur": 3.648
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s11_t2.wav",
+   "heard": "and the army gave a new order when you cross a bridge, break step.",
+   "wer": 0.0,
+   "mos": 4.519,
+   "dur": 3.947
+  }
+ ],
+ "12": [
+  {
+   "file": "public/yw5-vo-bridge/takes/s12_t0.wav",
+   "heard": "That's why some old bridges still carry signs telling soldiers to break step.",
+   "wer": 0.0,
+   "mos": 4.44,
+   "dur": 4.053
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s12_t1.wav",
+   "heard": "That's why some old bridges still carry signs telling soldiers to break step.",
+   "wer": 0.0,
+   "mos": 4.483,
+   "dur": 4.459
+  },
+  {
+   "file": "public/yw5-vo-bridge/takes/s12_t2.wav",
+   "heard": "That's why some old bridges still carry signs telling soldiers to break step.",
+   "wer": 0.0,
+   "mos": 4.418,
+   "dur": 4.075
+  }
+ ]
+}

@@ -1,0 +1,961 @@
+{
+ "engine": "Chatterbox TTS (MIT) + synthetic YunoWorld narrator (Kokoro am_puck reference)",
+ "films": {
+  "bridge": [
+   {
+    "i": 1,
+    "text": "These soldiers were marching perfectly together... until their footsteps started destroying the bridge beneath them.",
+    "style": "c",
+    "dur": 5.901,
+    "mos": 4.476,
+    "wer": 0.0,
+    "heard": "These soldiers were marching perfectly together until their footsteps started destroying the bridge beneath them.",
+    "words": [
+     [
+      -0.152,
+      0.228,
+      "These"
+     ],
+     [
+      0.228,
+      0.608,
+      "soldiers"
+     ],
+     [
+      0.608,
+      0.908,
+      "were"
+     ],
+     [
+      0.908,
+      1.308,
+      "marching"
+     ],
+     [
+      1.308,
+      1.848,
+      "perfectly"
+     ],
+     [
+      1.848,
+      2.428,
+      "together"
+     ],
+     [
+      2.428,
+      3.048,
+      "until"
+     ],
+     [
+      3.048,
+      3.228,
+      "their"
+     ],
+     [
+      3.228,
+      3.628,
+      "footsteps"
+     ],
+     [
+      3.628,
+      4.128,
+      "started"
+     ],
+     [
+      4.128,
+      4.588,
+      "destroying"
+     ],
+     [
+      4.588,
+      4.808,
+      "the"
+     ],
+     [
+      4.808,
+      5.068,
+      "bridge"
+     ],
+     [
+      5.068,
+      5.408,
+      "beneath"
+     ],
+     [
+      5.408,
+      5.708,
+      "them."
+     ]
+    ],
+    "file": "public/yw5-vo-bridge/s01.wav"
+   },
+   {
+    "i": 2,
+    "text": "With every step, the deck dipped. Then bounced back. Then dipped again.",
+    "style": "u",
+    "dur": 4.835,
+    "mos": 4.479,
+    "wer": 0.0,
+    "heard": "With every step, the deck dipped, then bounced back, then dipped again.",
+    "words": [
+     [
+      -0.067,
+      0.213,
+      "With"
+     ],
+     [
+      0.213,
+      0.593,
+      "every"
+     ],
+     [
+      0.593,
+      0.933,
+      "step,"
+     ],
+     [
+      1.253,
+      1.293,
+      "the"
+     ],
+     [
+      1.293,
+      1.553,
+      "deck"
+     ],
+     [
+      1.553,
+      2.013,
+      "dipped,"
+     ],
+     [
+      2.333,
+      2.593,
+      "then"
+     ],
+     [
+      2.593,
+      2.853,
+      "bounced"
+     ],
+     [
+      2.853,
+      3.273,
+      "back,"
+     ],
+     [
+      3.693,
+      3.853,
+      "then"
+     ],
+     [
+      3.853,
+      4.133,
+      "dipped"
+     ],
+     [
+      4.133,
+      4.553,
+      "again."
+     ]
+    ],
+    "file": "public/yw5-vo-bridge/s02.wav"
+   },
+   {
+    "i": 3,
+    "text": "England, eighteen thirty-one. About seventy riflemen, four abreast, on an iron chain bridge.",
+    "style": "n",
+    "dur": 5.624,
+    "mos": 4.519,
+    "wer": 0.0,
+    "heard": "England, 1831. About seventy riflemen, four abreast on an iron chain bridge.",
+    "words": [
+     [
+      -0.173,
+      0.427,
+      "England,"
+     ],
+     [
+      0.607,
+      1.547,
+      "1831."
+     ],
+     [
+      2.067,
+      2.127,
+      "About"
+     ],
+     [
+      2.127,
+      2.567,
+      "seventy"
+     ],
+     [
+      2.567,
+      3.167,
+      "riflemen,"
+     ],
+     [
+      3.367,
+      3.567,
+      "four"
+     ],
+     [
+      3.567,
+      4.047,
+      "abreast"
+     ],
+     [
+      4.047,
+      4.267,
+      "on"
+     ],
+     [
+      4.267,
+      4.427,
+      "an"
+     ],
+     [
+      4.427,
+      4.687,
+      "iron"
+     ],
+     [
+      4.687,
+      4.967,
+      "chain"
+     ],
+     [
+      4.967,
+      5.347,
+      "bridge."
+     ]
+    ],
+    "file": "public/yw5-vo-bridge/s03.wav"
+   },
+   {
+    "i": 4,
+    "text": "Then... a crack. One end of the bridge collapsed, and dozens of men fell into the river.",
+    "style": "u",
+    "dur": 5.539,
+    "mos": 4.5,
+    "wer": 0.0,
+    "heard": "Then, a crack.  One end of the bridge collapsed and dozens of men fell into the river.",
+    "words": [
+     [
+      -0.024,
+      0.356,
+      "Then,"
+     ],
+     [
+      0.636,
+      0.736,
+      "a"
+     ],
+     [
+      0.736,
+      1.116,
+      "crack."
+     ],
+     [
+      1.556,
+      1.816,
+      "One"
+     ],
+     [
+      1.816,
+      2.036,
+      "end"
+     ],
+     [
+      2.036,
+      2.156,
+      "of"
+     ],
+     [
+      2.156,
+      2.276,
+      "the"
+     ],
+     [
+      2.276,
+      2.496,
+      "bridge"
+     ],
+     [
+      2.496,
+      3.016,
+      "collapsed"
+     ],
+     [
+      3.016,
+      3.456,
+      "and"
+     ],
+     [
+      3.456,
+      3.836,
+      "dozens"
+     ],
+     [
+      3.836,
+      4.136,
+      "of"
+     ],
+     [
+      4.136,
+      4.396,
+      "men"
+     ],
+     [
+      4.396,
+      4.676,
+      "fell"
+     ],
+     [
+      4.676,
+      4.916,
+      "into"
+     ],
+     [
+      4.916,
+      5.076,
+      "the"
+     ],
+     [
+      5.076,
+      5.276,
+      "river."
+     ]
+    ],
+    "file": "public/yw5-vo-bridge/s04.wav"
+   },
+   {
+    "i": 5,
+    "text": "But how can walking break an iron bridge?",
+    "style": "c",
+    "dur": 2.381,
+    "mos": 4.483,
+    "wer": 0.0,
+    "heard": "But how can walking break an iron bridge?",
+    "words": [
+     [
+      -0.088,
+      0.152,
+      "But"
+     ],
+     [
+      0.152,
+      0.332,
+      "how"
+     ],
+     [
+      0.332,
+      0.532,
+      "can"
+     ],
+     [
+      0.532,
+      0.892,
+      "walking"
+     ],
+     [
+      0.892,
+      1.232,
+      "break"
+     ],
+     [
+      1.232,
+      1.412,
+      "an"
+     ],
+     [
+      1.412,
+      1.692,
+      "iron"
+     ],
+     [
+      1.692,
+      2.032,
+      "bridge?"
+     ]
+    ],
+    "file": "public/yw5-vo-bridge/s05.wav"
+   },
+   {
+    "i": 6,
+    "text": "You see, a bridge is a bit like a swing.",
+    "style": "x",
+    "dur": 2.125,
+    "mos": 4.412,
+    "wer": 0.0,
+    "heard": "You see, a bridge is a bit like a swing.",
+    "words": [
+     [
+      -0.045,
+      0.155,
+      "You"
+     ],
+     [
+      0.155,
+      0.355,
+      "see,"
+     ],
+     [
+      0.515,
+      0.555,
+      "a"
+     ],
+     [
+      0.555,
+      0.815,
+      "bridge"
+     ],
+     [
+      0.815,
+      1.035,
+      "is"
+     ],
+     [
+      1.035,
+      1.175,
+      "a"
+     ],
+     [
+      1.175,
+      1.295,
+      "bit"
+     ],
+     [
+      1.295,
+      1.515,
+      "like"
+     ],
+     [
+      1.515,
+      1.635,
+      "a"
+     ],
+     [
+      1.635,
+      1.895,
+      "swing."
+     ]
+    ],
+    "file": "public/yw5-vo-bridge/s06.wav"
+   },
+   {
+    "i": 7,
+    "text": "Push it at random, and nothing happens. Push it on the same beat, again and again, and it swings higher and higher.",
+    "style": "n",
+    "dur": 6.797,
+    "mos": 4.507,
+    "wer": 0.0,
+    "heard": "push it at random, and nothing happens. Push it on the same beat, again and again,  and it swings higher and higher.",
+    "words": [
+     [
+      -0.067,
+      0.253,
+      "push"
+     ],
+     [
+      0.253,
+      0.373,
+      "it"
+     ],
+     [
+      0.373,
+      0.493,
+      "at"
+     ],
+     [
+      0.493,
+      0.773,
+      "random,"
+     ],
+     [
+      1.153,
+      1.253,
+      "and"
+     ],
+     [
+      1.253,
+      1.493,
+      "nothing"
+     ],
+     [
+      1.493,
+      1.953,
+      "happens."
+     ],
+     [
+      2.653,
+      2.773,
+      "Push"
+     ],
+     [
+      2.773,
+      2.913,
+      "it"
+     ],
+     [
+      2.913,
+      3.033,
+      "on"
+     ],
+     [
+      3.033,
+      3.193,
+      "the"
+     ],
+     [
+      3.193,
+      3.413,
+      "same"
+     ],
+     [
+      3.413,
+      3.753,
+      "beat,"
+     ],
+     [
+      3.953,
+      4.293,
+      "again"
+     ],
+     [
+      4.293,
+      4.573,
+      "and"
+     ],
+     [
+      4.573,
+      4.933,
+      "again,"
+     ],
+     [
+      5.213,
+      5.253,
+      "and"
+     ],
+     [
+      5.253,
+      5.393,
+      "it"
+     ],
+     [
+      5.393,
+      5.633,
+      "swings"
+     ],
+     [
+      5.633,
+      6.013,
+      "higher"
+     ],
+     [
+      6.013,
+      6.253,
+      "and"
+     ],
+     [
+      6.253,
+      6.533,
+      "higher."
+     ]
+    ],
+    "file": "public/yw5-vo-bridge/s07.wav"
+   },
+   {
+    "i": 8,
+    "text": "Seventy men stepping together were pushing the bridge on one beat.",
+    "style": "u",
+    "dur": 3.875,
+    "mos": 4.504,
+    "wer": 0.0,
+    "heard": "70 men stepping together were pushing the bridge on one beat.",
+    "words": [
+     [
+      -0.067,
+      0.433,
+      "70"
+     ],
+     [
+      0.433,
+      0.773,
+      "men"
+     ],
+     [
+      0.773,
+      1.133,
+      "stepping"
+     ],
+     [
+      1.133,
+      1.573,
+      "together"
+     ],
+     [
+      1.573,
+      1.813,
+      "were"
+     ],
+     [
+      1.813,
+      2.093,
+      "pushing"
+     ],
+     [
+      2.093,
+      2.313,
+      "the"
+     ],
+     [
+      2.313,
+      2.613,
+      "bridge"
+     ],
+     [
+      2.613,
+      3.013,
+      "on"
+     ],
+     [
+      3.013,
+      3.353,
+      "one"
+     ],
+     [
+      3.353,
+      3.673,
+      "beat."
+     ]
+    ],
+    "file": "public/yw5-vo-bridge/s08.wav"
+   },
+   {
+    "i": 9,
+    "text": "Investigators found a badly made bolt had snapped. It might have failed anyway... but the marching sped it up.",
+    "style": "n",
+    "dur": 6.243,
+    "mos": 4.479,
+    "wer": 0.0,
+    "heard": "Investigators found a badly made bolt had snapped.  It might have failed anyway, but the marching sped it up.",
+    "words": [
+     [
+      -0.195,
+      0.585,
+      "Investigators"
+     ],
+     [
+      0.585,
+      1.025,
+      "found"
+     ],
+     [
+      1.025,
+      1.225,
+      "a"
+     ],
+     [
+      1.225,
+      1.505,
+      "badly"
+     ],
+     [
+      1.505,
+      1.805,
+      "made"
+     ],
+     [
+      1.805,
+      2.105,
+      "bolt"
+     ],
+     [
+      2.105,
+      2.265,
+      "had"
+     ],
+     [
+      2.265,
+      2.705,
+      "snapped."
+     ],
+     [
+      3.185,
+      3.285,
+      "It"
+     ],
+     [
+      3.285,
+      3.425,
+      "might"
+     ],
+     [
+      3.425,
+      3.585,
+      "have"
+     ],
+     [
+      3.585,
+      3.765,
+      "failed"
+     ],
+     [
+      3.765,
+      4.145,
+      "anyway,"
+     ],
+     [
+      4.505,
+      4.565,
+      "but"
+     ],
+     [
+      4.565,
+      4.705,
+      "the"
+     ],
+     [
+      4.705,
+      5.005,
+      "marching"
+     ],
+     [
+      5.005,
+      5.325,
+      "sped"
+     ],
+     [
+      5.325,
+      5.485,
+      "it"
+     ],
+     [
+      5.485,
+      5.665,
+      "up."
+     ]
+    ],
+    "file": "public/yw5-vo-bridge/s09.wav"
+   },
+   {
+    "i": 10,
+    "text": "No one was killed, but twenty men were injured.",
+    "style": "m",
+    "dur": 3.021,
+    "mos": 4.489,
+    "wer": 0.0,
+    "heard": "No one was killed, but 20 men were injured.",
+    "words": [
+     [
+      -0.045,
+      0.335,
+      "No"
+     ],
+     [
+      0.335,
+      0.515,
+      "one"
+     ],
+     [
+      0.515,
+      0.755,
+      "was"
+     ],
+     [
+      0.755,
+      1.115,
+      "killed,"
+     ],
+     [
+      1.455,
+      1.555,
+      "but"
+     ],
+     [
+      1.555,
+      1.875,
+      "20"
+     ],
+     [
+      1.875,
+      2.175,
+      "men"
+     ],
+     [
+      2.175,
+      2.395,
+      "were"
+     ],
+     [
+      2.395,
+      2.775,
+      "injured."
+     ]
+    ],
+    "file": "public/yw5-vo-bridge/s10.wav"
+   },
+   {
+    "i": 11,
+    "text": "And the army gave a new order: when you cross a bridge... break step.",
+    "style": "h",
+    "dur": 4.067,
+    "mos": 4.519,
+    "wer": 0.0,
+    "heard": "and the army gave a new order when you cross a bridge, break step.",
+    "words": [
+     [
+      -0.131,
+      0.209,
+      "and"
+     ],
+     [
+      0.209,
+      0.309,
+      "the"
+     ],
+     [
+      0.309,
+      0.569,
+      "army"
+     ],
+     [
+      0.569,
+      0.849,
+      "gave"
+     ],
+     [
+      0.849,
+      1.029,
+      "a"
+     ],
+     [
+      1.029,
+      1.229,
+      "new"
+     ],
+     [
+      1.229,
+      1.649,
+      "order"
+     ],
+     [
+      1.649,
+      2.069,
+      "when"
+     ],
+     [
+      2.069,
+      2.209,
+      "you"
+     ],
+     [
+      2.209,
+      2.449,
+      "cross"
+     ],
+     [
+      2.449,
+      2.689,
+      "a"
+     ],
+     [
+      2.689,
+      3.129,
+      "bridge,"
+     ],
+     [
+      3.469,
+      3.549,
+      "break"
+     ],
+     [
+      3.549,
+      3.889,
+      "step."
+     ]
+    ],
+    "file": "public/yw5-vo-bridge/s11.wav"
+   },
+   {
+    "i": 12,
+    "text": "That's why some old bridges still carry signs telling soldiers to break step.",
+    "style": "x",
+    "dur": 4.579,
+    "mos": 4.483,
+    "wer": 0.0,
+    "heard": "That's why some old bridges still carry signs telling soldiers to break step.",
+    "words": [
+     [
+      -0.152,
+      0.308,
+      "That's"
+     ],
+     [
+      0.308,
+      0.468,
+      "why"
+     ],
+     [
+      0.468,
+      0.688,
+      "some"
+     ],
+     [
+      0.688,
+      0.948,
+      "old"
+     ],
+     [
+      0.948,
+      1.348,
+      "bridges"
+     ],
+     [
+      1.348,
+      1.768,
+      "still"
+     ],
+     [
+      1.768,
+      2.188,
+      "carry"
+     ],
+     [
+      2.188,
+      2.728,
+      "signs"
+     ],
+     [
+      2.728,
+      3.088,
+      "telling"
+     ],
+     [
+      3.088,
+      3.448,
+      "soldiers"
+     ],
+     [
+      3.448,
+      3.748,
+      "to"
+     ],
+     [
+      3.748,
+      3.988,
+      "break"
+     ],
+     [
+      3.988,
+      4.308,
+      "step."
+     ]
+    ],
+    "file": "public/yw5-vo-bridge/s12.wav"
+   }
+  ]
+ }
+}
