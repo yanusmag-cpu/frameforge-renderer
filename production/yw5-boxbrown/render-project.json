@@ -1,0 +1,27 @@
+{
+ "composition": "YwBoxBrown",
+ "artifactPrefix": "yw-man-mailed-himself",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil/fonts"
+ ],
+ "sourceDirectories": [
+  "src/brazil",
+  "src/ehz",
+  "src/ff2d",
+  "src/yw3/core.ts",
+  "src/yw5/boxbrown",
+  "src/yw5/ui.ts",
+  "src/yw5/cues.ts",
+  "src/yw5/words.ts",
+  "src/yw5/Film.tsx"
+ ],
+ "soundtrack": "public/yw5-boxbrown-sound/bed.flac",
+ "soundtrackLUFS": -16,
+ "silentTailSeconds": 0.3,
+ "outputFilename": "YunoWorld_Man_Mailed_Himself.mp4"
+}

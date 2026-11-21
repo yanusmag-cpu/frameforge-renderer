@@ -22,7 +22,7 @@ export type Pose = {
 export type Look = {
   outfit: 'hoodie' | 'suit' | 'uniform' | 'lab' | 'jacket' | 'dress' | 'jumpsuit' | 'coat' | 'vest';
   color: string; pants: string; shoe?: string;
-  hat?: 'helmet' | 'headset' | 'cap' | 'officer' | 'bun' | 'hood' | 'hardhat' | 'pressure';
+  hat?: 'helmet' | 'headset' | 'cap' | 'officer' | 'bun' | 'hood' | 'hardhat' | 'pressure' | 'shako' | 'tophat' | 'brimmed';
   glasses?: boolean | 'heavy'; tie?: string; hair?: string; mask?: boolean;
   hairStyle?: 'sidepart' | 'slick' | 'fringe' | 'crop' | 'curlyTop' | 'bun';
   streak?: string;              // contrasting hair streak colour (temples)
@@ -242,6 +242,9 @@ function hat(L: Look, turn: number, back: boolean): string {
     case 'helmet': return `<path d="M-.56 -.02 Q-.6 -.68 0 -.7 Q.6 -.68 .56 -.02 Z" fill="#5d6b3a" ${o}/><path d="M-.62 -.02 H.62" ${o} stroke-linecap="round"/><path d="M-.3 -.45 q.1 -.08 .2 0 M.12 -.52 q.1 -.06 .18 .02" stroke="#46522c" stroke-width=".05" fill="none"/>`;
     case 'hardhat': return `<path d="M-.52 -.12 Q-.54 -.7 0 -.72 Q.54 -.7 .52 -.12 Z" fill="#f2f2ee" ${o}/><path d="M-.64 -.1 H.64" stroke="${OUT}" stroke-width=".11" stroke-linecap="round"/><path d="M-.64 -.1 H.64" stroke="#f2f2ee" stroke-width=".05" stroke-linecap="round"/><path d="M0 -.7 V-.2" stroke="#d7d7d0" stroke-width=".07"/>`;
     case 'cap': return `<path d="M-.5 -.12 Q-.5 -.62 0 -.6 Q.5 -.62 .5 -.12 Z" fill="${L.hair ?? '#222'}" ${o}/><path d="M${turn >= 0 ? '.3' : '-.3'} -.14 h${turn >= 0 ? '.42' : '-.42'}" stroke="${OUT}" stroke-width=".13" stroke-linecap="round"/><path d="M${turn >= 0 ? '.3' : '-.3'} -.14 h${turn >= 0 ? '.42' : '-.42'}" stroke="${L.hair ?? '#222'}" stroke-width=".05" stroke-linecap="round"/>`;
+    case 'shako': return `<path d="M-.42 -.28 L-.48 -1.02 H.48 L.42 -.28 Z" fill="${L.hair ?? '#1a1a1a'}" ${o}/><path d="M-.5 -.27 H.5" stroke="#111" stroke-width=".1" stroke-linecap="round"/><path d="M-.46 -.9 H.46" stroke="#2f2f2f" stroke-width=".05"/><circle cy="-.62" r=".09" fill="#c9c9c0" stroke="#111" stroke-width=".02"/><path d="M0 -1.02 v-.18" stroke="#2a4a2a" stroke-width=".12" stroke-linecap="round"/>`;
+    case 'tophat': return `<path d="M-.36 -.34 L-.4 -1.0 H.4 L.36 -.34 Z" fill="${L.hair ?? '#1c1c1c'}" ${o}/><path d="M-.62 -.32 H.62" stroke="${OUT}" stroke-width=".13" stroke-linecap="round"/><path d="M-.62 -.32 H.62" stroke="${L.hair ?? '#1c1c1c'}" stroke-width=".06" stroke-linecap="round"/><path d="M-.38 -.46 H.38" stroke="#6a4a2a" stroke-width=".07"/>`;
+    case 'brimmed': return `<path d="M-.44 -.22 Q-.46 -.7 0 -.72 Q.46 -.7 .44 -.22 Z" fill="${L.hair ?? '#5a4632'}" ${o}/><path d="M-.72 -.2 Q0 -.3 .72 -.2" stroke="${OUT}" stroke-width=".13" fill="none" stroke-linecap="round"/><path d="M-.72 -.2 Q0 -.3 .72 -.2" stroke="${L.hair ?? '#5a4632'}" stroke-width=".06" fill="none" stroke-linecap="round"/>`;
     case 'officer': return `<path d="M-.5 -.3 L-.62 -.62 Q0 -.85 .62 -.62 L.5 -.3 Z" fill="${L.hair ?? '#3c4a2a'}" ${o}/><path d="M-.52 -.27 H.52" stroke="#111" stroke-width=".1" stroke-linecap="round"/><circle cy="-.55" r=".07" fill="#e3b341" stroke="#111" stroke-width=".02"/>`;
     case 'headset': {
       if (back) return `<path d="M-.5 0 Q-.52 -.64 0 -.64 Q.52 -.64 .5 0" fill="none" stroke="#222" stroke-width=".07"/>` + [-1, 1].map(sd => `<rect x="${n(sd * .5 - .07)}" y="-.15" width=".14" height=".26" rx=".06" fill="#333" ${o}/>`).join('');
@@ -280,7 +283,7 @@ export function walkPose(dist: number, dir: number, o: { step?: number; carryB?:
 
 /** Hair styles in head-local units (head radius .5). Shapes shift with the face turn so partings / waves read in 3/4 views. */
 function hairSvg(L: Look, turn: number, back: boolean): string {
-  if (!L.hairStyle || L.hat === 'officer' || L.hat === 'helmet' || L.hat === 'hardhat' || L.hat === 'hood' || L.hat === 'pressure') return '';
+  if (!L.hairStyle || L.hat === 'officer' || L.hat === 'helmet' || L.hat === 'hardhat' || L.hat === 'hood' || L.hat === 'pressure' || L.hat === 'shako' || L.hat === 'tophat') return '';
   const col = L.hair ?? '#2b211b', dk = shade(col.startsWith('#') ? col : '#2b211b', .6), o = `stroke="${OUT}" stroke-width="${LW}" stroke-linejoin="round"`;
   const k = turn * .22, sx = Math.sign(turn) || 1;
   switch (L.hairStyle) {

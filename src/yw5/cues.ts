@@ -1,0 +1,6 @@
+// Narration start times (s) per line, measured from the generated narration (scripts/yw5/fit_cues.py writes this file).
+export const CUES: Record<string, number[]> = {
+  boxbrown: [0.3, 6.12, 9.59, 12.86, 15.97, 18.99, 25.05, 29.0, 31.25, 36.99, 42.74, 46.65, 50.33, 54.41],
+  bridge: [0.3, 6.47, 11.53, 17.39, 23.22, 25.87, 28.24, 35.21, 39.36, 45.8, 49.15, 53.55],
+  canary: [0.3, 5.97, 11.9, 14.54, 19.63, 25.31, 31.9, 34.56, 40.41, 44.09, 46.86, 50.75, 54.34],
+};
