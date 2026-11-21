@@ -1,0 +1,25 @@
+{
+ "composition": "YwRail",
+ "artifactPrefix": "yw-explosives-on-train-tracks-v8",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil/fonts"
+ ],
+ "sourceDirectories": [
+  "src/brazil",
+  "src/ehz",
+  "src/ff2d",
+  "src/yw3/core.ts",
+  "src/yw6",
+  "src/yw7",
+  "src/yw8"
+ ],
+ "soundtrack": "public/yw8-detonator-sound/bed.flac",
+ "soundtrackLUFS": -14,
+ "silentTailSeconds": 2.0,
+ "outputFilename": "YunoWorld_Explosives_On_Train_Tracks_v8.mp4"
+}
