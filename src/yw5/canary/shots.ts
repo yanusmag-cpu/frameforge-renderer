@@ -75,7 +75,7 @@ shot(C[4], C[5], t => { const k = kk(t, C[4], C[5]); const co = ss(C[4] + .2, C[
 shot(C[5], C[6], t => { const k = kk(t, C[5], C[6]); const hx = lerp(9, 4.6, ss(C[5], C[5] + 2.6, t)); const walking = t < C[5] + 2.6;
   const R = Math.floor(t * 12); const S: Sprite[] = []; for (let i = 0; i < 18; i++) { const a = ((t * .25 + i / 18) % 1); S.push({ p: W('pithead', [32 + a * 10, 34 + a * 16, -66 + a * 4]), s: 4 + a * 10, rot: i, c: [.55, .5, .55], a: .5 * (1 - a), kind: 3, seed: i + R * 0, age: a }); }
   return { t, ...DUSK, sun: { dir: [-.7, .25, -.6], color: '#ffb07a', i: 2.6, focus: W('pithead', [3, 0, 16]), size: 26 },
-    cam: cam('pithead', [lerp(8, 7, k), 1.6, lerp(24.5, 23.5, k)], [3, 4.2, 0], 44), actors: [act('h', HALDANE, 'pithead', [hx, 0, 18], walking ? walkPose(t * 1.4, -1) : pose({ turn: -.4, headLift: .05 }, t, .5), EXPR.focused, t, { rim: '#ffb07a' }),
+    cam: cam('pithead', [lerp(7.4, 6.6, k), 1.6, lerp(24.5, 23.8, k)], [hx - 1.2, 3.6, 0], 44), actors: [act('h', HALDANE, 'pithead', [hx, 0, 18], walking ? walkPose(t * 1.4, -1) : pose({ turn: -.4, headLift: .05 }, t, .5), EXPR.focused, t, { rim: '#ffb07a' }),
       act('w1', MINER3, 'pithead', [-1.6, 0, 16.5], pose({ turn: .5, handA: [-.3, -1.2] }, t, .4), EXPR.sad, t, { rim: '#ffb07a' })], sprites: S,
     grade: { ...GRADE, sat: 1.08 }, overlay: chip('WALES · 1896', 260, ss(C[5] + .2, C[5] + .5, t)) + chip('JOHN HALDANE', 370, ss(C[5] + 1.8, C[5] + 2.1, t), '#ffd23f') + captions(F, t) }; });
 // 7 — his idea: send a small animal first (Haldane lifts a plain bird cage at the pit mouth)
@@ -109,13 +109,13 @@ shot(C[9], C[10], t => { const k = kk(t, C[9], C[10]); const x = 7.4 - (t - C[9]
 shot(C[10], C[11], t => { const SHUT = wt('canary', 'shut', 1, C[10] + 1.4), VALVE = wt('canary', 'valve', 1, C[10] + 3); const shut = ss(SHUT - .1, SHUT + .4, t); const valve = ss(VALVE - .2, VALVE + .4, t); const P = STILL(-14.8);
   const up = ss(SHUT + .6, VALVE - .4, t);
   return { t, ...MINE, sun: DIM([-14.8, 1.5, 0]), co: .5, cam: cam('mine', [lerp(-14.38, -14.62, up), lerp(1.55, 1.86, up), lerp(.72, .62, up)], [lerp(-14.66, -14.9, up), lerp(1.5, 1.7, up), lerp(-.05, -.03, up)], 30),
-    cage: { pos: W('mine', P), door: 1 - shut, valve }, bird: { state: 'down' }, lights: [{ p: W('mine', [-14.2, 2.1, 1]), c: [1, .78, .5], i: 2.2, d: 5 }], grade: { ...GRADE, focus: .75, aperture: .5 },
+    cage: { pos: W('mine', P), door: 1 - shut, valve }, bird: { state: 'down' }, lights: [{ p: W('mine', [-14.2, 2.1, 1]), c: [1, .78, .5], i: 2.2, d: 5 }, { p: W('mine', [-14.55, 2.25, .45]), c: [1, .8, .55], i: 1.6, d: 2.5 }], grade: { ...GRADE, focus: .75, aperture: .5 },
     overlay: chip('SHUT THE DOOR', 260, shut * (1 - up), '#ffd23f') + chip('OPEN THE VALVE', 260, valve, '#5fd1ff') + captions(F, t) }; });
 // 12 — oxygen floods in… and the canary comes back (pull back to the relieved rescuer)
 shot(C[11], C[12], t => { const d = C[12] - C[11]; const o2 = ss(C[11], C[11] + .6, t); const rev = ss(C[11] + d * .3, C[11] + d * .7, t); const back = ss(C[11] + d * .62, C[12], t); const P = STILL(-14.8);
   const st: BirdState = rev < .2 ? 'down' : rev < .75 ? 'wobble' : rev < .98 ? 'perch' : 'sing';
-  return { t, ...MINE, sun: DIM([-14.8, 1.5, 0]), co: .5 * (1 - o2), cam: cam('mine', [lerp(-14.75, -14.9, back), lerp(1.55, 1.5, back), lerp(.72, 3.2, back)], [lerp(-14.8, -15.1, back), lerp(1.5, 1.2, back), lerp(0, .4, back)], lerp(30, 48, back)),
-    actors: back > .02 ? [act('r1', RESCUE, 'mine', [-15.5, 0, 1.05], pose({ turn: .6, lean: .15, handB: [.7, -2.1], shapeB: 'open' }, t, .4), st === 'sing' ? EXPR.relief : EXPR.worried, t, { rim: '#ffcf8a' })] : [],
+  return { t, ...MINE, sun: DIM([-14.8, 1.5, 0]), co: .5 * (1 - o2), cam: cam('mine', [lerp(-14.75, -15.05, back), lerp(1.55, 1.8, back), lerp(.72, 3.3, back)], [lerp(-14.8, -15.15, back), lerp(1.5, 1.3, back), lerp(0, .5, back)], lerp(30, 56, back)),
+    actors: back > .02 ? [act('r1', RESCUE, 'mine', [-15.25, 0, -1.15], pose({ turn: .6, lean: .15, handB: [.7, -2.1], shapeB: 'open' }, t, .4), st === 'sing' ? EXPR.relief : EXPR.worried, t, { rim: '#ffcf8a' })] : [],
     cage: { pos: W('mine', P), door: 0, valve: 1, o2: o2 * (1 - rev * .5) }, bird: { state: st, k: 1 - rev }, lights: [{ p: W('mine', [-14.2, 2.1, 1]), c: [1, .78, .5], i: 2.2, d: 5 }],
     grade: { ...GRADE, focus: .75 * (1 - back), aperture: .5 * (1 - back) }, overlay: chip('OXYGEN', 260, o2 * (1 - rev), '#5fd1ff') + chip('REVIVED!', 260, ss(.75, .85, rev), '#5fd16f') + captions(F, t) }; });
 // 13 — until 1986 (the crew walks on with the bird singing; loops back to the opening walk)
