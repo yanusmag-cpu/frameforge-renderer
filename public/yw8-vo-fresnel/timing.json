@@ -1,0 +1,950 @@
+{
+ "engine": "Chatterbox TTS (MIT) + synthetic energetic narrator reference (Kokoro am_fenrir, v8 storyteller)",
+ "films": {
+  "fresnel": [
+   {
+    "i": 1,
+    "text": "This giant glass beehive could save a ship... twenty miles away.",
+    "style": "s",
+    "pause": 0.4,
+    "dur": 3.939,
+    "mos": 4.516,
+    "range_st": 11.1,
+    "wer": 0.0,
+    "heard": "This giant glass beehive could save a ship 20 miles away.",
+    "words": [
+     [
+      -0.173,
+      0.227,
+      "This"
+     ],
+     [
+      0.227,
+      0.667,
+      "giant"
+     ],
+     [
+      0.667,
+      0.947,
+      "glass"
+     ],
+     [
+      0.947,
+      1.607,
+      "beehive"
+     ],
+     [
+      1.607,
+      1.927,
+      "could"
+     ],
+     [
+      1.927,
+      2.167,
+      "save"
+     ],
+     [
+      2.167,
+      2.367,
+      "a"
+     ],
+     [
+      2.367,
+      2.647,
+      "ship"
+     ],
+     [
+      2.647,
+      3.107,
+      "20"
+     ],
+     [
+      3.107,
+      3.367,
+      "miles"
+     ],
+     [
+      3.367,
+      3.767,
+      "away."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s01.wav"
+   },
+   {
+    "i": 2,
+    "text": "How?",
+    "style": "e",
+    "pause": 0.5,
+    "dur": 0.739,
+    "mos": 2.369,
+    "range_st": 0.0,
+    "wer": 1.0,
+    "heard": "Haggle!",
+    "words": [
+     [
+      -0.045,
+      0.615,
+      "Haggle!"
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s02.wav"
+   },
+   {
+    "i": 3,
+    "text": "Two hundred years ago, lighthouse beams were weak.",
+    "style": "n",
+    "pause": 0.3,
+    "dur": 3.213,
+    "mos": 4.508,
+    "range_st": 19.65,
+    "wer": 0.0,
+    "heard": "Two hundred years ago, lighthouse beams were weak.",
+    "words": [
+     [
+      -0.109,
+      0.271,
+      "Two"
+     ],
+     [
+      0.271,
+      0.691,
+      "hundred"
+     ],
+     [
+      0.691,
+      0.951,
+      "years"
+     ],
+     [
+      0.951,
+      1.331,
+      "ago,"
+     ],
+     [
+      1.751,
+      1.991,
+      "lighthouse"
+     ],
+     [
+      1.991,
+      2.411,
+      "beams"
+     ],
+     [
+      2.411,
+      2.671,
+      "were"
+     ],
+     [
+      2.671,
+      2.931,
+      "weak."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s03.wav"
+   },
+   {
+    "i": 4,
+    "text": "Lamps and mirrors wasted much of their light...",
+    "style": "n",
+    "pause": 0.25,
+    "dur": 2.104,
+    "mos": 4.437,
+    "range_st": 13.05,
+    "wer": 0.0,
+    "heard": "Lamps and mirrors wasted much of their light.",
+    "words": [
+     [
+      -0.173,
+      0.347,
+      "Lamps"
+     ],
+     [
+      0.347,
+      0.527,
+      "and"
+     ],
+     [
+      0.527,
+      0.767,
+      "mirrors"
+     ],
+     [
+      0.767,
+      1.187,
+      "wasted"
+     ],
+     [
+      1.187,
+      1.427,
+      "much"
+     ],
+     [
+      1.427,
+      1.587,
+      "of"
+     ],
+     [
+      1.587,
+      1.707,
+      "their"
+     ],
+     [
+      1.707,
+      1.967,
+      "light."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s04.wav"
+   },
+   {
+    "i": 5,
+    "text": "and ships often saw the lighthouse far too late.",
+    "style": "s",
+    "pause": 0.5,
+    "dur": 2.723,
+    "mos": 4.434,
+    "range_st": 12.41,
+    "wer": 0.0,
+    "heard": "and ships often saw the lighthouse far too late.",
+    "words": [
+     [
+      -0.088,
+      0.172,
+      "and"
+     ],
+     [
+      0.172,
+      0.432,
+      "ships"
+     ],
+     [
+      0.432,
+      0.772,
+      "often"
+     ],
+     [
+      0.772,
+      1.012,
+      "saw"
+     ],
+     [
+      1.012,
+      1.172,
+      "the"
+     ],
+     [
+      1.172,
+      1.552,
+      "lighthouse"
+     ],
+     [
+      1.552,
+      1.992,
+      "far"
+     ],
+     [
+      1.992,
+      2.212,
+      "too"
+     ],
+     [
+      2.212,
+      2.512,
+      "late."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s05.wav"
+   },
+   {
+    "i": 6,
+    "text": "Then a French physicist, Augustin Fresnel, had a brilliant idea.",
+    "style": "n",
+    "pause": 0.35,
+    "dur": 3.725,
+    "mos": 4.482,
+    "range_st": 11.72,
+    "wer": 0.0,
+    "heard": "Then a French physicist, Augustin Fresnel, had a brilliant idea.",
+    "words": [
+     [
+      -0.195,
+      0.145,
+      "Then"
+     ],
+     [
+      0.145,
+      0.245,
+      "a"
+     ],
+     [
+      0.245,
+      0.465,
+      "French"
+     ],
+     [
+      0.465,
+      0.985,
+      "physicist,"
+     ],
+     [
+      1.345,
+      1.825,
+      "Augustin"
+     ],
+     [
+      1.825,
+      2.305,
+      "Fresnel,"
+     ],
+     [
+      2.505,
+      2.625,
+      "had"
+     ],
+     [
+      2.625,
+      2.785,
+      "a"
+     ],
+     [
+      2.785,
+      3.025,
+      "brilliant"
+     ],
+     [
+      3.025,
+      3.425,
+      "idea."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s06.wav"
+   },
+   {
+    "i": 7,
+    "text": "A normal lens big enough would be far too thick and heavy.",
+    "style": "n",
+    "pause": 0.3,
+    "dur": 2.851,
+    "mos": 4.411,
+    "range_st": 10.38,
+    "wer": 0.0,
+    "heard": "A normal lens big enough would be far too thick and heavy.",
+    "words": [
+     [
+      -0.152,
+      0.148,
+      "A"
+     ],
+     [
+      0.148,
+      0.468,
+      "normal"
+     ],
+     [
+      0.468,
+      0.828,
+      "lens"
+     ],
+     [
+      0.828,
+      1.048,
+      "big"
+     ],
+     [
+      1.048,
+      1.268,
+      "enough"
+     ],
+     [
+      1.268,
+      1.448,
+      "would"
+     ],
+     [
+      1.448,
+      1.628,
+      "be"
+     ],
+     [
+      1.628,
+      1.848,
+      "far"
+     ],
+     [
+      1.848,
+      2.068,
+      "too"
+     ],
+     [
+      2.068,
+      2.308,
+      "thick"
+     ],
+     [
+      2.308,
+      2.468,
+      "and"
+     ],
+     [
+      2.468,
+      2.688,
+      "heavy."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s07.wav"
+   },
+   {
+    "i": 8,
+    "text": "So he cut it into RINGS!",
+    "style": "e",
+    "pause": 0.4,
+    "dur": 1.805,
+    "mos": 4.322,
+    "range_st": 19.47,
+    "wer": 0.0,
+    "heard": "so he cut it into rings.",
+    "words": [
+     [
+      -0.045,
+      0.195,
+      "so"
+     ],
+     [
+      0.195,
+      0.355,
+      "he"
+     ],
+     [
+      0.355,
+      0.595,
+      "cut"
+     ],
+     [
+      0.595,
+      0.735,
+      "it"
+     ],
+     [
+      0.735,
+      0.915,
+      "into"
+     ],
+     [
+      0.915,
+      1.295,
+      "rings."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s08.wav"
+   },
+   {
+    "i": 9,
+    "text": "Same curve, a fraction of the glass.",
+    "style": "x",
+    "pause": 0.4,
+    "dur": 2.253,
+    "mos": 4.222,
+    "range_st": 4.91,
+    "wer": 0.0,
+    "heard": "Same curve a fraction of the glass",
+    "words": [
+     [
+      -0.152,
+      0.368,
+      "Same"
+     ],
+     [
+      0.368,
+      0.748,
+      "curve"
+     ],
+     [
+      0.748,
+      1.128,
+      "a"
+     ],
+     [
+      1.128,
+      1.448,
+      "fraction"
+     ],
+     [
+      1.448,
+      1.648,
+      "of"
+     ],
+     [
+      1.648,
+      1.728,
+      "the"
+     ],
+     [
+      1.728,
+      2.048,
+      "glass"
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s09.wav"
+   },
+   {
+    "i": 10,
+    "text": "Each ring bends the light...",
+    "style": "n",
+    "pause": 0.25,
+    "dur": 1.72,
+    "mos": 4.445,
+    "range_st": 12.73,
+    "wer": 0.0,
+    "heard": "Each ring bends the light.",
+    "words": [
+     [
+      -0.152,
+      0.288,
+      "Each"
+     ],
+     [
+      0.288,
+      0.588,
+      "ring"
+     ],
+     [
+      0.588,
+      0.948,
+      "bends"
+     ],
+     [
+      0.948,
+      1.188,
+      "the"
+     ],
+     [
+      1.188,
+      1.468,
+      "light."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s10.wav"
+   },
+   {
+    "i": 11,
+    "text": "and prisms catch the light that would escape.",
+    "style": "n",
+    "pause": 0.3,
+    "dur": 2.467,
+    "mos": 4.445,
+    "range_st": 11.81,
+    "wer": 0.0,
+    "heard": "and prisms catch the light that would escape.",
+    "words": [
+     [
+      -0.067,
+      0.213,
+      "and"
+     ],
+     [
+      0.213,
+      0.633,
+      "prisms"
+     ],
+     [
+      0.633,
+      1.013,
+      "catch"
+     ],
+     [
+      1.013,
+      1.293,
+      "the"
+     ],
+     [
+      1.293,
+      1.493,
+      "light"
+     ],
+     [
+      1.493,
+      1.653,
+      "that"
+     ],
+     [
+      1.653,
+      1.793,
+      "would"
+     ],
+     [
+      1.793,
+      2.173,
+      "escape."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s11.wav"
+   },
+   {
+    "i": 12,
+    "text": "It all gets squeezed into one powerful beam!",
+    "style": "e",
+    "pause": 0.45,
+    "dur": 2.787,
+    "mos": 4.456,
+    "range_st": 10.85,
+    "wer": 0.0,
+    "heard": "It all gets squeezed into one powerful beam.",
+    "words": [
+     [
+      -0.152,
+      0.148,
+      "It"
+     ],
+     [
+      0.148,
+      0.328,
+      "all"
+     ],
+     [
+      0.328,
+      0.508,
+      "gets"
+     ],
+     [
+      0.508,
+      0.868,
+      "squeezed"
+     ],
+     [
+      0.868,
+      1.228,
+      "into"
+     ],
+     [
+      1.228,
+      1.608,
+      "one"
+     ],
+     [
+      1.608,
+      2.088,
+      "powerful"
+     ],
+     [
+      2.088,
+      2.508,
+      "beam."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s12.wav"
+   },
+   {
+    "i": 13,
+    "text": "In eighteen twenty-three, the first one was lit, in the Cordouan lighthouse in France.",
+    "style": "n",
+    "pause": 0.3,
+    "dur": 4.024,
+    "mos": 4.472,
+    "range_st": 9.83,
+    "wer": 0.067,
+    "heard": "In 1823, the first one was lit in the Courduon Lighthouse in France.",
+    "words": [
+     [
+      -0.067,
+      0.173,
+      "In"
+     ],
+     [
+      0.173,
+      0.913,
+      "1823,"
+     ],
+     [
+      1.173,
+      1.193,
+      "the"
+     ],
+     [
+      1.193,
+      1.373,
+      "first"
+     ],
+     [
+      1.373,
+      1.533,
+      "one"
+     ],
+     [
+      1.533,
+      1.673,
+      "was"
+     ],
+     [
+      1.673,
+      1.933,
+      "lit"
+     ],
+     [
+      1.933,
+      2.233,
+      "in"
+     ],
+     [
+      2.233,
+      2.353,
+      "the"
+     ],
+     [
+      2.353,
+      2.853,
+      "Courduon"
+     ],
+     [
+      2.853,
+      3.173,
+      "Lighthouse"
+     ],
+     [
+      3.173,
+      3.393,
+      "in"
+     ],
+     [
+      3.393,
+      3.673,
+      "France."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s13.wav"
+   },
+   {
+    "i": 14,
+    "text": "It could be seen... more than twenty miles out to sea!",
+    "style": "e",
+    "pause": 0.45,
+    "dur": 3.107,
+    "mos": 4.233,
+    "range_st": 16.2,
+    "wer": 0.0,
+    "heard": "It could be seen more than 20 miles out to sea.",
+    "words": [
+     [
+      -0.173,
+      0.167,
+      "It"
+     ],
+     [
+      0.167,
+      0.387,
+      "could"
+     ],
+     [
+      0.387,
+      0.567,
+      "be"
+     ],
+     [
+      0.567,
+      0.987,
+      "seen"
+     ],
+     [
+      0.987,
+      1.267,
+      "more"
+     ],
+     [
+      1.267,
+      1.447,
+      "than"
+     ],
+     [
+      1.447,
+      1.887,
+      "20"
+     ],
+     [
+      1.887,
+      2.187,
+      "miles"
+     ],
+     [
+      2.187,
+      2.447,
+      "out"
+     ],
+     [
+      2.447,
+      2.607,
+      "to"
+     ],
+     [
+      2.607,
+      2.867,
+      "sea."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s14.wav"
+   },
+   {
+    "i": 15,
+    "text": "Soon lighthouses all over the world used them.",
+    "style": "n",
+    "pause": 0.3,
+    "dur": 2.893,
+    "mos": 4.454,
+    "range_st": 11.13,
+    "wer": 0.0,
+    "heard": "Soon, lighthouses all over the world used them.",
+    "words": [
+     [
+      -0.045,
+      0.455,
+      "Soon,"
+     ],
+     [
+      0.795,
+      1.215,
+      "lighthouses"
+     ],
+     [
+      1.215,
+      1.595,
+      "all"
+     ],
+     [
+      1.595,
+      1.815,
+      "over"
+     ],
+     [
+      1.815,
+      1.935,
+      "the"
+     ],
+     [
+      1.935,
+      2.135,
+      "world"
+     ],
+     [
+      2.135,
+      2.435,
+      "used"
+     ],
+     [
+      2.435,
+      2.715,
+      "them."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s15.wav"
+   },
+   {
+    "i": 16,
+    "text": "And many still shine today.",
+    "style": "n",
+    "pause": 0.35,
+    "dur": 1.485,
+    "mos": 4.442,
+    "range_st": 11.73,
+    "wer": 0.0,
+    "heard": "and many still shine today.",
+    "words": [
+     [
+      -0.088,
+      0.172,
+      "and"
+     ],
+     [
+      0.172,
+      0.332,
+      "many"
+     ],
+     [
+      0.332,
+      0.612,
+      "still"
+     ],
+     [
+      0.612,
+      0.912,
+      "shine"
+     ],
+     [
+      0.912,
+      1.252,
+      "today."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s16.wav"
+   },
+   {
+    "i": 17,
+    "text": "A ring of glass... that turned a flame into a lifeline.",
+    "style": "c",
+    "pause": 0.3,
+    "dur": 3.896,
+    "mos": 4.417,
+    "range_st": 8.83,
+    "wer": 0.0,
+    "heard": "A ring of glass that turned a flame into a lifeline.",
+    "words": [
+     [
+      -0.173,
+      0.187,
+      "A"
+     ],
+     [
+      0.187,
+      0.467,
+      "ring"
+     ],
+     [
+      0.467,
+      0.627,
+      "of"
+     ],
+     [
+      0.627,
+      1.107,
+      "glass"
+     ],
+     [
+      1.107,
+      1.807,
+      "that"
+     ],
+     [
+      1.807,
+      2.087,
+      "turned"
+     ],
+     [
+      2.087,
+      2.267,
+      "a"
+     ],
+     [
+      2.267,
+      2.627,
+      "flame"
+     ],
+     [
+      2.627,
+      2.947,
+      "into"
+     ],
+     [
+      2.947,
+      3.087,
+      "a"
+     ],
+     [
+      3.087,
+      3.587,
+      "lifeline."
+     ]
+    ],
+    "file": "public/yw8-vo-fresnel/s17.wav"
+   }
+  ]
+ }
+}
