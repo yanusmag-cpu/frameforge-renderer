@@ -439,46 +439,41 @@
     "text": "It's called the Antikythera mechanism.",
     "style": "n",
     "pause": 0.3,
-    "dur": 2.979,
-    "mos": 4.442,
-    "range_st": 11.22,
-    "wer": 0.6,
-    "heard": "It's called the anti-Keevee-Raw Mechanism.",
+    "dur": 2.531,
+    "mos": 4.436,
+    "range_st": 15.8,
+    "wer": 0.4,
+    "heard": "It's called the anti-Kethier mechanism.",
     "words": [
      [
-      -0.173,
-      0.307,
+      0.04,
+      0.22,
       "It's"
      ],
      [
-      0.307,
-      0.587,
+      0.22,
+      0.36,
       "called"
      ],
      [
-      0.587,
-      0.827,
+      0.36,
+      0.52,
       "the"
      ],
      [
-      0.827,
-      1.247,
+      0.52,
+      0.9,
       "anti"
      ],
      [
-      1.247,
-      2.067,
-      "-Keevee"
+      0.9,
+      1.5,
+      "-Kethier"
      ],
      [
-      2.067,
-      2.087,
-      "-Raw"
-     ],
-     [
-      2.087,
-      2.787,
-      "Mechanism."
+      1.5,
+      1.94,
+      "mechanism."
      ]
     ],
     "file": "public/yw8-vo-antikythera/s09.wav"
