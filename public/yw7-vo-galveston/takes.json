@@ -1,0 +1,444 @@
+{
+ "1": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s01_t0.wav",
+   "heard": "This flag warned a whole city that disaster was coming.",
+   "wer": 0.0,
+   "mos": 4.449,
+   "range_st": 9.74,
+   "dur": 2.709
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s01_t1.wav",
+   "heard": "This flag warned a whole city that disaster was coming.",
+   "wer": 0.0,
+   "mos": 4.461,
+   "range_st": 7.72,
+   "dur": 3.029
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s01_t2.wav",
+   "heard": "This flag warned a whole city that disaster was coming.",
+   "wer": 0.0,
+   "mos": 4.417,
+   "range_st": 13.6,
+   "dur": 2.688
+  }
+ ],
+ "2": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s02_t0.wav",
+   "heard": "red, with a black square in the middle.",
+   "wer": 0.0,
+   "mos": 4.445,
+   "range_st": 6.24,
+   "dur": 2.091
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s02_t1.wav",
+   "heard": "red, with a black square in the middle.",
+   "wer": 0.0,
+   "mos": 4.43,
+   "range_st": 5.55,
+   "dur": 2.24
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s02_t2.wav",
+   "heard": "Red, with a black square in the middle.",
+   "wer": 0.0,
+   "mos": 4.441,
+   "range_st": 8.89,
+   "dur": 2.005
+  }
+ ],
+ "3": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s03_t0.wav",
+   "heard": "It meant a storm is on its way.",
+   "wer": 0.0,
+   "mos": 3.902,
+   "range_st": 10.65,
+   "dur": 2.581
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s03_t1.wav",
+   "heard": "It meant a storm is on its way.",
+   "wer": 0.0,
+   "mos": 4.454,
+   "range_st": 12.04,
+   "dur": 2.24
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s03_t2.wav",
+   "heard": "It meant, a storm is on its way.",
+   "wer": 0.0,
+   "mos": 4.483,
+   "range_st": 9.64,
+   "dur": 2.176
+  }
+ ],
+ "4": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s04_t0.wav",
+   "heard": "Galveston, Texas, Sept. 7, 1900.",
+   "wer": 0.833,
+   "mos": 4.477,
+   "range_st": 9.3,
+   "dur": 3.435
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s04_t1.wav",
+   "heard": "Galveston, Texas, September 7th, 1900.",
+   "wer": 0.5,
+   "mos": 4.402,
+   "range_st": 9.87,
+   "dur": 2.923
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s04_t2.wav",
+   "heard": "Galveston, Texas, September 7th, 1900.",
+   "wer": 0.5,
+   "mos": 4.399,
+   "range_st": 6.72,
+   "dur": 3.456
+  }
+ ],
+ "5": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s05_t0.wav",
+   "heard": "Weather Bureau Chief Isaac Klein watched the waves grow bigger.",
+   "wer": 0.1,
+   "mos": 4.509,
+   "range_st": 9.1,
+   "dur": 3.285
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s05_t1.wav",
+   "heard": "Weather Bureau Chief Isaac Klein watched the waves grow bigger",
+   "wer": 0.1,
+   "mos": 4.462,
+   "range_st": 10.01,
+   "dur": 3.008
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s05_t2.wav",
+   "heard": "Weather bureau chief Isaac Klein washed the waves grow bigger.",
+   "wer": 0.2,
+   "mos": 4.454,
+   "range_st": 10.36,
+   "dur": 3.136
+  }
+ ],
+ "6": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s06_t0.wav",
+   "heard": "and raised the warning flags above the city.",
+   "wer": 0.0,
+   "mos": 4.439,
+   "range_st": 8.83,
+   "dur": 1.984
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s06_t1.wav",
+   "heard": "and raise the warning flags above the city.",
+   "wer": 0.143,
+   "mos": 4.45,
+   "range_st": 10.8,
+   "dur": 2.091
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s06_t2.wav",
+   "heard": "and raise the warning flags above the city.",
+   "wer": 0.143,
+   "mos": 4.418,
+   "range_st": 10.06,
+   "dur": 1.877
+  }
+ ],
+ "7": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s07_t0.wav",
+   "heard": "But the sky was calm.",
+   "wer": 0.0,
+   "mos": 4.335,
+   "range_st": 8.15,
+   "dur": 1.493
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s07_t1.wav",
+   "heard": "But the sky was calm.",
+   "wer": 0.0,
+   "mos": 4.311,
+   "range_st": 7.77,
+   "dur": 1.387
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s07_t2.wav",
+   "heard": "But the sky was calm.",
+   "wer": 0.0,
+   "mos": 4.338,
+   "range_st": 8.8,
+   "dur": 1.088
+  }
+ ],
+ "8": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s08_t0.wav",
+   "heard": "Shops stayed open people came to the beach to watch the waves",
+   "wer": 0.0,
+   "mos": 4.487,
+   "range_st": 14.14,
+   "dur": 3.669
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s08_t1.wav",
+   "heard": "Shops stayed open. People came to the beach to watch the waves.",
+   "wer": 0.0,
+   "mos": 4.446,
+   "range_st": 8.67,
+   "dur": 3.669
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s08_t2.wav",
+   "heard": "Shop stayed open. People came to the beach to watch the waves.",
+   "wer": 0.083,
+   "mos": 4.487,
+   "range_st": 4.82,
+   "dur": 3.349
+  }
+ ],
+ "9": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s09_t0.wav",
+   "heard": "and Galveston was flat. Its highest point was under 9 feet.",
+   "wer": 0.0,
+   "mos": 4.425,
+   "range_st": 6.66,
+   "dur": 3.243
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s09_t1.wav",
+   "heard": "and Galveston was flat. Its highest point was under 9 feet.",
+   "wer": 0.0,
+   "mos": 4.465,
+   "range_st": 10.5,
+   "dur": 3.925
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s09_t2.wav",
+   "heard": "and Galveston was flat, its highest point was under 9 feet.",
+   "wer": 0.0,
+   "mos": 4.462,
+   "range_st": 9.56,
+   "dur": 3.584
+  }
+ ],
+ "10": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s10_t0.wav",
+   "heard": "The next day, the sky turned black.",
+   "wer": 0.0,
+   "mos": 4.451,
+   "range_st": 3.17,
+   "dur": 1.899
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s10_t1.wav",
+   "heard": "The next day, the sky turned black.",
+   "wer": 0.0,
+   "mos": 4.452,
+   "range_st": 9.32,
+   "dur": 1.963
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s10_t2.wav",
+   "heard": "The next day, the sky turned black.",
+   "wer": 0.0,
+   "mos": 4.422,
+   "range_st": 10.2,
+   "dur": 2.112
+  }
+ ],
+ "11": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s11_t0.wav",
+   "heard": "winds over 130 miles an hour.",
+   "wer": 0.0,
+   "mos": 4.469,
+   "range_st": 10.8,
+   "dur": 2.496
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s11_t1.wav",
+   "heard": "wins over 130 miles an hour.",
+   "wer": 0.125,
+   "mos": 4.457,
+   "range_st": 8.6,
+   "dur": 2.475
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s11_t2.wav",
+   "heard": "wins over 130 miles an hour.",
+   "wer": 0.125,
+   "mos": 4.453,
+   "range_st": 13.24,
+   "dur": 2.091
+  }
+ ],
+ "12": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s12_t0.wav",
+   "heard": "A storm surge over 15 feet.",
+   "wer": 0.0,
+   "mos": 4.292,
+   "range_st": 7.86,
+   "dur": 1.792
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s12_t1.wav",
+   "heard": "storm surge over 15 feet.",
+   "wer": 0.167,
+   "mos": 3.988,
+   "range_st": 10.35,
+   "dur": 1.643
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s12_t2.wav",
+   "heard": "A storm surge over 15 feet.",
+   "wer": 0.0,
+   "mos": 4.276,
+   "range_st": 7.18,
+   "dur": 1.835
+  }
+ ],
+ "13": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s13_t0.wav",
+   "heard": "The sea swept across the whole island.",
+   "wer": 0.0,
+   "mos": 4.455,
+   "range_st": 14.63,
+   "dur": 2.048
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s13_t1.wav",
+   "heard": "The sea swept across the whole island.",
+   "wer": 0.0,
+   "mos": 4.397,
+   "range_st": 10.75,
+   "dur": 2.005
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s13_t2.wav",
+   "heard": "The sea swept across the whole island.",
+   "wer": 0.0,
+   "mos": 4.459,
+   "range_st": 7.92,
+   "dur": 2.027
+  }
+ ],
+ "14": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s14_t0.wav",
+   "heard": "At least 6,000 people died.",
+   "wer": 0.0,
+   "mos": 4.416,
+   "range_st": 6.28,
+   "dur": 1.813
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s14_t1.wav",
+   "heard": "At least 6,000 people died.",
+   "wer": 0.0,
+   "mos": 4.414,
+   "range_st": 6.78,
+   "dur": 1.728
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s14_t2.wav",
+   "heard": "At least 6,000 people died.",
+   "wer": 0.0,
+   "mos": 4.402,
+   "range_st": 9.9,
+   "dur": 2.005
+  }
+ ],
+ "15": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s15_t0.wav",
+   "heard": "the deadliest natural disaster in American history.",
+   "wer": 0.0,
+   "mos": 4.439,
+   "range_st": 9.3,
+   "dur": 2.795
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s15_t1.wav",
+   "heard": "The Deadliest Natural Disaster in American History",
+   "wer": 0.0,
+   "mos": 4.431,
+   "range_st": 9.09,
+   "dur": 2.731
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s15_t2.wav",
+   "heard": "the deadliest natural disaster in American history.",
+   "wer": 0.0,
+   "mos": 4.454,
+   "range_st": 7.38,
+   "dur": 2.795
+  }
+ ],
+ "16": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s16_t0.wav",
+   "heard": "The survivors built a giant seawall and razed their entire city.",
+   "wer": 0.1,
+   "mos": 4.47,
+   "range_st": 5.49,
+   "dur": 3.691
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s16_t1.wav",
+   "heard": "The survivors built a giant seawall and razed their entire city.",
+   "wer": 0.1,
+   "mos": 4.46,
+   "range_st": 7.97,
+   "dur": 4.075
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s16_t2.wav",
+   "heard": "The survivors built a giant seawall and raised their entire city.",
+   "wer": 0.0,
+   "mos": 4.419,
+   "range_st": 10.99,
+   "dur": 4.416
+  }
+ ],
+ "17": [
+  {
+   "file": "public/yw7-vo-galveston/takes/s17_t0.wav",
+   "heard": "That wall still protects Galveston today.",
+   "wer": 0.0,
+   "mos": 4.43,
+   "range_st": 9.14,
+   "dur": 2.176
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s17_t1.wav",
+   "heard": "That wall still protects Galveston today.",
+   "wer": 0.0,
+   "mos": 4.426,
+   "range_st": 7.61,
+   "dur": 2.155
+  },
+  {
+   "file": "public/yw7-vo-galveston/takes/s17_t2.wav",
+   "heard": "That wall still protects Galveston today.",
+   "wer": 0.0,
+   "mos": 4.457,
+   "range_st": 7.16,
+   "dur": 2.368
+  }
+ ]
+}
