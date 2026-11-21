@@ -48,7 +48,7 @@ shot(C[2], C[5], t => {
   if (t < C[4]) { const keys: Key[] = [{ t: C[3], pos: [-4.6, 1.2, -.6], look: [-2.8, .6, -3], fov: 44 }, { t: C[4], pos: [-1.4, 1.0, 1.4], look: [1.6, .4, -1.4], fov: 46 }]; const cam = rig(keys, t);
     return frame(t, cam, { actors: [act('d2', DIVER2, [lerp(-1.4, 0, ss(C[3], C[4], t)), 0, -3.8], walkPose((t - C[3]) * .7, 1, { turn: .55 }) as Pose, EXPR.curious, t, { rim: '#bff0ff' })], overlay: chip('STATUES', 260, ss(C[3] + .1, C[3] + .3, t), '#ffd23f') + chip('POTTERY', 340, ss(C[3] + .7, C[3] + .9, t), '#ffd23f') + chip('BRONZE', 420, ss(C[3] + 1.3, C[3] + 1.5, t), '#ffd23f') + captions(F, t) }, .2); }
   const k = ss(C[4], C[5], t); const keys: Key[] = [{ t: C[4], pos: [2.4, .3, .8], look: [1, .15, -1.6], fov: 44 }, { t: C[5], pos: [.4, .45, .9], look: [1.4, .3, -1.6], fov: 40 }]; const cam = rig(keys, t);
-  return frame(t, cam, { actors: [act('d1', DIVER, [lerp(-.5, 2.8, k), 0, -2.6], walkPose((t - C[4]) * .8, 1, { turn: .6 }) as Pose, EXPR.calm, t, { rim: '#bff0ff' })], overlay: chip('“JUST ROCKS”', 260, ss(C[4] + .4, C[4] + .7, t), '#9aa4b0') + captions(F, t) }, .3);
+  return frame(t, cam, { actors: [act('d1', DIVER, [lerp(-.8, 2.4, k), 0, -3.6], walkPose((t - C[4]) * .8, 1, { turn: .6 }) as Pose, EXPR.calm, t, { rim: '#bff0ff' })], overlay: chip('“JUST ROCKS”', 260, ss(C[4] + .4, C[4] + .7, t), '#9aa4b0') + captions(F, t) }, .3);
 });
 // 3 — 1902, the museum storeroom: an archaeologist leans over a split lump … a gear wheel with hand-cut teeth … over 2,000 years old!
 shot(C[5], C[9], t => {
