@@ -129,6 +129,7 @@ elif film == 'fresnel':
     steps(C[12], C[12] + 1.0, .5, 'stone', .03)
 mix = VO + SFX; fade = np.minimum(1, np.arange(N) / SR / .05) * (1 - np.clip((np.arange(N) / SR - 59.5) / .5, 0, 1)); mix *= fade
 mix = np.stack([mix, mix], 1)
-for _ in range(6): mix = limit(norm_lufs(mix, -14.0), .74)
+CEIL = {'galveston': .6}.get(film, .74)
+for _ in range(6): mix = limit(norm_lufs(mix, -14.0), CEIL)
 write(out / 'bed.wav', mix); subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(out / 'bed.wav'), '-c:a', 'flac', str(out / 'bed.flac')], check=True); (out / 'bed.wav').unlink()
 print(film, 'lufs', round(lufs(mix), 2), 'peak', round(float(np.abs(mix).max()), 3))
