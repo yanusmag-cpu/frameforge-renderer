@@ -1,0 +1,612 @@
+{
+ "films": {
+  "canary": [
+   [
+    "If this tiny bird fell over...",
+    "c",
+    0.5
+   ],
+   [
+    "EVERY miner had to run.",
+    "e",
+    0.7
+   ],
+   [
+    "Down here, the deadliest danger was invisible.",
+    "s",
+    0.35
+   ],
+   [
+    "Carbon monoxide.",
+    "s",
+    0.25
+   ],
+   [
+    "No color. No smell.",
+    "s",
+    0.3
+   ],
+   [
+    "A man could breathe it... and never notice.",
+    "s",
+    0.55
+   ],
+   [
+    "So miners carried a canary.",
+    "n",
+    0.3
+   ],
+   [
+    "Scientist John Haldane had found this gas behind deadly mine explosions.",
+    "n",
+    0.35
+   ],
+   [
+    "His idea? Send a small bird down first.",
+    "c",
+    0.35
+   ],
+   [
+    "Its tiny body breathes so fast, the gas hits it first.",
+    "n",
+    0.45
+   ],
+   [
+    "So the men kept glancing at it... all day long.",
+    "s",
+    0.4
+   ],
+   [
+    "If it started to sway...",
+    "s",
+    0.25
+   ],
+   [
+    "or dropped from its perch...",
+    "s",
+    0.3
+   ],
+   [
+    "that was the alarm.",
+    "e",
+    0.4
+   ],
+   [
+    "Get out. NOW.",
+    "e",
+    0.7
+   ],
+   [
+    "But here's the part almost nobody knows.",
+    "c",
+    0.4
+   ],
+   [
+    "Some cages had their own OXYGEN tank.",
+    "x",
+    0.4
+   ],
+   [
+    "Rescue teams carried them into poisoned tunnels.",
+    "n",
+    0.3
+   ],
+   [
+    "Shut the little door, open the valve...",
+    "n",
+    0.35
+   ],
+   [
+    "and the bird could be REVIVED.",
+    "x",
+    0.5
+   ],
+   [
+    "British mines kept canaries until nineteen eighty-six.",
+    "n",
+    0.35
+   ],
+   [
+    "A tiny bird... watching over every man underground.",
+    "m",
+    0.3
+   ]
+  ],
+  "detonator": [
+   [
+    "They used to put EXPLOSIVES on train tracks...",
+    "c",
+    0.45
+   ],
+   [
+    "to STOP trains from crashing.",
+    "e",
+    0.6
+   ],
+   [
+    "This little metal disc is a railway detonator.",
+    "n",
+    0.3
+   ],
+   [
+    "About the size of a coin.",
+    "n",
+    0.25
+   ],
+   [
+    "It's strapped to the rail with two soft lead clips.",
+    "n",
+    0.4
+   ],
+   [
+    "Why? Because of fog.",
+    "s",
+    0.45
+   ],
+   [
+    "In thick fog, drivers couldn't see the signals.",
+    "s",
+    0.3
+   ],
+   [
+    "Red or green... it all disappeared.",
+    "s",
+    0.5
+   ],
+   [
+    "So when a signal showed danger, a fogman placed detonators on the line.",
+    "n",
+    0.4
+   ],
+   [
+    "Fogmen stood beside the signals for hours, in the cold.",
+    "m",
+    0.35
+   ],
+   [
+    "Usually two or three of them, spaced apart.",
+    "n",
+    0.35
+   ],
+   [
+    "The wheel hits the disc...",
+    "s",
+    0.25
+   ],
+   [
+    "BANG.",
+    "e",
+    0.6
+   ],
+   [
+    "A sound no driver could miss... even in total fog.",
+    "x",
+    0.4
+   ],
+   [
+    "It meant: DANGER ahead. Slow down... or stop.",
+    "e",
+    0.5
+   ],
+   [
+    "Edward Cowper invented it around eighteen forty-one...",
+    "n",
+    0.3
+   ],
+   [
+    "and trains still carry detonators today.",
+    "n",
+    0.45
+   ],
+   [
+    "Not an attack.",
+    "s",
+    0.3
+   ],
+   [
+    "A WARNING... loud enough to stop a train.",
+    "e",
+    0.3
+   ]
+  ],
+  "galveston": [
+   [
+    "This flag warned a whole city that disaster was coming.",
+    "c",
+    0.45
+   ],
+   [
+    "Red, with a black square in the middle.",
+    "n",
+    0.3
+   ],
+   [
+    "It meant: a STORM is on its way.",
+    "s",
+    0.5
+   ],
+   [
+    "Galveston, Texas. September seventh, nineteen hundred.",
+    "n",
+    0.4
+   ],
+   [
+    "Weather Bureau chief Isaac Cline watched the waves grow bigger...",
+    "s",
+    0.3
+   ],
+   [
+    "and raised the warning flags above the city.",
+    "n",
+    0.5
+   ],
+   [
+    "But the sky was calm.",
+    "s",
+    0.3
+   ],
+   [
+    "Shops stayed open. People came to the beach to watch the waves.",
+    "n",
+    0.45
+   ],
+   [
+    "And Galveston was flat. Its highest point was under nine feet.",
+    "s",
+    0.5
+   ],
+   [
+    "The next day, the sky turned black.",
+    "s",
+    0.35
+   ],
+   [
+    "Winds over one hundred and thirty miles an hour.",
+    "x",
+    0.3
+   ],
+   [
+    "A storm surge over FIFTEEN feet.",
+    "x",
+    0.55
+   ],
+   [
+    "The sea swept across the whole island.",
+    "m",
+    0.5
+   ],
+   [
+    "At least six thousand people died...",
+    "m",
+    0.35
+   ],
+   [
+    "the deadliest natural disaster in American history.",
+    "m",
+    0.6
+   ],
+   [
+    "The survivors built a giant seawall... and RAISED their entire city.",
+    "x",
+    0.4
+   ],
+   [
+    "That wall still protects Galveston today.",
+    "n",
+    0.3
+   ]
+  ],
+  "mortsafe": [
+   [
+    "Why would anyone lock a GRAVE... inside an iron cage?",
+    "s",
+    0.45
+   ],
+   [
+    "It wasn't built to keep something in.",
+    "c",
+    0.35
+   ],
+   [
+    "It was built to keep people OUT!",
+    "e",
+    0.6
+   ],
+   [
+    "Scotland, the early eighteen hundreds.",
+    "n",
+    0.3
+   ],
+   [
+    "Medical schools needed bodies to study anatomy...",
+    "n",
+    0.25
+   ],
+   [
+    "but almost the only legal supply was executed criminals.",
+    "n",
+    0.45
+   ],
+   [
+    "So gangs crept into graveyards at night...",
+    "s",
+    0.25
+   ],
+   [
+    "dug up fresh coffins...",
+    "s",
+    0.25
+   ],
+   [
+    "and SOLD the bodies to surgeons!",
+    "e",
+    0.5
+   ],
+   [
+    "People called them... resurrection men.",
+    "m",
+    0.55
+   ],
+   [
+    "Families were terrified.",
+    "n",
+    0.3
+   ],
+   [
+    "So they bolted a heavy iron cage over the grave.",
+    "x",
+    0.3
+   ],
+   [
+    "Some weighed around a TON!",
+    "e",
+    0.45
+   ],
+   [
+    "And it only had to stay for about six weeks...",
+    "n",
+    0.25
+   ],
+   [
+    "until the body was no use to any surgeon.",
+    "s",
+    0.45
+   ],
+   [
+    "Then it was lifted off... and moved to the next new grave.",
+    "n",
+    0.3
+   ],
+   [
+    "Many were even rented out, by the day!",
+    "x",
+    0.45
+   ],
+   [
+    "In eighteen thirty-two, the Anatomy Act gave medical schools a legal supply...",
+    "n",
+    0.25
+   ],
+   [
+    "and the body snatchers' trade died away.",
+    "m",
+    0.45
+   ],
+   [
+    "But some of these iron cages are still standing in Scottish churchyards today.",
+    "c",
+    0.3
+   ]
+  ],
+  "antikythera": [
+   [
+    "Divers pulled this lump of bronze from a shipwreck...",
+    "s",
+    0.35
+   ],
+   [
+    "and inside? GEARS!",
+    "e",
+    0.6
+   ],
+   [
+    "In nineteen hundred, sponge divers sheltering from a storm found an ancient wreck.",
+    "n",
+    0.3,
+    "In nineteen hundred, sponge divers, sheltering from a storm, found an ancient wreck."
+   ],
+   [
+    "Statues, pottery, bronze...",
+    "n",
+    0.25
+   ],
+   [
+    "and a few crusty lumps that nobody cared about.",
+    "m",
+    0.45
+   ],
+   [
+    "Then an archaeologist noticed something in one of them.",
+    "s",
+    0.3
+   ],
+   [
+    "A tiny bronze gear wheel... with hand-cut teeth!",
+    "x",
+    0.45
+   ],
+   [
+    "From a ship that sank over TWO THOUSAND years ago!",
+    "e",
+    0.55
+   ],
+   [
+    "It's called the Antikythera mechanism.",
+    "n",
+    0.3,
+    "It's called the Anti-kee-THEE-ra mechanism."
+   ],
+   [
+    "X-ray scans finally revealed what it was.",
+    "s",
+    0.3
+   ],
+   [
+    "A hand-cranked machine... that modelled the sky!",
+    "x",
+    0.4
+   ],
+   [
+    "Turn the handle, and pointers showed the sun and moon moving.",
+    "n",
+    0.25
+   ],
+   [
+    "Even the phases of the moon...",
+    "n",
+    0.25
+   ],
+   [
+    "and it could predict ECLIPSES!",
+    "e",
+    0.5
+   ],
+   [
+    "Around thirty gears survive.",
+    "n",
+    0.3
+   ],
+   [
+    "Nothing this complex is known again for more than a thousand years.",
+    "x",
+    0.45
+   ],
+   [
+    "An ancient Greek... COMPUTER.",
+    "c",
+    0.3
+   ]
+  ],
+  "fresnel": [
+   [
+    "This giant glass beehive could save a ship... twenty miles away.",
+    "s",
+    0.4
+   ],
+   [
+    "How?",
+    "e",
+    0.5
+   ],
+   [
+    "Two hundred years ago, lighthouse beams were weak.",
+    "n",
+    0.3
+   ],
+   [
+    "Lamps and mirrors wasted much of their light...",
+    "n",
+    0.25
+   ],
+   [
+    "and ships often saw the lighthouse far too late.",
+    "s",
+    0.5
+   ],
+   [
+    "Then a French physicist, Augustin Fresnel, had a brilliant idea.",
+    "n",
+    0.35,
+    "Then a French physicist, Augustin Fray-nel, had a brilliant idea."
+   ],
+   [
+    "A normal lens big enough would be far too thick and heavy.",
+    "n",
+    0.3
+   ],
+   [
+    "So he cut it into RINGS!",
+    "e",
+    0.4
+   ],
+   [
+    "Same curve, a fraction of the glass.",
+    "x",
+    0.4
+   ],
+   [
+    "Each ring bends the light...",
+    "n",
+    0.25
+   ],
+   [
+    "and prisms catch the light that would escape.",
+    "n",
+    0.3
+   ],
+   [
+    "It all gets squeezed into one powerful beam!",
+    "e",
+    0.45
+   ],
+   [
+    "In eighteen twenty-three, the first one was lit, in the Cordouan lighthouse in France.",
+    "n",
+    0.3,
+    "In eighteen twenty-three, the first one was lit, in the Cor-doo-on lighthouse in France."
+   ],
+   [
+    "It could be seen... more than twenty miles out to sea!",
+    "e",
+    0.45
+   ],
+   [
+    "Soon lighthouses all over the world used them.",
+    "n",
+    0.3
+   ],
+   [
+    "And many still shine today.",
+    "n",
+    0.35
+   ],
+   [
+    "A ring of glass... that turned a flame into a lifeline.",
+    "c",
+    0.3
+   ]
+  ]
+ },
+ "styles": {
+  "c": [
+   0.72,
+   0.36,
+   0.85
+  ],
+  "n": [
+   0.62,
+   0.4,
+   0.8
+  ],
+  "s": [
+   0.6,
+   0.32,
+   0.78
+  ],
+  "e": [
+   0.85,
+   0.32,
+   0.88
+  ],
+  "x": [
+   0.78,
+   0.34,
+   0.86
+  ],
+  "m": [
+   0.5,
+   0.38,
+   0.75
+  ]
+ }
+}
