@@ -1,0 +1,1025 @@
+{
+ "engine": "Chatterbox TTS (MIT) + synthetic narrator reference (Kokoro am_fenrir)",
+ "films": {
+  "canary": [
+   {
+    "i": 1,
+    "text": "If this tiny bird fell over...",
+    "style": "c",
+    "pause": 0.5,
+    "dur": 1.699,
+    "mos": 4.277,
+    "range_st": 10.16,
+    "wer": 0.0,
+    "heard": "If this tiny bird fell over...",
+    "words": [
+     [
+      -0.195,
+      0.165,
+      "If"
+     ],
+     [
+      0.165,
+      0.405,
+      "this"
+     ],
+     [
+      0.405,
+      0.745,
+      "tiny"
+     ],
+     [
+      0.745,
+      0.985,
+      "bird"
+     ],
+     [
+      0.985,
+      1.205,
+      "fell"
+     ],
+     [
+      1.205,
+      1.825,
+      "over..."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s01.wav"
+   },
+   {
+    "i": 2,
+    "text": "EVERY miner had to run.",
+    "style": "e",
+    "pause": 0.7,
+    "dur": 1.336,
+    "mos": 4.304,
+    "range_st": 11.75,
+    "wer": 0.0,
+    "heard": "Every miner had to run.",
+    "words": [
+     [
+      -0.088,
+      0.272,
+      "Every"
+     ],
+     [
+      0.272,
+      0.492,
+      "miner"
+     ],
+     [
+      0.492,
+      0.712,
+      "had"
+     ],
+     [
+      0.712,
+      0.852,
+      "to"
+     ],
+     [
+      0.852,
+      1.072,
+      "run."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s02.wav"
+   },
+   {
+    "i": 3,
+    "text": "Down here, the deadliest danger was invisible.",
+    "style": "s",
+    "pause": 0.35,
+    "dur": 3.128,
+    "mos": 4.521,
+    "range_st": 12.5,
+    "wer": 0.0,
+    "heard": "Down here, the deadliest danger was invisible.",
+    "words": [
+     [
+      -0.173,
+      0.307,
+      "Down"
+     ],
+     [
+      0.307,
+      0.707,
+      "here,"
+     ],
+     [
+      1.127,
+      1.207,
+      "the"
+     ],
+     [
+      1.207,
+      1.667,
+      "deadliest"
+     ],
+     [
+      1.667,
+      2.067,
+      "danger"
+     ],
+     [
+      2.067,
+      2.387,
+      "was"
+     ],
+     [
+      2.387,
+      2.807,
+      "invisible."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s03.wav"
+   },
+   {
+    "i": 4,
+    "text": "Carbon monoxide.",
+    "style": "s",
+    "pause": 0.25,
+    "dur": 1.507,
+    "mos": 4.377,
+    "range_st": 8.3,
+    "wer": 0.0,
+    "heard": "Carbon monoxide.",
+    "words": [
+     [
+      -0.067,
+      0.453,
+      "Carbon"
+     ],
+     [
+      0.453,
+      1.253,
+      "monoxide."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s04.wav"
+   },
+   {
+    "i": 5,
+    "text": "No color. No smell.",
+    "style": "s",
+    "pause": 0.3,
+    "dur": 1.528,
+    "mos": 4.44,
+    "range_st": 7.36,
+    "wer": 0.0,
+    "heard": "No color, no smell.",
+    "words": [
+     [
+      -0.088,
+      0.232,
+      "No"
+     ],
+     [
+      0.232,
+      0.552,
+      "color,"
+     ],
+     [
+      0.832,
+      0.912,
+      "no"
+     ],
+     [
+      0.912,
+      1.232,
+      "smell."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s05.wav"
+   },
+   {
+    "i": 6,
+    "text": "A man could breathe it... and never notice.",
+    "style": "s",
+    "pause": 0.55,
+    "dur": 2.445,
+    "mos": 4.445,
+    "range_st": 8.57,
+    "wer": 0.0,
+    "heard": "A man could breathe it and never notice.",
+    "words": [
+     [
+      -0.152,
+      0.168,
+      "A"
+     ],
+     [
+      0.168,
+      0.468,
+      "man"
+     ],
+     [
+      0.468,
+      0.688,
+      "could"
+     ],
+     [
+      0.688,
+      0.968,
+      "breathe"
+     ],
+     [
+      0.968,
+      1.208,
+      "it"
+     ],
+     [
+      1.208,
+      1.428,
+      "and"
+     ],
+     [
+      1.428,
+      1.688,
+      "never"
+     ],
+     [
+      1.688,
+      2.068,
+      "notice."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s06.wav"
+   },
+   {
+    "i": 7,
+    "text": "So miners carried a canary.",
+    "style": "n",
+    "pause": 0.3,
+    "dur": 2.211,
+    "mos": 4.437,
+    "range_st": 8.4,
+    "wer": 0.0,
+    "heard": "So miners carried a canary.",
+    "words": [
+     [
+      -0.067,
+      0.273,
+      "So"
+     ],
+     [
+      0.273,
+      0.693,
+      "miners"
+     ],
+     [
+      0.693,
+      1.253,
+      "carried"
+     ],
+     [
+      1.253,
+      1.493,
+      "a"
+     ],
+     [
+      1.493,
+      1.953,
+      "canary."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s07.wav"
+   },
+   {
+    "i": 8,
+    "text": "Scientist John Haldane had found this gas behind deadly mine explosions.",
+    "style": "n",
+    "pause": 0.35,
+    "dur": 4.707,
+    "mos": 4.49,
+    "range_st": 10.56,
+    "wer": 0.0,
+    "heard": "Scientist John Haldane had found this gas behind deadly mine explosions.",
+    "words": [
+     [
+      -0.173,
+      0.567,
+      "Scientist"
+     ],
+     [
+      0.567,
+      1.127,
+      "John"
+     ],
+     [
+      1.127,
+      1.647,
+      "Haldane"
+     ],
+     [
+      1.647,
+      1.887,
+      "had"
+     ],
+     [
+      1.887,
+      2.187,
+      "found"
+     ],
+     [
+      2.187,
+      2.427,
+      "this"
+     ],
+     [
+      2.427,
+      2.687,
+      "gas"
+     ],
+     [
+      2.687,
+      3.147,
+      "behind"
+     ],
+     [
+      3.147,
+      3.547,
+      "deadly"
+     ],
+     [
+      3.547,
+      3.827,
+      "mine"
+     ],
+     [
+      3.827,
+      4.287,
+      "explosions."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s08.wav"
+   },
+   {
+    "i": 9,
+    "text": "His idea? Send a small bird down first.",
+    "style": "c",
+    "pause": 0.35,
+    "dur": 2.915,
+    "mos": 4.457,
+    "range_st": 13.8,
+    "wer": 0.0,
+    "heard": "His idea? Send a small bird down first.",
+    "words": [
+     [
+      -0.109,
+      0.191,
+      "His"
+     ],
+     [
+      0.191,
+      0.611,
+      "idea?"
+     ],
+     [
+      1.031,
+      1.251,
+      "Send"
+     ],
+     [
+      1.251,
+      1.391,
+      "a"
+     ],
+     [
+      1.391,
+      1.731,
+      "small"
+     ],
+     [
+      1.731,
+      1.991,
+      "bird"
+     ],
+     [
+      1.991,
+      2.271,
+      "down"
+     ],
+     [
+      2.271,
+      2.591,
+      "first."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s09.wav"
+   },
+   {
+    "i": 10,
+    "text": "Its tiny body breathes so fast, the gas hits it first.",
+    "style": "n",
+    "pause": 0.45,
+    "dur": 3.277,
+    "mos": 4.493,
+    "range_st": 8.1,
+    "wer": 0.0,
+    "heard": "Its tiny body breathes so fast, the gas hits it first.",
+    "words": [
+     [
+      -0.173,
+      0.207,
+      "Its"
+     ],
+     [
+      0.207,
+      0.527,
+      "tiny"
+     ],
+     [
+      0.527,
+      0.867,
+      "body"
+     ],
+     [
+      0.867,
+      1.227,
+      "breathes"
+     ],
+     [
+      1.227,
+      1.507,
+      "so"
+     ],
+     [
+      1.507,
+      1.947,
+      "fast,"
+     ],
+     [
+      2.127,
+      2.227,
+      "the"
+     ],
+     [
+      2.227,
+      2.427,
+      "gas"
+     ],
+     [
+      2.427,
+      2.627,
+      "hits"
+     ],
+     [
+      2.627,
+      2.787,
+      "it"
+     ],
+     [
+      2.787,
+      3.007,
+      "first."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s10.wav"
+   },
+   {
+    "i": 11,
+    "text": "So the men kept glancing at it... all day long.",
+    "style": "s",
+    "pause": 0.4,
+    "dur": 2.403,
+    "mos": 4.445,
+    "range_st": 12.57,
+    "wer": 0.0,
+    "heard": "So the men kept glancing at it all day long.",
+    "words": [
+     [
+      -0.152,
+      0.188,
+      "So"
+     ],
+     [
+      0.188,
+      0.308,
+      "the"
+     ],
+     [
+      0.308,
+      0.468,
+      "men"
+     ],
+     [
+      0.468,
+      0.668,
+      "kept"
+     ],
+     [
+      0.668,
+      1.048,
+      "glancing"
+     ],
+     [
+      1.048,
+      1.268,
+      "at"
+     ],
+     [
+      1.268,
+      1.428,
+      "it"
+     ],
+     [
+      1.428,
+      1.708,
+      "all"
+     ],
+     [
+      1.708,
+      1.908,
+      "day"
+     ],
+     [
+      1.908,
+      2.228,
+      "long."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s11.wav"
+   },
+   {
+    "i": 12,
+    "text": "If it started to sway...",
+    "style": "s",
+    "pause": 0.25,
+    "dur": 1.443,
+    "mos": 4.34,
+    "range_st": 16.38,
+    "wer": 0.0,
+    "heard": "If it started to sway,",
+    "words": [
+     [
+      -0.088,
+      0.172,
+      "If"
+     ],
+     [
+      0.172,
+      0.272,
+      "it"
+     ],
+     [
+      0.272,
+      0.592,
+      "started"
+     ],
+     [
+      0.592,
+      0.812,
+      "to"
+     ],
+     [
+      0.812,
+      1.132,
+      "sway,"
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s12.wav"
+   },
+   {
+    "i": 13,
+    "text": "or dropped from its perch...",
+    "style": "s",
+    "pause": 0.3,
+    "dur": 1.72,
+    "mos": 4.269,
+    "range_st": 8.03,
+    "wer": 0.0,
+    "heard": "or dropped from its perch.",
+    "words": [
+     [
+      -0.28,
+      0.28,
+      "or"
+     ],
+     [
+      0.28,
+      0.68,
+      "dropped"
+     ],
+     [
+      0.68,
+      0.94,
+      "from"
+     ],
+     [
+      0.94,
+      1.1,
+      "its"
+     ],
+     [
+      1.1,
+      1.62,
+      "perch."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s13.wav"
+   },
+   {
+    "i": 14,
+    "text": "that was the alarm.",
+    "style": "e",
+    "pause": 0.4,
+    "dur": 1.357,
+    "mos": 4.289,
+    "range_st": 3.54,
+    "wer": 0.0,
+    "heard": "That was the alarm.",
+    "words": [
+     [
+      0.04,
+      0.44,
+      "That"
+     ],
+     [
+      0.44,
+      0.58,
+      "was"
+     ],
+     [
+      0.58,
+      0.72,
+      "the"
+     ],
+     [
+      0.72,
+      1.06,
+      "alarm."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s14.wav"
+   },
+   {
+    "i": 15,
+    "text": "Get out. NOW.",
+    "style": "e",
+    "pause": 0.7,
+    "dur": 1.571,
+    "mos": 4.43,
+    "range_st": 8.42,
+    "wer": 0.0,
+    "heard": "Get out, now!",
+    "words": [
+     [
+      -0.024,
+      0.296,
+      "Get"
+     ],
+     [
+      0.296,
+      0.596,
+      "out,"
+     ],
+     [
+      0.936,
+      1.256,
+      "now!"
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s15.wav"
+   },
+   {
+    "i": 16,
+    "text": "But here's the part almost nobody knows.",
+    "style": "c",
+    "pause": 0.4,
+    "dur": 2.296,
+    "mos": 4.432,
+    "range_st": 14.65,
+    "wer": 0.0,
+    "heard": "But here's the part almost nobody knows.",
+    "words": [
+     [
+      -0.131,
+      0.149,
+      "But"
+     ],
+     [
+      0.149,
+      0.449,
+      "here's"
+     ],
+     [
+      0.449,
+      0.549,
+      "the"
+     ],
+     [
+      0.549,
+      0.809,
+      "part"
+     ],
+     [
+      0.809,
+      1.249,
+      "almost"
+     ],
+     [
+      1.249,
+      1.609,
+      "nobody"
+     ],
+     [
+      1.609,
+      1.909,
+      "knows."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s16.wav"
+   },
+   {
+    "i": 17,
+    "text": "Some cages had their own OXYGEN tank.",
+    "style": "x",
+    "pause": 0.4,
+    "dur": 1.933,
+    "mos": 4.325,
+    "range_st": 13.54,
+    "wer": 0.0,
+    "heard": "Some cages had their own oxygen tank.",
+    "words": [
+     [
+      -0.045,
+      0.275,
+      "Some"
+     ],
+     [
+      0.275,
+      0.535,
+      "cages"
+     ],
+     [
+      0.535,
+      0.795,
+      "had"
+     ],
+     [
+      0.795,
+      0.935,
+      "their"
+     ],
+     [
+      0.935,
+      1.135,
+      "own"
+     ],
+     [
+      1.135,
+      1.455,
+      "oxygen"
+     ],
+     [
+      1.455,
+      1.755,
+      "tank."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s17.wav"
+   },
+   {
+    "i": 18,
+    "text": "Rescue teams carried them into poisoned tunnels.",
+    "style": "n",
+    "pause": 0.3,
+    "dur": 2.467,
+    "mos": 4.446,
+    "range_st": 9.57,
+    "wer": 0.143,
+    "heard": "Rescue teams carried them into poison tunnels.",
+    "words": [
+     [
+      -0.109,
+      0.371,
+      "Rescue"
+     ],
+     [
+      0.371,
+      0.671,
+      "teams"
+     ],
+     [
+      0.671,
+      1.031,
+      "carried"
+     ],
+     [
+      1.031,
+      1.271,
+      "them"
+     ],
+     [
+      1.271,
+      1.511,
+      "into"
+     ],
+     [
+      1.511,
+      1.811,
+      "poison"
+     ],
+     [
+      1.811,
+      2.211,
+      "tunnels."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s18.wav"
+   },
+   {
+    "i": 19,
+    "text": "Shut the little door, open the valve...",
+    "style": "n",
+    "pause": 0.35,
+    "dur": 2.36,
+    "mos": 4.386,
+    "range_st": 14.56,
+    "wer": 0.0,
+    "heard": "Shut the little door, open the valve,",
+    "words": [
+     [
+      -0.067,
+      0.313,
+      "Shut"
+     ],
+     [
+      0.313,
+      0.473,
+      "the"
+     ],
+     [
+      0.473,
+      0.613,
+      "little"
+     ],
+     [
+      0.613,
+      0.973,
+      "door,"
+     ],
+     [
+      1.413,
+      1.573,
+      "open"
+     ],
+     [
+      1.573,
+      1.773,
+      "the"
+     ],
+     [
+      1.773,
+      2.093,
+      "valve,"
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s19.wav"
+   },
+   {
+    "i": 20,
+    "text": "and the bird could be REVIVED.",
+    "style": "x",
+    "pause": 0.5,
+    "dur": 1.528,
+    "mos": 4.312,
+    "range_st": 4.14,
+    "wer": 0.0,
+    "heard": "and the bird could be revived.",
+    "words": [
+     [
+      -0.173,
+      0.147,
+      "and"
+     ],
+     [
+      0.147,
+      0.227,
+      "the"
+     ],
+     [
+      0.227,
+      0.467,
+      "bird"
+     ],
+     [
+      0.467,
+      0.607,
+      "could"
+     ],
+     [
+      0.607,
+      0.727,
+      "be"
+     ],
+     [
+      0.727,
+      1.247,
+      "revived."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s20.wav"
+   },
+   {
+    "i": 21,
+    "text": "British mines kept canaries until nineteen eighty-six.",
+    "style": "n",
+    "pause": 0.35,
+    "dur": 3.363,
+    "mos": 4.482,
+    "range_st": 7.01,
+    "wer": 0.0,
+    "heard": "British mines kept canaries until 1986.",
+    "words": [
+     [
+      -0.088,
+      0.372,
+      "British"
+     ],
+     [
+      0.372,
+      0.792,
+      "mines"
+     ],
+     [
+      0.792,
+      1.132,
+      "kept"
+     ],
+     [
+      1.132,
+      1.612,
+      "canaries"
+     ],
+     [
+      1.612,
+      1.972,
+      "until"
+     ],
+     [
+      1.972,
+      2.892,
+      "1986."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s21.wav"
+   },
+   {
+    "i": 22,
+    "text": "A tiny bird... watching over every man underground.",
+    "style": "m",
+    "pause": 0.3,
+    "dur": 3.128,
+    "mos": 4.47,
+    "range_st": 12.64,
+    "wer": 0.0,
+    "heard": "A tiny bird, watching over every man underground.",
+    "words": [
+     [
+      -0.152,
+      0.168,
+      "A"
+     ],
+     [
+      0.168,
+      0.388,
+      "tiny"
+     ],
+     [
+      0.388,
+      0.768,
+      "bird,"
+     ],
+     [
+      1.068,
+      1.388,
+      "watching"
+     ],
+     [
+      1.388,
+      1.708,
+      "over"
+     ],
+     [
+      1.708,
+      2.048,
+      "every"
+     ],
+     [
+      2.048,
+      2.308,
+      "man"
+     ],
+     [
+      2.308,
+      2.808,
+      "underground."
+     ]
+    ],
+    "file": "public/yw7-vo-canary/s22.wav"
+   }
+  ]
+ }
+}
