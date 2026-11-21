@@ -1,0 +1,580 @@
+{
+ "1": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s01_t0.wav",
+   "heard": "Divers pulled this lump of bronze from a shipwreck.",
+   "wer": 0.0,
+   "mos": 4.053,
+   "range_st": 10.85,
+   "dur": 2.432
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s01_t1.wav",
+   "heard": "Divers pulled this lump of bronze from a shipwreck.",
+   "wer": 0.0,
+   "mos": 4.343,
+   "range_st": 6.71,
+   "dur": 2.283
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s01_t2.wav",
+   "heard": "Divers pulled this lump of bronze from a shipwreck.",
+   "wer": 0.0,
+   "mos": 4.389,
+   "range_st": 12.08,
+   "dur": 2.325
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s01_t3.wav",
+   "heard": "Divers pulled this lump of bronze from a shipwreck.",
+   "wer": 0.0,
+   "mos": 4.409,
+   "range_st": 6.02,
+   "dur": 2.56
+  }
+ ],
+ "2": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s02_t0.wav",
+   "heard": "and inside gears.",
+   "wer": 0.0,
+   "mos": 4.424,
+   "range_st": 6.3,
+   "dur": 1.963
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s02_t1.wav",
+   "heard": "and inside gears!",
+   "wer": 0.0,
+   "mos": 3.633,
+   "range_st": 26.87,
+   "dur": 1.877
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s02_t2.wav",
+   "heard": "and inside gears.",
+   "wer": 0.0,
+   "mos": 4.394,
+   "range_st": 12.47,
+   "dur": 2.133
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s02_t3.wav",
+   "heard": "and inside gears.",
+   "wer": 0.0,
+   "mos": 4.278,
+   "range_st": 13.63,
+   "dur": 1.963
+  }
+ ],
+ "3": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s03_t0.wav",
+   "heard": "In 1900, sponge divers sheltering from a storm found an ancient wreck.",
+   "wer": 0.231,
+   "mos": 4.48,
+   "range_st": 10.6,
+   "dur": 5.077
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s03_t1.wav",
+   "heard": "In 1900, sponge divers sheltering from a storm found an ancient wreck.",
+   "wer": 0.231,
+   "mos": 4.476,
+   "range_st": 11.34,
+   "dur": 4.245
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s03_t2.wav",
+   "heard": "In 1900, sponge divers sheltering from a storm found an ancient wreck.",
+   "wer": 0.231,
+   "mos": 4.447,
+   "range_st": 10.08,
+   "dur": 4.779
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s03_t3.wav",
+   "heard": "In 1900, sponge divers sheltering from a storm found an ancient wreck.",
+   "wer": 0.231,
+   "mos": 4.447,
+   "range_st": 12.22,
+   "dur": 4.864
+  }
+ ],
+ "4": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s04_t0.wav",
+   "heard": "statues, pottery, bronze,",
+   "wer": 0.0,
+   "mos": 3.979,
+   "range_st": 2.16,
+   "dur": 1.963
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s04_t1.wav",
+   "heard": "Statues. Pottery. Bronze.",
+   "wer": 0.0,
+   "mos": 4.372,
+   "range_st": 6.73,
+   "dur": 2.091
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s04_t2.wav",
+   "heard": "statues, pottery, bronze,",
+   "wer": 0.0,
+   "mos": 4.312,
+   "range_st": 2.83,
+   "dur": 2.005
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s04_t3.wav",
+   "heard": "Yeah, statues, pottery, bronze.",
+   "wer": 0.333,
+   "mos": 4.386,
+   "range_st": 6.44,
+   "dur": 2.197
+  }
+ ],
+ "5": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s05_t0.wav",
+   "heard": "and a few crusty lumps that nobody cared about.",
+   "wer": 0.0,
+   "mos": 4.345,
+   "range_st": 8.89,
+   "dur": 2.261
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s05_t1.wav",
+   "heard": "and a few crusty lumps that nobody cared about.",
+   "wer": 0.0,
+   "mos": 4.453,
+   "range_st": 7.62,
+   "dur": 2.475
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s05_t2.wav",
+   "heard": "and a few crusty lumps that nobody cared about.",
+   "wer": 0.0,
+   "mos": 4.453,
+   "range_st": 9.7,
+   "dur": 2.667
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s05_t3.wav",
+   "heard": "and a few crusty lumps that nobody cared about.",
+   "wer": 0.0,
+   "mos": 4.474,
+   "range_st": 10.78,
+   "dur": 2.88
+  }
+ ],
+ "6": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s06_t0.wav",
+   "heard": "Then an archaeologist noticed something in one of them.",
+   "wer": 0.0,
+   "mos": 4.291,
+   "range_st": 4.68,
+   "dur": 2.667
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s06_t1.wav",
+   "heard": "Then, an archaeologist noticed something in one of them.",
+   "wer": 0.0,
+   "mos": 4.432,
+   "range_st": 9.03,
+   "dur": 2.901
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s06_t2.wav",
+   "heard": "Then, an archaeologist noticed something in one of them.",
+   "wer": 0.0,
+   "mos": 4.312,
+   "range_st": 14.53,
+   "dur": 2.624
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s06_t3.wav",
+   "heard": "Then an archaeologist noticed something in one of them.",
+   "wer": 0.0,
+   "mos": 4.3,
+   "range_st": 12.26,
+   "dur": 2.283
+  }
+ ],
+ "7": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s07_t0.wav",
+   "heard": "A tiny bronze gear wheel with hand-cut teeth.",
+   "wer": 0.0,
+   "mos": 4.468,
+   "range_st": 10.54,
+   "dur": 2.773
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s07_t1.wav",
+   "heard": "A tiny bronze gear wheel with hand-cut teeth.",
+   "wer": 0.0,
+   "mos": 4.232,
+   "range_st": 7.96,
+   "dur": 2.859
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s07_t2.wav",
+   "heard": "A tiny bronze gear wheel with ham cut teeth.",
+   "wer": 0.111,
+   "mos": 4.437,
+   "range_st": 15.51,
+   "dur": 2.389
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s07_t3.wav",
+   "heard": "Shay, a tiny bronze gear wheel with hand-cut teeth.",
+   "wer": 0.111,
+   "mos": 4.501,
+   "range_st": 17.99,
+   "dur": 3.563
+  }
+ ],
+ "8": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s08_t0.wav",
+   "heard": "from a ship that sank over 2,000 years ago.",
+   "wer": 0.0,
+   "mos": 4.437,
+   "range_st": 15.08,
+   "dur": 2.944
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s08_t1.wav",
+   "heard": "from a ship that sank over 2,000 years ago.",
+   "wer": 0.0,
+   "mos": 4.405,
+   "range_st": 16.85,
+   "dur": 3.328
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s08_t2.wav",
+   "heard": "from a ship that sank over 2,000 years ago.",
+   "wer": 0.0,
+   "mos": 4.408,
+   "range_st": 6.55,
+   "dur": 3.563
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s08_t3.wav",
+   "heard": "from a ship that sank over 2,000 years ago!",
+   "wer": 0.0,
+   "mos": 4.006,
+   "range_st": 11.09,
+   "dur": 3.819
+  }
+ ],
+ "9": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s09_t0.wav",
+   "heard": "It's called the anti-key-the-raw mechanism.",
+   "wer": 0.8,
+   "mos": 4.454,
+   "range_st": 9.84,
+   "dur": 2.475
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s09_t1.wav",
+   "heard": "It's called the anti-KV-raw mechanism.",
+   "wer": 0.6,
+   "mos": 4.452,
+   "range_st": 13.76,
+   "dur": 2.667
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s09_t2.wav",
+   "heard": "It's called the Anti-Kethi Ray Mechanism.",
+   "wer": 0.6,
+   "mos": 4.155,
+   "range_st": 10.4,
+   "dur": 2.56
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s09_t3.wav",
+   "heard": "It's called the anti-key-thee-raw mechanism.",
+   "wer": 0.8,
+   "mos": 4.47,
+   "range_st": 14.02,
+   "dur": 2.773
+  }
+ ],
+ "10": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s10_t0.wav",
+   "heard": "Ooh, x-ray scans finally revealed what it was.",
+   "wer": 0.125,
+   "mos": 4.462,
+   "range_st": 6.44,
+   "dur": 3.328
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s10_t1.wav",
+   "heard": "X-ray scans finally revealed what it was.",
+   "wer": 0.0,
+   "mos": 4.43,
+   "range_st": 12.46,
+   "dur": 2.453
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s10_t2.wav",
+   "heard": "e, x-ray scans finally revealed what it was.",
+   "wer": 0.125,
+   "mos": 4.478,
+   "range_st": 10.54,
+   "dur": 3.008
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s10_t3.wav",
+   "heard": "X-ray scans finally revealed what it was.",
+   "wer": 0.0,
+   "mos": 4.426,
+   "range_st": 12.25,
+   "dur": 2.667
+  }
+ ],
+ "11": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s11_t0.wav",
+   "heard": "a hand-cranked machine that modeled the sky.",
+   "wer": 0.125,
+   "mos": 4.445,
+   "range_st": 9.82,
+   "dur": 2.688
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s11_t1.wav",
+   "heard": "a hand-cranked machine that modeled the sky.",
+   "wer": 0.125,
+   "mos": 4.419,
+   "range_st": 12.7,
+   "dur": 3.093
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s11_t2.wav",
+   "heard": "a hand-cranked machine that modeled the sky.",
+   "wer": 0.125,
+   "mos": 4.074,
+   "range_st": 12.78,
+   "dur": 2.581
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s11_t3.wav",
+   "heard": "A hand crank machine that modeled the sky.",
+   "wer": 0.25,
+   "mos": 4.423,
+   "range_st": 11.24,
+   "dur": 2.667
+  }
+ ],
+ "12": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s12_t0.wav",
+   "heard": "Turn the handle, and pointers showed the sun and moon moving.",
+   "wer": 0.0,
+   "mos": 4.495,
+   "range_st": 12.8,
+   "dur": 3.904
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s12_t1.wav",
+   "heard": "Turn the handle and pointer showed the sun and moon moving.",
+   "wer": 0.111,
+   "mos": 4.428,
+   "range_st": 6.98,
+   "dur": 3.221
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s12_t2.wav",
+   "heard": "Turn the handle, and pointers showed the sun and moon moving.",
+   "wer": 0.0,
+   "mos": 4.394,
+   "range_st": 4.74,
+   "dur": 2.816
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s12_t3.wav",
+   "heard": "Turn the handle, and pointer showed the sun and moon moving.",
+   "wer": 0.111,
+   "mos": 4.433,
+   "range_st": 13.93,
+   "dur": 3.179
+  }
+ ],
+ "13": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s13_t0.wav",
+   "heard": "even the phases of the moon.",
+   "wer": 0.0,
+   "mos": 4.203,
+   "range_st": 13.73,
+   "dur": 1.472
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s13_t1.wav",
+   "heard": "Even the phases of the moon.",
+   "wer": 0.0,
+   "mos": 3.747,
+   "range_st": 12.28,
+   "dur": 1.835
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s13_t2.wav",
+   "heard": "even the phases of the moon.",
+   "wer": 0.0,
+   "mos": 4.04,
+   "range_st": 8.76,
+   "dur": 1.515
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s13_t3.wav",
+   "heard": "Even the phases of the moon?",
+   "wer": 0.0,
+   "mos": 4.16,
+   "range_st": 9.7,
+   "dur": 1.429
+  }
+ ],
+ "14": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s14_t0.wav",
+   "heard": "and it could predict eclipses.",
+   "wer": 0.0,
+   "mos": 4.264,
+   "range_st": 14.15,
+   "dur": 2.219
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s14_t1.wav",
+   "heard": "And it could predict eclipses.",
+   "wer": 0.0,
+   "mos": 4.186,
+   "range_st": 7.88,
+   "dur": 1.515
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s14_t2.wav",
+   "heard": "and it could predict eclipses.",
+   "wer": 0.0,
+   "mos": 4.137,
+   "range_st": 12.99,
+   "dur": 2.581
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s14_t3.wav",
+   "heard": "And it could predict eclipses!",
+   "wer": 0.0,
+   "mos": 3.724,
+   "range_st": 10.13,
+   "dur": 2.731
+  }
+ ],
+ "15": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s15_t0.wav",
+   "heard": "Around 30 gears survive",
+   "wer": 0.0,
+   "mos": 3.994,
+   "range_st": 5.54,
+   "dur": 1.685
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s15_t1.wav",
+   "heard": "Around 30 years survive.",
+   "wer": 0.25,
+   "mos": 4.391,
+   "range_st": 7.98,
+   "dur": 1.771
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s15_t2.wav",
+   "heard": "around 30 gears survive.",
+   "wer": 0.0,
+   "mos": 4.36,
+   "range_st": 5.75,
+   "dur": 1.643
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s15_t3.wav",
+   "heard": "around 30 gears survive.",
+   "wer": 0.0,
+   "mos": 4.316,
+   "range_st": 11.49,
+   "dur": 1.984
+  }
+ ],
+ "16": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s16_t0.wav",
+   "heard": "Nothing this complex is known again for more than a thousand years.",
+   "wer": 0.0,
+   "mos": 4.437,
+   "range_st": 6.55,
+   "dur": 3.477
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s16_t1.wav",
+   "heard": "Nothing this complex is known again for more than a thousand years.",
+   "wer": 0.0,
+   "mos": 4.455,
+   "range_st": 14.4,
+   "dur": 3.157
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s16_t2.wav",
+   "heard": "Nothing this complex is known again for more than a thousand years.",
+   "wer": 0.0,
+   "mos": 4.461,
+   "range_st": 7.99,
+   "dur": 4.352
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s16_t3.wav",
+   "heard": "Nothing this complex has known again for more than a thousand years.",
+   "wer": 0.083,
+   "mos": 4.423,
+   "range_st": 10.1,
+   "dur": 4.267
+  }
+ ],
+ "17": [
+  {
+   "file": "public/yw8-vo-antikythera/takes/s17_t0.wav",
+   "heard": "An Ancient Greek Computer",
+   "wer": 0.0,
+   "mos": 4.442,
+   "range_st": 11.19,
+   "dur": 1.728
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s17_t1.wav",
+   "heard": "An ancient Greek computer.",
+   "wer": 0.0,
+   "mos": 4.386,
+   "range_st": 8.65,
+   "dur": 1.621
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s17_t2.wav",
+   "heard": "An Ancient Greek Computer",
+   "wer": 0.0,
+   "mos": 4.405,
+   "range_st": 8.94,
+   "dur": 1.984
+  },
+  {
+   "file": "public/yw8-vo-antikythera/takes/s17_t3.wav",
+   "heard": "An ancient Greek computer?",
+   "wer": 0.0,
+   "mos": 4.415,
+   "range_st": 16.52,
+   "dur": 2.325
+  }
+ ]
+}

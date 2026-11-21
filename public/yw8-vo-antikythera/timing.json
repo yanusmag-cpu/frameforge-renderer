@@ -1,0 +1,890 @@
+{
+ "engine": "Chatterbox TTS (MIT) + synthetic energetic narrator reference (Kokoro am_fenrir, v8 storyteller)",
+ "films": {
+  "antikythera": [
+   {
+    "i": 1,
+    "text": "Divers pulled this lump of bronze from a shipwreck...",
+    "style": "s",
+    "pause": 0.35,
+    "dur": 2.445,
+    "mos": 4.389,
+    "range_st": 12.08,
+    "wer": 0.0,
+    "heard": "Divers pulled this lump of bronze from a shipwreck.",
+    "words": [
+     [
+      -0.131,
+      0.369,
+      "Divers"
+     ],
+     [
+      0.369,
+      0.649,
+      "pulled"
+     ],
+     [
+      0.649,
+      0.869,
+      "this"
+     ],
+     [
+      0.869,
+      1.089,
+      "lump"
+     ],
+     [
+      1.089,
+      1.249,
+      "of"
+     ],
+     [
+      1.249,
+      1.489,
+      "bronze"
+     ],
+     [
+      1.489,
+      1.689,
+      "from"
+     ],
+     [
+      1.689,
+      1.829,
+      "a"
+     ],
+     [
+      1.829,
+      2.209,
+      "shipwreck."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s01.wav"
+   },
+   {
+    "i": 2,
+    "text": "and inside? GEARS!",
+    "style": "e",
+    "pause": 0.6,
+    "dur": 2.253,
+    "mos": 4.394,
+    "range_st": 12.47,
+    "wer": 0.0,
+    "heard": "and inside gears.",
+    "words": [
+     [
+      -0.109,
+      0.211,
+      "and"
+     ],
+     [
+      0.211,
+      0.771,
+      "inside"
+     ],
+     [
+      0.771,
+      1.691,
+      "gears."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s02.wav"
+   },
+   {
+    "i": 3,
+    "text": "In nineteen hundred, sponge divers sheltering from a storm found an ancient wreck.",
+    "style": "n",
+    "pause": 0.3,
+    "dur": 4.984,
+    "mos": 4.447,
+    "range_st": 12.22,
+    "wer": 0.231,
+    "heard": "In 1900, sponge divers sheltering from a storm found an ancient wreck.",
+    "words": [
+     [
+      -0.173,
+      0.207,
+      "In"
+     ],
+     [
+      0.207,
+      0.967,
+      "1900,"
+     ],
+     [
+      1.467,
+      1.727,
+      "sponge"
+     ],
+     [
+      1.727,
+      2.227,
+      "divers"
+     ],
+     [
+      2.227,
+      2.867,
+      "sheltering"
+     ],
+     [
+      2.867,
+      3.007,
+      "from"
+     ],
+     [
+      3.007,
+      3.107,
+      "a"
+     ],
+     [
+      3.107,
+      3.427,
+      "storm"
+     ],
+     [
+      3.427,
+      3.767,
+      "found"
+     ],
+     [
+      3.767,
+      3.947,
+      "an"
+     ],
+     [
+      3.947,
+      4.327,
+      "ancient"
+     ],
+     [
+      4.327,
+      4.727,
+      "wreck."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s03.wav"
+   },
+   {
+    "i": 4,
+    "text": "Statues, pottery, bronze...",
+    "style": "n",
+    "pause": 0.25,
+    "dur": 2.211,
+    "mos": 4.372,
+    "range_st": 6.73,
+    "wer": 0.0,
+    "heard": "Statues. Pottery. Bronze.",
+    "words": [
+     [
+      -0.067,
+      0.773,
+      "Statues."
+     ],
+     [
+      1.133,
+      1.413,
+      "Pottery."
+     ],
+     [
+      1.793,
+      1.833,
+      "Bronze."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s04.wav"
+   },
+   {
+    "i": 5,
+    "text": "and a few crusty lumps that nobody cared about.",
+    "style": "m",
+    "pause": 0.45,
+    "dur": 3.0,
+    "mos": 4.474,
+    "range_st": 10.78,
+    "wer": 0.0,
+    "heard": "and a few crusty lumps that nobody cared about.",
+    "words": [
+     [
+      -0.045,
+      0.195,
+      "and"
+     ],
+     [
+      0.195,
+      0.275,
+      "a"
+     ],
+     [
+      0.275,
+      0.675,
+      "few"
+     ],
+     [
+      0.675,
+      1.315,
+      "crusty"
+     ],
+     [
+      1.315,
+      1.615,
+      "lumps"
+     ],
+     [
+      1.615,
+      1.855,
+      "that"
+     ],
+     [
+      1.855,
+      2.135,
+      "nobody"
+     ],
+     [
+      2.135,
+      2.455,
+      "cared"
+     ],
+     [
+      2.455,
+      2.775,
+      "about."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s05.wav"
+   },
+   {
+    "i": 6,
+    "text": "Then an archaeologist noticed something in one of them.",
+    "style": "s",
+    "pause": 0.3,
+    "dur": 2.744,
+    "mos": 4.312,
+    "range_st": 14.53,
+    "wer": 0.0,
+    "heard": "Then, an archaeologist noticed something in one of them.",
+    "words": [
+     [
+      -0.195,
+      0.365,
+      "Then,"
+     ],
+     [
+      0.505,
+      0.605,
+      "an"
+     ],
+     [
+      0.605,
+      1.265,
+      "archaeologist"
+     ],
+     [
+      1.265,
+      1.525,
+      "noticed"
+     ],
+     [
+      1.525,
+      1.865,
+      "something"
+     ],
+     [
+      1.865,
+      2.125,
+      "in"
+     ],
+     [
+      2.125,
+      2.245,
+      "one"
+     ],
+     [
+      2.245,
+      2.365,
+      "of"
+     ],
+     [
+      2.365,
+      2.545,
+      "them."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s06.wav"
+   },
+   {
+    "i": 7,
+    "text": "A tiny bronze gear wheel... with hand-cut teeth!",
+    "style": "x",
+    "pause": 0.45,
+    "dur": 2.893,
+    "mos": 4.468,
+    "range_st": 10.54,
+    "wer": 0.0,
+    "heard": "A tiny bronze gear wheel with hand-cut teeth.",
+    "words": [
+     [
+      -0.045,
+      0.195,
+      "A"
+     ],
+     [
+      0.195,
+      0.595,
+      "tiny"
+     ],
+     [
+      0.595,
+      0.955,
+      "bronze"
+     ],
+     [
+      0.955,
+      1.255,
+      "gear"
+     ],
+     [
+      1.255,
+      1.475,
+      "wheel"
+     ],
+     [
+      1.475,
+      1.735,
+      "with"
+     ],
+     [
+      1.735,
+      2.095,
+      "hand"
+     ],
+     [
+      2.095,
+      2.355,
+      "-cut"
+     ],
+     [
+      2.355,
+      2.655,
+      "teeth."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s07.wav"
+   },
+   {
+    "i": 8,
+    "text": "From a ship that sank over TWO THOUSAND years ago!",
+    "style": "e",
+    "pause": 0.55,
+    "dur": 3.448,
+    "mos": 4.405,
+    "range_st": 16.85,
+    "wer": 0.0,
+    "heard": "from a ship that sank over 2,000 years ago.",
+    "words": [
+     [
+      0.04,
+      0.38,
+      "from"
+     ],
+     [
+      0.38,
+      0.5,
+      "a"
+     ],
+     [
+      0.5,
+      0.82,
+      "ship"
+     ],
+     [
+      0.82,
+      1.02,
+      "that"
+     ],
+     [
+      1.02,
+      1.22,
+      "sank"
+     ],
+     [
+      1.22,
+      1.5,
+      "over"
+     ],
+     [
+      1.5,
+      1.82,
+      "2"
+     ],
+     [
+      1.82,
+      2.62,
+      ",000"
+     ],
+     [
+      2.62,
+      2.86,
+      "years"
+     ],
+     [
+      2.86,
+      3.24,
+      "ago."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s08.wav"
+   },
+   {
+    "i": 9,
+    "text": "It's called the Antikythera mechanism.",
+    "style": "n",
+    "pause": 0.3,
+    "dur": 2.787,
+    "mos": 4.452,
+    "range_st": 13.76,
+    "wer": 0.6,
+    "heard": "It's called the anti-KV-raw mechanism.",
+    "words": [
+     [
+      -0.195,
+      0.245,
+      "It's"
+     ],
+     [
+      0.245,
+      0.485,
+      "called"
+     ],
+     [
+      0.485,
+      0.705,
+      "the"
+     ],
+     [
+      0.705,
+      1.125,
+      "anti"
+     ],
+     [
+      1.125,
+      1.585,
+      "-KV"
+     ],
+     [
+      1.585,
+      1.925,
+      "-raw"
+     ],
+     [
+      1.925,
+      2.405,
+      "mechanism."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s09.wav"
+   },
+   {
+    "i": 10,
+    "text": "X-ray scans finally revealed what it was.",
+    "style": "s",
+    "pause": 0.3,
+    "dur": 2.573,
+    "mos": 4.43,
+    "range_st": 12.46,
+    "wer": 0.0,
+    "heard": "X-ray scans finally revealed what it was.",
+    "words": [
+     [
+      -0.045,
+      0.255,
+      "X"
+     ],
+     [
+      0.255,
+      0.415,
+      "-ray"
+     ],
+     [
+      0.415,
+      0.755,
+      "scans"
+     ],
+     [
+      0.755,
+      1.215,
+      "finally"
+     ],
+     [
+      1.215,
+      1.655,
+      "revealed"
+     ],
+     [
+      1.655,
+      1.895,
+      "what"
+     ],
+     [
+      1.895,
+      1.995,
+      "it"
+     ],
+     [
+      1.995,
+      2.375,
+      "was."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s10.wav"
+   },
+   {
+    "i": 11,
+    "text": "A hand-cranked machine... that modelled the sky!",
+    "style": "x",
+    "pause": 0.4,
+    "dur": 3.213,
+    "mos": 4.419,
+    "range_st": 12.7,
+    "wer": 0.125,
+    "heard": "a hand-cranked machine that modeled the sky.",
+    "words": [
+     [
+      -0.131,
+      0.189,
+      "a"
+     ],
+     [
+      0.189,
+      0.549,
+      "hand"
+     ],
+     [
+      0.549,
+      0.849,
+      "-cranked"
+     ],
+     [
+      0.849,
+      1.369,
+      "machine"
+     ],
+     [
+      1.369,
+      1.969,
+      "that"
+     ],
+     [
+      1.969,
+      2.309,
+      "modeled"
+     ],
+     [
+      2.309,
+      2.589,
+      "the"
+     ],
+     [
+      2.589,
+      2.909,
+      "sky."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s11.wav"
+   },
+   {
+    "i": 12,
+    "text": "Turn the handle, and pointers showed the sun and moon moving.",
+    "style": "n",
+    "pause": 0.25,
+    "dur": 4.024,
+    "mos": 4.495,
+    "range_st": 12.8,
+    "wer": 0.0,
+    "heard": "Turn the handle, and pointers showed the sun and moon moving.",
+    "words": [
+     [
+      -0.152,
+      0.268,
+      "Turn"
+     ],
+     [
+      0.268,
+      0.428,
+      "the"
+     ],
+     [
+      0.428,
+      0.788,
+      "handle,"
+     ],
+     [
+      1.228,
+      1.348,
+      "and"
+     ],
+     [
+      1.348,
+      1.748,
+      "pointers"
+     ],
+     [
+      1.748,
+      2.128,
+      "showed"
+     ],
+     [
+      2.128,
+      2.308,
+      "the"
+     ],
+     [
+      2.308,
+      2.608,
+      "sun"
+     ],
+     [
+      2.608,
+      2.908,
+      "and"
+     ],
+     [
+      2.908,
+      3.188,
+      "moon"
+     ],
+     [
+      3.188,
+      3.688,
+      "moving."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s12.wav"
+   },
+   {
+    "i": 13,
+    "text": "Even the phases of the moon...",
+    "style": "n",
+    "pause": 0.25,
+    "dur": 1.592,
+    "mos": 4.203,
+    "range_st": 13.73,
+    "wer": 0.0,
+    "heard": "even the phases of the moon.",
+    "words": [
+     [
+      -0.088,
+      0.272,
+      "even"
+     ],
+     [
+      0.272,
+      0.432,
+      "the"
+     ],
+     [
+      0.432,
+      0.692,
+      "phases"
+     ],
+     [
+      0.692,
+      0.952,
+      "of"
+     ],
+     [
+      0.952,
+      1.052,
+      "the"
+     ],
+     [
+      1.052,
+      1.272,
+      "moon."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s13.wav"
+   },
+   {
+    "i": 14,
+    "text": "and it could predict ECLIPSES!",
+    "style": "e",
+    "pause": 0.5,
+    "dur": 2.339,
+    "mos": 4.264,
+    "range_st": 14.15,
+    "wer": 0.0,
+    "heard": "and it could predict eclipses.",
+    "words": [
+     [
+      0.04,
+      0.52,
+      "and"
+     ],
+     [
+      0.52,
+      0.76,
+      "it"
+     ],
+     [
+      0.76,
+      0.98,
+      "could"
+     ],
+     [
+      0.98,
+      1.38,
+      "predict"
+     ],
+     [
+      1.38,
+      2.06,
+      "eclipses."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s14.wav"
+   },
+   {
+    "i": 15,
+    "text": "Around thirty gears survive.",
+    "style": "n",
+    "pause": 0.3,
+    "dur": 2.104,
+    "mos": 4.316,
+    "range_st": 11.49,
+    "wer": 0.0,
+    "heard": "around 30 gears survive.",
+    "words": [
+     [
+      -0.045,
+      0.315,
+      "around"
+     ],
+     [
+      0.315,
+      0.735,
+      "30"
+     ],
+     [
+      0.735,
+      1.095,
+      "gears"
+     ],
+     [
+      1.095,
+      1.675,
+      "survive."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s15.wav"
+   },
+   {
+    "i": 16,
+    "text": "Nothing this complex is known again for more than a thousand years.",
+    "style": "x",
+    "pause": 0.45,
+    "dur": 3.277,
+    "mos": 4.455,
+    "range_st": 14.4,
+    "wer": 0.0,
+    "heard": "Nothing this complex is known again for more than a thousand years.",
+    "words": [
+     [
+      -0.173,
+      0.367,
+      "Nothing"
+     ],
+     [
+      0.367,
+      0.587,
+      "this"
+     ],
+     [
+      0.587,
+      0.987,
+      "complex"
+     ],
+     [
+      0.987,
+      1.207,
+      "is"
+     ],
+     [
+      1.207,
+      1.387,
+      "known"
+     ],
+     [
+      1.387,
+      1.647,
+      "again"
+     ],
+     [
+      1.647,
+      1.827,
+      "for"
+     ],
+     [
+      1.827,
+      1.947,
+      "more"
+     ],
+     [
+      1.947,
+      2.127,
+      "than"
+     ],
+     [
+      2.127,
+      2.287,
+      "a"
+     ],
+     [
+      2.287,
+      2.567,
+      "thousand"
+     ],
+     [
+      2.567,
+      2.907,
+      "years."
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s16.wav"
+   },
+   {
+    "i": 17,
+    "text": "An ancient Greek... COMPUTER.",
+    "style": "c",
+    "pause": 0.3,
+    "dur": 2.445,
+    "mos": 4.415,
+    "range_st": 16.52,
+    "wer": 0.0,
+    "heard": "An ancient Greek computer?",
+    "words": [
+     [
+      0.04,
+      0.42,
+      "An"
+     ],
+     [
+      0.42,
+      0.82,
+      "ancient"
+     ],
+     [
+      0.82,
+      1.22,
+      "Greek"
+     ],
+     [
+      1.22,
+      2.06,
+      "computer?"
+     ]
+    ],
+    "file": "public/yw8-vo-antikythera/s17.wav"
+   }
+  ]
+ }
+}
