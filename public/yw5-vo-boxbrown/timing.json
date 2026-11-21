@@ -1,0 +1,985 @@
+{
+ "engine": "Chatterbox TTS (MIT) + synthetic YunoWorld narrator (Kokoro am_puck reference)",
+ "films": {
+  "boxbrown": [
+   {
+    "i": 1,
+    "text": "This man climbed inside a wooden box... and paid someone to mail him hundreds of miles away.",
+    "style": "c",
+    "dur": 5.368,
+    "mos": 4.477,
+    "wer": 0.0,
+    "heard": "This man climbed inside a wooden box and paid someone to mail him hundreds of miles away.",
+    "words": [
+     [
+      -0.131,
+      0.269,
+      "This"
+     ],
+     [
+      0.269,
+      0.569,
+      "man"
+     ],
+     [
+      0.569,
+      0.989,
+      "climbed"
+     ],
+     [
+      0.989,
+      1.529,
+      "inside"
+     ],
+     [
+      1.529,
+      1.769,
+      "a"
+     ],
+     [
+      1.769,
+      1.969,
+      "wooden"
+     ],
+     [
+      1.969,
+      2.309,
+      "box"
+     ],
+     [
+      2.309,
+      2.609,
+      "and"
+     ],
+     [
+      2.609,
+      2.809,
+      "paid"
+     ],
+     [
+      2.809,
+      3.209,
+      "someone"
+     ],
+     [
+      3.209,
+      3.389,
+      "to"
+     ],
+     [
+      3.389,
+      3.609,
+      "mail"
+     ],
+     [
+      3.609,
+      3.889,
+      "him"
+     ],
+     [
+      3.889,
+      4.329,
+      "hundreds"
+     ],
+     [
+      4.329,
+      4.549,
+      "of"
+     ],
+     [
+      4.549,
+      4.829,
+      "miles"
+     ],
+     [
+      4.829,
+      5.189,
+      "away."
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s01.wav"
+   },
+   {
+    "i": 2,
+    "text": "The box was three feet long. He was five foot eight.",
+    "style": "n",
+    "dur": 3.149,
+    "mos": 4.484,
+    "wer": 0.0,
+    "heard": "The box was 3 feet long. He was 5 foot 8.",
+    "words": [
+     [
+      -0.152,
+      0.148,
+      "The"
+     ],
+     [
+      0.148,
+      0.428,
+      "box"
+     ],
+     [
+      0.428,
+      0.668,
+      "was"
+     ],
+     [
+      0.668,
+      0.988,
+      "3"
+     ],
+     [
+      0.988,
+      1.148,
+      "feet"
+     ],
+     [
+      1.148,
+      1.508,
+      "long."
+     ],
+     [
+      1.828,
+      1.928,
+      "He"
+     ],
+     [
+      1.928,
+      2.068,
+      "was"
+     ],
+     [
+      2.068,
+      2.408,
+      "5"
+     ],
+     [
+      2.408,
+      2.648,
+      "foot"
+     ],
+     [
+      2.648,
+      2.928,
+      "8."
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s02.wav"
+   },
+   {
+    "i": 3,
+    "text": "He had a little water... and a few tiny holes for air.",
+    "style": "n",
+    "dur": 2.957,
+    "mos": 4.485,
+    "wer": 0.0,
+    "heard": "He had a little water and a few tiny holes for air.",
+    "words": [
+     [
+      -0.195,
+      0.145,
+      "He"
+     ],
+     [
+      0.145,
+      0.345,
+      "had"
+     ],
+     [
+      0.345,
+      0.445,
+      "a"
+     ],
+     [
+      0.445,
+      0.605,
+      "little"
+     ],
+     [
+      0.605,
+      0.985,
+      "water"
+     ],
+     [
+      0.985,
+      1.385,
+      "and"
+     ],
+     [
+      1.385,
+      1.485,
+      "a"
+     ],
+     [
+      1.485,
+      1.665,
+      "few"
+     ],
+     [
+      1.665,
+      1.985,
+      "tiny"
+     ],
+     [
+      1.985,
+      2.285,
+      "holes"
+     ],
+     [
+      2.285,
+      2.525,
+      "for"
+     ],
+     [
+      2.525,
+      2.745,
+      "air."
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s03.wav"
+   },
+   {
+    "i": 4,
+    "text": "The label said: This side up, with care.",
+    "style": "s",
+    "dur": 2.744,
+    "mos": 4.505,
+    "wer": 0.0,
+    "heard": "The label said, this side up with care.",
+    "words": [
+     [
+      -0.152,
+      0.148,
+      "The"
+     ],
+     [
+      0.148,
+      0.408,
+      "label"
+     ],
+     [
+      0.408,
+      0.808,
+      "said,"
+     ],
+     [
+      1.048,
+      1.288,
+      "this"
+     ],
+     [
+      1.288,
+      1.528,
+      "side"
+     ],
+     [
+      1.528,
+      1.768,
+      "up"
+     ],
+     [
+      1.768,
+      2.168,
+      "with"
+     ],
+     [
+      2.168,
+      2.488,
+      "care."
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s04.wav"
+   },
+   {
+    "i": 5,
+    "text": "Twice, it was turned upside down.",
+    "style": "u",
+    "dur": 2.723,
+    "mos": 4.47,
+    "wer": 0.0,
+    "heard": "Twice, it was turned upside down.",
+    "words": [
+     [
+      -0.045,
+      0.355,
+      "Twice,"
+     ],
+     [
+      0.875,
+      0.955,
+      "it"
+     ],
+     [
+      0.955,
+      1.095,
+      "was"
+     ],
+     [
+      1.095,
+      1.375,
+      "turned"
+     ],
+     [
+      1.375,
+      1.935,
+      "upside"
+     ],
+     [
+      1.935,
+      2.475,
+      "down."
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s05.wav"
+   },
+   {
+    "i": 6,
+    "text": "Once, for an hour and a half. His eyes swelled until he thought they'd burst... and he didn't make a sound.",
+    "style": "s",
+    "dur": 5.688,
+    "mos": 4.451,
+    "wer": 0.0,
+    "heard": "Once, for an hour and a half, his eyes swelled until he thought they'd burst, and he didn't  make a sound.",
+    "words": [
+     [
+      -0.152,
+      0.388,
+      "Once,"
+     ],
+     [
+      0.588,
+      0.788,
+      "for"
+     ],
+     [
+      0.788,
+      0.908,
+      "an"
+     ],
+     [
+      0.908,
+      1.188,
+      "hour"
+     ],
+     [
+      1.188,
+      1.388,
+      "and"
+     ],
+     [
+      1.388,
+      1.468,
+      "a"
+     ],
+     [
+      1.468,
+      1.788,
+      "half,"
+     ],
+     [
+      1.988,
+      2.088,
+      "his"
+     ],
+     [
+      2.088,
+      2.468,
+      "eyes"
+     ],
+     [
+      2.468,
+      3.008,
+      "swelled"
+     ],
+     [
+      3.008,
+      3.288,
+      "until"
+     ],
+     [
+      3.288,
+      3.448,
+      "he"
+     ],
+     [
+      3.448,
+      3.648,
+      "thought"
+     ],
+     [
+      3.648,
+      3.928,
+      "they'd"
+     ],
+     [
+      3.928,
+      4.228,
+      "burst,"
+     ],
+     [
+      4.528,
+      4.628,
+      "and"
+     ],
+     [
+      4.628,
+      4.728,
+      "he"
+     ],
+     [
+      4.728,
+      4.948,
+      "didn't"
+     ],
+     [
+      4.948,
+      5.068,
+      "make"
+     ],
+     [
+      5.068,
+      5.228,
+      "a"
+     ],
+     [
+      5.228,
+      5.468,
+      "sound."
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s06.wav"
+   },
+   {
+    "i": 7,
+    "text": "Then two workers flipped the box on its side, and sat on it.",
+    "style": "x",
+    "dur": 3.512,
+    "mos": 4.473,
+    "wer": 0.0,
+    "heard": "Then two workers flipped the box on its side and sat on it.",
+    "words": [
+     [
+      -0.152,
+      0.228,
+      "Then"
+     ],
+     [
+      0.228,
+      0.548,
+      "two"
+     ],
+     [
+      0.548,
+      0.948,
+      "workers"
+     ],
+     [
+      0.948,
+      1.348,
+      "flipped"
+     ],
+     [
+      1.348,
+      1.548,
+      "the"
+     ],
+     [
+      1.548,
+      1.768,
+      "box"
+     ],
+     [
+      1.768,
+      1.968,
+      "on"
+     ],
+     [
+      1.968,
+      2.088,
+      "its"
+     ],
+     [
+      2.088,
+      2.428,
+      "side"
+     ],
+     [
+      2.428,
+      2.668,
+      "and"
+     ],
+     [
+      2.668,
+      3.008,
+      "sat"
+     ],
+     [
+      3.008,
+      3.188,
+      "on"
+     ],
+     [
+      3.188,
+      3.368,
+      "it."
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s07.wav"
+   },
+   {
+    "i": 8,
+    "text": "So why would a man mail himself?",
+    "style": "c",
+    "dur": 1.912,
+    "mos": 4.433,
+    "wer": 0.0,
+    "heard": "So why would a man mail himself?",
+    "words": [
+     [
+      -0.152,
+      0.248,
+      "So"
+     ],
+     [
+      0.248,
+      0.488,
+      "why"
+     ],
+     [
+      0.488,
+      0.628,
+      "would"
+     ],
+     [
+      0.628,
+      0.728,
+      "a"
+     ],
+     [
+      0.728,
+      0.888,
+      "man"
+     ],
+     [
+      0.888,
+      1.188,
+      "mail"
+     ],
+     [
+      1.188,
+      1.548,
+      "himself?"
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s08.wav"
+   },
+   {
+    "i": 9,
+    "text": "Because Henry Brown was enslaved in Virginia, and his wife and children had just been sold away.",
+    "style": "m",
+    "dur": 5.368,
+    "mos": 4.493,
+    "wer": 0.0,
+    "heard": "Because Henry Brown was enslaved in Virginia and his wife and children had just been sold away",
+    "words": [
+     [
+      -0.173,
+      0.347,
+      "Because"
+     ],
+     [
+      0.347,
+      0.667,
+      "Henry"
+     ],
+     [
+      0.667,
+      0.987,
+      "Brown"
+     ],
+     [
+      0.987,
+      1.207,
+      "was"
+     ],
+     [
+      1.207,
+      1.627,
+      "enslaved"
+     ],
+     [
+      1.627,
+      1.847,
+      "in"
+     ],
+     [
+      1.847,
+      2.207,
+      "Virginia"
+     ],
+     [
+      2.207,
+      2.727,
+      "and"
+     ],
+     [
+      2.727,
+      2.867,
+      "his"
+     ],
+     [
+      2.867,
+      3.147,
+      "wife"
+     ],
+     [
+      3.147,
+      3.367,
+      "and"
+     ],
+     [
+      3.367,
+      3.727,
+      "children"
+     ],
+     [
+      3.727,
+      3.987,
+      "had"
+     ],
+     [
+      3.987,
+      4.267,
+      "just"
+     ],
+     [
+      4.267,
+      4.507,
+      "been"
+     ],
+     [
+      4.507,
+      4.787,
+      "sold"
+     ],
+     [
+      4.787,
+      5.087,
+      "away"
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s09.wav"
+   },
+   {
+    "i": 10,
+    "text": "He paid eighty-six dollars, more than half his savings, to be shipped north as dry goods.",
+    "style": "n",
+    "dur": 5.389,
+    "mos": 4.534,
+    "wer": 0.0,
+    "heard": "He paid $86, more than half his savings, to be shipped north as dry goods.",
+    "words": [
+     [
+      -0.195,
+      0.165,
+      "He"
+     ],
+     [
+      0.165,
+      0.425,
+      "paid"
+     ],
+     [
+      0.425,
+      1.265,
+      "$86,"
+     ],
+     [
+      1.885,
+      2.145,
+      "more"
+     ],
+     [
+      2.145,
+      2.345,
+      "than"
+     ],
+     [
+      2.345,
+      2.605,
+      "half"
+     ],
+     [
+      2.605,
+      2.825,
+      "his"
+     ],
+     [
+      2.825,
+      3.205,
+      "savings,"
+     ],
+     [
+      3.465,
+      3.605,
+      "to"
+     ],
+     [
+      3.605,
+      3.745,
+      "be"
+     ],
+     [
+      3.745,
+      4.005,
+      "shipped"
+     ],
+     [
+      4.005,
+      4.285,
+      "north"
+     ],
+     [
+      4.285,
+      4.625,
+      "as"
+     ],
+     [
+      4.625,
+      4.865,
+      "dry"
+     ],
+     [
+      4.865,
+      5.125,
+      "goods."
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s10.wav"
+   },
+   {
+    "i": 11,
+    "text": "Wagon. Train. Steamboat. Ferry. Twenty-seven hours.",
+    "style": "u",
+    "dur": 3.512,
+    "mos": 4.512,
+    "wer": 0.0,
+    "heard": "Wagon, train, steamboat, ferry, 27 hours.",
+    "words": [
+     [
+      -0.067,
+      0.493,
+      "Wagon,"
+     ],
+     [
+      0.693,
+      0.913,
+      "train,"
+     ],
+     [
+      1.393,
+      1.713,
+      "steamboat,"
+     ],
+     [
+      2.073,
+      2.073,
+      "ferry,"
+     ],
+     [
+      2.873,
+      2.873,
+      "27"
+     ],
+     [
+      2.873,
+      3.193,
+      "hours."
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s11.wav"
+   },
+   {
+    "i": 12,
+    "text": "In Philadelphia, abolitionists pried the lid open...",
+    "style": "s",
+    "dur": 3.405,
+    "mos": 4.473,
+    "wer": 0.0,
+    "heard": "In Philadelphia, abolitionists pried the lid open.",
+    "words": [
+     [
+      -0.109,
+      0.171,
+      "In"
+     ],
+     [
+      0.171,
+      0.771,
+      "Philadelphia,"
+     ],
+     [
+      1.451,
+      2.111,
+      "abolitionists"
+     ],
+     [
+      2.111,
+      2.591,
+      "pried"
+     ],
+     [
+      2.591,
+      2.711,
+      "the"
+     ],
+     [
+      2.711,
+      2.851,
+      "lid"
+     ],
+     [
+      2.851,
+      3.171,
+      "open."
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s12.wav"
+   },
+   {
+    "i": 13,
+    "text": "and the man who'd been mailed like a package stood up... free.",
+    "style": "x",
+    "dur": 3.661,
+    "mos": 4.473,
+    "wer": 0.0,
+    "heard": "And the man who'd been mailed like a package stood up, free.",
+    "words": [
+     [
+      -0.173,
+      0.187,
+      "And"
+     ],
+     [
+      0.187,
+      0.307,
+      "the"
+     ],
+     [
+      0.307,
+      0.627,
+      "man"
+     ],
+     [
+      0.627,
+      0.847,
+      "who'd"
+     ],
+     [
+      0.847,
+      0.987,
+      "been"
+     ],
+     [
+      0.987,
+      1.367,
+      "mailed"
+     ],
+     [
+      1.367,
+      1.567,
+      "like"
+     ],
+     [
+      1.567,
+      1.707,
+      "a"
+     ],
+     [
+      1.707,
+      2.207,
+      "package"
+     ],
+     [
+      2.207,
+      2.667,
+      "stood"
+     ],
+     [
+      2.667,
+      3.047,
+      "up,"
+     ],
+     [
+      3.307,
+      3.487,
+      "free."
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s13.wav"
+   },
+   {
+    "i": 14,
+    "text": "From then on, the world called him Henry Box Brown.",
+    "style": "h",
+    "dur": 3.192,
+    "mos": 4.44,
+    "wer": 0.0,
+    "heard": "From then on, the world called him Henry Box Brown.",
+    "words": [
+     [
+      -0.088,
+      0.172,
+      "From"
+     ],
+     [
+      0.172,
+      0.392,
+      "then"
+     ],
+     [
+      0.392,
+      0.712,
+      "on,"
+     ],
+     [
+      0.892,
+      0.972,
+      "the"
+     ],
+     [
+      0.972,
+      1.192,
+      "world"
+     ],
+     [
+      1.192,
+      1.492,
+      "called"
+     ],
+     [
+      1.492,
+      1.692,
+      "him"
+     ],
+     [
+      1.692,
+      2.112,
+      "Henry"
+     ],
+     [
+      2.112,
+      2.472,
+      "Box"
+     ],
+     [
+      2.472,
+      2.892,
+      "Brown."
+     ]
+    ],
+    "file": "public/yw5-vo-boxbrown/s14.wav"
+   }
+  ]
+ }
+}

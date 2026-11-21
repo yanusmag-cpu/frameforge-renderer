@@ -1,0 +1,324 @@
+{
+ "1": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s01_t0.wav",
+   "heard": "This man climbed inside a wooden box and paid someone to mail him hundreds of miles away.",
+   "wer": 0.0,
+   "mos": 4.477,
+   "dur": 5.248
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s01_t1.wav",
+   "heard": "This man climbed inside a wooden box and paid someone to mail him hundreds of miles away.",
+   "wer": 0.0,
+   "mos": 4.457,
+   "dur": 4.651
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s01_t2.wav",
+   "heard": "This man climbed inside a wooden box and paid someone to mail him hundreds of miles away.",
+   "wer": 0.0,
+   "mos": 4.475,
+   "dur": 5.141
+  }
+ ],
+ "2": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s02_t0.wav",
+   "heard": "The box was 3 feet long. He was 5 foot 8.",
+   "wer": 0.0,
+   "mos": 4.465,
+   "dur": 2.667
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s02_t1.wav",
+   "heard": "The box was 3 feet long. He was 5 foot 8.",
+   "wer": 0.0,
+   "mos": 4.426,
+   "dur": 2.773
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s02_t2.wav",
+   "heard": "The box was 3 feet long. He was 5 foot 8.",
+   "wer": 0.0,
+   "mos": 4.484,
+   "dur": 3.029
+  }
+ ],
+ "3": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s03_t0.wav",
+   "heard": "He had a little water and a few tiny holes for air.",
+   "wer": 0.0,
+   "mos": 4.462,
+   "dur": 2.859
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s03_t1.wav",
+   "heard": "He had a little water and a few tiny holes for air.",
+   "wer": 0.0,
+   "mos": 4.485,
+   "dur": 2.837
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s03_t2.wav",
+   "heard": "He had a little water and a few tiny holes for air.",
+   "wer": 0.0,
+   "mos": 4.474,
+   "dur": 2.773
+  }
+ ],
+ "4": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s04_t0.wav",
+   "heard": "The label said, this side up with care.",
+   "wer": 0.0,
+   "mos": 4.491,
+   "dur": 2.667
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s04_t1.wav",
+   "heard": "The label said, this side up with care.",
+   "wer": 0.0,
+   "mos": 4.478,
+   "dur": 2.389
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s04_t2.wav",
+   "heard": "The label said, this side up with care.",
+   "wer": 0.0,
+   "mos": 4.505,
+   "dur": 2.624
+  }
+ ],
+ "5": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s05_t0.wav",
+   "heard": "Twice, it was turned upside down.",
+   "wer": 0.0,
+   "mos": 4.47,
+   "dur": 2.603
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s05_t1.wav",
+   "heard": "Twice, it was turned upside down.",
+   "wer": 0.0,
+   "mos": 4.468,
+   "dur": 2.325
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s05_t2.wav",
+   "heard": "Twice, it was turned upside down.",
+   "wer": 0.0,
+   "mos": 4.469,
+   "dur": 2.325
+  }
+ ],
+ "6": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s06_t0.wav",
+   "heard": "Once for an hour and a half, his eyes swelled until he thought they burst and he didn't make a sound.",
+   "wer": 0.053,
+   "mos": 4.463,
+   "dur": 5.056
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s06_t1.wav",
+   "heard": "Once, for an hour and a half, his eyes swelled until he thought they'd burst, and he didn't  make a sound.",
+   "wer": 0.0,
+   "mos": 4.451,
+   "dur": 5.568
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s06_t2.wav",
+   "heard": "Once for an hour and a half his eyes swelled until he thought they'd burst and he didn't make a sound",
+   "wer": 0.0,
+   "mos": 4.272,
+   "dur": 4.885
+  }
+ ],
+ "7": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s07_t0.wav",
+   "heard": "Then two workers flipped the box on its side and sat on it.",
+   "wer": 0.0,
+   "mos": 4.473,
+   "dur": 3.392
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s07_t1.wav",
+   "heard": "Then two workers flipped the box on its side and sat on it.",
+   "wer": 0.0,
+   "mos": 4.455,
+   "dur": 3.179
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s07_t2.wav",
+   "heard": "Then two workers flipped the box on its side and sat on it.",
+   "wer": 0.0,
+   "mos": 4.452,
+   "dur": 3.2
+  }
+ ],
+ "8": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s08_t0.wav",
+   "heard": "So why would a man mail himself?",
+   "wer": 0.0,
+   "mos": 4.433,
+   "dur": 1.792
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s08_t1.wav",
+   "heard": "So why would a man mail himself?",
+   "wer": 0.0,
+   "mos": 4.41,
+   "dur": 1.664
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s08_t2.wav",
+   "heard": "So why would a man male himself?",
+   "wer": 0.143,
+   "mos": 4.44,
+   "dur": 2.027
+  }
+ ],
+ "9": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s09_t0.wav",
+   "heard": "because Henry Brown was enslaved in Virginia and his wife and children had just been sold away.",
+   "wer": 0.0,
+   "mos": 4.481,
+   "dur": 5.184
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s09_t1.wav",
+   "heard": "Because Henry Brown was enslaved in Virginia and his wife and children had just been sold away",
+   "wer": 0.0,
+   "mos": 4.49,
+   "dur": 5.333
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s09_t2.wav",
+   "heard": "Because Henry Brown was enslaved in Virginia and his wife and children had just been sold away",
+   "wer": 0.0,
+   "mos": 4.493,
+   "dur": 5.248
+  }
+ ],
+ "10": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s10_t0.wav",
+   "heard": "He paid $86, more than half his savings, to be shipped north as dry goods.",
+   "wer": 0.0,
+   "mos": 4.507,
+   "dur": 4.693
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s10_t1.wav",
+   "heard": "He paid $86, more than half his savings, to be shipped north as dry goods.",
+   "wer": 0.0,
+   "mos": 4.509,
+   "dur": 4.8
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s10_t2.wav",
+   "heard": "He paid $86, more than half his savings, to be shipped north as dry goods.",
+   "wer": 0.0,
+   "mos": 4.534,
+   "dur": 5.269
+  }
+ ],
+ "11": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s11_t0.wav",
+   "heard": "Wagon, train, steamboat, ferry, 27 hours.",
+   "wer": 0.0,
+   "mos": 4.459,
+   "dur": 3.584
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s11_t1.wav",
+   "heard": "Wagon, train, steamboat, ferry, 27 hours.",
+   "wer": 0.0,
+   "mos": 4.512,
+   "dur": 3.392
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s11_t2.wav",
+   "heard": "Wagon. Train. Steamboat. Fairy. 27 hours.",
+   "wer": 0.143,
+   "mos": 4.501,
+   "dur": 3.179
+  }
+ ],
+ "12": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s12_t0.wav",
+   "heard": "In Philadelphia, abolitionists pried the lid open.",
+   "wer": 0.0,
+   "mos": 4.473,
+   "dur": 3.285
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s12_t1.wav",
+   "heard": "In Philadelphia, abolitionists pried the lid open.",
+   "wer": 0.0,
+   "mos": 4.443,
+   "dur": 3.307
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s12_t2.wav",
+   "heard": "In Philadelphia, abolitionists pried the lid open.",
+   "wer": 0.0,
+   "mos": 4.438,
+   "dur": 2.688
+  }
+ ],
+ "13": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s13_t0.wav",
+   "heard": "and the man who'd been mailed like a package stood up, free.",
+   "wer": 0.0,
+   "mos": 4.407,
+   "dur": 2.859
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s13_t1.wav",
+   "heard": "and the man who'd been mailed like a package stood up, free.",
+   "wer": 0.0,
+   "mos": 4.467,
+   "dur": 3.307
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s13_t2.wav",
+   "heard": "And the man who'd been mailed like a package stood up, free.",
+   "wer": 0.0,
+   "mos": 4.473,
+   "dur": 3.541
+  }
+ ],
+ "14": [
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s14_t0.wav",
+   "heard": "From then on, the world called him Henry Box Brown.",
+   "wer": 0.0,
+   "mos": 4.434,
+   "dur": 2.965
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s14_t1.wav",
+   "heard": "From then on, the world called him Henry Box Brown.",
+   "wer": 0.0,
+   "mos": 4.02,
+   "dur": 3.115
+  },
+  {
+   "file": "public/yw5-vo-boxbrown/takes/s14_t2.wav",
+   "heard": "From then on, the world called him Henry Box Brown.",
+   "wer": 0.0,
+   "mos": 4.44,
+   "dur": 3.072
+  }
+ ]
+}
