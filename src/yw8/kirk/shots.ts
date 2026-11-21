@@ -62,7 +62,7 @@ shot(C[6], C[10], t => {
     return frame(t, cam, { cage: { show: false }, mound: 1 - d * .6, dig: d, lanterns: [LAN([-.9, 0, .6])], actors: [act('sn2', SN2, [.75, 0, -.4], dig(t), EXPR.concentrating, t, { a: 'shovel' }), act('sn1', SN1, [-1.2, 0, .2], pose({ turn: .5, headTurn: -.4, crouch: .3, handA: [-.4, -2.4], frontA: 1 }, t, .5), EXPR.nervous, t)], overlay: captions(F, t) }, .25); }
   const S0 = SCHOOL; const roll = ss(C[8], C[9], t);
   const keys: Key[] = [{ t: C[8], pos: [S0[0] - 9, 1.2, 9], look: [S0[0] - 3, 1.1, 3], fov: 46 }, { t: C[9], pos: [S0[0] - 3.8, 1.6, 8.2], look: [S0[0] - 2.4, 1.35, 3.3], fov: 42 }, { t: C[10], pos: [S0[0] - 2.9, 1.65, 6.6], look: [S0[0] - 2.6, 1.45, 3.3], fov: 36, focus: [S0[0] - 2.6, 1.5, 3.3] }];
-  const cam = rig(keys, t); const cx = S0[0] - 8 + roll * 5.5; const grin = ss(C[9], C[9] + .6, t);
+  const cam = rig(keys, t); const cx = S0[0] - 9 + roll * 3.5; const grin = ss(C[9], C[9] + .6, t);
   return frame(t, cam, { cage: { show: false }, cart: { x: cx, sack: true }, lanterns: [LAN([S0[0] - 2.8, 1.0, 3.6])], windows: 1, actors: [
     act('sn1', SN1, [cx - 2.1, 0, 3.2], roll < .98 ? walk(t, C[8], 1.1, .5) : pose({ turn: .3, handA: [-.6, -2.9], shapeA: 'open', frontA: 1 }, t, .4), grin > .3 ? EXPR.smirk : EXPR.determined, t, { b: 'lamp' }),
     act('sn2', SN2, [S0[0] - 1.6, 0, 3.4], pose({ turn: -.4, handB: [.7, -2.6], shapeB: 'open', frontB: 1 }, t, .4), grin > .3 ? EXPR.happy : EXPR.suspicious, t),
@@ -78,7 +78,7 @@ shot(C[10], C[13], t => {
   const cam = rig(keys, t); const pull = Math.sin(t * 6) * .5 + .5;
   return frame(t, cam, { cage: { lift: lerp(1.6, 0, drop) }, tackle: true, mound: 1, shake: thud * .03, actors: [
     act('sex', SEXTON, [-1.6, 0, 1.4], drop < .98 ? pose({ turn: .45, lean: -.08, handA: [-.1, lerp(-3.6, -3.0, pull)], handB: [.05, lerp(-3.0, -2.5, pull)], shapeA: 'grip', shapeB: 'grip', frontA: 1, frontB: 1 }, t, .2) : pose({ turn: .3, handA: [-.6, -2.4], frontA: 1 }, t, .4), drop < .98 ? EXPR.determined : EXPR.relief, t),
-    act('son', SON, [1.9, 0, 1.6], pose({ turn: -.5, lean: .1, handA: [-.7, -2.2], handB: [-.2, -2.4], shapeA: 'grip', frontA: 1 }, t, .4), t > land ? EXPR.surprise : EXPR.concentrating, t, { squash: Math.max(0, 1 - Math.abs(t - land) * 3) * .12 })],
+    act('son', SON, [-.4, 0, -1.9], pose({ turn: -.2, lean: .1, handA: [-.7, -2.2], handB: [-.2, -2.4], shapeA: 'grip', frontA: 1 }, t, .4), t > land ? EXPR.surprise : EXPR.concentrating, t, { squash: Math.max(0, 1 - Math.abs(t - land) * 3) * .12 })],
     overlay: chip('IRON MORTSAFE', 260, ss(C[11] + .4, C[11] + .7, t) * (1 - ss(C[12], C[12] + .3, t)), '#5fd1ff') + card('≈ 1 TON', 'OF IRON', ss(land, land + .12, t) * (1 - ss(C[13] - .3, C[13], t)), 320) + captions(F, t) }, 0, DAY);
 });
 // 5 — six weeks in a time-lapse of days and nights … the snatchers find the cage and give up … lifted off, moved on … rented by the day.

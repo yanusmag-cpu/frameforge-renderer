@@ -30,7 +30,7 @@ const L0 = LENS;
 
 // 1 — HOOK: orbit the glowing glass beehive inside the lantern room … out through the glass, the beam reaches a ship far away … "How?" — rush into the rings.
 shot(0, C[2], t => {
-  if (t < C[1]) { const keys: Key[] = [...orbitKeys(0, C[1] * .55, L0, 2.0, .6, 1.9, L0[1] + .2, L0[1] + .5, L0[1], 46, 4), { t: C[1], pos: [L0[0] + 8, L0[1] + 4, L0[2] + 14], look: [-20, 2, 140], fov: 50 }];
+  if (t < C[1]) { const keys: Key[] = [...orbitKeys(0, C[1] * .55, L0, 2.0, .6, 1.9, L0[1] + .2, L0[1] + .5, L0[1], 46, 4), { t: C[1], pos: [-31, 5, 178], look: [0, 28, 0], fov: 40 }];
     const cam = rig(keys, t); return frame(t, cam, { lensRot: t * .3, ship: { x: -24, z: 150, rot: 1.3 }, overlay: chip('20 MILES', 260, ss(w('miles', 1, C[1] - .6) - .1, w('miles', 1, C[1] - .6) + .2, t), '#ffd23f') + captions(F, t) }, 0); }
   const keys: Key[] = [{ t: C[1], pos: [L0[0] + 2.2, L0[1] + .3, L0[2] + .6], look: L0, fov: 44 }, { t: C[2], pos: [L0[0] + 1.15, L0[1] + .05, L0[2] + .3], look: L0, fov: 34 }]; const cam = rig(keys, t, { easing: ease.out });
   return frame(t, cam, { lensRot: t * .3, overlay: card('HOW?', '', ss(C[1], C[1] + .15, t) * (1 - ss(C[2] - .3, C[2], t)), 320) + captions(F, t) }, 0);
@@ -39,7 +39,7 @@ shot(0, C[2], t => {
 shot(C[2], C[5], t => {
   if (t < C[3]) { const keys: Key[] = [{ t: C[2], pos: [26, 9, 34], look: [0, 22, 0], fov: 46 }, { t: C[3], pos: [16, 20, 22], look: [0, 29, 0], fov: 42 }]; const cam = rig(keys, t);
     return frame(t, cam, { lens: 'old', lamp: .55, beam: 0, overlay: chip('c. 1820', 260, ss(C[2] + .2, C[2] + .5, t)) + chip('RANGE: ~8–12 MILES', 370, ss(C[2] + 1, C[2] + 1.3, t), '#ff8a5a') + captions(F, t) }, 0); }
-  if (t < C[4]) { const keys: Key[] = [{ t: C[3], pos: [L0[0] + 1.3, L0[1] + .35, L0[2] + .7], look: L0, fov: 46 }, { t: C[4], pos: [L0[0] - .9, L0[1] + .6, L0[2] + 1.2], look: L0, fov: 46 }]; const cam = rig(keys, t);
+  if (t < C[4]) { const keys: Key[] = [{ t: C[3], pos: [L0[0] + 1.75, L0[1] + .5, L0[2] + 1.0], look: L0, fov: 48 }, { t: C[4], pos: [L0[0] - 1.2, L0[1] + .7, L0[2] + 1.6], look: L0, fov: 48 }]; const cam = rig(keys, t);
     return frame(t, cam, { lens: 'old', lamp: .8, beam: 0, overlay: chip('LIGHT WASTED', 260, ss(C[3] + .5, C[3] + .8, t), '#ff8a5a') + captions(F, t) }, 0); }
   const k = ss(C[4], C[5], t); const sp = { x: lerp(-30, -18, k), z: lerp(70, 52, k), rot: 2.3, roll: .12 };
   const keys: Key[] = [{ t: C[4], pos: [-40, 2.2, 92], look: [-22, 3, 58], fov: 44 }, { t: C[5], pos: [-33, 2.8, 82], look: [-6, 14, 10], fov: 46 }]; const cam = rig(keys, t);
@@ -65,7 +65,7 @@ shot(C[9], C[12], t => {
   if (t < C[11]) { const par = ss(C[10], C[11] - .3, t); const keys: Key[] = [{ t: C[9], pos: [STUDY[0] + .1, 1.75, 1.6], look: LP, fov: 40 }, { t: C[11], pos: [STUDY[0] + .5, 1.6, 1.45], look: [STUDY[0] + .35, 1.16, 0], fov: 40 }]; const cam = rig(keys, t);
     return frame(t, cam, { ...STUDYL, candle: 1, morph: 1, rays: ss(C[9], C[9] + .6, t), raysPar: lerp(.3, 1, par), overlay: chip('RINGS BEND THE LIGHT', 260, ss(C[9] + .3, C[9] + .6, t) * (1 - ss(C[10], C[10] + .3, t)), '#ffd23f') + chip('PRISMS CATCH THE REST', 260, ss(C[10] + .3, C[10] + .6, t), '#5fd1ff') + captions(F, t) }, .2, {}); }
   const on = ss(C[11], C[11] + .5, t); const bm = ss(C[11] + .3, C[11] + 1.2, t);
-  const keys: Key[] = [{ t: C[11], pos: [L0[0] + 1.4, L0[1] + .1, L0[2] + .5], look: L0, fov: 44 }, { t: C[12], pos: [L0[0] + 7, L0[1] + 1.5, L0[2] + 10], look: [-30, 20, 120], fov: 48 }]; const cam = rig(keys, t, { easing: ease.inOut5 });
+  const keys: Key[] = [{ t: C[11], pos: [L0[0] + 5, L0[1] + 1.2, L0[2] + 7], look: L0, fov: 44 }, { t: C[12], pos: [L0[0] + 13, L0[1] + 4, L0[2] + 22], look: [-30, 20, 120], fov: 48 }]; const cam = rig(keys, t, { easing: ease.inOut5 });
   return frame(t, cam, { lamp: on, beam: bm, lensRot: 1.2 + (t - C[11]) * .25, overlay: card('ONE BEAM', '', ss(w('beam', 1, C[11] + 1.5) - .05, w('beam', 1, C[11] + 1.5) + .2, t) * (1 - ss(C[12] - .3, C[12], t)), 300) + captions(F, t) }, 0);
 });
 // 5 — 1823: a keeper lights the first lens … the beam sweeps 20+ miles to a ship — the sailor sees it … worldwide … still shining.
