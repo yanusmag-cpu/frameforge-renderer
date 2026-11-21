@@ -66,6 +66,10 @@ export const EXPR = {
   exhausted: f({ lidTop: .62, browAng: .55, browY: -.1, smile: -.3, mOpen: .35, mWide: .9, gy: .35, sweat: .8 }),
   terrified: f({ eyeWhite: 1, pupil: .28, eyeOpen: 1.4, browY: 1, browAng: 1, mOpen: .95, smile: -.6, mWide: 1.2, teeth: .5, sweat: 1, shock: .6 }),
   amused: f({ smile: .8, smirk: .4, lidLow: .35, browY: .3, mOpen: .2, teeth: .5 }),
+  // v7 additions (requested emotion names)
+  scared: f({ eyeOpen: 1.25, eyeWhite: 1, pupil: .35, browY: .7, browAng: .9, mOpen: .3, mWide: .8, smile: -.6, teeth: .5, sweat: .7 }),
+  panic: f({ eyeOpen: 1.4, eyeWhite: 1, pupil: .25, browY: .9, browAng: 1, mOpen: .85, mWide: 1.15, smile: -.7, teeth: .4, sweat: 1, shock: .6 }),
+  concentrating: f({ lidTop: .3, browY: -.25, browAng: -.35, smile: -.1, mWide: .7, gy: .25 }),
 } satisfies Record<string, Face>;
 export type ExprName = keyof typeof EXPR;
 export const expr = (a: ExprName | Face, b?: ExprName | Face, k = 0): Face => {

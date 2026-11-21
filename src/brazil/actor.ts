@@ -5,6 +5,7 @@ import { type Look, type Pose, stickman, type Joints } from '../ff2d/rig.ts';
 import { type Face } from '../ff2d/face.ts';
 import { toon, type ToonLook, type Held } from '../ff2d/toon.ts';
 import { folk, type FolkLook, type Prop } from '../yw6/folk.ts';
+import { toon7, type T7Look, type T7Prop } from '../yw7/toon7.ts';
 
 export const UNIT = 1.75 / 4.2;           // rig unit (head diameter) in metres for a 1.75 m stickman
 const VB = { x0: -2.8, x1: 2.8, y0: -5.4, y1: .35 }; // rig viewBox (y down, 0 = ground)
@@ -25,6 +26,7 @@ export type ActorState = {
   toon?: ToonLook; heldA?: Held; heldB?: Held; hatOff?: number; toonOpts?: { torchLit?: number; heldAng?: number };   // YunoWorld cartoon cast instead of the stickman
   flip?: boolean;                   // mirror the cut-out (reflections)
   folk?: FolkLook; propA?: Prop; propB?: Prop;   // YunoWorld Folk (v6 character system)
+  t7?: T7Look; t7A?: T7Prop; t7B?: T7Prop; squash?: number;   // YunoWorld Ink (v7 character system)
 };
 const blobTex = (() => { let t: T.Texture | null = null; return () => {
   if (t) return t; const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d')!;
@@ -55,7 +57,8 @@ export class Actor {
     const sc = s.scale ?? 1; this.scale = sc;
     const res = s.res ?? 1024;
     if (res !== this.res) { this.res = res; this.canvas.height = res; this.canvas.width = Math.round(res * VW / VH); this.lastSvg = ''; this.tex.dispose(); }
-    const r = s.folk ? folk(s.pose, s.folk, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, heldA: s.propA, heldB: s.propB, rim: s.rim, rimSide: s.rimSide })
+    const r = s.t7 ? toon7(s.pose, s.t7, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, propA: s.t7A, propB: s.t7B, rim: s.rim, rimSide: s.rimSide, squash: s.squash })
+      : s.folk ? folk(s.pose, s.folk, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, heldA: s.propA, heldB: s.propB, rim: s.rim, rimSide: s.rimSide })
       : s.toon ? toon(s.pose, s.toon, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, heldA: s.heldA, heldB: s.heldB, hatOff: s.hatOff, ...s.toonOpts })
       : stickman(s.pose, s.look, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, lighting: s.rim ? { rim: s.rim, rimSide: s.rimSide } : undefined });
     this.joints = r.j;
