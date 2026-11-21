@@ -28,7 +28,7 @@ const Wp = (s: SetName, v: V3): V3 => [v[0] + SET[s][0], v[1] + SET[s][1], v[2] 
 const cam = (s: SetName, pos: V3, look: V3, fov: number, o: Partial<Cam> = {}): Cam => ({ pos: Wp(s, pos), look: Wp(s, look), fov, ...o });
 const pose = (p: Partial<Pose>, t = 0, amt = 1, seed = 3): Pose => ({ ...STAND, ...idle(t, seed, amt), ...p });
 const act = (id: string, look: FolkLook, s: SetName, pos: V3, p: Pose, face: ReturnType<typeof expr>, t: number, o: Partial<ActorState> & { a?: Prop; b?: Prop } = {}): ActorState =>
-  ({ id, folk: look, look: { outfit: 'hoodie', color: '#000', pants: '#000' }, pose: p, face, pos: Wp(s, pos), t, res: 1100, seed: id.length * 7, propA: o.a, propB: o.b, ...o });
+  ({ id, folk: look, look: { outfit: 'hoodie', color: '#000', pants: '#000' }, pose: p, face, pos: Wp(s, pos), t, res: 1000, seed: id.length * 7, propA: o.a, propB: o.b, ...o });
 const H = (x: number, z: number): V3 => [x, hillY(x, z), z];
 // ---- looks of the day
 const DAY = { set: 'jungle' as const, sky: { top: '#5a8ad8', hor: '#f8e0b0', sun: [.3, .6, -.7] as V3 }, hemi: { sky: '#a8c4ff', ground: '#4a5a32', i: .95 }, fog: { color: '#9ab8a0', density: .01 }, shafts: .06, fire: .6 };

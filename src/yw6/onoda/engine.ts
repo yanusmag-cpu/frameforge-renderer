@@ -74,7 +74,7 @@ export class OnodaEngine extends Core {
   firePos: V3 = W('jungle', [1.2, 0, 1.6]); tallyMarks!: T.Mesh; tent!: T.Group; flag!: T.Mesh; plane: T.Group; prop: T.Mesh; shafts: T.Mesh[] = []; leafletMesh: T.InstancedMesh;
   sea!: T.Mesh; seaU = { value: 0 }; lamp: V3 = W('shop', [0, 3.1, 0]);
   constructor(cv: HTMLCanvasElement, w: number, h: number) {
-    super(cv, w, h, '#a8c8e8', '#3a4a2a'); this.scene.environment = this.env;
+    super(cv, w, h, '#a8c8e8', '#3a4a2a'); this.scene.environment = this.env; this.sun.shadow.mapSize.set(2048, 2048);
     const mk = (n: SetName) => { const g = new T.Group(); g.position.set(...SET[n] as unknown as V3); this.scene.add(g); return g; };
     this.groups = { jungle: mk('jungle'), hill: mk('hill'), shop: mk('shop') };
     this.skyU = { top: { value: new T.Color('#4a7ac8') }, hor: { value: new T.Color('#f8d8a8') }, sun: { value: new T.Vector3(.3, .5, -.8).normalize() }, night: { value: 0 } };
@@ -93,9 +93,9 @@ export class OnodaEngine extends Core {
     this.scene.add(this.plane);
     this.leafletMesh = new T.InstancedMesh(new T.PlaneGeometry(.21, .3), new T.MeshStandardMaterial({ map: leafletTex, side: T.DoubleSide, roughness: .9 }), 160); this.leafletMesh.castShadow = true; this.leafletMesh.frustumCulled = false; this.scene.add(this.leafletMesh);
   }
-  private foliage(parent: T.Object3D, tex: T.Texture, geo: T.BufferGeometry, mats: T.Matrix4[], amp: number, tint = '#ffffff', rough = .75) {
+  private foliage(parent: T.Object3D, tex: T.Texture, geo: T.BufferGeometry, mats: T.Matrix4[], amp: number, tint = '#ffffff', rough = .75, shadow = true) {
     const m = new T.MeshStandardMaterial({ map: tex, alphaTest: .45, side: T.DoubleSide, roughness: rough, color: tint }); sway(m, this.U, amp);
-    const im = new T.InstancedMesh(geo, m, mats.length); mats.forEach((x, i) => im.setMatrixAt(i, x)); im.castShadow = true; im.receiveShadow = true; parent.add(im); return im;
+    const im = new T.InstancedMesh(geo, m, mats.length); mats.forEach((x, i) => im.setMatrixAt(i, x)); im.castShadow = shadow; im.receiveShadow = true; parent.add(im); return im;
   }
   private buildJungle() {
     const G = this.groups.jungle; const R = rng(42);
@@ -110,12 +110,12 @@ export class OnodaEngine extends Core {
     for (const [x, , z] of trees) { const h = 16 + R() * 14, r = .45 + R() * .5;
       const tr = new T.Mesh(new T.CylinderGeometry(r * .7, r * 1.2, h, 10), trunkMat); tr.position.set(x, h / 2, z); tr.rotation.z = (R() - .5) * .08; tr.castShadow = tr.receiveShadow = true; G.add(tr);
       for (let k = 0; k < 4; k++) { const a = k * 1.57 + R(); trunks.add(new T.BoxGeometry(.18, 1.6, 1.4), M([x + Math.cos(a) * r * 1.2, .7, z + Math.sin(a) * r * 1.2], [0, -a, 0], [1, 1, 1]), '#6a5a46'); }
-      for (let k = 0; k < 9; k++) { const s = 4 + R() * 4; canopy.push(M([x + (R() - .5) * 7, h - 1 + R() * 4, z + (R() - .5) * 7], [R() * .6, R() * 6.28, R() * .6], [s, s, s])); }
+      for (let k = 0; k < 6; k++) { const s = 4.5 + R() * 4; canopy.push(M([x + (R() - .5) * 7, h - 1 + R() * 4, z + (R() - .5) * 7], [R() * .6, R() * 6.28, R() * .6], [s, s, s])); }
       for (let k = 0; k < 7; k++) { const s = 2.2 + R() * 2.4; canopy2.push(M([x + (R() - .5) * 4, 2.5 + R() * h * .5, z + (R() - .5) * 4], [R() * .4, R() * 6.28, 0], [s, s, s])); }
       if (R() > .45) for (let k = 0; k < 3; k++) vines.push(M([x + (R() - .5) * 2, h * .55, z + (R() - .5) * 2], [0, R() * 6.28, 0], [.6, 8 + R() * 6, 1])); }
     G.add(trunks.mesh(new T.MeshStandardMaterial({ vertexColors: true, roughness: .9 })));
     const cross = crossGeo();
-    this.foliage(G, leafCluster(0), cross, canopy, .12, '#d8f0c0'); this.foliage(G, leafCluster(1), cross, canopy2, .1, '#c8e8b0');
+    this.foliage(G, leafCluster(0), cross, canopy, .12, '#d8f0c0', .75, false); this.foliage(G, leafCluster(1), cross, canopy2, .1, '#c8e8b0');
     // palms around the clearing
     const palmT = new Builder(); const palmF: T.Matrix4[] = [];
     for (let i = 0; i < 24; i++) { const a = R() * 6.28, d = 8 + R() * 22; const x = Math.cos(a) * d, z = Math.sin(a) * d, h = 7 + R() * 6, lean = (R() - .5) * .5; if (Math.abs(x) < 12 && z > -1 && z < 24) continue;
@@ -128,8 +128,8 @@ export class OnodaEngine extends Core {
     const keep = (x: number, z: number, big: boolean) => Math.hypot(x + 1, z + 1) < (big ? 7.5 : 4.2) || (big && Math.abs(x) < 9 && z > 0 && z < 20);
     for (let i = 0; i < 110; i++) { const a = R() * 6.28, d = 6 + R() * 18; const x = Math.cos(a) * d, z = Math.sin(a) * d; if (keep(x, z, true)) continue; for (let k = 0; k < 6; k++) ban.push(M([x, .2, z], [0, k * 1.05 + R(), 0], [1, 1, 1]).multiply(M([0, 0, 0], [-.35 - R() * .5, 0, 0], [1.3 + R() * .5, 2.6 + R() * 1.2, 1]))); }
     for (let i = 0; i < 300; i++) { const a = R() * 6.28, d = 4.5 + R() * 30; if (keep(Math.cos(a) * d, Math.sin(a) * d, d < 9)) continue; fern.push(M([Math.cos(a) * d, 0, Math.sin(a) * d], [0, R() * 6.28, 0], [1.4 + R(), 1.1 + R() * .8, 1.4 + R()])); }
-    for (let i = 0; i < 900; i++) { const a = R() * 6.28, d = 3 + R() * 40; if (keep(Math.cos(a) * d, Math.sin(a) * d, false)) continue; grass.push(M([Math.cos(a) * d, 0, Math.sin(a) * d], [0, R() * 6.28, 0], [.8 + R() * .6, .5 + R() * .5, .8 + R() * .6])); }
-    this.foliage(G, fronds('banana'), frondGeo, ban, .1); this.foliage(G, fronds('fern'), cross, fern, .06); this.foliage(G, fronds('grass'), cross, grass, .05, '#e0e8c0');
+    for (let i = 0; i < 650; i++) { const a = R() * 6.28, d = 3 + R() * 34; if (keep(Math.cos(a) * d, Math.sin(a) * d, false)) continue; grass.push(M([Math.cos(a) * d, 0, Math.sin(a) * d], [0, R() * 6.28, 0], [.8 + R() * .6, .5 + R() * .5, .8 + R() * .6])); }
+    this.foliage(G, fronds('banana'), frondGeo, ban, .1); this.foliage(G, fronds('fern'), cross, fern, .06, '#ffffff', .75, false); this.foliage(G, fronds('grass'), cross, grass, .05, '#e0e8c0', .75, false);
     // hanging vines
     const vineM = new T.MeshStandardMaterial({ color: '#3a5a2a', roughness: .9 }); const vi = new T.InstancedMesh(new T.CylinderGeometry(.03, .04, 1, 5), vineM, vines.length); vines.forEach((m, i) => vi.setMatrixAt(i, m.multiply(M([0, -.5, 0])))); G.add(vi);
     // rocks
@@ -184,12 +184,12 @@ export class OnodaEngine extends Core {
     this.sea.rotation.x = -Math.PI / 2; this.sea.position.set(0, -.5, -200); G.add(this.sea);
     const isl = new Builder(); for (let i = 0; i < 7; i++) isl.add(new T.SphereGeometry(30 + R() * 40, 18, 10, 0, 6.28, 0, Math.PI / 2), M([-300 + i * 110 + R() * 40, -4, -500 - R() * 300], [0, 0, 0], [1.6, .45 + R() * .3, 1]), R() > .5 ? '#5a8a5a' : '#4a7a5a');
     G.add(isl.mesh(new T.MeshStandardMaterial({ vertexColors: true, roughness: 1, flatShading: true })));
-    const grass: T.Matrix4[] = [], palms: T.Matrix4[] = []; for (let i = 0; i < 1400; i++) { const x = (R() - .5) * 120, z = -10 + (R() - .5) * 60; if (x > -8 && x < 5 && z > 5 && z < 24) continue; const h = Math.exp(-((-z + 10 - 10) ** 2) / 900) * 0; void h; grass.push(M([x, 0, z], [0, R() * 6.28, 0], [.7 + R() * .5, .35 + R() * .3, .7 + R() * .5])); }
+    const grass: T.Matrix4[] = [], palms: T.Matrix4[] = []; for (let i = 0; i < 1000; i++) { const x = (R() - .5) * 120, z = -10 + (R() - .5) * 60; if (x > -8 && x < 5 && z > 5 && z < 24) continue; const h = Math.exp(-((-z + 10 - 10) ** 2) / 900) * 0; void h; grass.push(M([x, 0, z], [0, R() * 6.28, 0], [.7 + R() * .5, .35 + R() * .3, .7 + R() * .5])); }
     const gm2 = new T.PlaneGeometry(1, 1); gm2.translate(0, .5, 0);
     // conform grass to terrain via raycast-free height function
     const hAt = hillY;
     grass.forEach(m => { const p = new T.Vector3().setFromMatrixPosition(m); m.setPosition(p.x, hAt(p.x, p.z), p.z); });
-    this.foliage(G, fronds('grass'), gm2, grass, .08, '#f0f0b0');
+    this.foliage(G, fronds('grass'), gm2, grass, .08, '#f0f0b0', .75, false);
     for (let i = 0; i < 22; i++) { const x = (R() - .5) * 160, z = -20 - R() * 40; for (let f = 0; f < 8; f++) palms.push(M([x, hAt(x, z) + 9, z], [0, f * .8 + R(), 0], [1, 1, 1]).multiply(M([0, 0, 0], [-1 - R() * .5, 0, 0], [2.6, 4.4, 1]))); }
     this.foliage(G, fronds('palm'), gm2, palms, .15); const pt = new Builder(); palms.forEach((m, i) => { if (i % 8) return; const p = new T.Vector3().setFromMatrixPosition(m); pt.cyl(.22, .3, 9.2, [p.x, p.y - 4.6, p.z], '#8a7656', 8); }); G.add(pt.mesh());
   }
