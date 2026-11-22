@@ -56,10 +56,10 @@ function timeline(): Shot[] {
     // S1 — over her shoulder in the dawn street: she puffs, the pea arcs up and the camera rides it to the window
     { t0: 0, t1: T.paying - .3, f: (t) => {
       const tp = .9; const u = at(t, tp, tp + .55);
-      const c = t < tp ? rig([{ t: 0, pos: [-.3, 1.25, -.9], look: [-3.8, 2.3, -3.8], fov: 48 }, { t: tp, pos: [-.7, 1.4, -1.2], look: [-3.9, 2.8, -4.2], fov: 46 }], t)
-        : { pos: [lerp(-.7, -3.9, ease.inOut(u)), lerp(1.4, 4.3, ease.inOut(u)), lerp(-1.2, -3.6, ease.inOut(u))] as V3, look: [WIN[0], WIN[1], WIN[2]] as V3, fov: lerp(44, 34, u) };
+      const c = t < tp ? rig([{ t: 0, pos: [-1.0, 1.2, .6], look: [-3.7, 2.3, -3.6], fov: 48 }, { t: tp, pos: [-1.3, 1.35, .1], look: [-3.8, 2.8, -4.0], fov: 46 }], t)
+        : { pos: [lerp(-1.3, -3.9, ease.inOut(u)), lerp(1.35, 4.3, ease.inOut(u)), lerp(.1, -3.6, ease.inOut(u))] as V3, look: [WIN[0], WIN[1], WIN[2]] as V3, fov: lerp(44, 34, u) };
       const S = [...pea(t, tp, .55, 1), ...pea(t, 2.4, .5, 2), ...pea(t, 3.6, .5, 3)];
-      return { ...STREET, cam: c, sprites: S, actors: [shooter(t, ss(.2, .6, t))], overlay: chip('4 A.M. • EAST LONDON', 210, ss(.4, .8, t), '#ff9a5a') };
+      return { ...STREET, cam: c, sprites: S, actors: [shooter(t, 1)], overlay: chip('4 A.M. • EAST LONDON', 210, ss(.4, .8, t), '#ff9a5a') };
     } },
     // S2 — "...and he's PAYING her!": inside — the sleeper bolts upright; the window rattles
     { t0: T.paying - .3, t1: T.before, f: (t, k) => {
