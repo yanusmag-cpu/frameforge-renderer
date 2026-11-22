@@ -151,13 +151,18 @@ def text_plane(name, p, w, h, m, rot=(0, 0, 0)):
 
 # ---------------------------------------------------------------- finishing: UVs, colour attribute, joins, export
 def realize(objs):
-    """convert curves, apply modifiers + transforms so UVs/colours are computed in world space"""
-    out = []
+    """bake modifiers + transforms into new world-space meshes through the depsgraph (fast: no per-object operators);
+    curves become meshes; colour attributes and material slots are kept"""
+    bpy.context.view_layer.update(); dg = bpy.context.evaluated_depsgraph_get(); out = []
     for o in objs:
-        bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o
-        if o.type == 'CURVE': bpy.ops.object.convert(target='MESH'); o = bpy.context.view_layer.objects.active
-        for md in list(o.modifiers): bpy.ops.object.modifier_apply(modifier=md.name)
-        bpy.ops.object.transform_apply(location=True, rotation=True, scale=True); out.append(o)
+        if o.type not in ('MESH', 'CURVE'): continue
+        ev = o.evaluated_get(dg); me = bpy.data.meshes.new_from_object(ev, preserve_all_data_layers=True, depsgraph=dg)
+        me.transform(o.matrix_world)
+        if o.type == 'CURVE' and not me.materials and o.data.materials: me.materials.append(o.data.materials[0])
+        name = o.name; colls = list(o.users_collection); bpy.data.objects.remove(o, do_unlink=True)
+        n = bpy.data.objects.new(name, me)
+        for c in colls: c.objects.link(n)
+        out.append(n)
     return out
 
 
@@ -240,8 +245,8 @@ def guarded(main):
 def build_set(path, name, fn, joinable=True, keep=()):
     """run fn() inside a fresh collection; join everything except objects whose name starts with a prefix in keep
     (animated parts stay separate and keep their names, e.g. 'anim:hatch'). Returns nothing; writes the GLB."""
-    group(name); fn()
-    objs = finish(list(COLL.objects))
+    import time; t0 = time.time(); group(name); fn(); n0 = len(COLL.objects)
+    objs = finish(list(COLL.objects)); print(f'exported-progress {name}: {n0} objects built+baked in {time.time() - t0:.0f}s', flush=True)
     animated = [o for o in objs if any(o.name.startswith(k) for k in keep) or o.name.startswith('anim:')]
     for o in animated:   # pivot at the part's own centre so the engine can swing/slide it naturally
         bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o
