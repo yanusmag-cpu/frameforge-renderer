@@ -1,0 +1,44 @@
+{
+ "duration_s": 47.72,
+ "words": 153,
+ "words_per_s": 3.279,
+ "longest_gap_s": 0.38,
+ "active_pct": 87.5,
+ "passages": [
+  {
+   "file": "/tmp/takes/p0_1.wav",
+   "heard": "That's a horse dragging a wooden shed straight into the sea, and there's somebody inside it.",
+   "wer": 0.0,
+   "mos": 4.437,
+   "range_st": 12.34
+  },
+  {
+   "file": "/tmp/takes/p1_0.wav",
+   "heard": "This is a bathing machine.  Back when being seen in a swimsuit was shocking,  you climbed in fully dressed on the beach  and changed while the horse hauled you out into the waves.",
+   "wer": 0.0,
+   "mos": 4.519,
+   "range_st": 11.28
+  },
+  {
+   "file": "/tmp/takes/p2_1.wav",
+   "heard": "Once the water was deep enough, the door opened on the seaside so nobody on the beach could  see you.  Some even had a canvas hood that dropped down like a private tent.",
+   "wer": 0.059,
+   "mos": 4.498,
+   "range_st": 11.8
+  },
+  {
+   "file": "/tmp/takes/p3_0.wav",
+   "heard": "And if you couldn't swim, no problem.  Strong attendants called dippers  waited in the water to dunk you under,  then pull you back out.  Brighton's most famous dipper, Martha Gunn,  did it for decades.",
+   "wer": 0.0,
+   "mos": 4.481,
+   "range_st": 10.86
+  },
+  {
+   "file": "/tmp/takes/p4_1.wav",
+   "heard": "and the twist? All that modesty was mostly for women. Men often swam completely naked.  When mixed bathing finally became normal, the machines rolled away, and their cousins  still lined the beach today as beach huts.",
+   "wer": 0.028,
+   "mos": 4.478,
+   "range_st": 10.5
+  }
+ ]
+}
