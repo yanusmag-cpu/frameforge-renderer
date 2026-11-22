@@ -1,0 +1,110 @@
+{
+ "spark": {
+  "duration_s": 17.2,
+  "words": 61,
+  "words_per_s": 3.671,
+  "longest_gap_s": 0.29,
+  "active_pct": 84.6,
+  "passages": [
+   {
+    "file": "/tmp/takes/spark_0_1.wav",
+    "heard": "This scientist is sliding a live pigeon into the nose of a bomb and no he is not getting rid of the pigeon  He wants the pigeon to fly it",
+    "wer": 0.0,
+    "mos": 4.501,
+    "range_st": 13.79,
+    "median_hz": 123.1,
+    "squeezed": 0
+   },
+   {
+    "file": "/tmp/takes/spark_1_2.wav",
+    "heard": "It's World War II, bombs keep missing their targets, and nobody can steer one.  So a psychologist named B.F. Skinner shows up with a plan and a box full of pigeons.",
+    "wer": 0.033,
+    "mos": 4.484,
+    "range_st": 9.7,
+    "median_hz": 128.5,
+    "squeezed": 0
+   }
+  ]
+ },
+ "blaze": {
+  "duration_s": 19.89,
+  "words": 61,
+  "words_per_s": 3.16,
+  "longest_gap_s": 0.25,
+  "active_pct": 86.2,
+  "passages": [
+   {
+    "file": "/tmp/takes/blaze_0_2.wav",
+    "heard": "This scientist is sliding a live pigeon into the nose of a bomb,  and no, he is not getting rid of the pigeon. He wants the pigeon to fly it!",
+    "wer": 0.0,
+    "mos": 4.402,
+    "range_st": 14.39,
+    "median_hz": 145.1,
+    "squeezed": 0
+   },
+   {
+    "file": "/tmp/takes/blaze_1_2.wav",
+    "heard": "It's World War II.  Bombs keep missing their targets and nobody can steer one.  So a psychologist named B.F. Skinner shows up with a plan and a box full of pigeons.",
+    "wer": 0.033,
+    "mos": 4.504,
+    "range_st": 10.21,
+    "median_hz": 136.9,
+    "squeezed": 0
+   }
+  ]
+ },
+ "nova": {
+  "duration_s": 18.27,
+  "words": 61,
+  "words_per_s": 3.448,
+  "longest_gap_s": 0.35,
+  "active_pct": 83.1,
+  "passages": [
+   {
+    "file": "/tmp/takes/nova_0_0.wav",
+    "heard": "This scientist is sliding a live pigeon into the nose of a bomb.  And, no, he is not getting rid of the pigeon.  He wants the pigeon to fly it.",
+    "wer": 0.0,
+    "mos": 4.408,
+    "range_st": 6.2,
+    "median_hz": 201.6,
+    "squeezed": 1
+   },
+   {
+    "file": "/tmp/takes/nova_1_2.wav",
+    "heard": "It's World War II.  Bombs keep missing their targets, and nobody can steer one.  So a psychologist named B.F. Skinner shows up with a plan and a box full of pigeons.",
+    "wer": 0.033,
+    "mos": 4.446,
+    "range_st": 6.2,
+    "median_hz": 207.6,
+    "squeezed": 1
+   }
+  ]
+ },
+ "ruby": {
+  "duration_s": 16.76,
+  "words": 61,
+  "words_per_s": 3.77,
+  "longest_gap_s": 0.36,
+  "active_pct": 87.4,
+  "passages": [
+   {
+    "file": "/tmp/takes/ruby_0_0.wav",
+    "heard": "This scientist is sliding a live pigeon into the nose of a bomb.  And no, he is not getting rid of the pigeon.  He wants the pigeon to fly it.",
+    "wer": 0.0,
+    "mos": 4.525,
+    "range_st": 9.42,
+    "median_hz": 207.6,
+    "squeezed": 0
+   },
+   {
+    "file": "/tmp/takes/ruby_1_1.wav",
+    "heard": "It's World War II. Bombs keep missing their targets, and nobody can steer one.  So a psychologist named B.F. Skinner shows up with a plan and a box full of pigeons.",
+    "wer": 0.033,
+    "mos": 4.493,
+    "range_st": 8.06,
+    "median_hz": 226.3,
+    "squeezed": 0
+   }
+  ]
+ }
+}
