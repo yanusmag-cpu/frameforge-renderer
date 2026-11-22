@@ -1,0 +1,44 @@
+{
+ "duration_s": 42.66,
+ "words": 136,
+ "words_per_s": 3.269,
+ "longest_gap_s": 0.38,
+ "active_pct": 83.5,
+ "passages": [
+  {
+   "file": "/tmp/takes/p0_1.wav",
+   "heard": "This kid just licked his ice cream glass clean, handed it back, and the seller is filling  it for the next customer without washing it.",
+   "wer": 0.0,
+   "mos": 4.451,
+   "range_st": 12.65
+  },
+  {
+   "file": "/tmp/takes/p1_1.wav",
+   "heard": "This is a penny lick. In Victorian London, one penny bought you a lick of ice cream in a thick little glass.",
+   "wer": 0.0,
+   "mos": 4.503,
+   "range_st": 10.9
+  },
+  {
+   "file": "/tmp/takes/p2_0.wav",
+   "heard": "And here's the trick.  The glass is mostly solid.  Those thick walls bend the light like a lens,  so a tiny scoop looks huge.",
+   "wer": 0.0,
+   "mos": 4.501,
+   "range_st": 14.7
+  },
+  {
+   "file": "/tmp/takes/p3_1.wav",
+   "heard": "You see, every lick left a little bit of you behind.  A quick wipe maybe, then straight to the next mouth.  Doctors blamed them for spreading diseases like tuberculosis, and they were banned.",
+   "wer": 0.0,
+   "mos": 4.459,
+   "range_st": 12.88
+  },
+  {
+   "file": "/tmp/takes/p4_2.wav",
+   "heard": "but the answer was already in a London cookbook. In 1888, Agnes Marshall published a recipe for  cornets, edible cones you fill with ice cream, one of the earliest-ever written down!",
+   "wer": 0.0,
+   "mos": 4.307,
+   "range_st": 12.62
+  }
+ ]
+}
