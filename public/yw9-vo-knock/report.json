@@ -1,0 +1,44 @@
+{
+ "duration_s": 41.67,
+ "words": 134,
+ "words_per_s": 3.3,
+ "longest_gap_s": 0.32,
+ "active_pct": 87.8,
+ "passages": [
+  {
+   "file": "/tmp/takes/p0_2.wav",
+   "heard": "This woman is shooting dried peas at a stranger's bedroom window at four in the morning,  and he's paying her to do it!",
+   "wer": 0.0,
+   "mos": 4.373,
+   "range_st": 19.35
+  },
+  {
+   "file": "/tmp/takes/p1_0.wav",
+   "heard": "Before cheap alarm clocks, British workers hired a knocker upper, a human alarm clock  walking the dark streets with a long pole, or, in Mary Smith's case, a pea shooter.",
+   "wer": 0.0,
+   "mos": 4.497,
+   "range_st": 12.25
+  },
+  {
+   "file": "/tmp/takes/p2_0.wav",
+   "heard": "You see, it worked like a snooze button.  You can't switch off.  P after P rattles the glass  and she doesn't move on until somebody comes to the window.",
+   "wer": 0.069,
+   "mos": 4.482,
+   "range_st": 10.35
+  },
+  {
+   "file": "/tmp/takes/p3_2.wav",
+   "heard": "Her customers paid a few pence a week, and she woke whole streets of London's East End  before sunrise.  Her daughter Molly took over and kept going into the Second World War.",
+   "wer": 0.0,
+   "mos": 4.48,
+   "range_st": 10.6
+  },
+  {
+   "file": "/tmp/takes/p4_1.wav",
+   "heard": "So, who woke up the knocker-upper?  Usually nobody.  Most of them stayed up all night working, then slept through the day.",
+   "wer": 0.0,
+   "mos": 4.493,
+   "range_st": 12.98
+  }
+ ]
+}
