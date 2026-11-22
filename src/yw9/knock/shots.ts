@@ -46,7 +46,7 @@ function pea(t: number, t0: number, dur = .55, seed = 0): Sprite[] {
   }
   const k = (u - 1) / .35; return [{ p: [WIN[0], WIN[1], WIN[2] + .14], s: .12 + k * .3, rot: 0, c: [1.4, 1.3, 1.0], a: 1 - k, kind: 2, seed: .2, age: 0 }];
 }
-const shooter = (t: number, aim = 1, f = expr('determined')) => act('mary', MARY, MP, pose({ turn: -.25, back: .55, headLift: .55 * aim, handA: [-.15, -3.55 * aim - 1.6 * (1 - aim)], handB: [.1, -3.7 * aim - 1.6 * (1 - aim)], shapeA: 'grip', shapeB: 'grip', lean: -.08 }, t, .3), f, t, { res: 1500 });
+const shooter = (t: number, aim = 1, f = expr('determined')) => act('mary', MARY, MP, pose({ turn: -.7, back: .15, headLift: .55 * aim, handA: [-.15, -3.55 * aim - 1.6 * (1 - aim)], handB: [.1, -3.7 * aim - 1.6 * (1 - aim)], shapeA: 'grip', shapeB: 'grip', lean: -.08 }, t, .3), f, t, { res: 1500 });
 
 function timeline(): Shot[] {
   const T = { paying: w('paying', 1, 5.4), before: w('before', 1, 7.2), human: w('human', 1, 10.4), mary: w('mary', 1, 14.3), see: w('see', 1, 17.3), pea2: w('pea', 2, 20.4), until: w('until', 1, 23.6),
@@ -56,8 +56,8 @@ function timeline(): Shot[] {
     // S1 — over her shoulder in the dawn street: she puffs, the pea arcs up and the camera rides it to the window
     { t0: 0, t1: T.paying - .3, f: (t) => {
       const tp = .9; const u = at(t, tp, tp + .55);
-      const c = t < tp ? rig([{ t: 0, pos: [-1.2, 1.3, 1.5], look: [-3.9, 2.6, -4.2], fov: 44 }, { t: tp, pos: [-1.6, 1.5, .9], look: [-4.0, 3.2, -4.6], fov: 42 }], t)
-        : { pos: [lerp(-1.6, -3.9, ease.inOut(u)), lerp(1.5, 4.3, ease.inOut(u)), lerp(.9, -3.6, ease.inOut(u))] as V3, look: [WIN[0], WIN[1], WIN[2]] as V3, fov: lerp(44, 34, u) };
+      const c = t < tp ? rig([{ t: 0, pos: [-.3, 1.25, -.9], look: [-3.8, 2.3, -3.8], fov: 48 }, { t: tp, pos: [-.7, 1.4, -1.2], look: [-3.9, 2.8, -4.2], fov: 46 }], t)
+        : { pos: [lerp(-.7, -3.9, ease.inOut(u)), lerp(1.4, 4.3, ease.inOut(u)), lerp(-1.2, -3.6, ease.inOut(u))] as V3, look: [WIN[0], WIN[1], WIN[2]] as V3, fov: lerp(44, 34, u) };
       const S = [...pea(t, tp, .55, 1), ...pea(t, 2.4, .5, 2), ...pea(t, 3.6, .5, 3)];
       return { ...STREET, cam: c, sprites: S, actors: [shooter(t, ss(.2, .6, t))], overlay: chip('4 A.M. • EAST LONDON', 210, ss(.4, .8, t), '#ff9a5a') };
     } },
@@ -96,7 +96,7 @@ function timeline(): Shot[] {
       const c = rig([{ t: T.until, pos: [-2.6, 1.5, 1.4], look: [-4.0, 3.6, -5], fov: 40 }, { t: T.customers, pos: [-3.0, 2.0, .6], look: [-4.1, 3.9, -5], fov: 36 }], t);
       const show = ss(.25, .4, k);
       return { ...STREET, cam: c, actors: [shooter(t, 1 - ss(.45, .6, k), expr('confident', 'happy', ss(.5, .7, k))),
-        act('sl', SLEEPER, [WIN[0], lerp(2.6, 3.2, show), WIN[2] - .25], pose({ turn: .15, handB: [.8, -3.1], shapeB: 'fist', handA: [-.6, -2.2] }, t, .2), expr('angry', 'tired', .5), t, { res: 1300, scale: .95, shadow: false })],
+        act('sl', SLEEPER, [WIN[0], lerp(3.3, 3.92, show), WIN[2] + .12], pose({ turn: .15, crouch: .9, lean: .25, handB: [.8, -3.1], shapeB: 'fist', handA: [-.6, -2.2] }, t, .2), expr('angry', 'tired', .5), t, { res: 1300, scale: .95, shadow: false })],
         overlay: chip('✓ CUSTOMER AWAKE', 210, ss(.45, .6, k), '#7dff9a') };
     } },
     // S7 — "Her customers paid a few pence a week, and she woke whole streets... before sunrise": crane up high over the

@@ -83,7 +83,7 @@ function timeline(): Shot[] {
     { t0: T.see, t1: T.high, f: (t) => {
       const inf = ss(T.see + .6, T.see + 1.6, t); const leak = at(t, T.leaked - .2, T.click); const ball = inf * (1 - leak * .92);
       const shut = ss(T.click - .05, T.click + .05, t) * (1 - ss(T.click + .25, T.click + .4, t));
-      const c = rig([{ t: T.see, pos: [-.45, .5, -.5], look: [0, .29, -.15], fov: 32 }, { t: T.click - .6, pos: [-.4, .38, .36], look: [0, .24, 0], fov: 32 }, { t: T.high, pos: [.05, .2, .55], look: [0, .14, .09], fov: 30 }], t, { easing: ease.inOut });
+      const c = rig([{ t: T.see, pos: [-.7, .75, -.75], look: [0, .29, -.15], fov: 32 }, { t: T.click - .6, pos: [-.6, .55, .55], look: [0, .22, 0], fov: 32 }, { t: T.high, pos: [.08, .25, .8], look: [0, .14, .09], fov: 30 }], t, { easing: ease.inOut });
       const pct = Math.round(ball * 100);
       return { ...STUDIO, cam: c, props: [{ id: 'camera', pos: [0, 0, 0], scale: 3.0, nodes: { ball: { scale: .3 + .7 * ball }, shutter: { rot: [shut * 1.4, 0, 0] } } }], grade: { ...STUDIO.grade, flash: shut * .55 },
         overlay: chip(t < T.leaked - .2 ? '① PUMP THE BALL FULL OF AIR' : t < T.click ? `② AIR LEAKS OUT… ${pct}%` : '③ FLAT → CLICK! 📸', 210, 1, t < T.click ? '#ffd23f' : '#7dff9a') };
