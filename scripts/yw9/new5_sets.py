@@ -418,11 +418,17 @@ def lick_props():
     for s in (-1, 1): tube(f'bar.handle{s}', [(-.8, 1.1, s * .35), (-1.6, 1.0, s * .38)], .025, mat('plank', '#6a4a2e', .7), verts=6)
     cyl('bar.leg', (-.7, .4, 0), .03, .8, mat('plank', '#6a4a2e', .7), verts=6)
     for k in range(6): glass(f'bar.g{k}', .55 - k * .2, 1.33, .3, s=1.0)
+
+
+def lick_glass():
     glass('anim:hero@', 0, 0, 0, s=5.0, scoop=True)
-    # Agnes Marshall's cornet (shown at 2x for the reveal): baked cone with a lattice and a scoop on top
-    cyl('anim:cone@c', (0, 1.6, 2.0), .004, .26, mat('paint', '#d8a050', .6), verts=24, r2=.07)
-    for k in range(6): box(f'anim:cone@l{k}', (0, 1.6, 2.0), (.005, .26, .145), mat('paint', '#b8803a', .6), bev=0, rot=(0, k * .52, .27))
-    blob('anim:cone@ice', (0, 1.77, 2.0), .075, mat('paint', '#f6e8c8', .6), sc=(1, .85, 1), sub=3, rough=.08, seed=5)
+
+
+def lick_cone():
+    # Agnes Marshall's cornet: baked cone with a lattice and a scoop on top (real size ~13 cm; origin at the tip)
+    cyl('anim:cone@c', (0, .13, 0), .004, .26, mat('paint', '#d8a050', .6), verts=24, r2=.07)
+    for k in range(6): box(f'anim:cone@l{k}', (0, .13, 0), (.005, .26, .145), mat('paint', '#b8803a', .6), bev=0, rot=(0, k * .52, .27))
+    blob('anim:cone@ice', (0, .3, 0), .075, mat('paint', '#f6e8c8', .6), sc=(1, .85, 1), sub=3, rough=.08, seed=5)
 
 
 def glass(name, x, y, z, s=1.0, scoop=False):
@@ -445,7 +451,7 @@ def main():
     if FILM5 == 'spit':
         build_set(OUT / 'kitchen.glb', 'kitchen', spit_kitchen); build_set(OUT / 'mech.glb', 'mech', spit_props, joinable=True)
     if FILM5 == 'lick':
-        build_set(OUT / 'market.glb', 'market', lick_market); build_set(OUT / 'barrow.glb', 'barrow', lick_props, joinable=True)
+        build_set(OUT / 'market.glb', 'market', lick_market); build_set(OUT / 'barrow.glb', 'barrow', lick_props, joinable=True); build_set(OUT / 'glass.glb', 'glass', lick_glass, joinable=True); build_set(OUT / 'cone.glb', 'cone', lick_cone, joinable=True)
     print('ALL ASSETS DONE')
 
 
