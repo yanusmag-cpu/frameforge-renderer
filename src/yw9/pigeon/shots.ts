@@ -83,10 +83,10 @@ function timeline(): Shot[] {
     see: w('see', 1, 41.02), amused: w('amused', 1, 47.06), canc: w('canceled', 1, w('cancelled', 1, 50.28)), after: w('after', 1, 51.1), ran: w('kept', 1, 53.92) };
   return [
     // S1 — hook: low behind Skinner's shoulder, orbit round to his hands lowering the sock-jacketed pigeon into the hatch
-    { t0: 0, t1: T.no, f: (t, _k) => {
+    { t0: 0, t1: T.no, f: (t) => {
       const c = rig([{ t: 0, pos: [-2.1, 1.75, 3.6], look: [-.4, 1.45, .1], fov: 42 }, { t: 1.8, pos: [.6, 1.6, 2.6], look: [-.38, 1.5, .25], fov: 38 }, { t: T.no, pos: [1.05, 1.55, 1.3], look: [-.32, 1.52, .3], fov: 36 }], t);
       const sp: V3 = [.2, 0, .72]; const fc = facing(sp, Math.PI, c.pos); const lower = ss(.8, 3.2, t);
-      return { ...LAB, cam: c, props: [cone(t, { hatch: 1 })],
+      return { ...LAB, cam: c, props: [cone({ hatch: 1 })],
         actors: [act('skinner', SKINNER, sp, pose({ ...fc, lean: .1, handA: [-.95, -3.5 - .25 * (1 - lower)], handB: [-.7, -3.55 - .25 * (1 - lower)], shapeA: 'grip', shapeB: 'grip', frontA: 1, frontB: 1, headTilt: .12 }, t, .3),
           expr('focused', 'happy', .35), t, { rim: '#ffcf96', rimSide: -1 }),
           bird('p1', [HATCH[0], HATCH[1] - .1 + .14 * (1 - lower), HATCH[2] + .12 + .1 * (1 - lower)], { sock: true, mood: 'keen', blink: blinkAt(t, 1), gx: -.6, dir: -1, bob: Math.sin(t * 5) * .4 }, t, { contact: 0, res: 1300 })],
@@ -95,20 +95,20 @@ function timeline(): Shot[] {
     // S2 — close-up: the pigeon peeks out of the hatch, blinks at us; Skinner's hand gives it a little pat
     { t0: T.no, t1: T.wants, f: (t, k) => {
       const c = rig([{ t: T.no, pos: [.15, 1.62, 1.2], look: [-.36, 1.5, .22], fov: 32 }, { t: T.wants, pos: [-.02, 1.58, .98], look: [-.36, 1.5, .22], fov: 30 }], t);
-      return { ...LAB, cam: c, props: [cone(t, { hatch: 1 })],
+      return { ...LAB, cam: c, props: [cone({ hatch: 1 })],
         actors: [bird('p1', [HATCH[0], HATCH[1] - .1, HATCH[2] + .1], { sock: true, mood: k > .55 ? 'surprised' : 'keen', blink: blinkAt(t, 2), gx: .5 - k, gy: .2, dir: 1, bob: Math.sin(t * 7) * .5, beak: k > .55 ? .6 : 0 }, t, { contact: 0, res: 1500 })],
         grade: { ...LAB.grade, aperture: 1.1, focus: .75 } };
     } },
     // S3 — "He actually wants the pigeon to FLY it!": hatch snaps shut, fast pull-back + crane up reveals the sunlit workshop
-    { t0: T.wants, t1: T.war, f: (t, _k) => {
+    { t0: T.wants, t1: T.war, f: (t) => {
       const c = rig([{ t: T.wants, pos: [-.02, 1.58, .98], look: [-.36, 1.5, .1], fov: 32 }, { t: T.wants + .8, pos: [1.9, 2.2, 3.3], look: [-.3, 1.4, -.4], fov: 40 }, { t: T.war, pos: [3.6, 3.2, 5.6], look: [-.8, 1.3, -1.0], fov: 44 }], t, { easing: ease.out });
       const shut = ss(T.wants + .15, T.wants + .4, t);
-      return { ...LAB, cam: c, props: [cone(t, { hatch: 1 - shut })],
+      return { ...LAB, cam: c, props: [cone({ hatch: 1 - shut })],
         actors: [act('skinner', SKINNER, [.65, 0, .85], pose({ turn: -.55, handB: [1.0, -3.7 - Math.sin(t * 6) * .1], shapeB: 'point', handA: [-.4, -2.0], headLift: .1 }, t, .5), expr('excited', 'laugh', .3), t),
           ...(shut < .5 ? [bird('p1', [HATCH[0], HATCH[1] - .1, HATCH[2] + .1 - .25 * shut], { sock: true, mood: 'surprised', blink: 0, dir: 1 }, t, { contact: 0 })] : [])] };
     } },
     // S4 — WWII: bombs miss. Low angle from the meadow as a bomb whistles past; crane up reveals craters all round the target
-    { t0: T.war, t1: T.so, f: (t, _k) => {
+    { t0: T.war, t1: T.so, f: (t) => {
       const c = rig([{ t: T.war, pos: [-6, .55, 11], look: [0, 3.2, -2], fov: 46 }, { t: T.war + 1.6, pos: [-5, 1.4, 12], look: [6, 1.2, -6], fov: 44 }, { t: T.so, pos: [-14, 15, 26], look: [0, 0, 0], fov: 42 }], t);
       const bt = t - T.war; const u = clamp(bt / 1.5); const bx = lerp(-30, 10.5, u), by = lerp(26, 0, ease.in(u)), bz = lerp(-30, -8.8, u);
       const S: Sprite[] = []; const R = (n: number) => Math.abs(Math.sin(n * 91.7)) % 1;
@@ -133,7 +133,7 @@ function timeline(): Shot[] {
     } },
     // S6 — mocker close-up: the general roars with laughter (wide lens, face fills the frame), then the contract slides across
     // the felt (object-tracking shot) to Skinner: $25,000
-    { t0: T.officials, t1: T.trick, f: (t, _k) => {
+    { t0: T.officials, t1: T.trick, f: (t) => {
       const t2 = T.officials + 1.9; const sl = at(t, t2 + .2, T.trick - .4);
       const c = t < t2 ? rig([{ t: T.officials, pos: [-.6, 1.6, .85], look: [-1.1, 1.55, -.8], fov: 38 }, { t: t2, pos: [-.75, 1.6, .45], look: [-1.1, 1.55, -.8], fov: 36 }], t)
         : rig([{ t: t2, pos: [-1.6, 1.25, 1.2], look: [-1.25, .8, .15], fov: 38 }, { t: T.trick, pos: [.9, 1.3, 2.3], look: [1.0, .85, .9], fov: 36 }], t);
@@ -147,7 +147,7 @@ function timeline(): Shot[] {
         overlay: chip('$25,000 • 1943', 230, ss(T.trick - 1.2, T.trick - .9, t)) };
     } },
     // S7 — "Here's the trick": x-ray cutaway. Orbit as the olive shell dissolves to the cutaway; lens light travels to the screens
-    { t0: T.trick, t1: T.pecks, f: (t, _k) => {
+    { t0: T.trick, t1: T.pecks, f: (t) => {
       const C = XC;
       const c = rig([{ t: T.trick, pos: [3.0, 2.0, 2.6], look: [1.0, 1.3, 0], fov: 38 }, { t: (T.trick + T.pecks) / 2, pos: [1.8, 2.05, 1.7], look: [.8, 1.3, .05], fov: 36 }, { t: T.pecks, pos: [.75, 1.85, 1.15], look: [.7, 1.3, .08], fov: 34 }], t);
       const xr = ss(T.trick + .3, T.trick + 1.4, t);
@@ -159,9 +159,9 @@ function timeline(): Shot[] {
         overlay: chip('LENS → SCREEN', 210, ss(T.trick + 1.4, T.trick + 1.8, t) * (1 - ss(T.pecks - .3, T.pecks, t)), '#7fd3ff') };
     } },
     // S8 — pigeon's-eye view: through the nose lens, diving at the real freighter; the beak pecks at the target
-    { t0: T.pecks, t1: T.drifts, f: (t, k) => { const pk = peckCycle(t, 2.2); return pov(t, k * .3, 0, pk, chip("PIGEON'S VIEW", 210, 1, '#7fd3ff')); } },
+    { t0: T.pecks, t1: T.drifts, f: (t, k) => { const pk = peckCycle(t, 2.2); return pov(k * .3, 0, pk, chip("PIGEON'S VIEW", 210, 1, '#7fd3ff')); } },
     // S9 — "If the bomb drifts...": chase cam behind the glide bomb over the coast; it drifts, the fins kick, it corrects
-    { t0: T.drifts, t1: T.one, f: (t, _k) => {
+    { t0: T.drifts, t1: T.one, f: (t) => {
       const u = at(t, T.drifts, T.one); const drift = Math.sin(clamp(u * 1.6) * Math.PI) * 9 * (1 - ss(.55, 1, u));
       const P: V3 = [lerp(-70, 22, u), lerp(70, 26, u), lerp(60, -42, u) + drift];
       const fin = Math.sin(clamp((u - .25) * 3) * Math.PI) * .45;
@@ -172,13 +172,13 @@ function timeline(): Shot[] {
     // S10 — "One single pigeon pecked TEN THOUSAND times in forty-five minutes!": hyper-pecking through the lens + counter
     { t0: T.one, t1: T.but, f: (t, k) => {
       const rate = lerp(2.5, 7, k); const pk = peckCycle(t, rate); const n = Math.round(ease.in(k) * 10000);
-      const F = pov(t, .5 + k * .4, 0, pk, `<div style="position:absolute;left:0;width:1080px;top:250px;text-align:center;font-family:Inter;font-weight:900;color:#fff;-webkit-text-stroke:8px #121212;paint-order:stroke fill;text-shadow:0 8px 24px rgba(0,0,0,.5)">
+      const F = pov(.5 + k * .4, 0, pk, `<div style="position:absolute;left:0;width:1080px;top:250px;text-align:center;font-family:Inter;font-weight:900;color:#fff;-webkit-text-stroke:8px #121212;paint-order:stroke fill;text-shadow:0 8px 24px rgba(0,0,0,.5)">
           <div style="font-size:150px;color:#ffd23f">${n.toLocaleString('en-US')}</div><div style="font-size:52px;letter-spacing:3px">PECKS • 45 MINUTES</div></div>`);
       return { ...F, shake: .002 * k };
     } },
     // S11 — "But what if a pigeon gets confused? Easy. Just put in three!": the shell melts away to the bare frame; orbit
     // reveals all three bays: keen, sleepy, confused
-    { t0: T.but, t1: T.see, f: (t, _k) => {
+    { t0: T.but, t1: T.see, f: (t) => {
       const c = rig([{ t: T.but, pos: [.15, 1.45, 1.75], look: [.55, 1.3, 0], fov: 38 }, { t: T.see, pos: [.75, 1.42, 1.6], look: [.55, 1.3, 0], fov: 36 }], t);
       const three = ss(T.but + 1.6, T.but + 2.0, t);
       return { ...XRAY, cam: c, screen: { dx: .05, dy: 0, t, zoom: 1.2 },
@@ -188,7 +188,7 @@ function timeline(): Shot[] {
     } },
     // S12 — "You see, it's like asking three friends for directions": crane down from the rooftops to the corner; two friends
     // point left, one right; the traveller tips his hat and follows the two
-    { t0: T.see, t1: T.amused, f: (t, _k) => {
+    { t0: T.see, t1: T.amused, f: (t) => {
       const go = at(t, T.see + 3.4, T.amused); const tp: V3 = [lerp(4.9, -1.5, ease.inOut(go)), .15, lerp(5.6, 5.0, go)];
       const c = t < T.see + 3.4 ? rig([{ t: T.see, pos: [7.6, 11, 17], look: [6.2, 1.6, 5.6], fov: 40 }, { t: T.see + 2.2, pos: [7.6, 1.9, 11.2], look: [6.2, 1.45, 5.6], fov: 36 }, { t: T.see + 3.4, pos: [7.5, 1.85, 11.0], look: [5.8, 1.4, 5.6], fov: 36 }], t)
         : { pos: [lerp(7.5, 6.0, ease.inOut(go)), 1.8, 11.0] as V3, look: [lerp(5.8, 1.5, ease.inOut(go)), 1.35, lerp(5.6, 5.2, go)] as V3, fov: 38 };
@@ -201,7 +201,7 @@ function timeline(): Shot[] {
         overlay: chip('2 OUT OF 3 WINS', 230, ss(T.see + 3.4, T.see + 3.8, t)) };
     } },
     // S13 — "amused, not impressed... canceled": low angle on the chuckling committee, the red CANCELED stamp slams down
-    { t0: T.amused, t1: T.after, f: (t, _k) => {
+    { t0: T.amused, t1: T.after, f: (t) => {
       const c = rig([{ t: T.amused, pos: [0, 1.05, 2.7], look: [0, 1.4, -.7], fov: 40 }, { t: T.after, pos: [0, 1.1, 1.9], look: [0, 1.45, -.7], fov: 36 }], t);
       const st = ss(T.canc - .05, T.canc + .12, t);
       const ch = Math.sin(t * 9) * .5 + .5;
@@ -224,7 +224,7 @@ function timeline(): Shot[] {
     } },
     // S15 — "And it kept running until 1953, when electronics finally got as good as a pigeon": the electronic console rolls
     // in, tubes glow; the pigeon turns to us, smug. Final push-in (loops back to the hook)
-    { t0: T.ran, t1: 60, f: (t, _k) => {
+    { t0: T.ran, t1: 60, f: (t) => {
       const ar = ss(T.ran + .2, T.ran + 1.6, t);
       const c = rig([{ t: T.ran, pos: [-1.6, 1.5, 3.6], look: [-3.8, 1.3, 1.2], fov: 40 }, { t: T.ran + 2.4, pos: [.3, 1.4, 2.0], look: [1.05, 1.15, .3], fov: 36 }, { t: 60, pos: [.6, 1.32, 1.45], look: [1.05, 1.17, .3], fov: 32 }], t);
       const cp: V3 = [.15, 1.56, -.2];
@@ -244,7 +244,7 @@ const XRAY: Base = { set: 'none', sky: { top: '#16223c', mid: '#24365a', bot: '#
   lights: [{ p: [1.0, 1.9, .9], c: [1, .85, .65], i: 2.4, d: 4 }, { p: [-.6, 1.0, -1.2], c: [.45, .7, 1], i: 2.6, d: 4 }],
   fog: { color: '#1a2540', density: .04 }, grade: { ao: .8, aoRadius: .2, aoTint: [.3, .34, .55], sat: 1.15, contrast: 1.08, lift: [.02, .03, .07], gain: [1.03, 1.0, .97], bloom: .22, bloomTh: 1.6, vignette: .3 } };
 /** the pigeon's-eye view: from the bomb's nose diving at the real freighter, with an etched reticle and the pecking beak */
-function pov(_t: number, u: number, drift: number, pk: number, extra = ''): Partial<Frame9> {
+function pov(u: number, drift: number, pk: number, extra = ''): Partial<Frame9> {
   const ship: V3 = [42, 2, -70]; const P: V3 = [lerp(-20, 18, u) + drift * 3, lerp(70, 42, u), lerp(10, -30, u)];
   const c = { pos: P, look: [ship[0] + drift * 6, ship[1], ship[2]] as V3, fov: 46 };
   const ret = `<svg style="position:absolute;left:0;top:0" width="1080" height="1920"><g stroke="rgba(20,30,40,.65)" stroke-width="7" fill="none"><circle cx="540" cy="960" r="210"/><path d="M540 560 V880 M540 1040 V1360 M140 960 H460 M620 960 H940"/></g>
@@ -253,7 +253,7 @@ function pov(_t: number, u: number, drift: number, pk: number, extra = ''): Part
 }
 /** cartoon beak pecking up into the pigeon's-eye view */
 function beak(pk: number) { const y = 1920 - pk * 760; return `<svg style="position:absolute;left:0;top:0" width="1080" height="1920"><g transform="translate(540 ${y.toFixed(0)})"><path d="M-150,260 L0,-60 L150,260 Z" fill="#3e3f46" stroke="#16181f" stroke-width="14" stroke-linejoin="round"/><path d="M-60,200 L0,40 L60,200" fill="none" stroke="#5a5c66" stroke-width="10"/></g></svg>`; }
-function cone(_t: number, o: { hatch: number }): PropF {
+function cone(o: { hatch: number }): PropF {
   return { id: 'cone', pos: CONE_LAB, rot: CONE_ROT_LAB, nodes: { cut: { vis: false }, hatch: { pos: [0, .13 * o.hatch, .12 * o.hatch], rot: [.85 * o.hatch, 0, 0] } } };
 }
 

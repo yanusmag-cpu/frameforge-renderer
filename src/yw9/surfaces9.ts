@@ -122,7 +122,8 @@ const SURF: Record<string, (b: number[], seed: number) => Draw> = {
   leaf(b, seed) { const col = mk(256, 256), hgt = mk(256, 256); const g = col.getContext('2d')!, q = hgt.getContext('2d')!; const R = rng(seed); g.fillStyle = css(b); g.fillRect(0, 0, 256, 256); q.fillStyle = '#777'; q.fillRect(0, 0, 256, 256);
     for (let i = 0; i < 520; i++) { const x = R() * 256, y = R() * 256, k = .75 + R() * .5; g.fillStyle = css(b, k, .7); g.beginPath(); g.ellipse(x, y, 5 + R() * 6, 3 + R() * 3, R() * 3, 0, 7); g.fill(); q.fillStyle = k > 1 ? '#bbb' : '#444'; q.beginPath(); q.ellipse(x, y, 5, 3, R() * 3, 0, 7); q.fill(); }
     return { col, hgt }; },
-  terrain(_b, seed) {  // grass detail on vertex-coloured ground: thousands of short blades, soil specks, clover dots
+  terrain(b, seed) {  // grass detail on vertex-coloured ground: thousands of short blades, soil specks, clover dots
+    void b;
     const col = mk(), hgt = mk(); const g = col.getContext('2d')!, q = hgt.getContext('2d')!; const R = rng(seed);
     g.fillStyle = '#d8d8d8'; g.fillRect(0, 0, 512, 512); q.fillStyle = '#777'; q.fillRect(0, 0, 512, 512);
     for (let i = 0; i < 9000; i++) { const x = R() * 512, y = R() * 512, k = 150 + R() * 105; g.strokeStyle = `rgba(${k},${k + 12},${k * .9},.75)`; g.lineWidth = 1 + R() * 1.6; const a = -Math.PI / 2 + (R() - .5) * .9, l = 5 + R() * 11;
