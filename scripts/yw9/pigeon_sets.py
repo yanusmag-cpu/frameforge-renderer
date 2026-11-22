@@ -76,10 +76,10 @@ def nose_cone(prefix='', cut=True, at=(0, 0, 0)):
     for k in range(3):
         a = math.pi / 2 + k * 2 * math.pi / 3; y, z = math.cos(a) * .2, math.sin(a) * .2
         cyl(f'anim:{prefix}jacket{k}', P(.55, y, z), .07, .28, mat('fabric', '#c9b48a', .95), axis='x', verts=16)
-        cyl(f'{prefix}gimbal{k}', P(.88, y, z), .13, .02, brass, axis='x', verts=32)
+        tube(f'{prefix}gimbal{k}', [P(.93, y + .135 * math.cos(b * math.pi / 12), z + .135 * math.sin(b * math.pi / 12)) for b in range(25)], .012, brass)
         box(f'anim:{prefix}screen{k}', P(.9, y, z), (.012, .19, .19), mat('screen', '#d7f0ff', .3), bev=.004)
         for j in range(4):
-            b = j * math.pi / 2; box(f'{prefix}pad{k}{j}', P(.92, y + math.cos(b) * .1, z + math.sin(b) * .1), (.02, .03, .03), mat('rubber', '#2a2a2a', .9), bev=.004)
+            b = j * math.pi / 2; box(f'{prefix}pad{k}{j}', P(.935, y + math.cos(b) * .1, z + math.sin(b) * .1), (.02, .03, .03), mat('rubber', '#2a2a2a', .9), bev=.004)
         tube(f'{prefix}hose{k}', [P(.9, y, z), P(.6, y * .4, z * .4 - .02), P(.25, 0, 0)], .012, mat('rubber', '#3a2f2a', .8))
         box(f'{prefix}bay{k}', P(.5, y * 1.12, z * 1.12), (.6, .02, .2), ins, bev=.004, rot=(a, 0, 0))
     box(f'{prefix}valve', P(.22, 0, 0), (.2, .22, .22), brass, bev=.02)
