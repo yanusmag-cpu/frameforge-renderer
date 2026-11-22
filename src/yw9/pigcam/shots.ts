@@ -8,7 +8,7 @@
 // and sold as postcards; some photos show the pigeon's wingtips.
 import { expr } from '../../ff2d/face.ts';
 import { STAND } from '../../ff2d/rig.ts';
-import { lerp, ss, clamp, type V3, type ActorState, type Sprite } from '../../yw3/core.ts';
+import { lerp, ss, clamp, type V3, type ActorState } from '../../yw3/core.ts';
 import type { T7Look } from '../../yw7/toon7.ts';
 import { rig, ease } from '../../yw7/cam7.ts';
 import type { Frame9, NodeOv } from '../engine9.ts';

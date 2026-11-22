@@ -43,7 +43,7 @@ const fire = (t: number, n = 26): Sprite[] => { const S: Sprite[] = []; for (let
 const RATE = 2.4;   // wheel rad/s while the dog trots
 
 function timeline(): Shot[] {
-  const T = { every: w('every', 1, 3.2), in: w('in', 1, 5.6), somebody: w('somebody', 1, 9.6), so: w('so', 1, 12.6), see: w('see', 1, 14.6), turns: w('turns', 1, 19.4), chain: w('chain', 2, 20.6), roast: w('roast', 1, 24.0),
+  const T = { every: w('every', 1, 3.2), in: w('in', 2, 5.6), somebody: w('somebody', 1, 9.6), so: w('so', 1, 12.6), see: w('see', 1, 14.6), turns: w('turns', 1, 19.4), chain: w('chain', 2, 20.6), roast: w('roast', 1, 24.0),
     there: w('there', 1, 26.2), kitchens: w('kitchens', 2, 31.4), then: w('then', 1, 34.6), only: w('only', 1, 41.0), whiskey: w('whiskey', 1, 44.4) };
   const END = Math.max(T.whiskey + 3.0, 42);
   return [

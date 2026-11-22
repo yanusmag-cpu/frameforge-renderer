@@ -14,6 +14,16 @@ import { frameAt as earsAt } from './ears/shots.ts';
 import { EARS_SETS, EARS_PROPS, earsBoards, earsScreen } from './ears/boards.ts';
 import { frameAt as xrayAt } from './xray/shots.ts';
 import { XRAY_SETS, XRAY_PROPS, xrayBoards, xrayScreen } from './xray/boards.ts';
+import { frameAt as knockAt } from './knock/shots.ts';
+import { KNOCK_SETS, KNOCK_PROPS, knockBoards } from './knock/boards.ts';
+import { frameAt as pigcamAt } from './pigcam/shots.ts';
+import { PIGCAM_SETS, PIGCAM_PROPS, pigcamBoards } from './pigcam/boards.ts';
+import { frameAt as bathAt } from './bath/shots.ts';
+import { BATH_SETS, BATH_PROPS, bathBoards } from './bath/boards.ts';
+import { frameAt as spitAt } from './spit/shots.ts';
+import { SPIT_SETS, SPIT_PROPS, spitBoards } from './spit/boards.ts';
+import { frameAt as lickAt } from './lick/shots.ts';
+import { LICK_SETS, LICK_PROPS, lickBoards } from './lick/boards.ts';
 
 const FONTS: [string, string][] = [['900', 'Inter-Black.otf'], ['700', 'Inter-Bold.otf'], ['400', 'Inter-Regular.otf']];
 async function fonts() { for (const [wt, f] of FONTS) { const ff = new FontFace('Inter', `url(${staticFile('brazil/fonts/' + f)})`, { weight: wt }); await ff.load(); (document.fonts as unknown as { add: (f: FontFace) => void }).add(ff); } }
@@ -42,3 +52,8 @@ export const YwTurk = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('y
 export const YwMail = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-mail/'), MAIL_SETS, MAIL_PROPS, mailBoards), mailAt);
 export const YwEars = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-ears/'), EARS_SETS, EARS_PROPS, earsBoards, earsScreen), earsAt);
 export const YwXray = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-xray/'), XRAY_SETS, XRAY_PROPS, xrayBoards, xrayScreen), xrayAt);
+export const YwKnock = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-knock/'), KNOCK_SETS, KNOCK_PROPS, knockBoards), knockAt);
+export const YwPigcam = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-pigcam/'), PIGCAM_SETS, PIGCAM_PROPS, pigcamBoards), pigcamAt);
+export const YwBath = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-bath/'), BATH_SETS, BATH_PROPS, bathBoards), bathAt);
+export const YwSpit = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-spit/'), SPIT_SETS, SPIT_PROPS, spitBoards), spitAt);
+export const YwLick = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-lick/'), LICK_SETS, LICK_PROPS, lickBoards), lickAt);
