@@ -121,7 +121,7 @@ export class Engine9 extends Core {
   }
   private index(id: string, root: T.Object3D) {
     const map = new Map<string, T.Object3D[]>();
-    root.traverse(o => { if (!o.name.startsWith('anim-')) return; const k = o.name.slice(5); o.userData.base = { p: o.position.clone(), r: o.rotation.clone(), s: o.scale.clone() };
+    root.traverse(o => { if (!o.name.startsWith('anim-')) return; const k = o.name.slice(5).replace(/@[^-]*/, '');   // 'wheel@s0' (a joined anim:group@part assembly) -> 'wheel' o.userData.base = { p: o.position.clone(), r: o.rotation.clone(), s: o.scale.clone() };
       const parts = k.split('-'); for (let i = 1; i <= parts.length; i++) { const key = parts.slice(0, i).join('-'); (map.get(key) ?? map.set(key, []).get(key)!).push(o); } });
     this.anim.set(id, map);
   }

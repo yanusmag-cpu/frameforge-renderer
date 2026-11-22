@@ -90,7 +90,7 @@ function timeline(): Shot[] {
     // S5 — "And if you couldn't swim? ... dippers waited in the water to dunk you under, then pull you back out": the
     // dipper grabs her, DUNK, splash, up she comes spluttering
     { t0: T.and, t1: T.brighton, f: (t) => {
-      const z = -11.2; const c = rig([{ t: T.and, pos: [2.6, 1.2, z + 2.6], look: [.4, .6, z - .6], fov: 40 }, { t: T.brighton, pos: [1.6, .9, z + 1.6], look: [.3, .6, z - .6], fov: 34 }], t);
+      const z = -13.2; const c = rig([{ t: T.and, pos: [4.6, 1.3, z + 3.0], look: [.9, .55, z - .6], fov: 40 }, { t: T.brighton, pos: [3.6, 1.0, z + 2.1], look: [.8, .55, z - .6], fov: 34 }], t);
       const dk = ss(T.dippers + 1.0, T.dippers + 1.3, t) * (1 - ss(T.dippers + 2.0, T.dippers + 2.4, t));
       const sp = dk > .2 || (t > T.dippers + 2.0 && t < T.dippers + 2.8) ? 1 : 0;
       return { ...BEACH, cam: c, props: [machineAt(1, t, { horse: false, yaw: -HALF, hood: 1 })], sprites: splash(t, [.4, -.3, z - .5], 22, sp),
@@ -100,7 +100,7 @@ function timeline(): Shot[] {
     } },
     // S6 — "Brighton's most famous dipper, Martha Gunn, did it for decades": a proud close-up in the surf
     { t0: T.brighton, t1: T.twist, f: (t) => {
-      const z = -11.2; const c = rig([{ t: T.brighton, pos: [2.4, .75, z + .8], look: [1.1, .55, z - .7], fov: 34 }, { t: T.twist, pos: [2.0, .7, z + .2], look: [1.1, .6, z - .7], fov: 28 }], t);
+      const z = -13.2; const c = rig([{ t: T.brighton, pos: [3.0, .8, z + 1.2], look: [1.1, .55, z - .7], fov: 34 }, { t: T.twist, pos: [2.5, .75, z + .6], look: [1.1, .6, z - .7], fov: 30 }], t);
       return { ...BEACH, cam: c, props: [machineAt(1, t, { horse: false, yaw: -HALF, hood: 1 })],
         actors: [act('dip', DIPPER, [1.1, -.85, z - .7], pose({ turn: -.2, handA: [-.7, -1.6], handB: [.7, -1.6], shapeA: 'fist', shapeB: 'fist' }, t, .3), expr('confident', 'smug', .6), t, { res: 1800 })],
         overlay: chip('MARTHA GUNN • BRIGHTON', 210, ss(T.brighton + .3, T.brighton + .7, t), '#ffd23f') };
@@ -111,7 +111,7 @@ function timeline(): Shot[] {
       const c = rig([{ t: T.twist, pos: [-30, 1.4, 4], look: [-46, 1.0, -8], fov: 42 }, { t: T.when, pos: [-33, 1.2, 2], look: [-48, .6, -12], fov: 34 }], t);
       const S: Sprite[] = [...splash(t, [-50, -.2, -16], 8, .6)];
       return { ...BEACH, cam: c, sprites: S, grade: { ...BEACH.grade, whip: t < T.twist + .25 ? .45 * (1 - (t - T.twist) / .25) : 0, whipDir: [1, 0] },
-        actors: [act('l1', PROM[0], [-31.5, 0, -.5], pose({ turn: .8, handA: [-.3, -3.3], shapeA: 'open' }, t, .3), expr('shocked'), t, { seed: 50 }), act('l2', PROM[2], [-30.6, 0, -1.2], pose({ turn: .7, handB: [.3, -3.4], shapeB: 'open', headTurn: .4 }, t, .3, 6), expr('terrified', 'amused', .2), t, { seed: 51 }),
+        actors: [act('l1', PROM[0], [-33.6, 0, 1.0], pose({ turn: .8, handA: [-.3, -3.3], shapeA: 'open' }, t, .3), expr('shocked'), t, { seed: 50 }), act('l2', PROM[2], [-32.7, 0, .4], pose({ turn: .7, handB: [.3, -3.4], shapeB: 'open', headTurn: .4 }, t, .3, 6), expr('terrified', 'amused', .2), t, { seed: 51 }),
           act('m1', PROM[1], [-50, -1.3, -16], pose({ turn: 0, handA: [-.6, -3.2], shapeA: 'open' }, t, .3), expr('happy'), t, { seed: 52, scale: .9, shadow: false })],
         overlay: chip(t < T.men ? 'THE TWIST…' : '🙈 MEN: OFTEN NOTHING AT ALL', 210, ss(T.twist + .2, T.twist + .5, t), '#ff9a4a') };
     } },
