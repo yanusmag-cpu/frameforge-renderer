@@ -55,6 +55,30 @@ def boom(g=.4): d = 1.4; x = T(d); return (lp(noise(d), 180) * np.exp(-x * 3.2) 
 def stamp(g=.35): d = .35; x = T(d); return (lp(noise(d), 700) * env(d, .0008, .06) + np.sin(2 * np.pi * 95 * x) * np.exp(-x * 22) * .9 + hp(noise(d), 2500) * env(d, .0003, .01) * .5) * g
 def paper(d=.8, g=.035): return bp(noise(d), 1500, 7000) * gate(d, .05, .3) * (1 + .4 * np.sin(2 * np.pi * 13 * T(d))) * g
 def roll(d=1.4, g=.045): x = T(d); return lp(noise(d), 260) * (.7 + .3 * np.sin(2 * np.pi * 11 * x)) * gate(d, .15, .3) * g
+
+def gunshot(g=.5): d = .5; x = T(d); return (hp(noise(d), 1500) * env(d, .0003, .02) * 1.2 + lp(noise(d), 400) * env(d, .001, .09) + np.sin(2 * np.pi * 90 * x) * np.exp(-x * 30) * .6) * g
+def shatter(g=.3):
+    d = 1.0; o = hp(noise(d), 2500) * env(d, .0005, .06) * .8
+    for k in range(14): i = int(R.uniform(.02, .7) * SR); c = np.sin(2 * np.pi * R.uniform(3500, 7500) * T(.12)) * np.exp(-T(.12) * 40) * .3; o[i:i + len(c)] += c[:len(o) - i]
+    return o * g
+def ping(g=.12): d = .7; x = T(d); f = 3800 - 2600 * (x / d) ** .6; return (np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-x * 5) + hp(noise(d), 4000) * env(d, .0005, .01)) * g
+def scrape2(g=.06): d = .4; return bp(noise(d), 500, 2600) * gate(d, .02, .2) * g
+def splash(g=.15): d = .8; return (bp(noise(d), 400, 6000) * gate(d, .01, .5)) * g
+def blub(g=.06): d = .35; x = T(d); f = 300 + 900 * x / d; return np.sin(2 * np.pi * np.cumsum(f) / SR) * env(d, .005, .08) * g
+def crackle(d=.8, g=.05):
+    o = np.zeros(int(d * SR))
+    for k in range(int(d * 40)): i = int(R.uniform(0, d - .02) * SR); c = click(1, R.uniform(3000, 7000)); o[i:i + len(c)] += c[:len(o) - i] * R.uniform(.3, 1)
+    return o * g
+def icecrack(g=.25): d = .5; return (bp(noise(d), 1200, 7000) * env(d, .0005, .05) + lp(noise(d), 300) * env(d, .001, .08) * .6) * g
+def creak(g=.05): d = .5; x = T(d); f = 180 + 60 * np.sin(2 * np.pi * 3 * x); return bp(np.sin(2 * np.pi * np.cumsum(f) / SR) + .5 * noise(d), 300, 2000) * gate(d, .05, .2) * g
+def ratchet(t0, t1, every=.12, g=.07):
+    t = t0
+    while t < t1: put(t, click(g, 2600)); t += every
+def fire_burst(d=1.2, g=.08): return lp(noise(d), 1400) * (.6 + .4 * np.sin(2 * np.pi * 7 * T(d)) ** 2) * gate(d, .15, .4) * g
+def keys(t0, t1, g=.03):
+    t = t0
+    while t < t1: put(t, click(g, R.uniform(2500, 4200))); t += R.uniform(.07, .16)
+def clink(g=.06): d = .25; x = T(d); return (np.sin(2 * np.pi * 2900 * x) + .5 * np.sin(2 * np.pi * 4700 * x)) * np.exp(-x * 30) * g
 def peaks(fn, t0, t1):
     ts = np.arange(t0, t1, 1 / 600); v = np.array([fn(t) for t in ts]); out_ = []
     for i in range(1, len(v) - 1):
@@ -83,6 +107,36 @@ if film == 'pigeon':
     put(A['cancelled'], stamp(.34))
     fl = A['after'] + 1.0; flutter(fl, 6, .09); put(A['after'] + .6, coo(.045, 450))          # Navy pigeon flaps
     put(A['ran'] + .2, roll(1.4, .05)); put(A['ran'] + 1.6, clack(.12)); put(A['ran'] + 2.4, coo(.035, 520))   # console rolls in, docks
+elif film == 'ice':
+    A = dict(fires=w('fires', 1, 2.0), shatters=w('shatters', 1, 3.6), fires2=w('fires', 2, 5.0), bounces=w('bounces', 1, 6.6), so=w('so', 1, 17.0), story=w('story', 1, 24.0),
+             see=w('see', 1, 35.4), torpedo=w('torpedo', 1, 42.0), actually=w('actually', 1, 47.6), then3=w('then', 3, 53.2), remains=w('remains', 1, 55.6),
+             canc=w('cancelled', 1, 0) or w('canceled', 1, 54.0), war=w('world', 1, 12.0))
+    put(A['fires'], gunshot(.42)); put(A['shatters'] - .15, shatter(.3))                     # first shot, plain ice shatters
+    put(A['fires2'], gunshot(.42)); put(A['bounces'] - .2, ping(.13))                         # second shot ricochets
+    put(A['bounces'] + .15, scrape2(.07)); put(A['bounces'] + .3, scrape2(.06))               # admirals dive, chairs scrape
+    k = (A['war'], A['so']); put(k[0] + (k[1] - k[0]) * .35, splash(.08))                      # the U-boat breaks the surface
+    put(A['so'] + 1.6, scrape2(.06)); put(A['so'] + 1.9, paper(.5, .035))                     # Pyke leaps up with the plan
+    put(A['story'] + .5, blub(.05)); put(A['story'] + 1.4, blub(.04))                          # the block bobs in the bath
+    put(A['see'] + (A['torpedo'] - A['see']) * .35, icecrack(.22)); put(A['see'] + (A['torpedo'] - A['see']) * .55, thud(.12, 160))   # crack runs, then stops
+    tt = A['torpedo']; dt = A['actually'] - tt; put(tt + dt * .25, splash(.1)); put(tt + dt * .5, crackle(min(1.2, dt * .4), .05))
+    put(A['canc'], stamp(.32))
+    put(A['remains'] + 1.1, splash(.12)); put(A['remains'] + 1.5, blub(.05)); put(A['remains'] + 1.8, blub(.04))   # the camera dives in
+elif film == 'turk':
+    A = dict(legend=w('legend', 1, 3.2), sweeps=w('sweeps', 1, 5.6), this=w('this', 1, 8.6), so=w('so', 1, 21.0), nothing=w('nothing', 1, 25.4), then=w('then', 1, 27.0),
+             see=w('see', 1, 32.2), as2=w('as', 2, 38.4), magnets=w('magnets', 1, 40.6), inn=w('1854', 1, 45.0), later=w('later', 1, 48.0), today=w('today', 1, 52.0), name=w('name', 1, 57.0), usually=w('usually', 1, 30.6))
+    put(A['legend'] + .9, clink(.05))                                                        # Napoleon moves a piece
+    sw = A['sweeps'] - .15
+    for i in range(12): put(sw + .05 + i * .045, clink(.05 * R.uniform(.6, 1)))               # pieces scatter
+    put(sw + .7, thud(.08, 200))
+    for i in range(3): put(A['so'] + .6 + i * .45, creak(.05))                               # doors open
+    ratchet(A['then'] + .1, A['then'] + 1.0, .1, .06)                                         # wound with a key
+    dt = A['see'] - A['then']; put(A['then'] + dt * .6, clink(.06))                           # the arm moves a piece
+    put(A['as2'] + .1, scrape2(.05))                                                          # the hidden seat slides
+    for i in range(3): put(A['as2'] + i * .35, creak(.035))
+    put(A['magnets'] + .1, click(.06, 1500)); put(A['magnets'] + .5, click(.05, 1300))
+    put(A['inn'] + .2, fire_burst(1.6, .08)); put(A['inn'] + 1.4, fire_burst(1.2, .06))      # the museum burns
+    put(A['later'] + .3, paper(.6, .025))                                                     # pen on paper
+    keys(A['today'] + .3, A['today'] + 2.4, .025)                                             # people typing
 mix = VO + SFX; fade = np.minimum(1, np.arange(N) / SR / .05) * (1 - np.clip((np.arange(N) / SR - 59.5) / .5, 0, 1)); mix *= fade
 mix = np.stack([mix, mix], 1)
 for _ in range(6): mix = limit(norm_lufs(mix, -14.0), .74)
