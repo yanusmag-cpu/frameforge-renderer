@@ -1,0 +1,73 @@
++ sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /opt/hostedtoolcache/CodeQL
++ df -h /
++ tail -1
+/dev/mapper/cow-root  145G   40G  105G  28% /
++ nproc
+4
++ free -g
++ head -2
+               total        used        free      shared  buff/cache   available
+Mem:              15           1          10           0           4          14
++ python3 -m pip install -q --user --break-system-packages uv
++ export PATH=/home/runner/.local/bin:/home/runner/work/_temp/blender-4.2.3-linux-x64:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ PATH=/home/runner/.local/bin:/home/runner/work/_temp/blender-4.2.3-linux-x64:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ git clone -q --depth 1 --branch v1.2.0 https://github.com/tarepan/SpeechMOS /tmp/SpeechMOS
+Note: switching to 'ed25eacbfa42b99156c36ebec67a733b5dbb9b79'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
++ uv venv -q --seed -p 3.11 /tmp/v
++ VIRTUAL_ENV=/tmp/v
++ uv pip install -q --python /tmp/v/bin/python torch --index-url https://download.pytorch.org/whl/cpu
++ VIRTUAL_ENV=/tmp/v
++ uv pip install -q --python /tmp/v/bin/python llama-cpp-python --only-binary=:all: --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
++ VIRTUAL_ENV=/tmp/v
++ uv pip install -q --python /tmp/v/bin/python snac huggingface_hub soundfile
++ /tmp/v/bin/python /tmp/llama_gen.py orpheus
+/tmp/v/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+model unsloth/orpheus-3b-0.1-ft-GGUF /home/runner/.cache/huggingface/hub/models--unsloth--orpheus-3b-0.1-ft-GGUF/snapshots/e2b00302c46af8205f521f60016600aa25a068e6/orpheus-3b-0.1-ft-Q8_0.gguf
+gen orpheus-leo {'gen_s': 232.7, 'tokens': 1505}
+gen orpheus-zac {'gen_s': 254.6, 'tokens': 1666}
+gen orpheus-dan {'gen_s': 268.5, 'tokens': 1750}
+gen ctl-plain {'gen_s': 41.5, 'tokens': 287}
+gen ctl-emo {'gen_s': 71.5, 'tokens': 490}
++ uv venv -q --seed -p 3.11 /tmp/e
++ VIRTUAL_ENV=/tmp/e
++ uv pip install -q --python /tmp/e/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu
++ VIRTUAL_ENV=/tmp/e
++ uv pip install -q --python /tmp/e/bin/python transformers==4.57.1 librosa faster-whisper soundfile
++ for f in /tmp/raw_*.wav
++ cp /tmp/raw_ctl-emo.wav public/yw9-lab-orpheus/
++ for f in /tmp/raw_*.wav
++ cp /tmp/raw_ctl-plain.wav public/yw9-lab-orpheus/
++ for f in /tmp/raw_*.wav
++ cp /tmp/raw_orpheus-dan.wav public/yw9-lab-orpheus/
++ for f in /tmp/raw_*.wav
++ cp /tmp/raw_orpheus-leo.wav public/yw9-lab-orpheus/
++ for f in /tmp/raw_*.wav
++ cp /tmp/raw_orpheus-zac.wav public/yw9-lab-orpheus/
++ /tmp/e/bin/python /tmp/ev.py
+/tmp/e/lib/python3.11/site-packages/torch/nn/utils/weight_norm.py:145: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+Downloading: "https://github.com/tarepan/SpeechMOS/releases/download/v1.0.0/utmos22_strong_step7459_v1.pt" to /home/runner/.cache/torch/hub/checkpoints/utmos22_strong_step7459_v1.pt
+  0%|          | 0.00/392M [00:00<?, ?B/s]  3%|▎         | 10.6M/392M [00:00<00:03, 111MB/s]  8%|▊         | 30.1M/392M [00:00<00:02, 163MB/s] 15%|█▍        | 57.0M/392M [00:00<00:01, 216MB/s] 20%|█▉        | 77.8M/392M [00:00<00:03, 98.5MB/s] 28%|██▊       | 109M/392M [00:00<00:02, 145MB/s]   35%|███▌      | 137M/392M [00:00<00:01, 179MB/s] 43%|████▎     | 170M/392M [00:01<00:01, 218MB/s] 50%|█████     | 196M/392M [00:01<00:00, 213MB/s] 59%|█████▊    | 230M/392M [00:01<00:00, 249MB/s] 67%|██████▋   | 262M/392M [00:01<00:00, 273MB/s] 74%|███████▍  | 291M/392M [00:01<00:00, 226MB/s] 82%|████████▏ | 321M/392M [00:01<00:00, 247MB/s] 91%|█████████ | 357M/392M [00:01<00:00, 279MB/s]100%|█████████▉| 390M/392M [00:01<00:00, 299MB/s]100%|██████████| 392M/392M [00:01<00:00, 223MB/s]
+orpheus-leo {'kind': 'main', 'dur_s': 16.13, 'words_per_s': 3.29, 'wer': 0.019, 'heard': "Okay, so picture this. A scientist is sliding a live pigeon into the nose of a bomb.  Wait, what? Why would anyone do that? Here's the crazy part.  He's not getting rid of the pigeon. The pigeon is the pilot.  It's going to pack at a tiny screen and steer the bomb itself.", 'utmos': 3.65, 'arousal': 0.732, 'dominance': 0.755, 'valence': 0.416, 'median_hz': 135.5, 'pitch_range_st': 13.38, 'loud_range_db': 16.67, 'longest_gap_raw_s': np.float64(1.47), 'gaps_shortened': 2, 'gen_s': 232.7, 'tokens': 1505}
+orpheus-zac {'kind': 'main', 'dur_s': 16.84, 'words_per_s': 3.15, 'wer': 0.057, 'heard': "Okay, so picture this. A scientist is sliding a live pigeon into the nose of a bomb.  Wait, what? Why would anyone do that? Here's the crazy part.  He's not getting rid of the pigeon. The pigeon is the pilot.  He's gonna peck at a tiny screen and steer the bomb itself.", 'utmos': 3.925, 'arousal': 0.612, 'dominance': 0.668, 'valence': 0.392, 'median_hz': 135.9, 'pitch_range_st': 11.28, 'loud_range_db': 15.88, 'longest_gap_raw_s': np.float64(0.77), 'gaps_shortened': 7, 'gen_s': 254.6, 'tokens': 1666}
+orpheus-dan {'kind': 'main', 'dur_s': 20.67, 'words_per_s': 2.56, 'wer': 0.019, 'heard': "Okay, so picture this. A scientist is sliding a live pigeon into the nose of a bomb.  Wait! What? Why would anyone do that? Here's the crazy part.  He's not getting rid of the pigeon. The pigeon is the pilot.  He's going to peck at a tiny screen and steer the bomb itself.", 'utmos': 3.674, 'arousal': 0.679, 'dominance': 0.717, 'valence': 0.39, 'median_hz': 160.2, 'pitch_range_st': 15.8, 'loud_range_db': 16.27, 'longest_gap_raw_s': np.float64(0.44), 'gaps_shortened': 0, 'gen_s': 268.5, 'tokens': 1750}
+ctl-plain {'kind': 'plain', 'dur_s': 3.03, 'words_per_s': 3.63, 'wer': 0.0, 'heard': "Wait, he wants the pigeon to fly the bomb, that's insane.", 'utmos': 3.798, 'arousal': 0.571, 'dominance': 0.64, 'valence': 0.369, 'median_hz': 93.1, 'pitch_range_st': 11.79, 'loud_range_db': 17.06, 'longest_gap_raw_s': np.float64(0.31), 'gaps_shortened': 0, 'gen_s': 41.5, 'tokens': 287}
+ctl-emo {'kind': 'emo', 'dur_s': 4.57, 'words_per_s': 2.41, 'wer': 0.091, 'heard': "Wait, he wants the pigeon to fly the bomb?  Hahaha, that's insane!", 'utmos': 3.33, 'arousal': 0.7, 'dominance': 0.741, 'valence': 0.322, 'median_hz': 171.7, 'pitch_range_st': 11.6, 'loud_range_db': 17.39, 'longest_gap_raw_s': np.float64(0.36), 'gaps_shortened': 0, 'gen_s': 71.5, 'tokens': 490}
