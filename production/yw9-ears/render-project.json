@@ -1,0 +1,27 @@
+{
+ "composition": "YwEars",
+ "artifactPrefix": "yw-concrete-ears",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil/fonts",
+  "public/yw9-ears"
+ ],
+ "sourceDirectories": [
+  "src/brazil",
+  "src/ehz",
+  "src/ff2d",
+  "src/yw3/core.ts",
+  "src/yw6",
+  "src/yw7",
+  "src/yw9"
+ ],
+ "soundtrack": "public/yw9-ears-sound/bed.flac",
+ "soundtrackLUFS": -14,
+ "silentTailSeconds": 2.0,
+ "outputFilename": "YunoWorld_Britains_Giant_Concrete_Ears.mp4",
+ "timeoutMs": 300000
+}

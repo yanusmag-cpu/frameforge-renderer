@@ -6,6 +6,7 @@ import json, re, subprocess, sys
 from pathlib import Path
 import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'yw6'))
+import audio_common as AC  # noqa: E402
 from audio_common import SR, N, T, noise, lp, hp, bp, env, gate, load_mono, lufs, write, ROOT, clack, chirp, limit, norm_lufs   # noqa: E402
 film = sys.argv[1]
 WORDS = json.load(open(ROOT / f'public/yw9-vo-{film}/words.json'))
@@ -123,7 +124,7 @@ elif film == 'ice':
     put(A['remains'] + 1.1, splash(.12)); put(A['remains'] + 1.5, blub(.05)); put(A['remains'] + 1.8, blub(.04))   # the camera dives in
 elif film == 'turk':
     A = dict(legend=w('legend', 1, 3.2), sweeps=w('sweeps', 1, 5.6), this=w('this', 1, 8.6), so=w('so', 1, 21.0), nothing=w('nothing', 1, 25.4), then=w('then', 1, 27.0),
-             see=w('see', 1, 32.2), as2=w('as', 2, 38.4), magnets=w('magnets', 1, 40.6), inn=w('1854', 1, 45.0), later=w('later', 1, 48.0), today=w('today', 1, 52.0), name=w('name', 1, 57.0), usually=w('usually', 1, 30.6))
+             see=w('see', 1, 32.2), as2=w('as', 1, 38.4), magnets=w('magnets', 1, 40.6), inn=w('1854', 1, 45.0), later=w('later', 1, 48.0), today=w('today', 1, 52.0), name=w('name', 1, 57.0), usually=w('usually', 1, 30.6))
     put(A['legend'] + .9, clink(.05))                                                        # Napoleon moves a piece
     sw = A['sweeps'] - .15
     for i in range(12): put(sw + .05 + i * .045, clink(.05 * R.uniform(.6, 1)))               # pieces scatter
@@ -137,6 +138,56 @@ elif film == 'turk':
     put(A['inn'] + .2, fire_burst(1.6, .08)); put(A['inn'] + 1.4, fire_burst(1.2, .06))      # the museum burns
     put(A['later'] + .3, paper(.6, .025))                                                     # pen on paper
     keys(A['today'] + .3, A['today'] + 2.4, .025)                                             # people typing
+elif film == 'mail':
+    A = dict(coat=w('coat', 1, 4.0), mailed=w('mailed', 1, 5.5), her=w('her', 2, 7.4), its=w("it's", 1, 11.3), year=w('year', 1, 14.2), rules=w('rules', 1, 19.6), very=w('very', 1, 22.6),
+             sounds=w('sounds', 1, 27.7), may=w('may', 1, 29.5), letters=w('letters', 1, 32.3), guess=w('guess', 1, 35.1), clerk=w('clerk', 1, 37.0), see=w('see', 1, 39.0), under=w('under', 1, 43.5),
+             stamped=w('stamped', 1, 44.7), addressed=w('addressed', 1, 45.6), so=w('so', 1, 46.6), when=w('when', 1, 49.5), banned=w('banned', 1, 51.6), but=w('but', 1, 53.0), just=w('just', 2, 59.0))
+    put(1.2, creak(.03)); put(2.8, creak(.025))                                               # the windmill turns
+    steps(A['her'] + .4, A['its'] - .3, .42, 'dirt', .035)                                    # May walks down the path
+    AC_ = AC.chuff(A['year'] - A['its'], .06); put(A['its'], AC_)                             # the train steams in
+    put(A['its'] + .2, AC.steamwhistle(1.2, .035))
+    for i in range(8): put(A['year'] + .3 + i * .32, paper(.12, .02))                         # letters into pigeonholes
+    for i in range(3): put(A['rules'] + .25 + i * .35, click(.035, 2200))                      # ticks on the list
+    steps(A['very'] + .1, A['sounds'] - .1, .5, 'dirt', .035)                                 # the carrier walks the lane
+    put(A['may'], AC.chuff(A['letters'] - A['may'], .06))                                     # running alongside the train
+    put(A['letters'] + .3, paper(.5, .02))
+    put(A['clerk'] - .2, scrape2(.03))
+    ratchet(A['under'] - 1.2, A['under'], .1, .04)                                            # scale needle
+    for k in ('under', 'stamped', 'addressed'): put(A[k] + .05, click(.04, 2400))
+    put(A['so'] + .1, stamp(.18))
+    put(A['when'] + .4, paper(.6, .025)); put(A['banned'] - .02, stamp(.36))                  # BANNED
+    put(A['but'], AC.chuff(60 - A['but'], .05)); put(A['but'] + .3, AC.steamwhistle(1.6, .03))
+    put(A['just'] + .1, AC.coin(.06, 3100))
+elif film == 'ears':
+    A = dict(they=w('they', 1, 4.2), listen=w('listen', 1, 7.1), back=w('back', 1, 9.1), so=w('so', 1, 15.2), tucker=w('tucker', 1, 16.5), hear=w('hear', 1, 19.9), it=w('it', 1, 20.6),
+             a20=w('20', 1, 26.6), a30=w('30', 1, 28.0), f200=w('200', 1, 31.0), gathers=w('gathers', 1, 36.3), where=w('where', 1, 39.2), a=w('listener', 1, 40.7) - .2, inn=w('in', 2, 44.4),
+             warning=w('warning', 1, 46.7), butp=w('but', 3, 47.2), then=w('then', 2, 51.3), yet=w('yet', 2, 54.1))
+    pl = A['listen'] + .2; put(pl + .8, AC.airflow(2.2, .025))                                 # a bomber crosses the sky
+    dur = A['so'] - A['back']; put(A['back'] + .5, AC.airflow(dur - .6, .05))                  # the formation drones past
+    put(A['tucker'] + .3, click(.04, 1400))                                                     # chalk tap as the idea lands
+    put(A['hear'] - .3, scrape2(.02))
+    for i in range(6): put(A['gathers'] + .2 + i * .45, AC.chirp(.012, 2600 - i * 200))          # the wavefronts arrive
+    put(A['where'] + .2, ping(.05))                                                             # focus: one bright point
+    for i in range(6): put(A['a'] + .3 + i * .55, click(.015, 900 + i * 60))                     # needles twitch
+    for i in range(int((A['butp'] - A['inn']) / .5)): put(A['inn'] + i * .5, click(.03, 2600))   # the clock ticks
+    put(A['butp'] + .2, AC.airflow(A['then'] - A['butp'] - .4, .07))                            # fast planes roar past
+    put(A['then'] + .3, AC.chirp(.02, 1800)); put(A['then'] + 1.3, AC.chirp(.02, 1800))          # radar mast lamps blip
+elif film == 'xray':
+    A = dict(andd=w('and', 1, 4.2), this=w('this', 2, 7.7), youd=w("you'd", 1, 14.7), look=w('look', 1, 17.2), and2=w('and', 2, 18.7), kids=w('kids', 1, 21.5), but=w('but', 1, 28.2),
+             tube=w('tube', 1, 31.1), thin=w('thin', 1, 31.8), you=w('you', 1, 35.2), staff=w('and', 4, 40.0), worst=w('worst', 1, 44.5), ban=w('ban', 1, 50.7), by=w('by', 1, 51.5),
+             so=w('so', 2, 54.2), fired=w('fired', 1, 58.8))
+    put(A['andd'] - .3, servo(.03))                                                             # the machine hums on
+    steps(A['this'] + .2, A['this'] + 2.2, .42, 'stone', .04)                                   # family walks to the shop
+    put(A['youd'] + .4, scrape2(.05))                                                           # shoes slide into the slot
+    put(A['look'] + .3, creak(.025))
+    put(A['and2'] - .2, servo(.03))
+    steps(A['kids'] + .2, A['kids'] + 3.6, .3, 'stone', .04)                                    # the girl drags her mum along
+    put(A['tube'] - .2, servo(.05)); put(A['thin'], ping(.04))
+    put(A['you'] + .2, AC.hiss(2.4, .02))                                                       # the beam floods up
+    for i in range(10): put(A['staff'] + .3 + i * .34, click(.025, 1900))                        # time-lapse: customers flick by
+    put(A['worst'] + 1.5, thud(.05, 220))
+    put(A['ban'] - .05, stamp(.3))                                                              # the gavel
+    put(A['fired'] - .05, servo(.05)); put(A['fired'] + .1, AC.hiss(.8, .03))
 mix = VO + SFX; fade = np.minimum(1, np.arange(N) / SR / .05) * (1 - np.clip((np.arange(N) / SR - 59.5) / .5, 0, 1)); mix *= fade
 mix = np.stack([mix, mix], 1)
 for _ in range(6): mix = limit(norm_lufs(mix, -14.0), .74)

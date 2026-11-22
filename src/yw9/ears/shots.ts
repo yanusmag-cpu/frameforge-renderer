@@ -64,7 +64,7 @@ function waves(t: number, u: number): { props: PropF[]; sprites: Sprite[] } {
 type Shot = { t0: number; t1: number; f: (t: number, k: number) => Partial<Frame9> };
 function timeline(): Shot[] {
   const T = { they: w('they', 1, 4.2), listen: w('listen', 1, 7.1), planes: w('planes', 1, 8.1), back: w('back', 1, 9.1), radar: w('radar', 1, 13.6), so: w('so', 1, 15.2), tucker: w('tucker', 1, 16.5), if: w('if', 1, 17.9), hear: w('hear', 1, 19.9),
-    it: w('it', 1, 20.6), but: w('but', 2, 23.9), a20: w('20', 1, 26.6), a30: w('30', 1, 28.0), and: w('and', 2, 28.7), f200: w('200', 1, 31.0), you: w('you', 2, 32.5), gathers: w('gathers', 1, 36.3), where: w('where', 1, 39.2),
+    it: w('it', 1, 20.6), but: w('but', 2, 23.9), a20: w('20foot', 1, 26.6), a30: w('30foot', 1, 28.0), and: w('and', 2, 28.7), f200: w('200', 1, 31.0), you: w('you', 2, 32.5), gathers: w('gathers', 1, 36.3), where: w('where', 1, 39.2),
     a: w('listener', 1, 40.7) - .2, before: w('before', 1, 42.8), in: w('in', 2, 44.4), warning: w('warning', 1, 46.7), butp: w('but', 3, 47.2), shorter: w('shorter', 1, 50.6), then: w('then', 2, 51.3), silent: w('silent', 1, 53.5), yet: w('yet', 2, 54.1), dung: w('dungeness', 1, 55.3) };
   return [
     // S1 — dawn drone over the Channel toward the shingle: three huge concrete shapes stare out to sea; crane down

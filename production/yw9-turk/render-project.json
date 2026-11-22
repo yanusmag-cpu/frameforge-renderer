@@ -1,0 +1,27 @@
+{
+ "composition": "YwTurk",
+ "artifactPrefix": "yw-turk-chess",
+ "frames": 1800,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil/fonts",
+  "public/yw9-turk"
+ ],
+ "sourceDirectories": [
+  "src/brazil",
+  "src/ehz",
+  "src/ff2d",
+  "src/yw3/core.ts",
+  "src/yw6",
+  "src/yw7",
+  "src/yw9"
+ ],
+ "soundtrack": "public/yw9-turk-sound/bed.flac",
+ "soundtrackLUFS": -14,
+ "silentTailSeconds": 2.0,
+ "outputFilename": "YunoWorld_Robot_Beat_Napoleon_At_Chess.mp4",
+ "timeoutMs": 300000
+}
