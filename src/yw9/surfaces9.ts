@@ -133,10 +133,10 @@ const SURF: Record<string, (b: number[], seed: number) => Draw> = {
   },
   paint(b, seed) { const col = mk(128, 128), hgt = mk(128, 128); const g = col.getContext('2d')!; g.fillStyle = css(b); g.fillRect(0, 0, 128, 128); noiseFill(g, 128, 128, b, 160, .12, [2, 8], seed, .3); hgt.getContext('2d')!.fillStyle = '#888'; hgt.getContext('2d')!.fillRect(0, 0, 128, 128); return { col, hgt }; },
 };
-SURF.brass = SURF.metal; SURF.rubber = SURF.paint; SURF.snow = SURF.plaster;
-const ROUGH: Record<string, number> = { ice: .18, pykrete: .6, snow: .95, pave: .85, brick: .92, plank: .58, bark: .9, stone: .82, cobble: .78, tile: .22, plaster: .93, roof: .8, metal: .38, brass: .3, fabric: .95, paper: .9, leaf: .85, terrain: .95, paint: .52, rubber: .85 };
+SURF.brass = SURF.metal; SURF.rubber = SURF.paint; SURF.snow = SURF.plaster; SURF.concrete = SURF.plaster;
+const ROUGH: Record<string, number> = { ice: .18, pykrete: .6, snow: .95, concrete: .9, pave: .85, brick: .92, plank: .58, bark: .9, stone: .82, cobble: .78, tile: .22, plaster: .93, roof: .8, metal: .38, brass: .3, fabric: .95, paper: .9, leaf: .85, terrain: .95, paint: .52, rubber: .85 };
 const METAL: Record<string, number> = { metal: .45, brass: .75 };
-const NRM: Record<string, number> = { ice: 1.2, pykrete: 1.4, pave: 2.0, brick: 2.6, plank: 1.2, bark: 2.5, stone: 1.6, cobble: 3.2, plaster: .8, fabric: 1.0, leaf: 1.4, terrain: 1.6 };
+const NRM: Record<string, number> = { ice: 1.2, pykrete: 1.4, pave: 2.0, brick: 2.6, plank: 1.2, bark: 2.5, stone: 1.6, cobble: 3.2, plaster: .8, concrete: 1.3, fabric: 1.0, leaf: 1.4, terrain: 1.6 };
 const SCALE: Record<string, number> = { terrain: .5, leaf: 1.5, tile: 1, roof: 1, paint: 1 };
 
 /** dress one GLB material in place; returns the replacement material */

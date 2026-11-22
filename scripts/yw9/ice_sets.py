@@ -145,19 +145,6 @@ def iceship():
         rr = random.Random(k); blob(f'hab.snow{k}', (rr.uniform(-Lh * .45, Lh * .45), Dh + 1, rr.choice([-1, 1]) * B * .44), rr.uniform(2, 5), mat('snow', '#ffffff', .9), sc=(2, .35, .6), sub=1, rough=.15, seed=k)
 
 
-def plane_model(name, p, s=1.0, col='#4f6b57'):
-    """cartoon WWII fighter: fuselage, wings, tail, canopy, propeller (anim)"""
-    x, y, z = p; m = mat('paint', col, .5); d = mat('metal', '#3a3e44', .5, .5)
-    cyl(f'{name}.fus', (x, y + 1.3 * s, z), .55 * s, 8 * s, m, axis='x', verts=16, r2=.3 * s)
-    box(f'{name}.wing', (x + .6 * s, y + 1.1 * s, z), (2.2 * s, .18 * s, 11 * s), m, bev=.05 * s)
-    box(f'{name}.tail', (x - 3.6 * s, y + 1.4 * s, z), (1.2 * s, .12 * s, 3.6 * s), m, bev=.04 * s)
-    box(f'{name}.fin', (x - 3.6 * s, y + 2.2 * s, z), (1.2 * s, 1.5 * s, .14 * s), m, bev=.04 * s)
-    sphere(f'{name}.canopy', (x + .4 * s, y + 1.85 * s, z), .45 * s, mat('glass', '#9fc6dc', .05), sc=(1.6, .8, .8))
-    cyl(f'{name}.spin', (x + 4.1 * s, y + 1.3 * s, z), .22 * s, .5 * s, d, axis='x', verts=12, r2=.05 * s)
-    for k in range(2): box(f'{name}.wheel{k}', (x + 1.0 * s, y + .35 * s, z + (k - .5) * 2.4 * s), (.5 * s, .7 * s, .2 * s), d, bev=.1 * s)
-    for k in range(2): box(f'{name}.roundel{k}', (x + .6 * s, y + 1.21 * s, z + (k - .5) * 7 * s), (1.0 * s, .02 * s, 1.0 * s), mat('paint', '#e8e2d0', .6), bev=0)
-
-
 def lake():
     """Patricia Lake, Jasper: turquoise lake in a bowl of pine forest under snow-capped peaks; the 60 ft test model (a
     boathouse-like timber shed on the water) with a small motor hut on a jetty"""

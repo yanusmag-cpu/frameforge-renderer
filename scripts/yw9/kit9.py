@@ -693,5 +693,81 @@ def ship(x, z, y=0.0, rot=0.0, name='ship'):
         o.location = (o.location.x + x, o.location.y - z, o.location.z + y)
 
 
+def plane_model(name, p, s=1.0, col='#4f6b57'):
+    """cartoon WWII fighter: fuselage, wings, tail, canopy, propeller (anim)"""
+    x, y, z = p; m = mat('paint', col, .5); d = mat('metal', '#3a3e44', .5, .5)
+    cyl(f'{name}.fus', (x, y + 1.3 * s, z), .55 * s, 8 * s, m, axis='x', verts=16, r2=.3 * s)
+    box(f'{name}.wing', (x + .6 * s, y + 1.1 * s, z), (2.2 * s, .18 * s, 11 * s), m, bev=.05 * s)
+    box(f'{name}.tail', (x - 3.6 * s, y + 1.4 * s, z), (1.2 * s, .12 * s, 3.6 * s), m, bev=.04 * s)
+    box(f'{name}.fin', (x - 3.6 * s, y + 2.2 * s, z), (1.2 * s, 1.5 * s, .14 * s), m, bev=.04 * s)
+    sphere(f'{name}.canopy', (x + .4 * s, y + 1.85 * s, z), .45 * s, mat('glass', '#9fc6dc', .05), sc=(1.6, .8, .8))
+    cyl(f'{name}.spin', (x + 4.1 * s, y + 1.3 * s, z), .22 * s, .5 * s, d, axis='x', verts=12, r2=.05 * s)
+    for k in range(2): box(f'{name}.wheel{k}', (x + 1.0 * s, y + .35 * s, z + (k - .5) * 2.4 * s), (.5 * s, .7 * s, .2 * s), d, bev=.1 * s)
+    for k in range(2): box(f'{name}.roundel{k}', (x + .6 * s, y + 1.21 * s, z + (k - .5) * 7 * s), (1.0 * s, .02 * s, 1.0 * s), mat('paint', '#e8e2d0', .6), bev=0)
+
+
+
+
+def locomotive(name, x, y, z, col='#1e1e22', trim='#a8302a'):
+    """early-1900s steam locomotive pointing +x: boiler, smokebox, chimney, dome, cab, tender-less tank, wheels with
+    spokes and rods, cowcatcher, headlamp"""
+    m = mat('paint', col, .45); t = mat('paint', trim, .45); br = mat('brass', '#c9a24a', .3); d = mat('metal', '#2a2a2e', .4, .5)
+    cyl(f'{name}.boiler', (x + 1.2, y + 1.9, z), .75, 5.2, m, axis='x', verts=28)
+    cyl(f'{name}.smokebox', (x + 4.0, y + 1.9, z), .8, .7, d, axis='x', verts=28)
+    cyl(f'{name}.chimney', (x + 3.9, y + 3.0, z), .25, 1.1, d, verts=16, r2=.32)
+    sphere(f'{name}.dome', (x + 1.6, y + 2.7, z), .35, br, sc=(1, .8, 1))
+    for k in range(4): cyl(f'{name}.band{k}', (x - .8 + k * 1.3, y + 1.9, z), .77, .08, br, axis='x', verts=28)
+    box(f'{name}.cab', (x - 2.1, y + 2.3, z), (2.0, 2.2, 2.4), m, bev=.04); box(f'{name}.cabroof', (x - 2.1, y + 3.48, z), (2.4, .12, 2.7), d, bev=.03)
+    for s_ in (-1, 1): box(f'{name}.cabwin{s_}', (x - 2.1, y + 2.7, z + s_ * 1.21), (1.0, .7, .02), mat('glass', '#d8c89a', .1), bev=0)
+    box(f'{name}.frame', (x + .6, y + .9, z), (7.4, .35, 1.9), t, bev=.03)
+    for k, (wx, r) in enumerate([(-2.4, .55), (-.4, .75), (1.2, .75), (3.2, .45)]):
+        for s_ in (-1, 1):
+            cyl(f'{name}.wheel{k}{s_}', (x + wx, y + r, z + s_ * .95), r, .14, t, axis='z', verts=28)
+            for j in range(6): box(f'{name}.spoke{k}{s_}{j}', (x + wx, y + r, z + s_ * 1.03), (r * 1.8, .06, .03), d, bev=0, rot=(0, 0, j * .5236))
+    for s_ in (-1, 1): box(f'{name}.rod{s_}', (x + .4, y + .75, z + s_ * 1.1), (1.8, .1, .05), mat('metal', '#9aa0a6', .3, .8), bev=.01)
+    for k in range(6): box(f'{name}.catcher{k}', (x + 4.7, y + .55, z - .8 + k * .32), (.6, .1, .08), d, bev=.01, rot=(0, 0, .6))
+    cyl(f'{name}.lamp', (x + 4.2, y + 2.95, z), .2, .4, br, axis='x', verts=16); box(f'{name}.lampglow', (x + 4.42, y + 2.95, z), (.04, .28, .28), mat('emit', '#ffe8b0', .2, emit=3), bev=0)
+
+
+def railcar(name, x, y, z, L=11.0, col='#6e2a1e', roof='#2a2a2e', label=None, wins=6, glow=0.0):
+    """wooden railway car: body with plank siding, clerestory roof, windows, doors, bogies; optional label board"""
+    m = mat('plank', col, .6); r = mat('paint', roof, .5); d = mat('metal', '#2a2a2e', .4, .5)
+    box(f'{name}.body', (x, y + 2.0, z), (L, 2.4, 2.6), m, bev=.04)
+    box(f'{name}.roof', (x, y + 3.3, z), (L + .3, .18, 2.9), r, bev=.05); box(f'{name}.clere', (x, y + 3.55, z), (L - 1.5, .35, 1.4), r, bev=.04)
+    for k in range(wins):
+        wx = x - L / 2 + (k + .5) * L / wins
+        for s_ in (-1, 1): box(f'{name}.win{k}{s_}', (wx, y + 2.5, z + s_ * 1.31), (.6, .6, .02), mat('emit' if glow else 'glass', '#ffd89a' if glow else '#9fb8c4', .1, emit=glow), bev=0)
+    for s_ in (-1, 1): box(f'{name}.door{s_}', (x, y + 1.9, z + s_ * 1.31), (1.1, 1.9, .03), mat('plank', '#5a2216', .6), bev=.01)
+    box(f'{name}.frame', (x, y + .75, z), (L, .25, 2.2), d, bev=.02)
+    for bx in (-L / 2 + 1.5, L / 2 - 1.5):
+        for s_ in (-1, 1):
+            for wx in (-.6, .6): cyl(f'{name}.w{bx}{s_}{wx}', (x + bx + wx, y + .45, z + s_ * .8), .45, .12, d, axis='z', verts=20)
+    if label: text_plane(f'{name}.label', (x, y + 2.85, z + 1.33), 3.6, .42, mat('sign', label, .5))
+
+
+def track(name, x0, x1, z, y=0.0):
+    """rails on sleepers on a ballast bed"""
+    box(f'{name}.ballast', ((x0 + x1) / 2, y + .1, z), (x1 - x0, .2, 3.0), mat('stone', '#8a847a', .9), bev=.05)
+    n = int((x1 - x0) / .7)
+    for k in range(n): box(f'{name}.tie{k}', (x0 + (k + .5) * .7, y + .25, z), (.25, .12, 2.6), mat('plank', '#5a4030', .8), bev=.01)
+    for s_ in (-1, 1): box(f'{name}.rail{s_}', ((x0 + x1) / 2, y + .37, z + s_ * .72), (x1 - x0, .12, .08), mat('metal', '#8a9096', .35, .8), bev=.01)
+
+
+def car_model(name, x, z, y=0.0, col='#3f7ab0', rot=0.0):
+    """1950s rounded sedan: body, cabin, chrome bumpers, white-wall wheels, headlights"""
+    m = mat('paint', col, .3); c = mat('metal', '#d8dde0', .2, .9); d = mat('rubber', '#1a1a1a', .8)
+    blob(f'{name}.body', (x, y + .7, z), 1.0, m, sc=(2.4, .45, .95), sub=3, rough=.0)
+    blob(f'{name}.cabin', (x - .2, y + 1.15, z), .8, m, sc=(1.3, .45, .9), sub=3, rough=.0)
+    blob(f'{name}.glass', (x - .2, y + 1.18, z), .78, mat('glass', '#9fc0d0', .05), sc=(1.25, .4, .92), sub=2, rough=.0)
+    for s_ in (-1, 1):
+        box(f'{name}.bump{s_}', (x + s_ * 2.35, y + .5, z), (.12, .18, 1.9), c, bev=.06)
+        for wx in (-1.4, 1.4):
+            cyl(f'{name}.tyre{s_}{wx}', (x + wx, y + .38, z + s_ * .82), .38, .25, d, axis='z', verts=24); cyl(f'{name}.wall{s_}{wx}', (x + wx, y + .38, z + s_ * .95), .24, .02, mat('paint', '#f2f0ea', .4), axis='z', verts=24)
+        sphere(f'{name}.lamp{s_}', (x + 2.3, y + .78, z + s_ * .6), .12, mat('emit', '#fff6d8', .2, emit=1.5))
+    objs = [o for o in COLL.objects if o.name.startswith(name + '.')]
+    if rot:
+        for o in objs: o.rotation_euler.z += rot
+
+
 def scatter_json(path, data):
     Path(path).parent.mkdir(parents=True, exist_ok=True); json.dump(data, open(path, 'w'), separators=(',', ':')); print('exported', path, flush=True)
