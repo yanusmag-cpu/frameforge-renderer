@@ -1,0 +1,44 @@
+{
+ "duration_s": 44.72,
+ "words": 145,
+ "words_per_s": 3.321,
+ "longest_gap_s": 0.34,
+ "active_pct": 85.6,
+ "passages": [
+  {
+   "file": "/tmp/takes/p0_2.wav",
+   "heard": "This little dog is running in a wheel on the kitchen wall, and every step he takes is cooking  tonight's dinner!",
+   "wer": 0.0,
+   "mos": 4.505,
+   "range_st": 13.3
+  },
+  {
+   "file": "/tmp/takes/p1_2.wav",
+   "heard": "in old British kitchens, meat roasted on a long iron spit in front of the fire and somebody  had to turn it for hours so they used a dog.",
+   "wer": 0.0,
+   "mos": 4.447,
+   "range_st": 12.2
+  },
+  {
+   "file": "/tmp/takes/p2_0.wav",
+   "heard": "You see, it's like a hamster wheel hooked to a bike chain.  The dog walks, the wheel turns,  and a chain carries that motion down to a pulley on the spit,  so the roast spins evenly.",
+   "wer": 0.0,
+   "mos": 4.504,
+   "range_st": 9.76
+  },
+  {
+   "file": "/tmp/takes/p3_2.wav",
+   "heard": "There was even a special breed for the job,  short legs and a long body called the turn spit dog.  Kitchens often kept two so they could take turns.",
+   "wer": 0.071,
+   "mos": 4.479,
+   "range_st": 12.64
+  },
+  {
+   "file": "/tmp/takes/p4_0.wav",
+   "heard": "Then, cheap clockwork roasting jacks came along, and by around 1900, the breed had disappeared.  Only one is known to survive, a stuffed turn spit named Whiskey, in a museum in Wales.",
+   "wer": 0.065,
+   "mos": 4.473,
+   "range_st": 9.38
+  }
+ ]
+}
