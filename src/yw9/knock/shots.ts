@@ -42,7 +42,7 @@ function pea(t: number, t0: number, dur = .55, seed = 0): Sprite[] {
   const u = (t - t0) / dur; if (u < 0 || u > 1.35) return [];
   if (u <= 1) {
     const p: V3 = [lerp(MOUTH[0], WIN[0] + (hsh(seed) - .5) * .5, u), lerp(MOUTH[1], WIN[1] + (hsh(seed + 1) - .5) * .4, u) + Math.sin(u * Math.PI) * .5, lerp(MOUTH[2], WIN[2] + .12, u)];
-    return [{ p, s: .07, rot: 0, c: [.55, 1.1, .35], a: 1, kind: 2, seed: .1, age: 0 }];
+    return [{ p, s: .14, rot: 0, c: [.7, 1.6, .4], a: 1, kind: 2, seed: .1, age: 0 }];
   }
   const k = (u - 1) / .35; return [{ p: [WIN[0], WIN[1], WIN[2] + .14], s: .12 + k * .3, rot: 0, c: [1.4, 1.3, 1.0], a: 1 - k, kind: 2, seed: .2, age: 0 }];
 }
@@ -56,14 +56,14 @@ function timeline(): Shot[] {
     // S1 — over her shoulder in the dawn street: she puffs, the pea arcs up and the camera rides it to the window
     { t0: 0, t1: T.paying - .3, f: (t) => {
       const tp = .9; const u = at(t, tp, tp + .55);
-      const c = t < tp ? rig([{ t: 0, pos: [-2.4, 1.2, 0.2], look: [-4.0, 3.2, -4.8], fov: 46 }, { t: tp, pos: [-2.8, 1.45, -.6], look: [-4.1, 3.6, -4.9], fov: 44 }], t)
-        : { pos: [lerp(-2.8, -3.9, ease.inOut(u)), lerp(1.45, 4.3, ease.inOut(u)), lerp(-.6, -3.6, ease.inOut(u))] as V3, look: [WIN[0], WIN[1], WIN[2]] as V3, fov: lerp(44, 34, u) };
+      const c = t < tp ? rig([{ t: 0, pos: [-1.2, 1.3, 1.5], look: [-3.9, 2.6, -4.2], fov: 44 }, { t: tp, pos: [-1.6, 1.5, .9], look: [-4.0, 3.2, -4.6], fov: 42 }], t)
+        : { pos: [lerp(-1.6, -3.9, ease.inOut(u)), lerp(1.5, 4.3, ease.inOut(u)), lerp(.9, -3.6, ease.inOut(u))] as V3, look: [WIN[0], WIN[1], WIN[2]] as V3, fov: lerp(44, 34, u) };
       const S = [...pea(t, tp, .55, 1), ...pea(t, 2.4, .5, 2), ...pea(t, 3.6, .5, 3)];
       return { ...STREET, cam: c, sprites: S, actors: [shooter(t, ss(.2, .6, t))], overlay: chip('4 A.M. • EAST LONDON', 210, ss(.4, .8, t), '#ff9a5a') };
     } },
     // S2 — "...and he's PAYING her!": inside — the sleeper bolts upright; the window rattles
     { t0: T.paying - .3, t1: T.before, f: (t, k) => {
-      const c = rig([{ t: T.paying - .3, pos: [.9, 1.35, .9], look: [-.4, .75, -1.4], fov: 40 }, { t: T.before, pos: [.55, 1.15, .2], look: [-.35, .85, -1.5], fov: 34 }], t);
+      const c = rig([{ t: T.paying - .3, pos: [1.3, 1.5, 1.4], look: [-.35, .8, -1.4], fov: 40 }, { t: T.before, pos: [1.0, 1.35, .8], look: [-.35, .85, -1.5], fov: 36 }], t);
       const up = ss(.08, .3, k);
       return { ...BED, cam: c, actors: [act('sl', SLEEPER, [-.3, lerp(.05, .32, up), -1.55], pose({ turn: .1, crouch: 1.0, kneeUp: true, handA: [-.7, -2.2 - up], handB: [.7, -2.2 - up], shapeA: 'open', shapeB: 'open' }, t, .2), up < .5 ? expr('tired') : expr('shocked', 'angry', ss(.6, 1, k)), t, { res: 1700 })],
         overlay: chip('💸 HE PAYS HER', 210, ss(.35, .5, k), '#7dff9a') };
@@ -96,7 +96,7 @@ function timeline(): Shot[] {
       const c = rig([{ t: T.until, pos: [-2.6, 1.5, 1.4], look: [-4.0, 3.6, -5], fov: 40 }, { t: T.customers, pos: [-3.0, 2.0, .6], look: [-4.1, 3.9, -5], fov: 36 }], t);
       const show = ss(.25, .4, k);
       return { ...STREET, cam: c, actors: [shooter(t, 1 - ss(.45, .6, k), expr('confident', 'happy', ss(.5, .7, k))),
-        act('sl', SLEEPER, [WIN[0], lerp(2.7, 3.45, show), WIN[2] + .25], pose({ turn: .15, handB: [.8, -3.1], shapeB: 'fist', handA: [-.6, -2.2] }, t, .2), expr('angry', 'tired', .5), t, { res: 1300, scale: .95, shadow: false })],
+        act('sl', SLEEPER, [WIN[0], lerp(2.6, 3.2, show), WIN[2] - .25], pose({ turn: .15, handB: [.8, -3.1], shapeB: 'fist', handA: [-.6, -2.2] }, t, .2), expr('angry', 'tired', .5), t, { res: 1300, scale: .95, shadow: false })],
         overlay: chip('✓ CUSTOMER AWAKE', 210, ss(.45, .6, k), '#7dff9a') };
     } },
     // S7 — "Her customers paid a few pence a week, and she woke whole streets... before sunrise": crane up high over the
@@ -124,10 +124,10 @@ function timeline(): Shot[] {
     // S10 — "Most of them stayed up all night working, then slept through the day": broad daylight; she snoozes in the
     // chair, pea shooter in her lap, while sunshine floods in; title lands
     { t0: T.most, t1: END, f: (t) => {
-      const c = rig([{ t: T.most, pos: [-1.2, 1.4, 1.6], look: [1.3, .8, .4], fov: 40 }, { t: END, pos: [.0, 1.1, 1.3], look: [1.35, .85, .55], fov: 32 }], t, { easing: ease.inOut });
+      const c = rig([{ t: T.most, pos: [-1.6, 1.55, 1.9], look: [1.3, .85, .4], fov: 42 }, { t: END, pos: [-.8, 1.35, 1.75], look: [1.35, .9, .5], fov: 36 }], t, { easing: ease.inOut });
       const tt = ss(T.slept + .3, T.slept + .7, t);
       return { ...NOON, cam: c, actors: [act('mary', MARY, [1.35, .1, .55], pose({ turn: -.3, crouch: .55, kneeUp: true, headTilt: .35 + Math.sin(t * 1.6) * .04, handA: [-.3, -1.7], handB: [.3, -1.7] }, t, .2), expr('tired'), t, { res: 1600 })],
-        overlay: (t < T.slept ? chip('NIGHT SHIFT → SLEEP ALL DAY', 210, ss(T.most + .3, T.most + .7, t), '#ffd23f') : '') + `<div style="position:absolute;left:640px;top:${640 - 20 * Math.sin(t * 2)}px;font-family:Inter;font-weight:900;font-size:90px;color:#fff;-webkit-text-stroke:7px #141018;paint-order:stroke fill;opacity:.9">Zzz</div>` + bigTitle('WHO WOKE THEM?', 'NOBODY.', tt) };
+        overlay: (t < T.slept ? chip('NIGHT SHIFT → SLEEP ALL DAY', 210, ss(T.most + .3, T.most + .7, t), '#ffd23f') : '') + `<div style="position:absolute;left:700px;top:${330 - 20 * Math.sin(t * 2)}px;font-family:Inter;font-weight:900;font-size:90px;color:#fff;-webkit-text-stroke:7px #141018;paint-order:stroke fill;opacity:.9">Zzz</div>` + bigTitle('WHO WOKE THEM?', 'NOBODY.', tt) };
     } },
   ];
 }

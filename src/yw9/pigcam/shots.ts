@@ -45,8 +45,8 @@ const PHOTO: Base = { ...TOWN, grade: { ...TOWN.grade, sat: .18, contrast: 1.15,
 
 const camN = (ball = 1, shut = 0): Record<string, NodeOv> => ({ ball: { scale: .35 + .65 * ball }, shutter: { pos: [0, 0, 0], rot: [shut * 1.4, 0, 0] } });
 /** the pigeon with the camera on its chest (prop at the bird's breast, a touch larger than life so it reads) */
-const rigged = (id: string, pos: V3, s: PigeonState, t: number, o: Partial<ActorState> = {}, camScale = 1.4, ball = 1): { a: ActorState; p: { id: string; pos: V3; scale: number; nodes: Record<string, NodeOv> } } =>
-  ({ a: bird(id, pos, s, t, o), p: { id: 'camera', pos: [pos[0] + .02, pos[1] + .02, pos[2] + .07], scale: camScale, nodes: camN(ball) } });
+const rigged = (id: string, pos: V3, s: PigeonState, t: number, o: Partial<ActorState> = {}, camScale = 1.1, ball = 1): { a: ActorState; p: { id: string; pos: V3; scale: number; nodes: Record<string, NodeOv> } } =>
+  ({ a: bird(id, pos, s, t, o), p: { id: 'camera', pos: [pos[0] + .02, pos[1] + .12, pos[2] + .07], scale: camScale, nodes: camN(ball) } });
 
 function timeline(): Shot[] {
   const T = { fly: w('fly', 1, 4.6), julius: w('julius', 1, 5.7), medicine: w('medicine', 1, 11.0), built: w('built', 1, 12.3), see: w('see', 1, 15.2), leaked: w('leaked', 1, 19.4), click: w('click', 1, 23.4),
@@ -58,8 +58,8 @@ function timeline(): Shot[] {
     { t0: 0, t1: T.julius, f: (t) => {
       const go = ss(T.fly - .1, T.fly + .3, t); const up = Math.max(0, t - T.fly);
       const bp: V3 = [HAND[0] + up * .4, HAND[1] + up * up * 1.6 + up * 1.2, HAND[2] - up * .6];
-      const c = t < T.fly ? rig([{ t: 0, pos: [.6, 1.35, 4.6], look: [-.3, 1.15, 3.1], fov: 40 }, { t: T.fly, pos: [.05, 1.25, 3.85], look: [-.32, 1.2, 3.2], fov: 30 }], t, { easing: ease.inOut })
-        : { pos: [.05, 1.25 + up * .5, 3.85] as V3, look: bp, fov: 34 };
+      const c = t < T.fly ? rig([{ t: 0, pos: [.9, 1.45, 5.2], look: [-.2, 1.25, 3.1], fov: 40 }, { t: T.fly, pos: [.45, 1.4, 4.45], look: [-.3, 1.3, 3.2], fov: 36 }], t, { easing: ease.inOut })
+        : { pos: [.45, 1.4 + up * .5, 4.45] as V3, look: bp, fov: 38 };
       const R = rigged('pg', bp, { mood: go > .5 ? 'happy' : 'confused', flap: go > 0 ? flapK(t) : 0, gx: -.4, t }, t, { contact: go > 0 ? 0 : .5, shadow: go < .5 });
       return { ...TOWN, cam: c, props: [R.p], actors: [act('jn', JN, [0, 0, 3.0], pose({ turn: -.25, handA: [-.45, -2.15 + go * -1.2], handB: [-.1, -2.1 + go * -1.0], shapeA: go > .5 ? 'open' : 'hold', shapeB: go > .5 ? 'open' : 'hold', headTilt: .12 }, t, .3), go > .5 ? expr('excited', 'happy', .6) : expr('focused', 'smirk', .3), t, { res: 1700 }), R.a],
         overlay: chip('📷 + 🐦', 210, ss(.6, 1.0, t)) };
@@ -75,17 +75,17 @@ function timeline(): Shot[] {
     } },
     // S3 — "So he built a camera small enough for a bird to wear": macro orbit of the hero camera on a dark bench
     { t0: T.built, t1: T.see, f: (t, k) => {
-      const a = lerp(-.9, .7, ease.inOut(k)); const c = { pos: [Math.sin(a) * .26, .14 + k * .05, Math.cos(a) * .26] as V3, look: [0, .07, 0] as V3, fov: 34 };
-      return { ...STUDIO, cam: c, props: [{ id: 'camera', pos: [0, 0, 0], scale: 1.0, nodes: camN() }], overlay: chip('TWIN LENSES • BREAST HARNESS', 210, ss(T.built + .4, T.built + .8, t), '#7fd3ff') };
+      const a = lerp(-.9, .7, ease.inOut(k)); const c = { pos: [Math.sin(a) * .8, .42 + k * .15, Math.cos(a) * .8] as V3, look: [0, .21, 0] as V3, fov: 34 };
+      return { ...STUDIO, cam: c, props: [{ id: 'camera', pos: [0, 0, 0], scale: 3.0, nodes: camN() }], overlay: chip('TWIN LENSES • BREAST HARNESS', 210, ss(T.built + .4, T.built + .8, t), '#7fd3ff') };
     } },
     // S4 — "You see, a tiny rubber ball was pumped full of air before take-off. As it slowly leaked, it worked like a
     // timer, and when it went flat, CLICK! The shutter fired": the ball swells, shrinks, the shutter flips, flash
     { t0: T.see, t1: T.high, f: (t) => {
       const inf = ss(T.see + .6, T.see + 1.6, t); const leak = at(t, T.leaked - .2, T.click); const ball = inf * (1 - leak * .92);
       const shut = ss(T.click - .05, T.click + .05, t) * (1 - ss(T.click + .25, T.click + .4, t));
-      const c = rig([{ t: T.see, pos: [-.14, .16, -.16], look: [0, .095, -.05], fov: 32 }, { t: T.click - .6, pos: [-.12, .12, .1], look: [0, .08, 0], fov: 32 }, { t: T.high, pos: [.0, .07, .16], look: [0, .05, .03], fov: 30 }], t, { easing: ease.inOut });
+      const c = rig([{ t: T.see, pos: [-.45, .5, -.5], look: [0, .29, -.15], fov: 32 }, { t: T.click - .6, pos: [-.4, .38, .36], look: [0, .24, 0], fov: 32 }, { t: T.high, pos: [.05, .2, .55], look: [0, .14, .09], fov: 30 }], t, { easing: ease.inOut });
       const pct = Math.round(ball * 100);
-      return { ...STUDIO, cam: c, props: [{ id: 'camera', pos: [0, 0, 0], scale: 1.0, nodes: { ball: { scale: .3 + .7 * ball }, shutter: { rot: [shut * 1.4, 0, 0] } } }], grade: { ...STUDIO.grade, flash: shut * .55 },
+      return { ...STUDIO, cam: c, props: [{ id: 'camera', pos: [0, 0, 0], scale: 3.0, nodes: { ball: { scale: .3 + .7 * ball }, shutter: { rot: [shut * 1.4, 0, 0] } } }], grade: { ...STUDIO.grade, flash: shut * .55 },
         overlay: chip(t < T.leaked - .2 ? '① PUMP THE BALL FULL OF AIR' : t < T.click ? `② AIR LEAKS OUT… ${pct}%` : '③ FLAT → CLICK! 📸', 210, 1, t < T.click ? '#ffd23f' : '#7dff9a') };
     } },
     // S5 — "...high above the rooftops": the signature tracking shot, chasing the pigeon over the town at roof height
@@ -100,17 +100,17 @@ function timeline(): Shot[] {
     { t0: T.patent, t1: T.dresden, f: (t) => {
       const c = rig([{ t: T.patent, pos: [.5, 1.6, 1.6], look: [0, 1.45, 0], fov: 36 }, { t: T.dresden, pos: [.2, 1.6, .9], look: [0, 1.55, 0], fov: 30 }], t);
       const ph = ss(T.photos - .1, T.photos + .2, t); const ok = ss(T.photos + 1.0, T.photos + 1.3, t);
-      const photos = ph > .01 ? `<div style="position:absolute;left:${150 + 40 * (1 - ph)}px;top:${980 + 300 * (1 - ph)}px;transform:rotate(-8deg);opacity:${ph};width:330px;height:230px;background:linear-gradient(160deg,#d8c8a0,#8a7a5a);border:14px solid #f4ecd8;box-shadow:0 12px 30px rgba(0,0,0,.4)"></div><div style="position:absolute;left:${560 - 40 * (1 - ph)}px;top:${1000 + 300 * (1 - ph)}px;transform:rotate(6deg);opacity:${ph};width:330px;height:230px;background:linear-gradient(200deg,#c8b890,#6a5a40);border:14px solid #f4ecd8;box-shadow:0 12px 30px rgba(0,0,0,.4)"></div>` : '';
+      const photos = ph > .01 ? `<div style="position:absolute;left:${150 + 40 * (1 - ph)}px;top:${1400 + 300 * (1 - ph)}px;transform:rotate(-8deg);opacity:${ph};width:330px;height:230px;background:linear-gradient(160deg,#d8c8a0,#8a7a5a);border:14px solid #f4ecd8;box-shadow:0 12px 30px rgba(0,0,0,.4)"></div><div style="position:absolute;left:${560 - 40 * (1 - ph)}px;top:${1420 + 300 * (1 - ph)}px;transform:rotate(6deg);opacity:${ph};width:330px;height:230px;background:linear-gradient(200deg,#c8b890,#6a5a40);border:14px solid #f4ecd8;box-shadow:0 12px 30px rgba(0,0,0,.4)"></div>` : '';
       return { ...STUDIO, cam: c, actors: [act('clerk', CLERK, [0, 0, 0], pose({ turn: .05, handA: [-.7, -2.4 + ph * .4], handB: [.8, -2.6], shapeB: ph < .5 ? 'point' : 'open' }, t, .3), ph < .5 ? expr('smug', 'laugh', .5) : ok < .5 ? expr('shocked') : expr('disappointment', 'confused', .4), t, { res: 1800 })],
         overlay: photos + (ph < .5 ? chip('"IMPOSSIBLE!"', 210, ss(T.patent + .2, T.patent + .5, t), '#ff7a59') : chip('✓ PATENT GRANTED • 1908', 210, ok, '#7dff9a')) };
     } },
     // S7 — "At a big exhibition in Dresden, crowds watched the pigeons land": the crowd in the square looks up as birds
     // flutter down onto the loft board
     { t0: T.dresden, t1: T.postcards, f: (t) => {
-      const c = rig([{ t: T.dresden, pos: [12, 1.6, -6], look: [22, 7, -18], fov: 44 }, { t: T.postcards, pos: [15, 3.5, -9], look: [22, 9, -17.5], fov: 38 }], t, { easing: ease.inOut });
+      const c = rig([{ t: T.dresden, pos: [4.5, 1.5, 4.5], look: [8, 3.6, -4], fov: 44 }, { t: T.postcards, pos: [6.0, 2.6, 2.4], look: [8, 4.6, -3.6], fov: 38 }], t, { easing: ease.inOut });
       const A: ActorState[] = [];
-      for (let i = 0; i < 7; i++) A.push(act(`c${i}`, CROWD[i % 4], [13 + (i % 4) * 1.1 + hsh(i) * .4, 0, -9.5 - Math.floor(i / 4) * 1.2], pose({ turn: .3, back: .7, headLift: .6, handB: i % 3 === 0 ? [.7, -3.0] : [.5, -1.62], shapeB: 'point' }, t, .3, i), expr('amazed'), t, { seed: i + 10, res: 900 }));
-      for (let i = 0; i < 3; i++) { const u = clamp((t - T.dresden - .4 - i * .7) / 1.6); A.push(bird(`b${i}`, [lerp(16 + i * 2, 21.4 + i * .6, u), lerp(16, 9.3, u), lerp(-10, -17, u)], { mood: 'happy', flap: u < 1 ? flapK(t + i) : 0, t }, t, { contact: 0 })); }
+      for (let i = 0; i < 7; i++) A.push(act(`c${i}`, CROWD[i % 4], [5.6 + (i % 4) * 1.0 + hsh(i) * .4, 0, -.4 - Math.floor(i / 4) * 1.1], pose({ turn: .3, back: .7, headLift: .6, handB: i % 3 === 0 ? [.7, -3.0] : [.5, -1.62], shapeB: 'point' }, t, .3, i), expr('amazed'), t, { seed: i + 10, res: 900 }));
+      for (let i = 0; i < 3; i++) { const u = clamp((t - T.dresden - .4 - i * .7) / 1.6); A.push(bird(`b${i}`, [lerp(4 + i * 3, 7.4 + i * .6, u), lerp(10, 4.66, u), lerp(4, -3.55, u)], { mood: 'happy', flap: u < 1 ? flapK(t + i) : 0, t }, t, { contact: 0 })); }
       return { ...TOWN, cam: c, actors: A, overlay: chip('DRESDEN EXHIBITION • 1909', 210, ss(T.dresden + .2, T.dresden + .6, t)) };
     } },
     // S8 — "...their aerial photos were turned into postcards on the spot. Some even show the pigeon's own wingtips!":

@@ -20,6 +20,12 @@ OUT = kit9.ROOT / f'public/yw9-{FILM5}'
 reset()
 
 
+def cobble_road(name, x0, x1, z0, z1, base='#8a8178'):
+    """a cobbled surface as one textured slab (procedural cobble colour + normal map, mipmapped): reads as stones up close
+    and stays clean in wide shots, instead of thousands of tiny stones that shimmer into a mesh pattern"""
+    box(name, ((x0 + x1) / 2, .015, (z0 + z1) / 2), (x1 - x0, .03, z1 - z0), mat('cobble', base, .8), bev=0)
+
+
 def grass_json(path, pts_fn, n, rr, flowers=None):
     g = []; fl = []
     for i in range(n):
@@ -41,7 +47,7 @@ def knock_street():
     """dawn East End terrace: two facing rows of two-storey brick terraces, cobbled road, flagstone pavements, kerbs,
     gas lamps, flowerpots on sills, a corner shop; the hero house sits at x=0 on the north side (front at z=-5)"""
     road_pts = [(-40, 0), (40, 0)]
-    cobbles(road_pts, 6.6, base='#6f6a63', name='road', s=.22)
+    cobble_road('road', -40, 40, -3.3, 3.3, base='#8a847c')
     for s in (-1, 1):
         stone_floor(-40, 40, s * 3.3 if s > 0 else -5.0, 5.0 if s > 0 else -3.3, base='#8e8a82', name=f'pave{s}')
         box(f'kerb{s}', (0, .06, s * 3.35), (80, .14, .22), mat('stone', '#a8a296', .85), bev=.02)
@@ -99,8 +105,8 @@ def pig_town():
         if fbm(x, z, .015, 2, 7) > .25: c = [c[i] * .6 + G[2][i] * .4 for i in range(3)]
         return tuple(c)
     terrain('town.ground', -160, 160, -160, 160, 130, h, col, flat=[(0, 0, 32, 0.0)])
-    cobbles([(-14, 0), (14, 0)], 16, base='#8a8178', name='square', s=.22)
-    cobbles([(14, 0), (40, -8)], 5, base='#857c72', name='lane1'); cobbles([(-14, 0), (-40, 10)], 5, base='#857c72', name='lane2')
+    cobble_road('square', -16, 16, -8.6, 8.6, base='#a09484')
+    cobble_road('lane1', 16, 44, -2.5, 2.5, base='#9a8e80'); cobble_road('lane2', -44, -16, -2.5, 2.5, base='#9a8e80')
     rr = random.Random(9); PL = ['#f2e8d4', '#efe0c0', '#f4ecdc', '#e8d8b8', '#f2dcc8', '#e0e8d8']
     ring = [(-11, -12, 0), (-4, -12.5, 0), (3, -12, 0), (10, -12.5, 0), (-12, 12, 1), (-5, 12.5, 1), (2, 12, 1), (9, 12.5, 1)]
     for i, (x, z, fl) in enumerate(ring):
@@ -117,8 +123,11 @@ def pig_town():
     box('church.tower', (22, 10, -32), (4.6, 20, 4.6), mat('plaster', '#f2ead6', .9), bev=.05)
     cyl('church.spire', (22, 22.5, -32), 3.0, 5, mat('roof', '#3a4a5a', .8), verts=8, r2=.05)
     for k in range(4): box(f'church.clock{k}', (22 + (k == 1) * 2.32 - (k == 3) * 2.32, 16, -32 + (k == 0) * 2.32 - (k == 2) * 2.32), (1.2, 1.2, .05) if k % 2 == 0 else (.05, 1.2, 1.2), mat('paint', '#f4ecd8', .5), bev=0)
-    box('loft', (22, 9.9, -18), (2.4, 1.4, 1.6), mat('plank', '#e8e0cc', .7), bev=.03); box('loft.board', (22, 9.25, -17.0), (2.6, .08, .6), mat('plank', '#8a6a46', .7), bev=.01)
-    for k in range(3): box(f'loft.hole{k}', (21.3 + k * .7, 10.0, -17.18), (.3, .35, .02), mat('paint', '#1a1410', .7), bev=0)
+    # the pigeon loft: a dovecote on a tall post at the edge of the square, landing board facing the square (+z)
+    cyl('loft.post', (8, 2.3, -4.5), .12, 4.6, mat('plank', '#6a4a2e', .7), verts=10)
+    box('loft', (8, 5.2, -4.5), (2.0, 1.2, 1.4), mat('plank', '#f2ead8', .7), bev=.03); box('loft.roof', (8, 5.95, -4.5), (2.3, .3, 1.7), mat('roof', '#9a3a2a', .8), bev=.05)
+    box('loft.board', (8, 4.62, -3.55), (2.2, .07, .55), mat('plank', '#8a6a46', .7), bev=.01)
+    for k in range(3): box(f'loft.hole{k}', (7.35 + k * .65, 5.15, -3.79), (.28, .32, .02), mat('paint', '#1a1410', .7), bev=0)
     cyl('fountain', (0, .4, 0), 1.6, .8, mat('stone', '#bdb5a4', .8), verts=28); cyl('fountain.col', (0, 1.4, 0), .2, 2.0, mat('stone', '#c8c0b0', .8), verts=14)
     for i in range(70):
         a = rr.uniform(0, 6.28); d = rr.uniform(20, 150); x, z = math.cos(a) * d, math.sin(a) * d
@@ -382,7 +391,7 @@ def lick_market():
     """Victorian London street market: cobbled street, flagstone pavements with kerbs, three-storey brick shopfronts with
     painted fascias and striped awnings on both sides, market stalls (trestles, crates of fruit and veg, striped
     canopies), gas lamps, flower baskets, a pub corner, distant church spire"""
-    cobbles([(-45, 0), (45, 0)], 8, base='#7a7068', name='mroad', s=.22)
+    cobble_road('mroad', -45, 45, -4, 4, base='#8e847a')
     for s in (-1, 1):
         stone_floor(-45, 45, s * 4 if s > 0 else -7, 7 if s > 0 else -4, base='#9a948a', name=f'mpave{s}')
         box(f'mkerb{s}', (0, .06, s * 4.05), (90, .14, .22), mat('stone', '#aaa498', .85), bev=.02)
