@@ -179,11 +179,11 @@ function timeline(): Shot[] {
     // S11 — "But what if a pigeon gets confused? Easy. Just put in three!": the shell melts away to the bare frame; orbit
     // reveals all three bays: keen, sleepy, confused
     { t0: T.but, t1: T.see, f: (t, _k) => {
-      const c = rig([{ t: T.but, pos: [.2, 1.5, 1.15], look: [.55, 1.3, 0], fov: 36 }, { t: T.see, pos: [.65, 1.45, 1.05], look: [.55, 1.3, 0], fov: 34 }], t);
+      const c = rig([{ t: T.but, pos: [.15, 1.45, 1.75], look: [.55, 1.3, 0], fov: 38 }, { t: T.see, pos: [.75, 1.42, 1.6], look: [.55, 1.3, 0], fov: 36 }], t);
       const three = ss(T.but + 1.6, T.but + 2.0, t);
       return { ...XRAY, cam: c, screen: { dx: .05, dy: 0, t, zoom: 1.2 },
         props: [{ id: 'cone', pos: XC, nodes: { shell: { vis: false }, cut: { vis: false }, hatch: { vis: false }, frame: { vis: false }, jacket0: { vis: false }, jacket1: { vis: false }, jacket2: { vis: false } } }],
-        actors: [0, 1, 2].map(i => { const show = i === 2 ? 1 : three; return bird(`b${i}`, bay(i), { sock: true, mood: (['keen', 'sleepy', 'confused'] as const)[i], dir: 1, blink: blinkAt(t, i + 1), peck: i === 0 ? peckCycle(t, 1.5) * .4 : 0, tilt: i === 2 ? Math.sin(t * 2) * .2 : 0 }, t, { contact: 0, scale: PB * 1.5 * Math.max(.001, show), shadow: false, res: 1300 }); }),
+        actors: [0, 1, 2].map(i => { const show = i === 2 ? 1 : three; return bird(`b${i}`, bay(i), { sock: true, mood: (['keen', 'sleepy', 'confused'] as const)[i], dir: 1, blink: blinkAt(t, i + 1), peck: i === 0 ? peckCycle(t, 1.5) * .4 : 0, tilt: i === 2 ? Math.sin(t * 2) * .2 : 0 }, t, { contact: 0, scale: PB * 1.15 * Math.max(.001, show), shadow: false, res: 1300 }); }),
         overlay: chip(three > .5 ? '3 PIGEONS • MAJORITY RULES' : 'CONFUSED?', 210, 1, three > .5 ? '#ffd23f' : '#ff7a59') };
     } },
     // S12 — "You see, it's like asking three friends for directions": crane down from the rooftops to the corner; two friends
@@ -244,11 +244,11 @@ const XRAY: Base = { set: 'none', sky: { top: '#16223c', mid: '#24365a', bot: '#
   lights: [{ p: [1.0, 1.9, .9], c: [1, .85, .65], i: 2.4, d: 4 }, { p: [-.6, 1.0, -1.2], c: [.45, .7, 1], i: 2.6, d: 4 }],
   fog: { color: '#1a2540', density: .04 }, grade: { ao: .8, aoRadius: .2, aoTint: [.3, .34, .55], sat: 1.15, contrast: 1.08, lift: [.02, .03, .07], gain: [1.03, 1.0, .97], bloom: .22, bloomTh: 1.6, vignette: .3 } };
 /** the pigeon's-eye view: from the bomb's nose diving at the real freighter, with an etched reticle and the pecking beak */
-function pov(t: number, u: number, drift: number, pk: number, extra = ''): Partial<Frame9> {
+function pov(_t: number, u: number, drift: number, pk: number, extra = ''): Partial<Frame9> {
   const ship: V3 = [42, 2, -70]; const P: V3 = [lerp(-20, 18, u) + drift * 3, lerp(70, 42, u), lerp(10, -30, u)];
-  const c = { pos: P, look: [ship[0] + drift * 6, ship[1], ship[2]] as V3, fov: 34 };
+  const c = { pos: P, look: [ship[0] + drift * 6, ship[1], ship[2]] as V3, fov: 46 };
   const ret = `<svg style="position:absolute;left:0;top:0" width="1080" height="1920"><g stroke="rgba(20,30,40,.65)" stroke-width="7" fill="none"><circle cx="540" cy="960" r="210"/><path d="M540 560 V880 M540 1040 V1360 M140 960 H460 M620 960 H940"/></g>
-    <circle cx="540" cy="960" r="560" fill="none" stroke="rgba(8,14,24,.85)" stroke-width="420"/></svg>`;
+    <circle cx="540" cy="960" r="1060" fill="none" stroke="rgba(8,14,24,.88)" stroke-width="1400"/><circle cx="540" cy="960" r="362" fill="none" stroke="#c79a45" stroke-width="22"/></svg>`;
   return { ...COAST, cam: c, fog: { color: '#c4daec', density: .0016 }, overlay: ret + beak(pk) + extra, grade: { ...COAST.grade, vignette: .4 } };
 }
 /** cartoon beak pecking up into the pigeon's-eye view */
