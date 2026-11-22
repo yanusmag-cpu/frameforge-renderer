@@ -189,8 +189,70 @@ elif film == 'xray':
     put(A['worst'] + 1.5, thud(.05, 220))
     put(A['ban'] - .05, stamp(.3))                                                              # the gavel
     put(A['fired'] - .05, servo(.05)); put(A['fired'] + .1, AC.hiss(.8, .03))
-mix = VO + SFX; fade = np.minimum(1, np.arange(N) / SR / .05) * (1 - np.clip((np.arange(N) / SR - 59.5) / .5, 0, 1)); mix *= fade
-mix = np.stack([mix, mix], 1)
+elif film == 'knock':
+    A = dict(paying=w('paying', 1, 5.4), before=w('before', 1, 7.2), human=w('human', 1, 10.4), see=w('see', 1, 17.3), until=w('until', 1, 23.6), customers=w('customers', 1, 27.0),
+             daughter=w('daughter', 1, 32.6), nobody=w('nobody', 1, 39.6), most=w('most', 1, 40.6))
+    for tp in (.9, 2.4, 3.6):                                                             # puff -> pea hits the glass
+        put(tp, bp(noise(.06), 600, 2400) * env(.06, .002, .03) * .05); put(tp + .55, click(.05, 3600))
+    put(A['paying'] - .1, creak(.04))                                                     # he bolts upright, bed creaks
+    steps(A['before'] + .3, A['human'] - .2, .48, 'stone', .03)                            # workers trudge to work
+    steps(A['human'] + .1, A['see'] - .2, .46, 'stone', .035)                              # her boots on the cobbles
+    for i in range(14): put(A['see'] + .3 + i * .42 + .05, click(.04, 3400 + (i % 3) * 300))   # pea after pea on the glass
+    put(A['until'] + .5, scrape2(.05))                                                    # the sash flies up
+    for tp in (A['daughter'] + 1.6,): put(tp, bp(noise(.06), 600, 2400) * env(.06, .002, .03) * .05); put(tp + .55, click(.05, 3600))
+elif film == 'pigcam':
+    A = dict(fly=w('fly', 1, 4.6), medicine=w('medicine', 1, 11.0), see=w('see', 1, 15.2), leaked=w('leaked', 1, 19.4), click=w('click', 1, 23.4), high=w('high', 1, 25.2),
+             photos=w('photos', 1, 30.0), dresden=w('dresden', 1, 33.4))
+    put(1.0, click(.035, 2400)); put(1.5, click(.03, 2000))                               # harness buckle clicks
+    flutter(A['fly'] - .05, 6, .08)                                                       # take-off
+    flutter(A['medicine'] - .8, 4, .06); put(A['medicine'] - .1, coo(.03))               # a pigeon lands on the sill
+    for i in range(6): put(A['see'] + .6 + i * .16, AC.airflow(.12, .03))                 # pumping the ball
+    put(A['leaked'], hp(noise(1.6), 3000) * gate(1.6, .1, .6) * .012)                     # slow hiss of escaping air
+    put(A['click'] - .02, click(.12, 2600)); put(A['click'] + .02, click(.06, 1500))      # the shutter fires
+    flutter(A['high'] + .1, 5, .05)
+    put(A['photos'] - .05, paper(.4, .04)); put(A['photos'] + .05, thud(.06, 180))        # photos slap on the desk
+    put(A['photos'] + 1.0, stamp(.25))                                                    # PATENT GRANTED
+    for i in range(3): flutter(A['dresden'] + .4 + i * .7, 3, .05)                        # birds land on the loft
+elif film == 'bath':
+    A = dict(this=w('this', 1, 5.6), back=w('back', 1, 8.0), changed=w('changed', 1, 14.0), once=w('once', 1, 17.5), canvas=w('canvas', 1, 23.4), andd=w('and', 3, 27.0),
+             dippers=w('dippers', 1, 31.0), twist=w('twist', 1, 40.6), when=w('when', 1, 46.4))
+    t = .1
+    while t < A['this'] - .2: put(t, thud(.035, 140)); t += .46                          # hooves on wet sand
+    put(.3, creak(.04)); put(1.6, creak(.035)); put(2.8, splash(.06)); put(3.6, splash(.08))   # wheels creak, surf
+    steps(A['back'] + .4, A['changed'] - .6, .5, 'wood', .04)                             # up the wooden steps
+    put(A['changed'] + .2, creak(.04)); put(A['changed'] + 1.3, creak(.035))
+    put(A['once'] + 1.2, creak(.05)); put(A['once'] + 1.9, splash(.07))                   # door opens, she steps in
+    put(A['canvas'] + .1, paper(.9, .03))                                                 # canvas hood unrolls
+    put(A['dippers'] + 1.1, splash(.14)); put(A['dippers'] + 2.1, splash(.12)); put(A['dippers'] + 2.3, blub(.04))   # DUNK
+    put(A['twist'], AC.airflow(.3, .05))                                                  # whip pan
+elif film == 'spit':
+    A = dict(inn=w('in', 2, 5.6), somebody=w('somebody', 1, 9.6), so=w('so', 1, 12.6), see=w('see', 1, 14.6), there=w('there', 1, 26.2), kitchens=w('kitchens', 2, 31.4), then=w('then', 1, 34.6), only=w('only', 1, 41.0))
+    def trot(t0, t1, every=.11, g=.018):
+        t = t0
+        while t < t1: put(t, click(g * R.uniform(.7, 1), 900)); t += every
+    def wheelclack(t0, t1, every=.36, g=.025):
+        t = t0
+        while t < t1: put(t, clack(g)); t += every
+    trot(0, A['inn']); wheelclack(0, A['inn'])                                            # paws on the treads + wheel slats
+    put(1.2, crackle(.6, .03)); put(3.4, crackle(.6, .03))                                # the fire under the roast (visible)
+    ratchet(A['inn'] + .6, A['so'] - .2, .42, .03)                                        # the boy cranks by hand
+    put(A['so'] + .6, thud(.03, 260)); trot(A['so'] + .7, A['see']); wheelclack(A['so'] + .7, A['see'])   # hops in, trots
+    trot(A['see'], A['there']); wheelclack(A['see'], A['there']); ratchet(A['see'] + 2.5, A['there'], .5, .02)   # chain links
+    trot(A['there'], A['kitchens'] + .2); put(A['kitchens'] + .9, thud(.03, 240))         # hops out by the hearth
+    ratchet(A['then'] + .1, A['only'] - .2, .09, .022)                                    # clockwork jack ticking
+elif film == 'lick':
+    A = dict(handed=w('handed', 1, 3.2), this=w('this', 2, 7.4), here=w("here's", 1, 14.2), wipe=w('wipe', 1, 24.6), banned=w('banned', 1, 32.4), agnes=w('agnes', 1, 37.0), edible=w('edible', 1, 39.6))
+    put(.5, bp(noise(.3), 2000, 6000) * gate(.3, .05, .1) * .02)                          # a long lick
+    put(A['handed'] + .4, clink(.05)); put(A['handed'] + 1.3, scrape2(.03)); put(A['handed'] + 1.6, clink(.04))   # glass back, scoop, glass out
+    steps(A['this'] + .2, A['here'] - .3, .5, 'stone', .02)                               # shoppers on the cobbles
+    put(A['here'] + .2, ping(.03))                                                        # the glass catches the light
+    put(A['wipe'], bp(noise(.5), 400, 1800) * gate(.5, .05, .2) * .04)                    # rag wipe
+    put(A['banned'] - .02, stamp(.34))
+    put(A['agnes'] + .4, paper(.5, .03))                                                  # the recipe page
+    put(A['edible'] + .3, bp(noise(.12), 1500, 5000) * env(.12, .002, .05) * .04)         # crunchy cone
+mix = VO + SFX; END_S = float(sys.argv[2]) if len(sys.argv) > 2 else 60.0
+fade = np.minimum(1, np.arange(N) / SR / .05) * (1 - np.clip((np.arange(N) / SR - (END_S - .5)) / .5, 0, 1)); mix *= fade
+mix = np.stack([mix[:int(END_S * SR)], mix[:int(END_S * SR)]], 1)
 for _ in range(6): mix = limit(norm_lufs(mix, -14.0), .74)
 write(out / 'bed.wav', mix); subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(out / 'bed.wav'), '-c:a', 'flac', str(out / 'bed.flac')], check=True); (out / 'bed.wav').unlink()
 print(film, 'lufs', round(lufs(mix), 2), 'peak', round(float(np.abs(mix).max()), 3))
