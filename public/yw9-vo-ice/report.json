@@ -1,44 +1,44 @@
 {
- "duration_s": 56.96,
- "words": 192,
- "words_per_s": 3.434,
- "longest_gap_s": 0.36,
- "active_pct": 84.9,
+ "duration_s": 59.88,
+ "words": 197,
+ "words_per_s": 3.349,
+ "longest_gap_s": 0.35,
+ "active_pct": 84.6,
  "passages": [
   {
    "file": "/tmp/takes/p0_0.wav",
-   "heard": "An officer pulls out a pistol and fires at a block of ice.  It shatters.  Then he fires at a second block, and the bullet bounces right off and zips past the admirals.",
+   "heard": "An officer pulls out a pistol and fires at a block of ice.  It shatters into pieces.  Then he fires at a second block and the bullet bounces right off and zips past the admirals.",
    "wer": 0.0,
-   "mos": 4.473,
-   "range_st": 11.98
+   "mos": 4.471,
+   "range_st": 9.34
   },
   {
    "file": "/tmp/takes/p1_2.wav",
-   "heard": "Because that's not normal ice, it's frozen with sawdust mixed in, it's World War II,  and German submarines are sinking ships in the middle of the Atlantic out where planes  can't reach.  So an inventor named Jeffrey Pike has a wild idea, build a floating airfield out of ice!",
+   "heard": "because that's not normal ice. It's frozen with sawdust mixed in. It's World War II,  and German submarines are sinking ships in the middle of the Atlantic, out where planes  can't reach. So an inventor named Jeffrey Pike has a wild idea. Build a floating airfield  out of ice.",
    "wer": 0.061,
-   "mos": 4.456,
-   "range_st": 13.0
+   "mos": 4.48,
+   "range_st": 11.8
   },
   {
-   "file": "/tmp/takes/p2_0.wav",
-   "heard": "Everyone says ice will just crack and melt.  As the story goes, a block was dropped into Winston Churchill's hot bath, and it barely  melted.  Then, the plan got bigger.  A ship 2,000 feet long, with walls 40 feet thick!",
-   "wer": 0.049,
-   "mos": 4.467,
-   "range_st": 14.64
+   "file": "/tmp/takes/p2_2.wav",
+   "heard": "everyone says ice will just crack and melt.  As the story goes, a block was dropped  into Winston Churchill's hot bath and it barely melted.  Then the plan got even bigger.  A ship 2,000 feet long with walls 40 feet thick.",
+   "wer": 0.048,
+   "mos": 4.248,
+   "range_st": 17.78
   },
   {
    "file": "/tmp/takes/p3_0.wav",
-   "heard": "You see, the sawdust works like the steel bars inside concrete.  The wood fibers hold the ice together so a crack can't spread.  Torpedo hole?  Just pump in seawater and let it freeze!",
-   "wer": 0.03,
-   "mos": 4.449,
-   "range_st": 15.02
+   "heard": "You see, the sawdust works like the steel bars inside concrete.  The wood fibers hold the ice together so a crack can't spread.  Torpedo hole?  Just pump in seawater and let it freeze solid.",
+   "wer": 0.029,
+   "mos": 4.478,
+   "range_st": 14.81
   },
   {
-   "file": "/tmp/takes/p4_1.wav",
-   "heard": "They actually built a test model on a lake in the Canadian Rockies, kept frozen by a  tiny motor, then the project was cancelled, and its remains are still sitting at the bottom  of that lake.",
+   "file": "/tmp/takes/p4_0.wav",
+   "heard": "They actually built a test model on a lake in the Canadian Rockies, kept frozen by a  tiny motor.  Then, the whole project was cancelled, and its remains are still sitting at the bottom  of that lake.",
    "wer": 0.0,
-   "mos": 4.476,
-   "range_st": 9.46
+   "mos": 4.482,
+   "range_st": 12.04
   }
  ]
 }
