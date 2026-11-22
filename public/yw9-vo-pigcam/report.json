@@ -1,0 +1,44 @@
+{
+ "duration_s": 42.54,
+ "words": 130,
+ "words_per_s": 3.134,
+ "longest_gap_s": 0.37,
+ "active_pct": 83.7,
+ "passages": [
+  {
+   "file": "/tmp/takes/p0_2.wav",
+   "heard": "This man is literally strapping a camera to a pigeon  and then he just lets it fly away.",
+   "wer": 0.0,
+   "mos": 4.426,
+   "range_st": 18.62
+  },
+  {
+   "file": "/tmp/takes/p1_2.wav",
+   "heard": "Julius Neubronner was a pharmacist in a little German town and his pigeons already delivered  his medicine, so he built a camera small enough for a bird to wear.",
+   "wer": 0.0,
+   "mos": 4.467,
+   "range_st": 14.45
+  },
+  {
+   "file": "/tmp/takes/p2_1.wav",
+   "heard": "You see, a tiny rubber ball was pumped full of air before takeoff.  As it slowly leaked, it worked like a timer, and when it went flat, click!  The shutter fired, high above the rooftops!",
+   "wer": 0.056,
+   "mos": 4.406,
+   "range_st": 12.68
+  },
+  {
+   "file": "/tmp/takes/p3_2.wav",
+   "heard": "The patent office said it was impossible, so he sent them the photos and got his patent.",
+   "wer": 0.0,
+   "mos": 4.436,
+   "range_st": 16.48
+  },
+  {
+   "file": "/tmp/takes/p4_2.wav",
+   "heard": "At a big exhibition in Dresden, crowds watched the pigeons land, and their aerial photos  were turned into postcards on the spot.  Some of them even show the pigeons' own wingtips!",
+   "wer": 0.032,
+   "mos": 4.457,
+   "range_st": 14.3
+  }
+ ]
+}
