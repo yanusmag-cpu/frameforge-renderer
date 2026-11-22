@@ -1,44 +1,44 @@
 {
- "duration_s": 60.6,
- "words": 185,
- "words_per_s": 3.107,
- "longest_gap_s": 0.36,
- "active_pct": 84.7,
+ "duration_s": 59.09,
+ "words": 181,
+ "words_per_s": 3.119,
+ "longest_gap_s": 0.38,
+ "active_pct": 84.2,
  "passages": [
   {
-   "file": "/tmp/takes/p0_0.wav",
+   "file": "/tmp/takes/p0_1.wav",
    "heard": "This kid is standing in a shoe shop with his feet inside an x-ray machine and he's staring  down at his own wiggling toe bones.  This was completely normal.",
    "wer": 0.0,
-   "mos": 4.508,
-   "range_st": 8.7
+   "mos": 4.479,
+   "range_st": 13.7
   },
   {
-   "file": "/tmp/takes/p1_0.wav",
-   "heard": "From the 1920s to the 1950s, lots of shoe shops had one of these.  You'd slide your feet into the slot at the bottom, look through the viewer on top, and  watch your bones move inside your new shoes.",
+   "file": "/tmp/takes/p1_2.wav",
+   "heard": "From the 1920s to the 1950s,  lots of shoe shops had one of these.  You'd slide your feet into the slot at the bottom,  look through the viewer on top,  and watch your bones move inside your new shoes.",
    "wer": 0.0,
-   "mos": 4.488,
-   "range_st": 12.03
+   "mos": 4.444,
+   "range_st": 14.2
   },
   {
    "file": "/tmp/takes/p2_0.wav",
-   "heard": "kids loved it. They begged to go shoe shopping just to see their skeletons. Parents trusted  it because it looked so scientific. But here's the problem. Between your feet and the x-ray  tube was a thin sheet of aluminium, about one millimeter thick.",
-   "wer": 0.068,
-   "mos": 4.502,
-   "range_st": 10.5
+   "heard": "kids loved it. They'd beg to go shoe shopping just to see their skeletons. Parents trusted  it because it looked so scientific. But here's the problem. Between your feet and the x-ray  tube was a thin sheet of aluminium, about one millimeter thick.",
+   "wer": 0.023,
+   "mos": 4.411,
+   "range_st": 13.2
   },
   {
    "file": "/tmp/takes/p3_2.wav",
-   "heard": "You see, it was like sunbathing your feet in radiation every time you tried on shoes,  and the people working there were exposed again and again all day long.  Worst of all, it didn't even help shoes fit better!",
+   "heard": "You see, it was like sunbathing your feet in radiation every time you tried on shoes,  and the staff were exposed again and again, all day long.  Worst of all, it didn't even help shoes fit better.",
    "wer": 0.0,
-   "mos": 4.448,
-   "range_st": 13.92
+   "mos": 4.367,
+   "range_st": 12.4
   },
   {
    "file": "/tmp/takes/p4_1.wav",
-   "heard": "In 1957, Pennsylvania became the first state to ban them.  By 1960, 34 states had.  So that magic machine in the shoe shop,  it was really just an advertisement  that fired x-rays at your feet.",
-   "wer": 0.054,
-   "mos": 4.466,
-   "range_st": 11.9
+   "heard": "In 1957, Pennsylvania became the first state to ban them.  By 1960, 34 states had, so that magic machine in the shoe shop?  It was an advertisement that fired x-rays at your feet.",
+   "wer": 0.057,
+   "mos": 4.458,
+   "range_st": 14.3
   }
  ]
 }
