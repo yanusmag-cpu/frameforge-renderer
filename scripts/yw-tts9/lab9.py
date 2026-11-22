@@ -152,11 +152,14 @@ python3 -m pip install -q --user --break-system-packages uv || curl -LsSf https:
 export PATH="$HOME/.local/bin:$PATH"
 git clone -q --depth 1 --branch v1.2.0 https://github.com/tarepan/SpeechMOS /tmp/SpeechMOS
 {setup}
-uv venv -q --seed -p 3.11 /tmp/e && VIRTUAL_ENV=/tmp/e uv pip install -q --python /tmp/e/bin/python torch --index-url https://download.pytorch.org/whl/cpu && VIRTUAL_ENV=/tmp/e uv pip install -q --python /tmp/e/bin/python 'transformers==4.57.1' librosa faster-whisper soundfile
+uv venv -q --seed -p 3.11 /tmp/e && VIRTUAL_ENV=/tmp/e uv pip install -q --python /tmp/e/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu && VIRTUAL_ENV=/tmp/e uv pip install -q --python /tmp/e/bin/python 'transformers==4.57.1' librosa faster-whisper soundfile
+for f in /tmp/raw_*.wav; do cp "$f" {OUT}/; done
 /tmp/e/bin/python /tmp/ev.py
 '''
 r = subprocess.run(['bash', '-c', sh], text=True); print('lab rc', r.returncode)
 for l in open(f'{OUT}/log.txt').read().splitlines():
     if l.startswith(('gen ', 'model ', 'repo fail')) or 'Error' in l or 'File "/tmp' in l: print('exported LOG', l[:300])
-if not os.path.isfile(f'{OUT}/report.json'): print('Error: lab produced no report'); raise SystemExit(1)
+import glob
+if not os.path.isfile(f'{OUT}/report.json'): print('exported LOG no report (scoring failed); raw audio kept')
+if not glob.glob(f'{OUT}/raw_*.wav'): print('Error: lab produced no audio'); raise SystemExit(1)
 print('ALL ASSETS DONE')
