@@ -20,7 +20,18 @@ QI = ["A young American man in his late twenties excitedly telling a friend an u
 QPLAIN = "An adult man reading a sentence in a flat, neutral, calm and unemotional voice."
 QEMO = "An adult man in total shocked disbelief, then laughing in amazement. Very excited and animated."
 jobs = []   # (name, kind, text_for_wer, payload)
-if ENGINE == 'orpheus':
+FINAL = ("Okay, so get this. A scientist is sliding a live pigeon into the nose of a bomb. Wait, what? Why would anyone do that? "
+         "Well, here's the crazy part. He's not getting rid of the pigeon. The pigeon is the pilot! It's gonna peck at a tiny screen "
+         "and steer the bomb by itself. And the government? They actually paid for it.")
+FORPH = FINAL.replace("bomb. Wait", "bomb. <gasp> Wait").replace("pilot! It's", "pilot! <laugh> It's")
+FQI = ("Speak like an excited guy telling his friend a crazy true story. Curious and playful at the start, shocked disbelief on 'Wait, what?', "
+       "a suspenseful lean-in on 'here's the crazy part', then laughing amazement on the reveal, and a cheeky grin on the last line. "
+       "Energetic, natural conversational rhythm, stress the key words, no long pauses.")
+if ENGINE == 'orpheus2':
+    for n, v in [('dan-a', 'dan'), ('dan-b', 'dan'), ('zac', 'zac'), ('leo', 'leo')]: jobs.append((f'orpheus-{n}', 'main', FINAL, {'voice': v, 'text': FORPH, 'seed': len(jobs)}))
+elif ENGINE == 'qwencv':
+    for n, sp in [('ryan-a', 'Ryan'), ('ryan-b', 'Ryan'), ('aiden-a', 'Aiden'), ('aiden-b', 'Aiden')]: jobs.append((f'qwen-{n}', 'main', FINAL, {'speaker': sp, 'instruct': FQI, 'text': FINAL, 'seed': len(jobs)}))
+elif ENGINE == 'orpheus':
     for v in ['leo', 'zac', 'dan']: jobs.append((f'orpheus-{v}', 'main', BASE, {'voice': v, 'text': ORPH}))
     jobs += [('ctl-plain', 'plain', CTRL, {'voice': 'leo', 'text': CTRL.replace('?', '.').replace('!', '.')}),
              ('ctl-emo', 'emo', CTRL, {'voice': 'leo', 'text': "<gasp> Wait. He wants the pigeon to fly the bomb?! <laugh> That's insane!"})]
@@ -37,7 +48,7 @@ import json, sys, time, numpy as np, soundfile as sf, torch
 from huggingface_hub import list_repo_files, hf_hub_download
 from llama_cpp import Llama
 from snac import SNAC
-E = sys.argv[1]; jobs = json.load(open('/tmp/jobs.json'))
+E = sys.argv[1].replace('orpheus2', 'orpheus'); jobs = json.load(open('/tmp/jobs.json'))
 REPOS = {'orpheus': ['unsloth/orpheus-3b-0.1-ft-GGUF', 'lex-au/Orpheus-3b-FT-Q8_0.gguf', 'isaiahbjork/orpheus-3b-0.1-ft-Q4_K_M-GGUF'], 'maya': ['Mungert/maya1-GGUF', 'eugenehp/maya1']}[E]
 path = None
 for r in REPOS:
@@ -47,7 +58,7 @@ for r in REPOS:
         m = [f for f in fs if q in f.lower() and 'imatrix' not in f.lower()]
         if m: path = hf_hub_download(r, sorted(m, key=len)[0]); break
     if path: print('model', r, path, flush=True); break
-llm = Llama(model_path=path, n_ctx=4096, n_threads=4, n_batch=256, verbose=False)
+llm = Llama(model_path=path, n_ctx=4096, n_threads=4, n_batch=256, verbose=False, seed=1234)
 snac = SNAC.from_pretrained('hubertsiuzdak/snac_24khz').eval()
 def toks(p):
     if E == 'orpheus': body = llm.tokenize(f"{p['voice']}: {p['text']}".encode(), add_bos=True, special=False)
@@ -55,7 +66,7 @@ def toks(p):
     return [128259] + body + [128009, 128260, 128261, 128257]
 meta = {}
 for name, kind, ref, p in jobs:
-    t0 = time.time(); llm.reset(); out = []
+    t0 = time.time(); llm.reset(); out = []; llm.set_seed(1234 + 97 * p.get('seed', 0)) if hasattr(llm, 'set_seed') else None
     temp, top_p = (.6, .8) if E == 'orpheus' else (.4, .9)
     for i, t in enumerate(llm.generate(toks(p), temp=temp, top_p=top_p, top_k=50, repeat_penalty=1.1, reset=True)):
         if t in (128258, 128009) or len(out) > 2700: break
@@ -72,11 +83,17 @@ qwen_gen = textwrap.dedent(r'''
 import json, time, torch, numpy as np, soundfile as sf
 from qwen_tts import Qwen3TTSModel
 torch.set_num_threads(4); jobs = json.load(open('/tmp/jobs.json'))
-m = Qwen3TTSModel.from_pretrained('Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign', device_map='cpu', dtype=torch.float32)
+CV = any('speaker' in j[3] for j in jobs)
+m = Qwen3TTSModel.from_pretrained('Qwen/Qwen3-TTS-12Hz-1.7B-' + ('CustomVoice' if CV else 'VoiceDesign'), device_map='cpu', dtype=torch.float32)
+for a in ('get_supported_speakers', 'get_speakers', 'supported_speakers'):
+    if hasattr(m, a): v = getattr(m, a); print('gen speakers', v() if callable(v) else v, flush=True)
 meta = {}
 for name, kind, ref, p in jobs:
-    t0 = time.time(); torch.manual_seed(11)
-    w, sr = m.generate_voice_design(text=p['text'], language='English', instruct=p['instruct'])
+    t0 = time.time(); torch.manual_seed(11 + 31 * p.get('seed', 0))
+    try:
+        if 'speaker' in p: w, sr = m.generate_custom_voice(text=p['text'], language='English', speaker=p['speaker'], instruct=p['instruct'])
+        else: w, sr = m.generate_voice_design(text=p['text'], language='English', instruct=p['instruct'])
+    except Exception as e: print('gen FAIL', name, repr(e)[:250], flush=True); continue
     a = np.asarray(w[0], np.float32); sf.write(f'/tmp/raw_{name}.wav', a, sr); meta[name] = {'gen_s': round(time.time() - t0, 1), 'sr': sr}
     print('gen', name, meta[name], flush=True); json.dump(meta, open('/tmp/genmeta.json', 'w'))
 json.dump(meta, open('/tmp/genmeta.json', 'w'))
@@ -139,7 +156,7 @@ json.dump(rep, open('OUT/report.json', 'w'), indent=1)
 ''').replace('OUT', OUT)
 open('/tmp/llama_gen.py', 'w').write(llama_gen); open('/tmp/qwen_gen.py', 'w').write(qwen_gen); open('/tmp/ev.py', 'w').write(ev)
 EV = ""
-if ENGINE == 'qwen':
+if ENGINE in ('qwen', 'qwencv'):
     setup = f"uv venv -q --seed -p 3.12 /tmp/v && VIRTUAL_ENV=/tmp/v uv pip install -q --python /tmp/v/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu && VIRTUAL_ENV=/tmp/v uv pip install -q --python /tmp/v/bin/python qwen-tts\n/tmp/v/bin/python /tmp/qwen_gen.py"
 else:
     setup = (f"uv venv -q --seed -p 3.11 /tmp/v && VIRTUAL_ENV=/tmp/v uv pip install -q --python /tmp/v/bin/python torch --index-url https://download.pytorch.org/whl/cpu && "
