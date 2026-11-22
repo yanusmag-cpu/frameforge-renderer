@@ -65,7 +65,7 @@ for name, kind, ref, p in jobs:
     for i in range(0, n, 7): l2 += [c[i+1] % 4096, c[i+4] % 4096]; l3 += [c[i+2] % 4096, c[i+3] % 4096, c[i+5] % 4096, c[i+6] % 4096]
     with torch.inference_mode(): a = snac.decoder(snac.quantizer.from_codes([torch.tensor([l]) for l in (l1, l2, l3)]))[0, 0].numpy()
     a = a[2048:]; sf.write(f'/tmp/raw_{name}.wav', a, 24000); meta[name] = {'gen_s': round(time.time() - t0, 1), 'tokens': n}
-    print('gen', name, meta[name], flush=True)
+    print('gen', name, meta[name], flush=True); json.dump(meta, open('/tmp/genmeta.json', 'w'))
 json.dump(meta, open('/tmp/genmeta.json', 'w'))
 ''')
 qwen_gen = textwrap.dedent(r'''
@@ -78,7 +78,7 @@ for name, kind, ref, p in jobs:
     t0 = time.time(); torch.manual_seed(11)
     w, sr = m.generate_voice_design(text=p['text'], language='English', instruct=p['instruct'])
     a = np.asarray(w[0], np.float32); sf.write(f'/tmp/raw_{name}.wav', a, sr); meta[name] = {'gen_s': round(time.time() - t0, 1), 'sr': sr}
-    print('gen', name, meta[name], flush=True)
+    print('gen', name, meta[name], flush=True); json.dump(meta, open('/tmp/genmeta.json', 'w'))
 json.dump(meta, open('/tmp/genmeta.json', 'w'))
 ''')
 ev = textwrap.dedent(r'''
@@ -90,11 +90,12 @@ class Head(nn.Module):
     def __init__(s, c): super().__init__(); s.dense = nn.Linear(c.hidden_size, c.hidden_size); s.dropout = nn.Dropout(c.final_dropout); s.out_proj = nn.Linear(c.hidden_size, c.num_labels)
     def forward(s, x): return s.out_proj(s.dropout(torch.tanh(s.dense(s.dropout(x)))))
 class Emo(Wav2Vec2PreTrainedModel):
-    def __init__(s, c): super().__init__(c); s.config = c; s.wav2vec2 = Wav2Vec2Model(c); s.classifier = Head(c); s.init_weights()
+    def __init__(s, c): super().__init__(c); s.config = c; s.wav2vec2 = Wav2Vec2Model(c); s.classifier = Head(c); s.post_init()
     def forward(s, x): return s.classifier(torch.mean(s.wav2vec2(x)[0], dim=1))
 EM = 'audeering/wav2vec2-large-robust-12-ft-emotion-msp-dim'; proc = Wav2Vec2Processor.from_pretrained(EM); emo = Emo.from_pretrained(EM).eval()
 pred = torch.hub.load('/tmp/SpeechMOS', 'utmos22_strong', source='local', trust_repo=True); wm = WhisperModel('small.en', device='cpu', compute_type='int8')
-jobs = json.load(open('/tmp/jobs.json')); gm = json.load(open('/tmp/genmeta.json')); SR = 24000
+import os
+jobs = json.load(open('/tmp/jobs.json')); gm = json.load(open('/tmp/genmeta.json')) if os.path.isfile('/tmp/genmeta.json') else {}; SR = 24000
 norm = lambda s: re.sub(r"[^a-z' ]", ' ', s.lower()).split()
 def wer(a, b):
     d = list(range(len(b) + 1))
@@ -114,6 +115,8 @@ def squeeze(y):   # only shortens pauses longer than 0.45 s to 0.3 s; never leng
     return np.concatenate(out), n, max(gaps or [0])
 rep = {}
 for name, kind, ref, p in jobs:
+    import os
+    if not os.path.isfile(f'/tmp/raw_{name}.wav'): rep[name] = {'kind': kind, 'error': 'not generated'}; continue
     y, _ = librosa.load(f'/tmp/raw_{name}.wav', sr=SR)
     if len(y) < SR: rep[name] = {'kind': kind, 'error': 'empty'}; continue
     y = librosa.effects.trim(y, top_db=40)[0]; y, nsq, gap0 = squeeze(y)
@@ -135,13 +138,13 @@ for name, kind, ref, p in jobs:
 json.dump(rep, open('OUT/report.json', 'w'), indent=1)
 ''').replace('OUT', OUT)
 open('/tmp/llama_gen.py', 'w').write(llama_gen); open('/tmp/qwen_gen.py', 'w').write(qwen_gen); open('/tmp/ev.py', 'w').write(ev)
-EV = "librosa faster-whisper transformers soundfile"
+EV = ""
 if ENGINE == 'qwen':
-    setup = f"uv venv -q --seed -p 3.12 /tmp/v && VIRTUAL_ENV=/tmp/v uv pip install -q --python /tmp/v/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu && VIRTUAL_ENV=/tmp/v uv pip install -q --python /tmp/v/bin/python qwen-tts {EV}\n/tmp/v/bin/python /tmp/qwen_gen.py"
+    setup = f"uv venv -q --seed -p 3.12 /tmp/v && VIRTUAL_ENV=/tmp/v uv pip install -q --python /tmp/v/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu && VIRTUAL_ENV=/tmp/v uv pip install -q --python /tmp/v/bin/python qwen-tts\n/tmp/v/bin/python /tmp/qwen_gen.py"
 else:
     setup = (f"uv venv -q --seed -p 3.11 /tmp/v && VIRTUAL_ENV=/tmp/v uv pip install -q --python /tmp/v/bin/python torch --index-url https://download.pytorch.org/whl/cpu && "
              f"(VIRTUAL_ENV=/tmp/v uv pip install -q --python /tmp/v/bin/python llama-cpp-python --only-binary=:all: --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu || VIRTUAL_ENV=/tmp/v CMAKE_ARGS='-DGGML_NATIVE=ON' uv pip install -q --python /tmp/v/bin/python llama-cpp-python) && "
-             f"VIRTUAL_ENV=/tmp/v uv pip install -q --python /tmp/v/bin/python snac huggingface_hub {EV}\n/tmp/v/bin/python /tmp/llama_gen.py {ENGINE}")
+             f"VIRTUAL_ENV=/tmp/v uv pip install -q --python /tmp/v/bin/python snac huggingface_hub soundfile\n/tmp/v/bin/python /tmp/llama_gen.py {ENGINE}")
 sh = f'''exec > >(tee -a {OUT}/log.txt) 2>&1
 set -x
 sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /opt/hostedtoolcache/CodeQL; df -h / | tail -1; nproc; free -g | head -2
@@ -149,8 +152,11 @@ python3 -m pip install -q --user --break-system-packages uv || curl -LsSf https:
 export PATH="$HOME/.local/bin:$PATH"
 git clone -q --depth 1 --branch v1.2.0 https://github.com/tarepan/SpeechMOS /tmp/SpeechMOS
 {setup}
-/tmp/v/bin/python /tmp/ev.py
+uv venv -q --seed -p 3.11 /tmp/e && VIRTUAL_ENV=/tmp/e uv pip install -q --python /tmp/e/bin/python torch --index-url https://download.pytorch.org/whl/cpu && VIRTUAL_ENV=/tmp/e uv pip install -q --python /tmp/e/bin/python 'transformers==4.57.1' librosa faster-whisper soundfile
+/tmp/e/bin/python /tmp/ev.py
 '''
 r = subprocess.run(['bash', '-c', sh], text=True); print('lab rc', r.returncode)
+for l in open(f'{OUT}/log.txt').read().splitlines():
+    if l.startswith(('gen ', 'model ', 'repo fail')) or 'Error' in l or 'File "/tmp' in l: print('exported LOG', l[:300])
 if not os.path.isfile(f'{OUT}/report.json'): print('Error: lab produced no report'); raise SystemExit(1)
 print('ALL ASSETS DONE')
