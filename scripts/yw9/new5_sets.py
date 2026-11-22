@@ -339,6 +339,24 @@ def spit_props():
             u = (k + .5) / n
             box(f'anim:chain{"a" if side < 0 else "b"}.l{k}', (WX - .38, y0 + (y1 - y0) * u, z0_ + (z1_ - z0_) * u), (.02, .06, .025), iron, bev=0)
     turnspit_dog()
+    # clockwork roasting jack (the replacement): brass-and-iron box on a bracket left of the hearth, a falling weight on
+    # a cord, the fly (governor) fan on top, and its own pulley driving the spit from the other end
+    jx, jy, jz = -2.55, 2.0, -2.3; br = mat('brass', '#c9a24a', .3, .85)
+    box('anim:jack.box', (jx, jy, jz), (.34, .3, .26), br, bev=.02); box('anim:jack.bracket', (jx, jy - .22, jz - .1), (.4, .05, .4), iron, bev=.01)
+    for k in range(4): box(f'anim:jack.fan.f{k}', (jx, jy + .3, jz), (.3, .02, .06), br, bev=0, rot=(0, k * .785, 0))
+    cyl('anim:jack.spindle', (jx, jy + .22, jz), .012, .16, iron, verts=6)
+    tube('anim:jack.cord', [(jx + .1, jy - .15, jz), (jx + .1, .9, jz)], .006, mat('fabric', '#c8a868', .9), verts=4)
+    cyl('anim:jack.weight', (jx + .1, .8, jz), .07, .22, iron, verts=14)
+    cyl('anim:jack.pulley', (-2.3, SY, SZ), .12, .04, br, axis='x', verts=20)
+    tube('anim:jack.belt', [(jx + .05, jy - .1, jz), (-2.3, SY + .12, SZ)], .008, mat('fabric', '#5a3a22', .8), verts=4)
+    # museum display case (shown only in the last shot): wooden plinth, painted blue backdrop, glass front, flowers
+    cx, cy, cz = 0.0, 0.0, 6.0
+    box('anim:case.plinth', (cx, .45, cz), (1.0, .9, .7), mat('plank', '#5a3018', .5), bev=.02)
+    box('anim:case.back', (cx, 1.25, cz - .32), (.96, .7, .04), mat('paint', '#6a9ad0', .7), bev=0)
+    box('anim:case.glass', (cx, 1.25, cz + .33), (.98, .72, .01), mat('glass', '#e8f0f4', .03), bev=0)
+    for s_ in (-1, 1): box(f'anim:case.side{s_}', (cx + s_ * .49, 1.25, cz), (.02, .72, .68), mat('glass', '#e8f0f4', .03), bev=0)
+    box('anim:case.top', (cx, 1.62, cz), (1.0, .04, .7), mat('plank', '#5a3018', .5), bev=.01)
+    for k in range(5): sphere(f'anim:case.fl{k}', (cx - .35 + k * .17, 1.0 + (k % 2) * .08, cz - .25), .03, mat('paint', ['#e8405a', '#f2d24a', '#f6f1e2', '#c95a8f', '#e8405a'][k], .5))
 
 
 def turnspit_dog():
@@ -401,6 +419,10 @@ def lick_props():
     cyl('bar.leg', (-.7, .4, 0), .03, .8, mat('plank', '#6a4a2e', .7), verts=6)
     for k in range(6): glass(f'bar.g{k}', .55 - k * .2, 1.33, .3, s=1.0)
     glass('anim:hero', 0, 0, 0, s=5.0, scoop=True)
+    # Agnes Marshall's cornet (shown at 2x for the reveal): baked cone with a lattice and a scoop on top
+    cyl('anim:cone.c', (0, 1.6, 2.0), .07, .26, mat('paint', '#d8a050', .6), verts=24, r2=.004)
+    for k in range(6): box(f'anim:cone.l{k}', (0, 1.6, 2.0), (.005, .26, .145), mat('paint', '#b8803a', .6), bev=0, rot=(0, k * .52, .27))
+    blob('anim:cone.ice', (0, 1.77, 2.0), .075, mat('paint', '#f6e8c8', .6), sc=(1, .85, 1), sub=3, rough=.08, seed=5)
 
 
 def glass(name, x, y, z, s=1.0, scoop=False):
