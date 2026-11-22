@@ -78,6 +78,23 @@ const SURF: Record<string, (b: number[], seed: number) => Draw> = {
     noiseFill(g, 512, 512, b, 3000, .9, [1, 2.5], seed + 3, .4);
     return { col, hgt };
   },
+  ice(b, seed) {     // clear cold ice: cyan depth mottling, white fracture lines, frosty speckle
+    const col = mk(), hgt = mk(); const g = col.getContext('2d')!, q = hgt.getContext('2d')!; const R = rng(seed);
+    g.fillStyle = css(b); g.fillRect(0, 0, 512, 512); q.fillStyle = '#808080'; q.fillRect(0, 0, 512, 512);
+    for (let i = 0; i < 140; i++) { g.fillStyle = css(b, .85 + R() * .3, .25); g.beginPath(); g.arc(R() * 512, R() * 512, 20 + R() * 70, 0, 7); g.fill(); }
+    for (let i = 0; i < 14; i++) { g.strokeStyle = `rgba(255,255,255,${.35 + R() * .4})`; q.strokeStyle = '#333'; g.lineWidth = q.lineWidth = 1 + R() * 2; let x = R() * 512, y = R() * 512; g.beginPath(); q.beginPath(); g.moveTo(x, y); q.moveTo(x, y);
+      for (let k = 0; k < 7; k++) { x += (R() - .5) * 90; y += (R() - .5) * 90; g.lineTo(x, y); q.lineTo(x, y); } g.stroke(); q.stroke(); }
+    noiseFill(g, 512, 512, [255, 255, 255], 2500, .2, [1, 2.5], seed + 4, .35);
+    return { col, hgt };
+  },
+  pykrete(b, seed) { // frozen wood pulp: beige-grey ice packed with short fibres
+    const col = mk(), hgt = mk(); const g = col.getContext('2d')!, q = hgt.getContext('2d')!; const R = rng(seed);
+    g.fillStyle = css(b); g.fillRect(0, 0, 512, 512); q.fillStyle = '#808080'; q.fillRect(0, 0, 512, 512);
+    for (let i = 0; i < 2600; i++) { const x = R() * 512, y = R() * 512, a = R() * 3.14, l = 4 + R() * 12; g.strokeStyle = `rgba(${130 + R() * 60},${95 + R() * 40},${50 + R() * 30},.65)`; g.lineWidth = 1 + R() * 1.5;
+      g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke(); q.strokeStyle = '#aaa'; q.beginPath(); q.moveTo(x, y); q.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); q.stroke(); }
+    noiseFill(g, 512, 512, [240, 248, 252], 1500, .2, [2, 6], seed + 1, .25);
+    return { col, hgt };
+  },
   pave(b, seed) {    // flagstone paving slabs (0.6 m), dark joints, per-slab tone, worn speckle
     const col = mk(), hgt = mk(); const g = col.getContext('2d')!, q = hgt.getContext('2d')!; const R = rng(seed);
     g.fillStyle = css(b, .55); g.fillRect(0, 0, 512, 512); q.fillStyle = '#222'; q.fillRect(0, 0, 512, 512);
@@ -115,10 +132,10 @@ const SURF: Record<string, (b: number[], seed: number) => Draw> = {
   },
   paint(b, seed) { const col = mk(128, 128), hgt = mk(128, 128); const g = col.getContext('2d')!; g.fillStyle = css(b); g.fillRect(0, 0, 128, 128); noiseFill(g, 128, 128, b, 160, .12, [2, 8], seed, .3); hgt.getContext('2d')!.fillStyle = '#888'; hgt.getContext('2d')!.fillRect(0, 0, 128, 128); return { col, hgt }; },
 };
-SURF.brass = SURF.metal; SURF.rubber = SURF.paint;
-const ROUGH: Record<string, number> = { pave: .85, brick: .92, plank: .58, bark: .9, stone: .82, cobble: .78, tile: .22, plaster: .93, roof: .8, metal: .38, brass: .3, fabric: .95, paper: .9, leaf: .85, terrain: .95, paint: .52, rubber: .85 };
+SURF.brass = SURF.metal; SURF.rubber = SURF.paint; SURF.snow = SURF.plaster;
+const ROUGH: Record<string, number> = { ice: .18, pykrete: .6, snow: .95, pave: .85, brick: .92, plank: .58, bark: .9, stone: .82, cobble: .78, tile: .22, plaster: .93, roof: .8, metal: .38, brass: .3, fabric: .95, paper: .9, leaf: .85, terrain: .95, paint: .52, rubber: .85 };
 const METAL: Record<string, number> = { metal: .45, brass: .75 };
-const NRM: Record<string, number> = { pave: 2.0, brick: 2.6, plank: 1.2, bark: 2.5, stone: 1.6, cobble: 3.2, plaster: .8, fabric: 1.0, leaf: 1.4, terrain: 1.6 };
+const NRM: Record<string, number> = { ice: 1.2, pykrete: 1.4, pave: 2.0, brick: 2.6, plank: 1.2, bark: 2.5, stone: 1.6, cobble: 3.2, plaster: .8, fabric: 1.0, leaf: 1.4, terrain: 1.6 };
 const SCALE: Record<string, number> = { terrain: .5, leaf: 1.5, tile: 1, roof: 1, paint: 1 };
 
 /** dress one GLB material in place; returns the replacement material */
@@ -139,7 +156,7 @@ export function surface(m: T.Material, env: T.Texture, special: (tag: string, he
   }
   const hasCol = !!mesh.geometry.getAttribute('color');
   return new T.MeshStandardMaterial({ map: tx.map, normalMap: tx.nrm ?? undefined, normalScale: new T.Vector2(1, 1), vertexColors: hasCol, roughness: ROUGH[tag] ?? .7, metalness: METAL[tag] ?? 0,
-    envMap: env, envMapIntensity: tag === 'metal' || tag === 'brass' ? 1.4 : .55, side: tag === 'terrain' || tag === 'leaf' ? T.FrontSide : T.DoubleSide, name: m.name });
+    envMap: env, envMapIntensity: tag === 'metal' || tag === 'brass' ? 1.4 : tag === 'ice' ? 1.6 : .55, side: tag === 'terrain' || tag === 'leaf' ? T.FrontSide : T.DoubleSide, name: m.name });
 }
 
 /** remap a mesh's UVs to 0..1 over its own bounds (for boards, maps, signs, screens drawn as one picture) */

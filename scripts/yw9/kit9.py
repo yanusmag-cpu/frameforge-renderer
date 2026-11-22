@@ -651,5 +651,47 @@ def fence(name, pts, h=1.0, col='#8d6a46', gap=2.0):
         for yy in (h * .35, h * .8): box(f'{name}.rail', ((ax + bx) / 2, yy, (az + bz) / 2), (ln, .08, .04), m, bev=.008, rot=(0, -ang, 0))
 
 
+def ship(x, z, y=0.0, rot=0.0, name='ship'):
+    """1940s cargo freighter (target): shaped hull with sheer and flared bow, red boot-top, deck, hatches, white bridge
+    with windows, funnel with band, masts, booms, rails, lifeboats"""
+    Lh, B, Dh = 58.0, 9.0, 5.0
+    bm = bmesh.new(); prof = []
+    n = 22
+    for i in range(n + 1):
+        u = i / n; xx = -Lh / 2 + Lh * u; wid = B / 2 * (1 - max(0, (u - .78) / .22) ** 1.6 * .97) * (1 - max(0, (.08 - u) / .08) ** 2 * .35)
+        sheer = Dh + (u - .5) ** 2 * 2.2
+        prof.append((xx, wid, sheer))
+    rows = []
+    for (xx, wid, sh) in prof:
+        ring = [bm.verts.new(L(xx, -1.5, -wid * .82)), bm.verts.new(L(xx, -.2, -wid)), bm.verts.new(L(xx, sh, -wid * 1.02)), bm.verts.new(L(xx, sh, wid * 1.02)), bm.verts.new(L(xx, -.2, wid)), bm.verts.new(L(xx, -1.5, wid * .82))]
+        rows.append(ring)
+    for a_, b_ in zip(rows[:-1], rows[1:]):
+        for i in range(5): bm.faces.new((a_[i], a_[i + 1], b_[i + 1], b_[i]))
+    me = bpy.data.meshes.new(f'{name}.hull'); bm.to_mesh(me); bm.free()
+    hull = _obj(f'{name}.hull', me); hull.data.materials.append(mat('paint', '#3b4048', .55))
+    for f_ in me.polygons: f_.use_smooth = True
+    box(f'{name}.boot', (0, .25, 0), (Lh * .96, .9, B * 1.01), mat('paint', '#a8322a', .6), bev=.1)
+    box(f'{name}.deck', (0, Dh - .1, 0), (Lh * .95, .2, B * .98), mat('plank', '#a68a62', .7), bev=.02)
+    wh = mat('paint', '#ecebe4', .5)
+    for k, (xx, w_, d_, hh) in enumerate([(-14, 12, 8, 3), (-14.5, 9, 7, 2.6), (-15, 6, 6, 2.2)]):
+        yb = Dh + sum([3, 2.6, 2.2][:k]); box(f'{name}.house{k}', (xx, yb + hh / 2, 0), (w_, hh, d_), wh, bev=.06)
+        for j in range(int(w_ / 1.2)):
+            box(f'{name}.port{k}{j}', (xx - w_ / 2 + .6 + j * 1.2, yb + hh * .6, d_ / 2 + .01), (.7, .7, .02), mat('glass', '#2a3e4a', .1), bev=0)
+            box(f'{name}.port{k}{j}b', (xx - w_ / 2 + .6 + j * 1.2, yb + hh * .6, -d_ / 2 - .01), (.7, .7, .02), mat('glass', '#2a3e4a', .1), bev=0)
+    cyl(f'{name}.funnel', (-15, Dh + 9.5, 0), 1.4, 4.4, mat('paint', '#d4a033', .5), verts=28, r2=1.3)
+    cyl(f'{name}.funtop', (-15, Dh + 11.9, 0), 1.32, .9, mat('paint', '#202224', .6), verts=28)
+    for k, xx in enumerate((8, 20)):
+        cyl(f'{name}.mast{k}', (xx, Dh + 6, 0), .2, 12, mat('paint', '#d9d6cc', .5), verts=12)
+        box(f'{name}.hatch{k}', (xx - 4, Dh + .5, 0), (6, 1.0, 5), mat('paint', '#5e6a58', .6), bev=.06)
+        for s in (-1, 1): tube(f'{name}.boom{k}{s}', [(xx, Dh + 2, 0), (xx - 6, Dh + 6.5, s * 1.5)], .12, mat('paint', '#d9d6cc', .5))
+    for s in (-1, 1):
+        tube(f'{name}.rail{s}', [(-Lh * .45, Dh + 1, s * B * .48), (Lh * .4, Dh + 1, s * B * .48)], .04, wh)
+        for k in range(2):
+            blob(f'{name}.boat{s}{k}', (-12 - k * 4, Dh + 3.6, s * 4.4), 1.0, mat('paint', '#f0efe8', .5), sc=(1.9, .45, .6), sub=2, rough=.02)
+    objs = [o for o in COLL.objects if o.name.startswith(name)]
+    for o in objs:
+        o.location = (o.location.x + x, o.location.y - z, o.location.z + y)
+
+
 def scatter_json(path, data):
     Path(path).parent.mkdir(parents=True, exist_ok=True); json.dump(data, open(path, 'w'), separators=(',', ':')); print('exported', path, flush=True)
