@@ -77,7 +77,7 @@ def street():
         for i in range(7):
             pc, aw = SH[(i + (side > 0) * 3) % len(SH)]
             house(f'st{side}{i}', -36 + i * 12, side * 13.2, 11, 8, floors=2, fh=3.4, plaster=pc, roof='#5a5a5e', trim='#f4f0e6', door_col=aw,
-                  facing=-side, shop=aw, sign=True, lit=.8, seed=80 + i + (side > 0) * 10, chimney=False)
+                  facing=-side, shop=aw, sign=aw, lit=.8, seed=80 + i + (side > 0) * 10, chimney=False)
     for i, (x, s, c) in enumerate([(-20, -1, '#3f7ab0'), (-12, -1, '#c43d33'), (6, -1, '#7ab0a0'), (-4, 1, '#e8c84a'), (16, 1, '#2f4f6a'), (26, -1, '#e8e0d0')]):
         car_model(f'car{i}', x, s * 3.4, col=c, rot=0 if s < 0 else math.pi)
     for i in range(8):
