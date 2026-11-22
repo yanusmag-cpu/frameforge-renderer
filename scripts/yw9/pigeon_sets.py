@@ -75,7 +75,7 @@ def nose_cone(prefix='', cut=True, at=(0, 0, 0)):
     # three bays: pigeon jacket (cloth sleeve), screen on a gimbal, pickup pads, tubes to the valve block
     for k in range(3):
         a = math.pi / 2 + k * 2 * math.pi / 3; y, z = math.cos(a) * .2, math.sin(a) * .2
-        cyl(f'{prefix}jacket{k}', P(.55, y, z), .07, .28, mat('fabric', '#c9b48a', .95), axis='x', verts=16)
+        cyl(f'anim:{prefix}jacket{k}', P(.55, y, z), .07, .28, mat('fabric', '#c9b48a', .95), axis='x', verts=16)
         cyl(f'{prefix}gimbal{k}', P(.88, y, z), .13, .02, brass, axis='x', verts=32)
         box(f'anim:{prefix}screen{k}', P(.9, y, z), (.012, .19, .19), mat('screen', '#d7f0ff', .3), bev=.004)
         for j in range(4):

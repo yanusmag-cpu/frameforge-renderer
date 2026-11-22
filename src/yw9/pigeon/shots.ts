@@ -84,10 +84,10 @@ function timeline(): Shot[] {
   return [
     // S1 — hook: low behind Skinner's shoulder, orbit round to his hands lowering the sock-jacketed pigeon into the hatch
     { t0: 0, t1: T.no, f: (t, _k) => {
-      const c = rig([{ t: 0, pos: [-1.05, 1.05, 2.7], look: [-.4, 1.5, .2], fov: 44 }, { t: 1.8, pos: [.2, 1.35, 2.2], look: [-.38, 1.52, .25], fov: 40 }, { t: T.no, pos: [1.05, 1.55, 1.3], look: [-.32, 1.52, .3], fov: 36 }], t);
-      const sp: V3 = [-.32, 0, .66]; const fc = facing(sp, Math.PI, c.pos); const lower = ss(.8, 3.2, t);
+      const c = rig([{ t: 0, pos: [-2.1, 1.75, 3.6], look: [-.4, 1.45, .1], fov: 42 }, { t: 1.8, pos: [.6, 1.6, 2.6], look: [-.38, 1.5, .25], fov: 38 }, { t: T.no, pos: [1.05, 1.55, 1.3], look: [-.32, 1.52, .3], fov: 36 }], t);
+      const sp: V3 = [.2, 0, .72]; const fc = facing(sp, Math.PI, c.pos); const lower = ss(.8, 3.2, t);
       return { ...LAB, cam: c, props: [cone(t, { hatch: 1 })],
-        actors: [act('skinner', SKINNER, sp, pose({ ...fc, lean: .1, handA: [.75, -3.5 - .25 * (1 - lower)], handB: [.98, -3.55 - .25 * (1 - lower)], shapeA: 'grip', shapeB: 'grip', frontA: 1, frontB: 1, headTilt: .12 }, t, .3),
+        actors: [act('skinner', SKINNER, sp, pose({ ...fc, lean: .1, handA: [-.95, -3.5 - .25 * (1 - lower)], handB: [-.7, -3.55 - .25 * (1 - lower)], shapeA: 'grip', shapeB: 'grip', frontA: 1, frontB: 1, headTilt: .12 }, t, .3),
           expr('focused', 'happy', .35), t, { rim: '#ffcf96', rimSide: -1 }),
           bird('p1', [HATCH[0], HATCH[1] - .1 + .14 * (1 - lower), HATCH[2] + .12 + .1 * (1 - lower)], { sock: true, mood: 'keen', blink: blinkAt(t, 1), gx: -.6, dir: -1, bob: Math.sin(t * 5) * .4 }, t, { contact: 0, res: 1300 })],
         grade: { ...LAB.grade, aperture: .5, focus: 1.6 } };
@@ -119,7 +119,7 @@ function timeline(): Shot[] {
     // as he carries the box down the committee room; the officials turn to look
     { t0: T.so, t1: T.officials, f: (t, k) => {
       const wk = at(t, T.so, T.officials - 1.0); const sx = lerp(3.6, .9, ease.inOut(wk)); const sp: V3 = [sx, 0, 2.15];
-      const c = { pos: [sx + .9, 1.45, 4.4] as V3, look: [sx - 1.3, 1.25, .6] as V3, fov: 42 };
+      const c = { pos: [sx + 1.4, 1.55, 5.3] as V3, look: [sx - 1.5, 1.2, .3] as V3, fov: 42 };
       const walking = wk < 1; const p = walking ? walkPose((t - T.so) * 1.6, -1, { turn: -1 }) as Pose : pose({ turn: -.4 }, t);
       const set = ss(T.officials - 1.0, T.officials - .4, t);
       const box: V3 = [lerp(sx - .45, .2, set), lerp(1.08, .82, set), lerp(2.25, .6, set)];
@@ -135,7 +135,7 @@ function timeline(): Shot[] {
     // the felt (object-tracking shot) to Skinner: $25,000
     { t0: T.officials, t1: T.trick, f: (t, _k) => {
       const t2 = T.officials + 1.9; const sl = at(t, t2 + .2, T.trick - .4);
-      const c = t < t2 ? rig([{ t: T.officials, pos: [-.75, 1.62, .45], look: [-1.1, 1.66, -.8], fov: 36 }, { t: t2, pos: [-.85, 1.66, .1], look: [-1.1, 1.68, -.8], fov: 34 }], t)
+      const c = t < t2 ? rig([{ t: T.officials, pos: [-.6, 1.6, .85], look: [-1.1, 1.55, -.8], fov: 38 }, { t: t2, pos: [-.75, 1.6, .45], look: [-1.1, 1.55, -.8], fov: 36 }], t)
         : rig([{ t: t2, pos: [-1.6, 1.25, 1.2], look: [-1.25, .8, .15], fov: 38 }, { t: T.trick, pos: [.9, 1.3, 2.3], look: [1.0, .85, .9], fov: 36 }], t);
       const ch: V3 = [lerp(0, 2.7, ease.inOut(sl)), 0, lerp(0, .8, ease.inOut(sl))];
       const laugh = Math.sin(t * 16) * .5 + .5;
@@ -158,14 +158,13 @@ function timeline(): Shot[] {
         actors: [0, 1, 2].map(i => bird(`b${i}`, bay(i), { sock: true, mood: (['keen', 'sleepy', 'confused'] as const)[i], dir: 1, blink: blinkAt(t, i), peck: i === 0 ? peckCycle(t, 1.3) * .3 : 0 }, t, { contact: 0, scale: PB, shadow: false })),
         overlay: chip('LENS → SCREEN', 210, ss(T.trick + 1.4, T.trick + 1.8, t) * (1 - ss(T.pecks - .3, T.pecks, t)), '#7fd3ff') };
     } },
-    // S8 — close-up inside the bay (over the pigeon's shoulder): it pecks right at the ship on the glowing screen
+    // S8 — pigeon's-eye view: the glowing screen fills the frame (ship, coastline, crosshair); the pigeon's head pecks in
     { t0: T.pecks, t1: T.drifts, f: (t, _k) => {
-      const c = rig([{ t: T.pecks, pos: [.22, 1.44, .66], look: [.74, 1.3, .2], fov: 32 }, { t: T.drifts, pos: [.32, 1.41, .55], look: [.78, 1.3, .2], fov: 28 }], t);
+      const c = rig([{ t: T.pecks, pos: [.71, 1.3, .2], look: [.95, 1.3, .2], fov: 50 }, { t: T.drifts, pos: [.73, 1.3, .2], look: [.95, 1.3, .2], fov: 46 }], t);
       const pk = peckCycle(t, 2.2);
       return { ...XRAY, cam: c, screen: { dx: 0, dy: 0, t, zoom: 1.3, pecks: Math.floor((t - T.pecks) * 2.2) },
-        props: [{ id: 'cone', pos: XC, nodes: { shell: { vis: false }, hatch: { vis: false } } }],
-        actors: [bird('b0', bay(0, .52), { sock: true, mood: 'keen', dir: 1, peck: pk, blink: blinkAt(t, 3), gx: .8 }, t, { contact: 0, scale: PB, res: 1500, shadow: false })],
-        grade: { ...XRAY.grade, aperture: .9, focus: .55 } };
+        props: [{ id: 'cone', pos: XC, nodes: { shell: { vis: false }, hatch: { vis: false }, frame: { vis: false } } }],
+        overlay: chip("PIGEON'S VIEW", 210, 1, '#7fd3ff') + beak(pk) };
     } },
     // S9 — "If the bomb drifts...": chase cam behind the glide bomb over the coast; it drifts, the fins kick, it corrects
     { t0: T.drifts, t1: T.one, f: (t, _k) => {
@@ -176,33 +175,31 @@ function timeline(): Shot[] {
       return { ...COAST, cam: c, props: [{ id: 'glider', pos: P, rot: [drift * .02, .84 + drift * .015, -.31 + fin * .4], nodes: { g_fin0: { rot: [0, 0, fin] }, g_fin1: { rot: [fin, 0, 0] } } }],
         overlay: u < .5 ? chip('DRIFTING OFF TARGET', 210, ss(.1, .2, u) * (1 - ss(.42, .5, u)), '#ff7a59') : chip('PECK… PECK… BACK ON TARGET', 210, ss(.55, .62, u), '#7dff9a') };
     } },
-    // S10 — "One single pigeon pecked TEN THOUSAND times in forty-five minutes!": hyper-pecking close-up with a counter
+    // S10 — "One single pigeon pecked TEN THOUSAND times in forty-five minutes!": hyper-pecking at the screen + counter
     { t0: T.one, t1: T.but, f: (t, k) => {
-      const c = rig([{ t: T.one, pos: [.3, 1.42, .6], look: [.72, 1.29, .2], fov: 30 }, { t: T.but, pos: [.42, 1.38, .46], look: [.74, 1.29, .2], fov: 24 }], t);
+      const c = rig([{ t: T.one, pos: [.71, 1.3, .2], look: [.95, 1.3, .2], fov: 50 }, { t: T.but, pos: [.74, 1.3, .2], look: [.95, 1.3, .2], fov: 44 }], t);
       const rate = lerp(2.5, 7, k); const pk = peckCycle(t, rate); const n = Math.round(ease.in(k) * 10000);
-      return { ...XRAY, cam: c, screen: { dx: 0, dy: 0, t, zoom: 1.3, pecks: 30, lock: .8 }, shake: .002 * k,
-        props: [{ id: 'cone', pos: XC, nodes: { shell: { vis: false }, hatch: { vis: false } } }],
-        actors: [bird('b0', bay(0, .52), { sock: true, mood: k > .6 ? 'surprised' : 'keen', dir: 1, peck: pk, blink: 0, gx: .8, squash: pk * .15 }, t, { contact: 0, scale: PB, res: 1600, shadow: false })],
-        grade: { ...XRAY.grade, aperture: .8, focus: .45 },
-        overlay: `<div style="position:absolute;left:0;width:1080px;top:250px;text-align:center;font-family:Inter;font-weight:900;color:#fff;-webkit-text-stroke:8px #121212;paint-order:stroke fill;text-shadow:0 8px 24px rgba(0,0,0,.5)">
+      return { ...XRAY, cam: c, screen: { dx: 0, dy: 0, t, zoom: 1.3, pecks: 10 + Math.floor(k * 60), lock: .8 }, shake: .002 * k,
+        props: [{ id: 'cone', pos: XC, nodes: { shell: { vis: false }, hatch: { vis: false }, frame: { vis: false } } }],
+        overlay: beak(pk) + `<div style="position:absolute;left:0;width:1080px;top:250px;text-align:center;font-family:Inter;font-weight:900;color:#fff;-webkit-text-stroke:8px #121212;paint-order:stroke fill;text-shadow:0 8px 24px rgba(0,0,0,.5)">
           <div style="font-size:150px;color:#ffd23f">${n.toLocaleString('en-US')}</div><div style="font-size:52px;letter-spacing:3px">PECKS • 45 MINUTES</div></div>` };
     } },
     // S11 — "But what if a pigeon gets confused? Easy. Just put in three!": the shell melts away to the bare frame; orbit
     // reveals all three bays: keen, sleepy, confused
     { t0: T.but, t1: T.see, f: (t, _k) => {
-      const c = rig([{ t: T.but, pos: [-.4, 1.5, 1.2], look: [.55, 1.28, 0], fov: 36 }, { t: T.see, pos: [-.75, 1.75, .35], look: [.6, 1.25, 0], fov: 32 }], t);
+      const c = rig([{ t: T.but, pos: [-.55, 1.45, 1.05], look: [.6, 1.27, .02], fov: 34 }, { t: T.see, pos: [-.85, 1.6, .5], look: [.62, 1.26, 0], fov: 30 }], t);
       const three = ss(T.but + 1.6, T.but + 2.0, t);
       return { ...XRAY, cam: c, screen: { dx: .05, dy: 0, t, zoom: 1.2 },
-        props: [{ id: 'cone', pos: XC, nodes: { shell: { vis: false }, cut: { vis: false }, hatch: { vis: false } } }],
-        actors: [0, 1, 2].map(i => { const show = i === 2 ? 1 : three; return bird(`b${i}`, bay(i), { sock: true, mood: (['keen', 'sleepy', 'confused'] as const)[i], dir: 1, blink: blinkAt(t, i + 1), peck: i === 0 ? peckCycle(t, 1.5) * .4 : 0, tilt: i === 2 ? Math.sin(t * 2) * .2 : 0 }, t, { contact: 0, scale: PB * Math.max(.001, show), shadow: false, res: 1300 }); }),
+        props: [{ id: 'cone', pos: XC, nodes: { shell: { vis: false }, cut: { vis: false }, hatch: { vis: false }, frame: { vis: false }, jacket0: { vis: false }, jacket1: { vis: false }, jacket2: { vis: false } } }],
+        actors: [0, 1, 2].map(i => { const show = i === 2 ? 1 : three; return bird(`b${i}`, bay(i), { sock: true, mood: (['keen', 'sleepy', 'confused'] as const)[i], dir: 1, blink: blinkAt(t, i + 1), peck: i === 0 ? peckCycle(t, 1.5) * .4 : 0, tilt: i === 2 ? Math.sin(t * 2) * .2 : 0 }, t, { contact: 0, scale: PB * 1.5 * Math.max(.001, show), shadow: false, res: 1300 }); }),
         overlay: chip(three > .5 ? '3 PIGEONS • MAJORITY RULES' : 'CONFUSED?', 210, 1, three > .5 ? '#ffd23f' : '#ff7a59') };
     } },
     // S12 — "You see, it's like asking three friends for directions": crane down from the rooftops to the corner; two friends
     // point left, one right; the traveller tips his hat and follows the two
     { t0: T.see, t1: T.amused, f: (t, _k) => {
       const go = at(t, T.see + 3.4, T.amused); const tp: V3 = [lerp(4.9, -1.5, ease.inOut(go)), .15, lerp(5.6, 5.0, go)];
-      const c = t < T.see + 3.4 ? rig([{ t: T.see, pos: [13, 10, 15], look: [6.2, 1.6, 5.6], fov: 40 }, { t: T.see + 2.2, pos: [10.4, 1.9, 10.0], look: [6.0, 1.45, 5.6], fov: 36 }, { t: T.see + 3.4, pos: [9.8, 1.85, 10.2], look: [5.6, 1.4, 5.6], fov: 36 }], t)
-        : { pos: [lerp(9.8, 6.2, ease.inOut(go)), 1.8, lerp(10.2, 10.6, go)] as V3, look: [lerp(5.6, 1.5, ease.inOut(go)), 1.35, lerp(5.6, 5.2, go)] as V3, fov: 38 };
+      const c = t < T.see + 3.4 ? rig([{ t: T.see, pos: [7.6, 11, 17], look: [6.2, 1.6, 5.6], fov: 40 }, { t: T.see + 2.2, pos: [7.6, 1.9, 11.2], look: [6.2, 1.45, 5.6], fov: 36 }, { t: T.see + 3.4, pos: [7.5, 1.85, 11.0], look: [5.8, 1.4, 5.6], fov: 36 }], t)
+        : { pos: [lerp(7.5, 6.0, ease.inOut(go)), 1.8, 11.0] as V3, look: [lerp(5.8, 1.5, ease.inOut(go)), 1.35, lerp(5.6, 5.2, go)] as V3, fov: 38 };
       const pt = ss(T.see + 1.4, T.see + 2.2, t);
       return { ...STREET, cam: c,
         actors: [act('fr1', FR1, [5.6, .15, 5.6], pose({ turn: -.6, handA: [-1.45, -3.3 - pt * .2], shapeA: pt > .5 ? 'point' : 'open' }, t, .4), expr('happy', 'confident', pt), t),
@@ -237,7 +234,7 @@ function timeline(): Shot[] {
     // in, tubes glow; the pigeon turns to us, smug. Final push-in (loops back to the hook)
     { t0: T.ran, t1: 60, f: (t, _k) => {
       const ar = ss(T.ran + .2, T.ran + 1.6, t);
-      const c = rig([{ t: T.ran, pos: [-1.6, 1.5, 3.6], look: [-3.8, 1.3, 1.2], fov: 40 }, { t: T.ran + 2.4, pos: [.35, 1.3, 1.5], look: [1.05, 1.05, .3], fov: 36 }, { t: 60, pos: [.8, 1.12, .85], look: [1.08, 1.05, .3], fov: 30 }], t);
+      const c = rig([{ t: T.ran, pos: [-1.6, 1.5, 3.6], look: [-3.8, 1.3, 1.2], fov: 40 }, { t: T.ran + 2.4, pos: [.3, 1.4, 2.0], look: [1.05, 1.15, .3], fov: 36 }, { t: 60, pos: [.6, 1.32, 1.45], look: [1.05, 1.17, .3], fov: 32 }], t);
       const cp: V3 = [.15, 1.56, -.2];
       const L = NAVYL.lights!.map((l, i) => i === 2 ? { ...l, i: 2.5 * ar } : l);
       const smug = t > T.ran + 2.2;
@@ -252,8 +249,10 @@ function timeline(): Shot[] {
 }
 // x-ray look: dark studio backdrop with a cool rim so the cutaway pops; the cone sits on the lab bench colours
 const XRAY: Base = { set: 'none', sky: { top: '#16223c', mid: '#24365a', bot: '#3a2f52', clouds: 0, sun: [.4, .8, .5], sunC: '#000000' }, bg: '#101826', sun: { dir: [.4, .8, .5], color: '#ffe9cc', i: 2.6, focus: [1, 1.3, 0], size: 4 }, hemi: { sky: '#9fb8e8', ground: '#4a3a58', i: 1.4 }, fill: { color: '#cfe6ff', i: .9 },
-  lights: [{ p: [1.0, 1.9, .9], c: [1, .85, .65], i: 3.0, d: 4 }, { p: [-.6, 1.0, -1.2], c: [.45, .7, 1], i: 3.0, d: 4 }, { p: [.6, 1.4, .3], c: [.75, .92, 1], i: 2.0, d: 1.6 }, { p: [.5, 1.3, -.4], c: [1, .8, .6], i: 1.5, d: 1.5 }],
-  fog: { color: '#1a2540', density: .04 }, grade: { ao: .8, aoRadius: .2, aoTint: [.3, .34, .55], sat: 1.15, contrast: 1.1, lift: [.02, .03, .07], gain: [1.03, 1.0, .97], bloom: .45, bloomTh: 1.1, vignette: .34 } };
+  lights: [{ p: [1.0, 1.9, .9], c: [1, .85, .65], i: 2.4, d: 4 }, { p: [-.6, 1.0, -1.2], c: [.45, .7, 1], i: 2.6, d: 4 }],
+  fog: { color: '#1a2540', density: .04 }, grade: { ao: .8, aoRadius: .2, aoTint: [.3, .34, .55], sat: 1.15, contrast: 1.08, lift: [.02, .03, .07], gain: [1.03, 1.0, .97], bloom: .22, bloomTh: 1.6, vignette: .3 } };
+/** cartoon beak pecking up into the pigeon's-eye view */
+function beak(pk: number) { const y = 1920 - pk * 760; return `<svg style="position:absolute;left:0;top:0" width="1080" height="1920"><g transform="translate(540 ${y.toFixed(0)})"><path d="M-150,260 L0,-60 L150,260 Z" fill="#3e3f46" stroke="#16181f" stroke-width="14" stroke-linejoin="round"/><path d="M-60,200 L0,40 L60,200" fill="none" stroke="#5a5c66" stroke-width="10"/></g></svg>`; }
 function cone(_t: number, o: { hatch: number }): PropF {
   return { id: 'cone', pos: CONE_LAB, rot: CONE_ROT_LAB, nodes: { cut: { vis: false }, hatch: { pos: [0, .13 * o.hatch, .12 * o.hatch], rot: [.85 * o.hatch, 0, 0] } } };
 }
