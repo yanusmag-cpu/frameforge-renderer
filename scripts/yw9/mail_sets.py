@@ -190,6 +190,23 @@ def train():
     railcar('anim:coach', -17.5, 0, 0, L=11, col='#3a5a3a', wins=7)
 
 
+def tag():
+    """the label sewn to May's coat: a card with rows of stamps (painted 'map' board) and a string"""
+    box('tagcard', (0, 0, 0), (.34, .24, .01), mat('paper', '#efe3c6', .9), bev=.004)
+    text_plane('tagstamps', (0, 0, .007), .32, .22, mat('map', '#e8dcc0', .9))
+    tube('tagstring', [(-.15, .1, 0), (-.05, .2, -.01), (.05, .21, -.01), (.15, .1, 0)], .006, mat('fabric', '#c8a868', .9), verts=5)
+
+
+def scale():
+    """a depot platform scale: cast-iron base and deck, pillar, a balance beam with a sliding poise, a big dial"""
+    m = mat('metal', '#3a4a42', .45, .6); br = mat('brass', '#c9a24a', .3, .85)
+    box('sc.base', (0, .08, 0), (1.0, .16, .8), m, bev=.03); box('sc.deck', (0, .19, 0), (.9, .04, .7), mat('plank', '#8a6a46', .7), bev=.01)
+    box('sc.pillar', (0, .75, -.32), (.14, 1.1, .12), m, bev=.02)
+    cyl('sc.dial', (0, 1.45, -.3), .3, .08, m, axis='z', verts=36); cyl('sc.face', (0, 1.45, -.255), .26, .01, mat('paint', '#f4ecd8', .5), axis='z', verts=36)
+    box('anim:needle', (0, 1.45, -.245), (.012, .44, .006), mat('paint', '#a8302a', .4), bev=0)
+    box('sc.beam', (0, 1.08, -.3), (.9, .05, .05), br, bev=.01); box('anim:poise', (.2, 1.08, -.3), (.08, .1, .08), br, bev=.02)
+
+
 def main():
     build_set(OUT / 'farm.glb', 'farm', farm)
     build_set(OUT / 'line.glb', 'line', line)
@@ -197,6 +214,8 @@ def main():
     build_set(OUT / 'ohio.glb', 'ohio', ohio)
     build_set(OUT / 'office.glb', 'office', office)
     build_set(OUT / 'train.glb', 'train', train, joinable=True)
+    build_set(OUT / 'tag.glb', 'tag', tag, joinable=True)
+    build_set(OUT / 'scale.glb', 'scale', scale, joinable=True)
     print('ALL ASSETS DONE')
 
 

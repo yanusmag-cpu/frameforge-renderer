@@ -41,7 +41,7 @@ export class Engine9 extends Core {
   sea: T.Mesh; seaU: Record<string, { value: unknown }>; beams: T.Mesh[] = []; dust: T.Points; dustU = { t: { value: 0 }, a: { value: 0 }, px: { value: 1 }, lo: { value: new T.Vector3() }, hi: { value: new T.Vector3() } };
   screenCv = document.createElement('canvas'); screenTex: T.CanvasTexture; signTex: T.CanvasTexture | null = null; loaded = false;
   constructor(cv: HTMLCanvasElement, w: number, h: number, public base: string, public sets: SetSpec[], public propList: { id: string; glb: string }[],
-              public boardDraw?: (g: CanvasRenderingContext2D, tag: string) => void) {
+              public boardDraw?: (g: CanvasRenderingContext2D, tag: string) => void, public screenDraw?: (g: CanvasRenderingContext2D, s: ScreenF, W: number) => void) {
     super(cv, w, h, '#a9c6e8', '#6b5e4e');
     (this as unknown as { post: Post9 }).post = new Post9(this.r, w, h);
     this.scene.environment = this.env; this.sun.shadow.mapSize.set(4096, 4096); this.sun.shadow.radius = 3; this.sun.shadow.bias = -.0003;
@@ -202,7 +202,7 @@ export class Engine9 extends Core {
     this.beams.forEach((b, i) => { const B = F.beams?.[i]; b.visible = !!B; if (!B) return; b.position.set(...B.p); b.lookAt(B.p[0] + B.dir[0], B.p[1] + B.dir[1], B.p[2] + B.dir[2]); b.scale.set(B.w, B.h, B.len);
       const u = (b.material as T.ShaderMaterial).uniforms; (u.c.value as T.Color).setRGB(...B.c); u.i.value = B.i; u.t.value = F.t; });
     this.dust.visible = !!F.dust; this.dustU.px.value = this.h / 1920; if (F.dust) { this.dustU.t.value = F.t; this.dustU.a.value = F.dust.i; this.dustU.lo.value.set(...F.dust.box[0]); this.dustU.hi.value.set(...F.dust.box[1]); }
-    if (F.screen) this.drawScreen(F.screen);
+    if (F.screen) { if (this.screenDraw) { const g = this.screenCv.getContext('2d')!; g.setTransform(2, 0, 0, 2, 0, 0); this.screenDraw(g, F.screen, 512); this.screenTex.needsUpdate = true; } else this.drawScreen(F.screen); }
     await this.frameBase(F); this.sky.position.copy(this.cam.position); (this.seaU.camP.value as T.Vector3).copy(this.cam.position);
     this.draw(F, frame);
   }
