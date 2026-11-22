@@ -44,7 +44,7 @@ const STUDY: Base = { set: 'study', sun: { dir: [.2, .6, -1], color: '#dfe8f2', 
   beams: [{ p: [1.4, 1.85, -2.85], dir: [-.2, -.5, 1], w: 1.2, h: 1.5, len: 4.5, c: [.85, .9, 1], i: .6 }], dust: { box: [[-3, .3, -3], [3, 3, 3]], i: .6 },
   grade: { ao: .9, aoRadius: .4, aoTint: [.4, .36, .58], sat: 1.12, contrast: 1.06, lift: [.035, .03, .06], gain: [1.05, 1.0, .93], bloom: .3, bloomTh: 1.3, vignette: .28, exposure: 1.06 } };
 const BATH: Base = { set: 'bath', sun: { dir: [.3, .65, -1], color: '#f4f6ff', i: 1.9, focus: [0, 1, -1], size: 5 }, hemi: { sky: '#e8f0f4', ground: '#7a8a88', i: 1.35 }, fill: { color: '#fff2e0', i: .45 }, bg: '#202428',
-  lights: [{ p: [0, 2.9, 0], c: [1, .9, .76], i: 2.2, d: 6 }, { p: [3.2, 1.6, -.3], c: [1, .75, .45], i: 2.5, d: 3 }], fog: { color: '#e6ecee', density: .03 },
+  lights: [{ p: [0, 2.9, 0], c: [1, .9, .76], i: 2.2, d: 6 }, { p: [3.2, 1.6, -.3], c: [1, .75, .45], i: 2.5, d: 3 }], fog: { color: '#e6ecee', density: .008 },
   beams: [{ p: [-1.3, 2.0, -1.85], dir: [.2, -.55, 1], w: 1.0, h: 1.4, len: 3.5, c: [1, .97, .92], i: .8 }],
   grade: { ao: .8, aoRadius: .35, aoTint: [.4, .44, .6], sat: 1.1, contrast: 1.04, lift: [.04, .04, .06], gain: [1.03, 1.0, .97], bloom: .4, bloomTh: 1.2, vignette: .24, exposure: 1.06 } };
 const LAKE: Base = { set: 'lake', sky: { top: '#2f6fc0', mid: '#8fc2ea', bot: '#e8f0f4', sun: [-.4, .55, -.5], sunC: '#fff4dc', clouds: .45 }, sea: { c1: '#13707c', c2: '#4fd0c6' },
@@ -55,7 +55,7 @@ const STUDIO: Base = { set: 'none', sky: { top: '#16223c', mid: '#24365a', bot: 
   grade: { ao: .6, aoRadius: .2, aoTint: [.3, .34, .55], sat: 1.15, contrast: 1.08, lift: [.02, .03, .07], gain: [1.03, 1.0, .97], bloom: .3, bloomTh: 1.3, vignette: .3 } };
 
 const BLOCKS_HALL: V3 = [0, .92, -2.3]; const BB: V3 = [.45, 1.17, -2.3];
-const OFF_POS: V3 = [-2.3, 0, .2]; const ADM1_POS: V3 = [3.4, 0, -1.0], ADM2_POS: V3 = [3.4, 0, .05];
+const OFF_POS: V3 = [-2.3, 0, .2]; const ADM1_POS: V3 = [3.12, 0, -1.0], ADM2_POS: V3 = [3.12, 0, .05];
 /** blocks prop nodes: plain ice block A shatters at tS (14 shards fly), pykrete block B stays */
 function blockNodes(t: number, tS: number, o: Record<string, NodeOv> = {}): Record<string, NodeOv> {
   const n: Record<string, NodeOv> = { ...o }; const a = t - tS;
@@ -91,7 +91,7 @@ function timeline(): Shot[] {
     { t0: T.then, t1: T.because, f: (t) => {
       const tB = T.bounces - .2; const zip = at(t, tB, tB + .35);
       const c = t < tB ? rig([{ t: T.then, pos: [-.9, 1.3, -.4], look: [.45, 1.17, -2.3], fov: 34 }, { t: tB, pos: [-.4, 1.25, -1.0], look: [.45, 1.17, -2.3], fov: 30 }], t)
-        : rig([{ t: tB, pos: [.2, 1.3, -1.2], look: [1.6, 1.2, -1.6], fov: 36 }, { t: tB + .45, pos: [1.6, 1.35, -.1], look: [3.4, 1.15, -.5], fov: 38 }, { t: T.because, pos: [2.0, 1.25, .4], look: [3.4, 1.05, -.5], fov: 36 }], t, { easing: ease.out });
+        : rig([{ t: tB, pos: [.2, 1.3, -1.2], look: [1.6, 1.2, -1.6], fov: 36 }, { t: tB + .45, pos: [1.3, 1.35, .1], look: [3.12, 1.15, -.5], fov: 40 }, { t: T.because, pos: [1.6, 1.25, .5], look: [3.12, 1.05, -.5], fov: 38 }], t, { easing: ease.out });
       const duck = ss(tB + .25, tB + .55, t);
       return { ...HALL, cam: c, props: [{ id: 'blocks', pos: BLOCKS_HALL, nodes: blockNodes(t, T.shatters - .15) }],
         sprites: [...muzzle([-1.85, 1.42, -.2], at(t, T.fires2, T.fires2 + .25)), ...tracer([-1.85, 1.42, -.2], BB, at(t, T.fires2 + .05, tB)), ...tracer(BB, [4.4, 1.45, -.4], zip),
@@ -103,9 +103,9 @@ function timeline(): Shot[] {
     } },
     // S3 — "Because that's not normal ice. It's frozen with sawdust": push into the untouched block — fibres in the ice
     { t0: T.because, t1: T.war, f: (t) => {
-      const c = rig([{ t: T.because, pos: [.95, 1.45, -1.35], look: BB, fov: 34 }, { t: T.war, pos: [.62, 1.27, -1.85], look: BB, fov: 30 }], t);
+      const c = rig([{ t: T.because, pos: [1.5, 1.6, -.9], look: BB, fov: 34 }, { t: T.war, pos: [1.05, 1.4, -1.45], look: BB, fov: 30 }], t);
       return { ...HALL, cam: c, props: [{ id: 'blocks', pos: BLOCKS_HALL, nodes: blockNodes(t, -10, { iceA: { vis: false } }) }],
-        grade: { ...HALL.grade, aperture: 1.2, focus: .6 }, overlay: chip('ICE + SAWDUST', 210, ss(T.because + 1.2, T.because + 1.6, t), '#d9b44a') };
+        grade: { ...HALL.grade, aperture: .5, focus: 1.1 }, overlay: chip('ICE + SAWDUST', 210, ss(T.because + 1.2, T.because + 1.6, t), '#d9b44a') };
     } },
     // S4 — WWII Atlantic: convoy in a grey swell, a U-boat surfaces; a patrol plane reaches its limit and turns back
     { t0: T.war, t1: T.so, f: (t, k) => {
@@ -125,7 +125,7 @@ function timeline(): Shot[] {
     } },
     // S6 — mocker: the admirals scoff ("ice will just crack and melt")
     { t0: T.everyone, t1: T.story, f: (t) => {
-      const c = rig([{ t: T.everyone, pos: [2.1, 1.38, -.45], look: [3.4, 1.35, -.55], fov: 40 }, { t: T.story, pos: [2.35, 1.38, -.5], look: [3.4, 1.35, -.55], fov: 36 }], t);
+      const c = rig([{ t: T.everyone, pos: [1.7, 1.4, -.35], look: [3.12, 1.3, -.5], fov: 40 }, { t: T.story, pos: [2.0, 1.38, -.45], look: [3.12, 1.3, -.5], fov: 36 }], t);
       const ch = Math.sin(t * 10) * .5 + .5;
       return { ...HALL, cam: c,
         actors: [act('adm1', ADM1, ADM1_POS, pose({ turn: -.5, crouch: .55, kneeUp: true, handB: [.6, -2.4], shapeB: 'point', headTilt: -.1 }, t, .3), expr('smug', 'laugh', ch * .4), t, { seed: 5, res: 1700 }),
@@ -133,9 +133,9 @@ function timeline(): Shot[] {
     } },
     // S7 — Churchill's bath (as the story goes): steam, a block bobbing in the tub; a cigar silhouette behind frosted glass
     { t0: T.story, t1: T.plan, f: (t) => {
-      const c = rig([{ t: T.story, pos: [1.7, 1.55, 1.5], look: [-.6, .85, -.9], fov: 42 }, { t: T.plan, pos: [.35, 1.15, .15], look: [-.6, .8, -.9], fov: 36 }], t);
+      const c = rig([{ t: T.story, pos: [1.5, 1.6, 1.3], look: [-.6, .85, -.9], fov: 42 }, { t: T.plan, pos: [.4, 1.3, .2], look: [-.6, .8, -.9], fov: 36 }], t);
       const bob = Math.sin(t * 2.2) * .015; const S: Sprite[] = [];
-      for (let i = 0; i < 14; i++) { const a = (t * .25 + i / 14) % 1; S.push({ p: [-.6 + (hsh(i) - .5) * 1.2, .8 + a * 1.4, -.9 + (hsh(i + 4) - .5) * .5], s: .5 + a * .8, rot: hsh(i) * 6 + t * .2, c: [1, 1, 1], a: .16 * Math.sin(a * Math.PI), kind: 0, seed: hsh(i + 7), age: a }); }
+      for (let i = 0; i < 14; i++) { const a = (t * .25 + i / 14) % 1; S.push({ p: [-.6 + (hsh(i) - .5) * 1.2, .8 + a * 1.4, -.9 + (hsh(i + 4) - .5) * .5], s: .5 + a * .8, rot: hsh(i) * 6 + t * .2, c: [1, 1, 1], a: .1 * Math.sin(a * Math.PI), kind: 0, seed: hsh(i + 7), age: a }); }
       for (let i = 0; i < 5; i++) { const a = (t * .3 + i / 5) % 1; S.push({ p: [3.05 + a * .2, 1.75 + a * .6, -.45], s: .2 + a * .4, rot: a * 3, c: [.85, .85, .85], a: .25 * (1 - a), kind: 0, seed: .3, age: a }); }
       return { ...BATH, cam: c, sprites: S,
         props: [{ id: 'blocks', pos: [-1.05, .5 + bob, -.9], rot: [0, .3, Math.sin(t * 1.7) * .03], nodes: { iceA: { vis: false }, tray: { vis: false }, ...Object.fromEntries(Array.from({ length: 14 }, (_, i) => [`shards-k${i}`, { vis: false }])) } }],
@@ -153,7 +153,7 @@ function timeline(): Shot[] {
       const a = lerp(.6, 2.2, k); const c = { pos: [Math.sin(a) * 4.6, 1.6, Math.cos(a) * 4.6] as V3, look: [0, 0, 0] as V3, fov: 38 };
       const grow = Math.min(5.2, ss(.35, .55, k) * 8);
       const nodes: Record<string, NodeOv> = {}; for (let i = 0; i < 8; i++) nodes[`crack-${i}`] = { vis: i < grow };
-      return { ...STUDIO, cam: c, props: [{ id: 'macro', pos: [0, 0, 0], nodes }],
+      return { ...STUDIO, cam: c, props: [{ id: 'macro', pos: [0, 0, 0], nodes: { ...nodes, shell: { op: .18 } } }],
         overlay: chip(k < .55 ? 'WOOD FIBRES = STEEL BARS' : 'CRACK STOPPED!', 210, 1, k < .55 ? '#d9b44a' : '#7dff9a') };
     } },
     // S10 — "Torpedo hole? Just pump in seawater and let it freeze!": hull close-up: a hole, seawater pours in, frost seals it
