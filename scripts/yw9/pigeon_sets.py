@@ -217,6 +217,10 @@ def war():
         x, z = rr.uniform(-1.8, 1.8), rr.choice([0.0, .8])
         cyl(f'cup{k}', (x, .83, z), .04, .08, mat('paint', '#f2efe8', .3), verts=16); cyl(f'saucer{k}', (x, .792, z), .07, .008, mat('paint', '#f2efe8', .3), verts=20)
     cyl('jug', (.6, .9, .45), .07, .24, mat('glass', '#bfe0ea', .05), verts=20)
+    # Skinner's box of pigeons (carried in, set on the table) and the $25,000 contract slid across the felt
+    crate('anim:pbox', (2.9, 0, 2.6), .5, col='#b08a58')
+    for k in range(6): box(f'anim:pbox.hole{k}', (2.9 - .15 + (k % 3) * .15, .32 + (k // 3) * .12, 2.6 + .255), (.06, .06, .01), mat('paint', '#1a1410', .9), bev=0)
+    box('anim:cheque', (-1.3, .797, .1), (.26, .004, .12), mat('paper', '#e3edd6', .9), bev=0)
     box('runner', (0, .005, .4), (5.6, .01, 2.6), mat('fabric', '#7a2a24', .95), bev=0)
     box('runnerb', (0, .006, .4), (5.4, .01, 2.4), mat('fabric', '#8f3a2c', .95), bev=0)
     # cabinets, clock, ceiling lights, side table with globe

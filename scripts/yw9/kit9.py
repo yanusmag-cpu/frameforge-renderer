@@ -246,6 +246,7 @@ def build_set(path, name, fn, joinable=True, keep=()):
     for o in animated:   # pivot at the part's own centre so the engine can swing/slide it naturally
         bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o
         bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
+        o.name = o.name.replace(':', '-').replace('.', '-')   # three's GLTFLoader strips ':' and '.', so use '-' separators
     static = [o for o in objs if o not in animated]
     if joinable: static = join(static, name)
     export(path, static + animated)

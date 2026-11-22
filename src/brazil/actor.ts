@@ -27,6 +27,7 @@ export type ActorState = {
   flip?: boolean;                   // mirror the cut-out (reflections)
   folk?: FolkLook; propA?: Prop; propB?: Prop;   // YunoWorld Folk (v6 character system)
   t7?: T7Look; t7A?: T7Prop; t7B?: T7Prop; squash?: number;   // YunoWorld Ink (v7 character system)
+  svgOnly?: string;                 // pre-drawn SVG in rig space (v9 animals such as the pigeons)
 };
 const blobTex = (() => { let t: T.Texture | null = null; return () => {
   if (t) return t; const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d')!;
@@ -57,7 +58,8 @@ export class Actor {
     const sc = s.scale ?? 1; this.scale = sc;
     const res = s.res ?? 1024;
     if (res !== this.res) { this.res = res; this.canvas.height = res; this.canvas.width = Math.round(res * VW / VH); this.lastSvg = ''; this.tex.dispose(); }
-    const r = s.t7 ? toon7(s.pose, s.t7, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, propA: s.t7A, propB: s.t7B, rim: s.rim, rimSide: s.rimSide, squash: s.squash })
+    const r = s.svgOnly !== undefined ? { svg: s.svgOnly, j: this.joints as Joints }
+      : s.t7 ? toon7(s.pose, s.t7, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, propA: s.t7A, propB: s.t7B, rim: s.rim, rimSide: s.rimSide, squash: s.squash })
       : s.folk ? folk(s.pose, s.folk, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, heldA: s.propA, heldB: s.propB, rim: s.rim, rimSide: s.rimSide })
       : s.toon ? toon(s.pose, s.toon, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, heldA: s.heldA, heldB: s.heldB, hatOff: s.hatOff, ...s.toonOpts })
       : stickman(s.pose, s.look, { id: s.id, t: s.t, seed: s.seed, face: s.face, noAuto: s.noAuto, lighting: s.rim ? { rim: s.rim, rimSide: s.rimSide } : undefined });
