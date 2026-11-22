@@ -155,7 +155,9 @@ export function surface(m: T.Material, env: T.Texture, special: (tag: string, he
     const s = SCALE[tag] ?? 1; map.repeat.set(s, s); if (nrm) nrm.repeat.set(s, s);
     tx = { map, nrm }; cache.set(key, tx);
   }
-  const hasCol = !!mesh.geometry.getAttribute('color');
+  // per-piece colour variation; guard: if a mesh's baked colours came out implausibly dark (a bad bake), ignore them
+  const ca = mesh.geometry.getAttribute('color') as T.BufferAttribute | undefined; let hasCol = !!ca;
+  if (ca && tag !== 'terrain' && tag !== 'leaf') { let sum = 0; const n = Math.min(ca.count, 400); for (let i = 0; i < n; i++) sum += (ca.getX(i) + ca.getY(i) + ca.getZ(i)) / 3; if (sum / Math.max(1, n) < .45) hasCol = false; }
   return new T.MeshStandardMaterial({ map: tx.map, normalMap: tx.nrm ?? undefined, normalScale: new T.Vector2(1, 1), vertexColors: hasCol, roughness: ROUGH[tag] ?? .7, metalness: METAL[tag] ?? 0,
     envMap: env, envMapIntensity: tag === 'metal' || tag === 'brass' ? 1.4 : tag === 'ice' ? 1.6 : .55, side: tag === 'terrain' || tag === 'leaf' ? T.FrontSide : T.DoubleSide, name: m.name });
 }
@@ -164,5 +166,11 @@ export function surface(m: T.Material, env: T.Texture, special: (tag: string, he
 export function fitUV(g: T.BufferGeometry) {
   const uv = g.getAttribute('uv') as T.BufferAttribute; if (!uv) return; let a = 1e9, b = -1e9, c = 1e9, d = -1e9;
   for (let i = 0; i < uv.count; i++) { const u = uv.getX(i), v = uv.getY(i); a = Math.min(a, u); b = Math.max(b, u); c = Math.min(c, v); d = Math.max(d, v); }
-  for (let i = 0; i < uv.count; i++) uv.setXY(i, (uv.getX(i) - a) / Math.max(1e-6, b - a), (uv.getY(i) - c) / Math.max(1e-6, d - c)); uv.needsUpdate = true;
+  for (let i = 0; i < uv.count; i++) uv.setXY(i, (uv.getX(i) - a) / Math.max(1e-6, b - a), (uv.getY(i) - c) / Math.max(1e-6, d - c));
+  // keep pictures upright and unmirrored: u must grow with world x (or z for side walls), v with world y
+  const P = g.getAttribute('position') as T.BufferAttribute; const corr = (f: (i: number) => number, h: (i: number) => number) => { let s = 0; for (let i = 0; i < uv.count; i++) s += (f(i) - .5) * h(i); return s; };
+  const cx = corr(i => uv.getX(i), i => P.getX(i)), cz = corr(i => uv.getX(i), i => -P.getZ(i)), cy = corr(i => uv.getY(i), i => P.getY(i));
+  const flipU = Math.abs(cx) >= Math.abs(cz) ? cx < 0 : cz < 0; const flipV = Math.abs(cy) > 1e-4 && cy < 0;
+  if (flipU || flipV) for (let i = 0; i < uv.count; i++) uv.setXY(i, flipU ? 1 - uv.getX(i) : uv.getX(i), flipV ? 1 - uv.getY(i) : uv.getY(i));
+  uv.needsUpdate = true;
 }

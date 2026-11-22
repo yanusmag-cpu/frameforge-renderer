@@ -52,7 +52,7 @@ const OFF: Base = { set: 'office', sun: { dir: [.2, .8, .3], color: '#cfe0ff', i
   lights: [{ p: [0, 1.9, -4.3], c: [.45, .7, 1], i: 5, d: 9 }, ...[-4.5, -1.5, 1.5, 4.5].map(x => ({ p: [x, 2.7, 1.2] as V3, c: [.95, .97, 1] as [number, number, number], i: 1.6, d: 5 }))], fog: { color: '#101826', density: .02 },
   grade: { ao: .8, aoRadius: .4, aoTint: [.3, .36, .6], sat: 1.12, contrast: 1.08, lift: [.02, .03, .07], gain: [1.0, 1.0, 1.04], bloom: .4, bloomTh: 1.15, vignette: .3, exposure: 1.08 } };
 const STUDIO: Base = { set: 'none', sky: { top: '#1a1430', mid: '#2a2048', bot: '#4a2a3a', clouds: 0, sun: [.4, .8, .5], sunC: '#000000' }, sun: { dir: [.4, .8, .6], color: '#fff0dc', i: 2.2, focus: [0, .6, 0], size: 3 },
-  hemi: { sky: '#c8b4f0', ground: '#4a3a48', i: 1.2 }, fill: { color: '#ffe0c0', i: .7 }, fog: { color: '#1a1430', density: .03 }, lights: [{ p: [.8, 1.6, 1.2], c: [1, .85, .6], i: 2.5, d: 4 }],
+  hemi: { sky: '#d8c8f8', ground: '#5a4a58', i: 1.6 }, fill: { color: '#ffe0c0', i: 1.0 }, fog: { color: '#1a1430', density: .02 }, lights: [{ p: [.8, 1.6, 1.2], c: [1, .85, .6], i: 3.5, d: 4 }, { p: [0, .5, .9], c: [1, .9, .7], i: 2.0, d: 2 }],
   grade: { ao: .7, aoRadius: .2, aoTint: [.34, .3, .55], sat: 1.15, contrast: 1.08, lift: [.03, .02, .07], gain: [1.03, 1.0, .97], bloom: .3, bloomTh: 1.3, vignette: .3 } };
 
 const TP: V3 = [0, 0, .2];            // the Turk in the palace
@@ -106,19 +106,19 @@ function timeline(): Shot[] {
     { t0: T.for, t1: T.people, f: (t) => {
       const c = rig([{ t: T.for, pos: [0, 2.3, 7.5], look: [0, 1.5, -4], fov: 42 }, { t: T.people, pos: [0, 1.9, 3.6], look: [0, 1.6, -4], fov: 38 }], t);
       const A: ActorState[] = []; let i = 0;
-      for (let r = 0; r < 4; r++) for (const s of [-1, 1]) for (const dx of [-1.2, .4]) { A.push(act(`a${i}`, AUD[i % 6], [s * 2.8 + dx, 0, 1.2 + r * 1.3 + .05], pose({ turn: 0, back: 1, crouch: .55, kneeUp: true, headTilt: Math.sin(t * 2 + i) * .05 }, t, .3, i), expr('amazed'), t, { seed: i + 20, res: 900 })); i++; }
+      for (let r = 0; r < 4; r++) for (const s of [-1, 1]) for (const dx of [0, .75]) { A.push(act(`a${i}`, AUD[i % 6], [s * (.85 + dx + (r % 2) * .2), 0, 1.2 + r * 1.3 + .05], pose({ turn: 0, back: 1, crouch: .55, kneeUp: true, headTilt: Math.sin(t * 2 + i) * .05 }, t, .3, i), expr('amazed'), t, { seed: i + 20, res: 900 })); i++; }
       return { ...THEA, cam: c, actors: A, props: [{ id: 'turk', pos: TS, nodes: turkNodes({ head: Math.sin(t) * .3, gears: t * 2 }) }],
         overlay: chip('80+ YEARS • EUROPE → AMERICA', 210, ss(T.for + .5, T.for + .9, t)) };
     } },
     // S5 — mocker: a sceptic in the stalls scoffs and points ("it had to be a trick")
     { t0: T.people, t1: T.so, f: (t) => {
-      const c = rig([{ t: T.people, pos: [-1.4, 1.3, 3.0], look: [-3.2, 1.15, 1.2], fov: 38 }, { t: T.so, pos: [-1.8, 1.28, 2.55], look: [-3.2, 1.15, 1.2], fov: 34 }], t);
+      const c = rig([{ t: T.people, pos: [-1.5, 1.5, 3.3], look: [-3.0, 1.35, 1.2], fov: 42 }, { t: T.so, pos: [-1.9, 1.45, 2.8], look: [-3.0, 1.35, 1.2], fov: 38 }], t);
       return { ...THEA, cam: c, actors: [act('skep', SKEP, [-3.2, 0, 1.25], pose({ turn: .55, crouch: .55, kneeUp: true, handB: [1.3, -3.2], shapeB: 'point', headTilt: -.1 }, t, .3), expr('smug', 'suspicious', Math.sin(t * 3) * .5 + .5), t, { res: 1700 }),
         act('aud1', AUD[0], [-2.2, 0, 1.25], pose({ turn: -.6, crouch: .55, kneeUp: true }, t, .3), expr('curious'), t, { seed: 31 })], overlay: chip('"IT\'S A TRICK!"', 210, ss(T.people + .3, T.people + .6, t), '#ff7a59') };
     } },
     // S6 — the showman opens every door and passes a candle through: "Nothing in there but gears!"
     { t0: T.so, t1: T.then, f: (t) => {
-      const c = rig([{ t: T.so, pos: [1.3, 1.75, -1.9], look: [0, 1.35, -3.9], fov: 38 }, { t: T.then, pos: [.8, 1.5, -2.55], look: [0, 1.32, -3.8], fov: 34 }], t);
+      const c = rig([{ t: T.so, pos: [1.6, 2.3, -1.4], look: [.2, 1.85, -3.9], fov: 42 }, { t: T.then, pos: [1.1, 2.0, -2.1], look: [.1, 1.6, -3.8], fov: 38 }], t);
       const d = [0, 1, 2].map(i => ss(T.so + .6 + i * .45, T.so + 1.0 + i * .45, t)); const cx = lerp(-.55, .45, at(t, T.so + 1.8, T.nothing + .4));
       const cp: V3 = [cx, 1.44, -3.55];
       return { ...THEA, cam: c, lights: [...THEA.lights!, { p: [cp[0], cp[1] + .2, cp[2] + .05], c: [1, .75, .4], i: 2.5 * ss(T.so + 1.4, T.so + 1.8, t), d: 1.4 }],
@@ -149,7 +149,7 @@ function timeline(): Shot[] {
     { t0: T.in, t1: T.few, f: (t, k) => {
       const c = rig([{ t: T.in, pos: [6, 22, 22], look: [0, 6, -12], fov: 44 }, { t: T.few, pos: [4, 2.2, 6], look: [0, 6.5, -12], fov: 42 }], t);
       const S: Sprite[] = [];
-      for (let i = 0; i < 70; i++) { const a = (t * (.35 + hsh(i) * .3) + hsh(i + 5)) % 1; const x = -9 + hsh(i + 1) * 18; S.push({ p: [x + Math.sin(t + i) * .4, 6 + a * 12 + hsh(i + 2) * 3, -10 - hsh(i + 3) * 4], s: 2.2 + a * 3, rot: hsh(i) * 6 + t, c: a < .4 ? [1.8, .9, .3] : [.35, .3, .3], a: (a < .4 ? .9 : .5) * (1 - a), kind: a < .4 ? 2 : 0, seed: hsh(i + 9), age: a }); }
+      for (let i = 0; i < 70; i++) { const a = (t * (.35 + hsh(i) * .3) + hsh(i + 5)) % 1; const x = -9 + hsh(i + 1) * 18; S.push({ p: [x + Math.sin(t + i) * .4, 6 + a * 12 + hsh(i + 2) * 3, -10 - hsh(i + 3) * 4], s: 2.6 + a * 3.4, rot: hsh(i) * 6 + t, c: a < .35 ? [2.2, 1.0, .3] : a < .55 ? [1.2, .45, .2] : [.32, .28, .3], a: (a < .55 ? .85 : .55) * (1 - a), kind: 0, seed: hsh(i + 9), age: a }); }
       for (let i = 0; i < 30; i++) { const a = (t * .8 + hsh(i + 40)) % 1; S.push({ p: [-8 + hsh(i + 41) * 16, 8 + a * 10, -9], s: .08, rot: 0, c: [2, 1.2, .5], a: 1 - a, kind: 2, seed: .1, age: 0 }); }
       const fl = .85 + .15 * Math.sin(t * 13) * Math.sin(t * 7.3);
       return { ...MUS, cam: c, sprites: S, lights: [{ p: [0, 7, -8], c: [1, .55, .2], i: 14 * fl, d: 30 }, { p: [-6, 4, -8], c: [1, .5, .2], i: 8 * fl, d: 18 }, { p: [6, 4, -8], c: [1, .5, .2], i: 8 * fl, d: 18 }],
