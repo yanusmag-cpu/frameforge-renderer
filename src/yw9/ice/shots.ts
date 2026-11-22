@@ -158,8 +158,8 @@ function timeline(): Shot[] {
     } },
     // S10 — "Torpedo hole? Just pump in seawater and let it freeze!": hull close-up: a hole, seawater pours in, frost seals it
     { t0: T.torpedo, t1: T.actually, f: (t, k) => {
-      const c = rig([{ t: T.torpedo, pos: [-24, 6.5, 66], look: [-10, 8, 46], fov: 38 }, { t: T.actually, pos: [-18, 7.5, 58], look: [-10, 8, 46], fov: 34 }], t);
-      const hole: V3 = [-10, 8, 46.5]; const fr = ss(.45, .9, k); const S: Sprite[] = [];
+      const c = rig([{ t: T.torpedo, pos: [-8, 6.5, 64], look: [0, 8, 46], fov: 38 }, { t: T.actually, pos: [-3, 7.5, 57], look: [0, 8, 46], fov: 34 }], t);
+      const hole: V3 = [0, 8, 46.5]; const fr = ss(.45, .9, k); const S: Sprite[] = [];
       S.push({ p: hole, s: 3.2, rot: 0, c: [.05, .08, .1], a: .95 * (1 - fr), kind: 0, seed: .2, age: 0 });
       for (let i = 0; i < 18; i++) { const a = (t * .9 + i / 18) % 1; if (k < .2 || k > .7) continue; S.push({ p: [hole[0] + (hsh(i) - .5) * 2, hole[1] + 4 - a * 4, hole[2] + .5 + a * .3], s: .9, rot: hsh(i) * 6, c: [.7, .9, 1], a: .5 * (1 - a), kind: 0, seed: hsh(i), age: a }); }
       for (let i = 0; i < 26; i++) { const r = hsh(i + 50) * 2.2 * fr; const ang = hsh(i + 60) * 6.28; S.push({ p: [hole[0] + Math.cos(ang) * r, hole[1] + Math.sin(ang) * r, hole[2] + .3], s: .9 * fr + .2, rot: ang, c: [1.15, 1.2, 1.25], a: .85 * fr, kind: 0, seed: hsh(i + 70), age: .5 }); }

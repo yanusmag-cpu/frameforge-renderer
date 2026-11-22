@@ -73,9 +73,9 @@ function timeline(): Shot[] {
     } },
     // S2 — "...she's about to be mailed. Like a package!": she's stacked among parcels on the depot platform, shrugging
     { t0: T.coat, t1: T.her, f: (t, k) => {
-      const c = rig([{ t: T.coat, pos: [-14.2, 1.7, 7.6], look: [-15.8, 1.35, 4.6], fov: 40 }, { t: T.her, pos: [-14.9, 1.55, 6.6], look: [-15.8, 1.4, 4.6], fov: 34 }], t);
-      return { ...LINE, cam: c, props: [{ id: 'tag', pos: [-15.8, 1.58, 4.75], scale: .72 }],
-        actors: [kid('may', MAY, [-15.8, 1.0, 4.65], pose({ turn: -.15, handA: [-.9, -2.0], handB: [.9, -2.0], shapeA: 'open', shapeB: 'open', headTilt: .12 * Math.sin(k * 6) }, t, .4), expr('confused', 'amused', ss(.5, .9, k)), t)],
+      const c = rig([{ t: T.coat, pos: [-5.9, 1.7, 7.6], look: [-7.5, 1.35, 4.6], fov: 40 }, { t: T.her, pos: [-6.6, 1.55, 6.6], look: [-7.5, 1.4, 4.6], fov: 34 }], t);
+      return { ...LINE, cam: c, props: [{ id: 'tag', pos: [-7.5, 1.58, 4.75], scale: .72 }],
+        actors: [kid('may', MAY, [-7.5, 1.0, 4.65], pose({ turn: -.15, handA: [-.9, -2.0], handB: [.9, -2.0], shapeA: 'open', shapeB: 'open', headTilt: .12 * Math.sin(k * 6) }, t, .4), expr('confused', 'amused', ss(.5, .9, k)), t)],
         overlay: chip('📦 LIKE A PACKAGE!', 210, ss(T.mailed - .1, T.mailed + .3, t), '#ff9a4a') };
     } },
     // S3 — "Her parents are sending her to her grandparents, 73 miles away": parents wave from the porch; rise into a drone shot
