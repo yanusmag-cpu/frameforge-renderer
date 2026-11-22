@@ -74,9 +74,9 @@ function turkNodes(o: { doors?: number[]; gears?: number; head?: number; arm?: n
 
 type Shot = { t0: number; t1: number; f: (t: number, k: number) => Partial<Frame9> };
 function timeline(): Shot[] {
-  const T = { legend: w('legend', 1, 3.2), sweeps: w('sweeps', 1, 5.6), this: w('this', 1, 8.6), built: w('built', 1, 12.6), for: w('for', 1, 14.4), people: w('people', 2, 19.2), so: w('so', 1, 21.0),
+  const T = { legend: w('legend', 1, 3.2), sweeps: w('sweeps', 1, 5.6), this: w('this', 1, 8.6), built: w('built', 1, 12.6), for: w('amazed', 1, 14.4), people: w('people', 2, 19.2), so: w('so', 1, 21.0),
     nothing: w('nothing', 1, 25.4), then: w('then', 1, 27.0), usually: w('usually', 1, 30.6), see: w('see', 1, 32.2), hidden: w('hidden', 1, 35.6), as: w('as', 2, 38.4), magnets: w('magnets', 1, 40.6),
-    in: w('1854', 1, w('in', 3, 45.0) - .1), few: w('few', 1, 48.0), today: w('today', 1, 52.0), name: w('name', 1, 57.0) };
+    in: w('1854', 1, w('in', 3, 45.0) - .1), few: w('later', 1, 48.0), today: w('today', 1, 52.0), name: w('name', 1, 57.0) };
   const napPos: V3 = [0, 0, 1.3];
   return [
     // S1 — over Napoleon's shoulder: a machine waits across the board; push in on its glass eyes
