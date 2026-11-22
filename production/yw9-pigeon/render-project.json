@@ -22,5 +22,6 @@
  "soundtrack": "public/yw9-pigeon-sound/bed.flac",
  "soundtrackLUFS": -14,
  "silentTailSeconds": 2.0,
- "outputFilename": "YunoWorld_Pigeons_Inside_A_Missile.mp4"
+ "outputFilename": "YunoWorld_Pigeons_Inside_A_Missile.mp4",
+ "timeoutMs": 300000
 }

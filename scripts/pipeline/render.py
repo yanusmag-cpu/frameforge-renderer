@@ -15,7 +15,7 @@ def memory():
 
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--index',type=int,required=True);p.add_argument('--folder',type=Path,required=True);a=p.parse_args();s=spec(a.index);a.folder.mkdir(parents=True,exist_ok=True)
- command=['/usr/bin/time','-v','-o',str(a.folder/'process-time.txt'),'nice','-n','5','npx','remotion','render','src/index.ts',CONTRACT['composition'],str(a.folder/'chunk.mp4'),f'--frames={s["startFrame"]}-{s["endFrame"]}','--muted','--codec=h264','--crf=18','--x264-preset=fast','--pixel-format=yuv420p','--gl=swangle',f'--concurrency={int(PROJECT.get("concurrency",1))}']
+ command=['/usr/bin/time','-v','-o',str(a.folder/'process-time.txt'),'nice','-n','5','npx','remotion','render','src/index.ts',CONTRACT['composition'],str(a.folder/'chunk.mp4'),f'--frames={s["startFrame"]}-{s["endFrame"]}','--muted','--codec=h264','--crf=18','--x264-preset=fast','--pixel-format=yuv420p','--gl=swangle',f'--concurrency={int(PROJECT.get("concurrency",1))}',f'--timeout={int(PROJECT.get("timeoutMs",30000))}']
  start=time.monotonic();last_notice=-60;last_cpu=None;pressure=0
  with (a.folder/'render.log').open('w') as log,(a.folder/'resources.jsonl').open('w') as metrics:
   proc=subprocess.Popen(command,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
