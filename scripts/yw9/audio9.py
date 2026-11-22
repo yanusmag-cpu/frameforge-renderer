@@ -215,7 +215,7 @@ elif film == 'pigcam':
     for i in range(3): flutter(A['dresden'] + .4 + i * .7, 3, .05)                        # birds land on the loft
 elif film == 'bath':
     A = dict(this=w('this', 1, 5.6), back=w('back', 1, 8.0), changed=w('changed', 1, 14.0), once=w('once', 1, 17.5), canvas=w('canvas', 1, 23.4), andd=w('and', 3, 27.0),
-             dippers=w('dippers', 1, 31.0), twist=w('twist', 1, 40.6), when=w('when', 1, 46.4))
+             dippers=w('dippers', 1, 31.0), twist=w('twist', 1, 40.6), when=w('when', 2, 46.4))
     t = .1
     while t < A['this'] - .2: put(t, thud(.035, 140)); t += .46                          # hooves on wet sand
     put(.3, creak(.04)); put(1.6, creak(.035)); put(2.8, splash(.06)); put(3.6, splash(.08))   # wheels creak, surf

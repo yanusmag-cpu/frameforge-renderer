@@ -1,0 +1,30 @@
+{
+ "composition": "YwLick",
+ "artifactPrefix": "yw-08-pennylick",
+ "frames": 1301,
+ "width": 1080,
+ "height": 1920,
+ "parallel": 6,
+ "concurrency": 2,
+ "assetDirectories": [
+  "public/brazil/fonts",
+  "public/yw9-lick"
+ ],
+ "sourceDirectories": [
+  "src/brazil",
+  "src/ehz",
+  "src/ff2d",
+  "src/yw3/core.ts",
+  "src/yw6",
+  "src/yw7",
+  "src/yw9"
+ ],
+ "soundtrack": "public/yw9-lick-sound/bed.flac",
+ "soundtrackLUFS": -14,
+ "silentTailSeconds": 1.5,
+ "outputFilename": "YunoWorld_08_Penny_Lick.mp4",
+ "timeoutMs": 300000,
+ "imageFormat": "png",
+ "crf": 15,
+ "x264Preset": "slow"
+}

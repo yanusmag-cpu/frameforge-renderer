@@ -45,7 +45,7 @@ const splash = (t: number, p: V3, n = 18, a = 1): Sprite[] => { const S: Sprite[
 
 function timeline(): Shot[] {
   const T = { somebody: w('somebody', 1, 3.6), this: w('this', 1, 5.6), back: w('back', 1, 8.0), changed: w('changed', 1, 14.0), once: w('once', 1, 17.5), canvas: w('canvas', 1, 23.4), and: w('and', 3, 27.0),
-    dippers: w('dippers', 1, 31.0), brighton: w('brighton', 1, 35.4), twist: w('twist', 1, 40.6), men: w('men', 1, 44.0), when: w('when', 1, 46.4), huts: w('huts', 1, 52.4) };
+    dippers: w('dippers', 1, 31.0), brighton: w("brighton's", 1, 31.7), twist: w('twist', 1, 40.6), men: w('men', 1, 44.0), when: w('when', 2, 46.4), huts: w('huts', 1, 52.4) };
   const END = Math.max(T.huts + 2.0, 46);
   return [
     // S1 — sweeping tracking shot alongside the horse as the shed rolls into the surf; then a face at the window
