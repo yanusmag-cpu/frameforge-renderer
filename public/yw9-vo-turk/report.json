@@ -1,44 +1,44 @@
 {
- "duration_s": 61.81,
- "words": 180,
- "words_per_s": 2.963,
- "longest_gap_s": 0.41,
- "active_pct": 82.7,
+ "duration_s": 56.76,
+ "words": 173,
+ "words_per_s": 3.106,
+ "longest_gap_s": 0.32,
+ "active_pct": 84.4,
  "passages": [
   {
-   "file": "/tmp/takes/p0_1.wav",
-   "heard": "Napoleon sits down to play chess against a machine.  Legend says he cheats, on purpose, and the machine sweeps every piece right off the board.",
+   "file": "/tmp/takes/p0_0.wav",
+   "heard": "Napoleon sits down to play chess against a machine.  Legend says he cheats, on purpose, and the machine sweeps every piece right off the board!",
    "wer": 0.0,
-   "mos": 4.498,
-   "range_st": 12.31
+   "mos": 4.496,
+   "range_st": 14.8
   },
   {
-   "file": "/tmp/takes/p1_0.wav",
-   "heard": "This is the Turk, a mechanical man in a turban, sitting on a big wooden cabinet full of gears.  Built in 1770, it amazed people across Europe and America for over 80 years.",
+   "file": "/tmp/takes/p1_2.wav",
+   "heard": "This is the Turk, a mechanical man in a turban,  sitting on a big wooden cabinet full of gears.  Built in 1770, it amazed people across Europe and America  for over 80 years.",
    "wer": 0.029,
-   "mos": 4.505,
-   "range_st": 10.53
+   "mos": 4.501,
+   "range_st": 13.2
   },
   {
-   "file": "/tmp/takes/p2_2.wav",
-   "heard": "people said it had to be a trick.  So the showman opened every door  and shone a candle right through.  Nothing in there but gears.  Then he'd wind it up,  the head would turn,  and it would play.  And it usually won.",
+   "file": "/tmp/takes/p2_0.wav",
+   "heard": "People said it had to be a trick.  So the showman opened every door  and shone a candle right through.  Nothing in there but gears.  Then he'd wind it up and it would play.  And it usually won.",
    "wer": 0.0,
-   "mos": 4.474,
-   "range_st": 13.61
+   "mos": 4.475,
+   "range_st": 15.16
   },
   {
-   "file": "/tmp/takes/p3_0.wav",
-   "heard": "You see, it was like a magic box with a false bottom.  Hidden inside was a real chess master on a sliding seat.  As each door opened, he slid out of sight.  Magnets under the board showed him every move and levers worked the arm.",
+   "file": "/tmp/takes/p3_2.wav",
+   "heard": "You see, it was like a magic box with a false bottom.  Hidden inside was a real chess master on a sliding seat.  As each door opened, he slid out of sight.  Magnets under the board showed him every move  and levers worked the arm.",
    "wer": 0.0,
-   "mos": 4.498,
-   "range_st": 10.2
+   "mos": 4.431,
+   "range_st": 12.44
   },
   {
-   "file": "/tmp/takes/p4_2.wav",
-   "heard": "In 1854, the Turk burned in a museum fire.  Later, the owner's son finally revealed the secret.  And today, Amazon runs a service  where hidden humans do the work computers can't.  Its name, mechanical, Turk!",
+   "file": "/tmp/takes/p4_1.wav",
+   "heard": "In 1854, the Turk burned in a museum fire.  Later, the secret came out,  and today, Amazon runs a service  where hidden humans do the work computers can't.  Its name?  Mechanical Turk.",
    "wer": 0.0,
-   "mos": 4.454,
-   "range_st": 11.9
+   "mos": 4.482,
+   "range_st": 15.52
   }
  ]
 }
