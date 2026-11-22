@@ -1,0 +1,35 @@
+name: Publish a preserved film under a production name
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag that holds the finished MP4 (e.g. yw9-mail-clean)
+        required: true
+      name:
+        description: Artifact/file name to publish it as (e.g. YunoWorld_01_Kids_By_Mail.mp4)
+        required: true
+permissions:
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ inputs.tag }}
+      NAME: ${{ inputs.name }}
+    steps:
+      - name: Validate inputs
+        run: |
+          echo "$TAG" | grep -Eq '^[a-z0-9][a-z0-9.-]{1,60}$' && echo "$NAME" | grep -Eq '^YunoWorld_[0-9]{2}_[A-Za-z0-9_]+\.mp4$' || { echo 'Invalid input'; exit 1; }
+      - name: Fetch the film from its release
+        run: |
+          mkdir -p out && gh release download "$TAG" -R "$GITHUB_REPOSITORY" -p '*.mp4' -D dl
+          f=$(ls dl/*.mp4 | grep -v probe | head -1); mv "$f" "out/$NAME"
+          ffprobe -v error -show_entries format=duration:stream=codec_name,width,height -of csv=p=0 "out/$NAME"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.name }}
+          path: out/${{ inputs.name }}
+          retention-days: 90
+          compression-level: 0
