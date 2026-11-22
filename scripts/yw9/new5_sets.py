@@ -433,14 +433,14 @@ def lick_glass():
 
 def lick_cone():
     # Agnes Marshall's cornet: baked cone with a lattice and a scoop on top (real size ~13 cm; origin at the tip)
-    cyl('anim:cone@c', (0, .13, 0), .004, .26, mat('paint', '#d8a050', .6), verts=24, r2=.07)
-    for k in range(6): box(f'anim:cone@l{k}', (0, .13, 0), (.005, .26, .145), mat('paint', '#b8803a', .6), bev=0, rot=(0, k * .52, .27))
+    cyl('anim:cone@c', (0, .13, 0), .004, .26, mat('paint', '#d89a48', .55), verts=32, r2=.07)
+    cyl('anim:cone@rim', (0, .262, 0), .074, .02, mat('paint', '#b87a30', .55), verts=32)
     blob('anim:cone@ice', (0, .3, 0), .075, mat('paint', '#f6e8c8', .6), sc=(1, .85, 1), sub=3, rough=.08, seed=5)
 
 
 def glass(name, x, y, z, s=1.0, scoop=False):
     """penny lick: a thick, heavy glass ~7 cm tall — conical foot, thick stem, and a shallow dish on top"""
-    g = mat('glass', '#d8ecf0', .04); x0 = s
+    g = mat('glass', '#8cc8d0', .03); x0 = s
     cyl(f'{name}.foot', (x, y + .006 * x0, z), .032 * x0, .012 * x0, g, verts=28, r2=.028 * x0)
     cyl(f'{name}.stem', (x, y + .03 * x0, z), .018 * x0, .04 * x0, g, verts=24, r2=.024 * x0)
     cyl(f'{name}.bowl', (x, y + .06 * x0, z), .036 * x0, .022 * x0, g, verts=32, r2=.03 * x0)

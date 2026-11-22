@@ -35,7 +35,7 @@ const STUDIO: Base = { set: 'none', sky: { top: '#2a1a2a', mid: '#5a2a3a', bot: 
   grade: { ao: .5, aoRadius: .12, aoTint: [.34, .3, .55], sat: 1.2, contrast: 1.08, lift: [.03, .025, .06], gain: [1.04, 1.0, .97], bloom: .35, bloomTh: 1.2, vignette: .3 } };
 const MICRO: Base = { ...STUDIO, sky: { top: '#0e2a2a', mid: '#1a4a4a', bot: '#3a6a5a', clouds: 0, sun: [.4, .8, .5], sunC: '#000000' }, grade: { ...STUDIO.grade, sat: 1.3, gain: [.95, 1.05, 1.0], bloom: .5, bloomTh: 1.0, vignette: .45 } };
 
-const BAR: V3 = [1.5, 0, .4];      // the barrow in the street
+const BAR: V3 = [1.5, 0, -.7];      // the barrow in the street
 const GLASS_REAL = .2;              // glass prop at real size (the hero model is built at 5x)
 const held = (p: V3, s = GLASS_REAL, id = 'glass') => ({ id, pos: p, scale: s });
 const germs = (t: number, n: number, a: number, spread = .5, y = .35): Sprite[] => { const S: Sprite[] = []; for (let i = 0; i < n; i++) { const r = hsh(i) * spread; const g = hsh(i + 7) * 6.28 + t * (.3 + hsh(i + 3) * .4);
@@ -45,13 +45,13 @@ function timeline(): Shot[] {
   const T = { handed: w('handed', 1, 3.2), without: w('without', 1, 6.4), this: w('this', 2, 7.4), penny: w('penny', 2, 10.0), here: w("here's", 1, 14.2), lens: w('lens', 1, 19.4), see: w('see', 1, 21.6), wipe: w('wipe', 1, 24.6),
     doctors: w('doctors', 1, 27.6), banned: w('banned', 1, 32.4), but: w('but', 1, 33.6), agnes: w('agnes', 1, 37.0), edible: w('edible', 1, 39.6), one: w('one', 2, 42.0) };
   const END = Math.max(T.one + 2.4, 40);
-  const vendor = (t: number, f = expr('happy', 'smug', .4), hb: [number, number] = [.7, -2.2]) => act('vend', VEND, [BAR[0] + .2, 0, BAR[2] - .9], pose({ turn: -.3, handB: hb, shapeB: 'hold', handA: [-.6, -2.0], shapeA: 'hold' }, t, .3), f, t, { res: 1500 });
+  const vendor = (t: number, f = expr('happy', 'smug', .4), hb: [number, number] = [.7, -2.2]) => act('vend', VEND, [BAR[0] + .1, 0, BAR[2] - .75], pose({ turn: -.3, handB: hb, shapeB: 'hold', handA: [-.6, -2.0], shapeA: 'hold' }, t, .3), f, t, { res: 1500 });
   return [
     // S1 — the kid licks the glass spotless, hands it back; the vendor slaps in another scoop for the next kid — unwashed
     { t0: 0, t1: T.this, f: (t) => {
       const back = ss(T.handed - .2, T.handed + .4, t); const next = ss(T.handed + 1.0, T.handed + 1.6, t);
-      const c = rig([{ t: 0, pos: [.3, 1.25, 2.6], look: [1.0, 1.1, .5], fov: 38 }, { t: T.handed, pos: [.6, 1.3, 2.2], look: [1.4, 1.15, .4], fov: 36 }, { t: T.this, pos: [1.0, 1.35, 1.9], look: [1.7, 1.2, .2], fov: 32 }], t, { easing: ease.inOut });
-      const gp: V3 = back < 1 ? [lerp(.62, 1.55, back), lerp(1.05, 1.25, back), lerp(1.1, -.3, back)] : [lerp(1.55, 2.25, next), lerp(1.25, 1.12, next), lerp(-.3, .9, next)];
+      const c = rig([{ t: 0, pos: [-.6, 1.35, 3.5], look: [1.1, 1.2, .3], fov: 42 }, { t: T.handed, pos: [-.3, 1.4, 3.3], look: [1.4, 1.2, .1], fov: 40 }, { t: T.this, pos: [.3, 1.45, 3.1], look: [1.8, 1.25, .2], fov: 38 }], t, { easing: ease.inOut });
+      const gp: V3 = back < 1 ? [lerp(.62, 1.55, back), lerp(1.05, 1.3, back), lerp(1.1, -1.25, back)] : [lerp(1.55, 2.25, next), lerp(1.3, 1.12, next), lerp(-1.25, .9, next)];
       return { ...MARKET, cam: c, props: [{ id: 'barrow', pos: BAR }, held(gp)],
         actors: [act('k1', KID1, [.55, 0, 1.3], pose({ turn: .35, handB: back < .3 ? [.15, -2.65] : [.7, -2.2], shapeB: 'hold', headTilt: back < .3 ? .2 : 0 }, t, .3), back < .3 ? expr('happy', 'laugh', .6) : expr('happy'), t, { res: 1500 }),
           vendor(t), act('k2', KID2, [2.45, 0, 1.2], pose({ turn: -.4, handA: [-.7, -2.3 * next - 1.6 * (1 - next)], shapeA: 'open' }, t, .3), expr('excited'), t, { res: 1500 })],
@@ -99,7 +99,7 @@ function timeline(): Shot[] {
     // S7 — "...edible cones you fill with ice cream. One of the earliest ever written down!": back in the market the girl
     // gets a cone instead; macro push on the scoop; title
     { t0: T.edible, t1: END, f: (t) => {
-      const c = rig([{ t: T.edible, pos: [1.2, 1.4, 2.6], look: [2.2, 1.2, 1.0], fov: 38 }, { t: END, pos: [2.0, 1.32, 1.8], look: [2.32, 1.3, 1.15], fov: 28 }], t, { easing: ease.inOut });
+      const c = rig([{ t: T.edible, pos: [.9, 1.45, 3.6], look: [2.2, 1.25, 1.0], fov: 40 }, { t: END, pos: [1.4, 1.4, 3.0], look: [2.35, 1.3, 1.1], fov: 36 }], t, { easing: ease.inOut });
       const tt = ss(T.one + .3, T.one + .7, t);
       return { ...MARKET, cam: c, props: [{ id: 'barrow', pos: BAR }, { id: 'cone', pos: [2.3, 1.12, 1.25], scale: 1.0 }],
         actors: [act('k2', KID2, [2.45, 0, 1.2], pose({ turn: -.3, handA: [-.35, -2.3], shapeA: 'hold' }, t, .3), expr('excited', 'laugh', .6), t, { res: 1600 }), vendor(t, expr('happy'))],
