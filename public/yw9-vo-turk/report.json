@@ -1,0 +1,44 @@
+{
+ "duration_s": 61.83,
+ "words": 192,
+ "words_per_s": 3.159,
+ "longest_gap_s": 0.35,
+ "active_pct": 83.3,
+ "passages": [
+  {
+   "file": "/tmp/takes/p0_1.wav",
+   "heard": "Napoleon sits down to play chess against a machine.  Legend says he cheats on purpose  and the machine sweeps every piece right off the board.",
+   "wer": 0.0,
+   "mos": 4.488,
+   "range_st": 11.34
+  },
+  {
+   "file": "/tmp/takes/p1_1.wav",
+   "heard": "This is the Turk, a mechanical man in a turban sitting on a big wooden cabinet full of gears.  It was built in 1770 and for more than 80 years it amazed people across Europe and America.",
+   "wer": 0.026,
+   "mos": 4.471,
+   "range_st": 10.61
+  },
+  {
+   "file": "/tmp/takes/p2_1.wav",
+   "heard": "people said it had to be a trick.  So before a game, the showman opened every door  and shone a candle right through the machinery.  Nothing in there but gears.  Then he'd wind it up, the head would turn,  and it would play, and it usually won.",
+   "wer": 0.0,
+   "mos": 4.465,
+   "range_st": 19.1
+  },
+  {
+   "file": "/tmp/takes/p3_1.wav",
+   "heard": "You see, it was like a magic box with a false bottom. Hidden inside was a real chess master,  on a sliding seat. As each door opened, he slid out of sight.  Magnets under the board showed him every move, and levers worked the arm.",
+   "wer": 0.0,
+   "mos": 4.489,
+   "range_st": 11.29
+  },
+  {
+   "file": "/tmp/takes/p4_1.wav",
+   "heard": "In 1854, the Turk burned in a museum fire.  A few years later, the owner's son finally revealed the secret, and today, Amazon runs  a service where hidden humans do the work computers can't.  Its name?  Mechanical Turk.",
+   "wer": 0.0,
+   "mos": 4.489,
+   "range_st": 11.3
+  }
+ ]
+}
