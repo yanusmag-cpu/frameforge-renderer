@@ -78,6 +78,7 @@ def street():
             pc, aw = SH[(i + (side > 0) * 3) % len(SH)]
             house(f'st{side}{i}', -36 + i * 12, side * 13.2, 11, 8, floors=2, fh=3.4, plaster=pc, roof='#5a5a5e', trim='#f4f0e6', door_col=aw,
                   facing=-side, shop=aw, sign=aw, lit=.8, seed=80 + i + (side > 0) * 10, chimney=False)
+    text_plane('shopsign', (0, 3.75, -9.0), 4.4, .8, mat('sign', '#1e2a3a', .5))
     for i, (x, s, c) in enumerate([(-20, -1, '#3f7ab0'), (-12, -1, '#c43d33'), (6, -1, '#7ab0a0'), (-4, 1, '#e8c84a'), (16, 1, '#2f4f6a'), (26, -1, '#e8e0d0')]):
         car_model(f'car{i}', x, s * 3.4, col=c, rot=0 if s < 0 else math.pi)
     for i in range(8):
@@ -140,11 +141,17 @@ def scope():
     for k in range(2): shoe(f'anim:foot{k}', -.1 + k * .2, .29, .14, col='#6a3a22')
 
 
+def viewer():
+    """the view down the hood, for point-of-view shots: an upright 1 m phosphor screen facing +z inside a black tube"""
+    text_plane('vscreen', (0, 0, 0), 1.0, 1.0, mat('screen', '#2a6a3a', .3))
+
+
 def main():
     build_set(OUT / 'shop.glb', 'shop', shop)
     build_set(OUT / 'street.glb', 'street', street)
     build_set(OUT / 'state.glb', 'state', state)
     build_set(OUT / 'scope.glb', 'scope', scope, joinable=True)
+    build_set(OUT / 'viewer.glb', 'viewer', viewer, joinable=True)
     print('ALL ASSETS DONE')
 
 

@@ -15,7 +15,7 @@ export type Sky = { top: string; mid: string; bot: string; sun?: V3; sunC?: stri
 export type ScreenF = { dx: number; dy: number; zoom?: number; pecks?: number; t: number; lock?: number };
 export type Frame9 = YFrame & { set: string; also?: string[]; props?: PropF[]; sky?: Sky; sea?: { c1: string; c2: string; i?: number };
   beams?: Beam[]; dust?: { box: [V3, V3]; i: number }; screen?: ScreenF; wind?: number; grade?: Partial<Grade9>;
-  hideNodes?: Record<string, boolean>; signText?: string[] };
+  hideNodes?: Record<string, boolean>; signText?: string[]; setNodes?: Record<string, NodeOv> };
 export type SetSpec = { name: string; glb: string; grass?: string; special?: Record<string, (mesh: T.Mesh) => T.Material> };
 
 const BLADE = (() => {   // one grass clump: 4 curved tapered blades (12 tris), colour gradient root -> tip

@@ -8,6 +8,12 @@ import { frameAt as iceAt } from './ice/shots.ts';
 import { ICE_SETS, ICE_PROPS, iceBoards } from './ice/boards.ts';
 import { frameAt as turkAt } from './turk/shots.ts';
 import { TURK_SETS, TURK_PROPS, turkBoards } from './turk/boards.ts';
+import { frameAt as mailAt } from './mail/shots.ts';
+import { MAIL_SETS, MAIL_PROPS, mailBoards } from './mail/boards.ts';
+import { frameAt as earsAt } from './ears/shots.ts';
+import { EARS_SETS, EARS_PROPS, earsBoards, earsScreen } from './ears/boards.ts';
+import { frameAt as xrayAt } from './xray/shots.ts';
+import { XRAY_SETS, XRAY_PROPS, xrayBoards, xrayScreen } from './xray/boards.ts';
 
 const FONTS: [string, string][] = [['900', 'Inter-Black.otf'], ['700', 'Inter-Bold.otf'], ['400', 'Inter-Regular.otf']];
 async function fonts() { for (const [wt, f] of FONTS) { const ff = new FontFace('Inter', `url(${staticFile('brazil/fonts/' + f)})`, { weight: wt }); await ff.load(); (document.fonts as unknown as { add: (f: FontFace) => void }).add(ff); } }
@@ -33,3 +39,6 @@ function makeFilm(make: (cv: HTMLCanvasElement, w: number, h: number) => Engine9
 export const YwPigeon = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-pigeon/'), PIGEON_SETS, PIGEON_PROPS, pigeonBoards), pigeonAt);
 export const YwIce = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-ice/'), ICE_SETS, ICE_PROPS, iceBoards), iceAt);
 export const YwTurk = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-turk/'), TURK_SETS, TURK_PROPS, turkBoards), turkAt);
+export const YwMail = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-mail/'), MAIL_SETS, MAIL_PROPS, mailBoards), mailAt);
+export const YwEars = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-ears/'), EARS_SETS, EARS_PROPS, earsBoards, earsScreen), earsAt);
+export const YwXray = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-xray/'), XRAY_SETS, XRAY_PROPS, xrayBoards, xrayScreen), xrayAt);
