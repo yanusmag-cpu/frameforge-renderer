@@ -362,9 +362,7 @@ def spit_props():
     cx, cy, cz = 0.0, 0.0, 6.0
     box('anim:case@plinth', (cx, .45, cz), (1.0, .9, .7), mat('plank', '#5a3018', .5), bev=.02)
     box('anim:case@back', (cx, 1.25, cz - .32), (.96, .7, .04), mat('paint', '#6a9ad0', .7), bev=0)
-    box('anim:case@glass', (cx, 1.25, cz + .33), (.98, .72, .01), mat('glass', '#e8f0f4', .03), bev=0)
-    for s_ in (-1, 1): box(f'anim:case@side{s_}', (cx + s_ * .49, 1.25, cz), (.02, .72, .68), mat('glass', '#e8f0f4', .03), bev=0)
-    box('anim:case@top', (cx, 1.62, cz), (1.0, .04, .7), mat('plank', '#5a3018', .5), bev=.01)
+    box('anim:case@top', (cx, 1.62, cz - .2), (1.0, .04, .3), mat('plank', '#5a3018', .5), bev=.01)
     for k in range(5): sphere(f'anim:case@fl{k}', (cx - .35 + k * .17, 1.0 + (k % 2) * .08, cz - .25), .03, mat('paint', ['#e8405a', '#f2d24a', '#f6f1e2', '#c95a8f', '#e8405a'][k], .5))
 
 
