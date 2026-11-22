@@ -329,7 +329,8 @@ def spit_props():
         for k in range(24):
             a = k / 24 * 6.283; b = (k + 1) / 24 * 6.283
             box(f'anim:wheel@rim{s}{k}', (WX + s * .2, WY + math.sin((a + b) / 2) * (R + .03), WZ + math.cos((a + b) / 2) * (R + .03)), (.04, .06, R * .27), wood, bev=0, rot=(-(a + b) / 2, 0, 0))
-        for k in range(4): box(f'anim:wheel@spoke{s}{k}', (WX + s * .2, WY, WZ), (.03, R * 2, .04), wood, bev=0, rot=(k * .785, 0, 0))
+        if s < 0:   # spokes on the far side only, so the open near side shows the dog
+            for k in range(4): box(f'anim:wheel@spoke{s}{k}', (WX + s * .2, WY, WZ), (.03, R * 2, .04), wood, bev=0, rot=(k * .785, 0, 0))
     cyl('anim:wheel@axle', (WX, WY, WZ), .04, .7, iron, axis='x', verts=10)
     cyl('anim:wheel@pulley', (WX - .38, WY, WZ), .14, .05, iron, axis='x', verts=24)
     box('wheel.arm', (WX - .5, WY, WZ - .42), (.07, .07, .86), iron, bev=.01)   # wall arm from behind, clear of the camera side

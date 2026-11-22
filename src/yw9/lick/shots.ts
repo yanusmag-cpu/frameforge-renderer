@@ -101,8 +101,8 @@ function timeline(): Shot[] {
     { t0: T.edible, t1: END, f: (t) => {
       const c = rig([{ t: T.edible, pos: [.9, 1.45, 3.6], look: [2.2, 1.25, 1.0], fov: 40 }, { t: END, pos: [1.4, 1.4, 3.0], look: [2.35, 1.3, 1.1], fov: 36 }], t, { easing: ease.inOut });
       const tt = ss(T.one + .3, T.one + .7, t);
-      return { ...MARKET, cam: c, props: [{ id: 'barrow', pos: BAR }, { id: 'cone', pos: [2.3, 1.12, 1.25], scale: 1.0 }],
-        actors: [act('k2', KID2, [2.45, 0, 1.2], pose({ turn: -.3, handA: [-.35, -2.3], shapeA: 'hold' }, t, .3), expr('excited', 'laugh', .6), t, { res: 1600 }), vendor(t, expr('happy'))],
+      return { ...MARKET, cam: c, props: [{ id: 'barrow', pos: BAR }, { id: 'cone', pos: [2.08, 1.08, 1.4], scale: 1.0 }],
+        actors: [act('k2', KID2, [2.45, 0, 1.2], pose({ turn: -.3, handA: [-.75, -2.25], shapeA: 'hold' }, t, .3), expr('excited', 'laugh', .6), t, { res: 1600 }), vendor(t, expr('happy'))],
         overlay: chip('🍦 THE EDIBLE CONE', 210, ss(T.edible + .2, T.edible + .6, t), '#ffd23f') + bigTitle('ONE OF THE FIRST', 'CONE RECIPES', tt) };
     } },
   ];
