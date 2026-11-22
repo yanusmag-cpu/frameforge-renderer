@@ -4,6 +4,8 @@ import { AbsoluteFill, continueRender, delayRender, staticFile, useCurrentFrame,
 import { Engine9, type Frame9 } from './engine9.ts';
 import { frameAt as pigeonAt } from './pigeon/shots.ts';
 import { PIGEON_SETS, PIGEON_PROPS, pigeonBoards } from './pigeon/boards.ts';
+import { frameAt as iceAt } from './ice/shots.ts';
+import { ICE_SETS, ICE_PROPS, iceBoards } from './ice/boards.ts';
 
 const FONTS: [string, string][] = [['900', 'Inter-Black.otf'], ['700', 'Inter-Bold.otf'], ['400', 'Inter-Regular.otf']];
 async function fonts() { for (const [wt, f] of FONTS) { const ff = new FontFace('Inter', `url(${staticFile('brazil/fonts/' + f)})`, { weight: wt }); await ff.load(); (document.fonts as unknown as { add: (f: FontFace) => void }).add(ff); } }
@@ -27,3 +29,4 @@ function makeFilm(make: (cv: HTMLCanvasElement, w: number, h: number) => Engine9
   };
 }
 export const YwPigeon = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-pigeon/'), PIGEON_SETS, PIGEON_PROPS, pigeonBoards), pigeonAt);
+export const YwIce = makeFilm((cv, w, h) => new Engine9(cv, w, h, staticFile('yw9-ice/'), ICE_SETS, ICE_PROPS, iceBoards), iceAt);

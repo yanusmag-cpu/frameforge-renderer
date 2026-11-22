@@ -65,7 +65,7 @@ export class Engine9 extends Core {
     // sea: gerstner-ish vertex swell + layered normal noise, fresnel sky reflection, sun glint, soft depth colour
     this.seaU = { t: { value: 0 }, c1: { value: new T.Color('#1d6f8c') }, c2: { value: new T.Color('#5fc1c9') }, sun: this.skyU.sun, sky: this.skyU.mid, sunC: this.skyU.sunC, camP: { value: new T.Vector3() } };
     const sg = new T.PlaneGeometry(1600, 1600, 200, 200); sg.rotateX(-Math.PI / 2);
-    this.sea = new T.Mesh(sg, new T.ShaderMaterial({ uniforms: this.seaU, fog: false,
+    this.sea = new T.Mesh(sg, new T.ShaderMaterial({ uniforms: this.seaU, fog: false, side: T.DoubleSide,
       vertexShader: `uniform float t; varying vec3 vW; void main(){ vec3 p = position; p.y += sin(p.x * .08 + t * .9) * .25 + sin(p.z * .11 - t * 1.1) * .2 + sin((p.x + p.z) * .23 + t * 1.7) * .08;
         vec4 w = modelMatrix * vec4(p, 1.); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`,
       fragmentShader: `uniform float t; uniform vec3 c1, c2, sun, sky, sunC, camP; varying vec3 vW;

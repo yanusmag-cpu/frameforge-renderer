@@ -204,7 +204,7 @@ def blocks():
     for k in range(14):
         box(f'anim:shards.k{k}', (-.45 + rr.uniform(-.2, .2), .25 + rr.uniform(-.2, .2), rr.uniform(-.2, .2)), (rr.uniform(.06, .16), rr.uniform(.06, .16), rr.uniform(.04, .1)), mat('ice', '#d8f2fa', .15), bev=.01, rot=(rr.random() * 3, rr.random() * 3, rr.random() * 3))
     box('anim:iceB', (.45, .25, 0), (.5, .5, .5), mat('pykrete', '#d9ccb0', .55), bev=.03)
-    box('tray', (0, -.02, 0), (1.6, .04, .8), mat('metal', '#8a9096', .4, .5), bev=.01)
+    box('anim:tray', (0, -.02, 0), (1.6, .04, .8), mat('metal', '#8a9096', .4, .5), bev=.01)
 
 
 def uboat():
