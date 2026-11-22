@@ -78,6 +78,14 @@ const SURF: Record<string, (b: number[], seed: number) => Draw> = {
     noiseFill(g, 512, 512, b, 3000, .9, [1, 2.5], seed + 3, .4);
     return { col, hgt };
   },
+  pave(b, seed) {    // flagstone paving slabs (0.6 m), dark joints, per-slab tone, worn speckle
+    const col = mk(), hgt = mk(); const g = col.getContext('2d')!, q = hgt.getContext('2d')!; const R = rng(seed);
+    g.fillStyle = css(b, .55); g.fillRect(0, 0, 512, 512); q.fillStyle = '#222'; q.fillRect(0, 0, 512, 512);
+    for (let r = 0; r < 2; r++) for (let c = -1; c < 3; c++) { const x = c * 256 + (r % 2) * 128 + 3, y = r * 256 + 3; const k = .85 + R() * .25;
+      g.fillStyle = css(b, k); g.fillRect(x, y, 250, 250); q.fillStyle = '#bbb'; q.fillRect(x + 2, y + 2, 246, 246); }
+    noiseFill(g, 512, 512, b, 3500, .5, [1, 4], seed + 2, .35);
+    return { col, hgt };
+  },
   tile(b, seed) { const col = mk(256, 256), hgt = mk(256, 256); const g = col.getContext('2d')!; g.fillStyle = css(b); g.fillRect(0, 0, 256, 256); noiseFill(g, 256, 256, b, 900, .2, [1, 3], seed, .4); hgt.getContext('2d')!.fillStyle = '#888'; hgt.getContext('2d')!.fillRect(0, 0, 256, 256); return { col, hgt }; },
   plaster(b, seed) {
     const col = mk(), hgt = mk(); const g = col.getContext('2d')!, q = hgt.getContext('2d')!; const R = rng(seed);
@@ -108,9 +116,9 @@ const SURF: Record<string, (b: number[], seed: number) => Draw> = {
   paint(b, seed) { const col = mk(128, 128), hgt = mk(128, 128); const g = col.getContext('2d')!; g.fillStyle = css(b); g.fillRect(0, 0, 128, 128); noiseFill(g, 128, 128, b, 160, .12, [2, 8], seed, .3); hgt.getContext('2d')!.fillStyle = '#888'; hgt.getContext('2d')!.fillRect(0, 0, 128, 128); return { col, hgt }; },
 };
 SURF.brass = SURF.metal; SURF.rubber = SURF.paint;
-const ROUGH: Record<string, number> = { brick: .92, plank: .58, bark: .9, stone: .82, cobble: .78, tile: .22, plaster: .93, roof: .8, metal: .38, brass: .3, fabric: .95, paper: .9, leaf: .85, terrain: .95, paint: .52, rubber: .85 };
+const ROUGH: Record<string, number> = { pave: .85, brick: .92, plank: .58, bark: .9, stone: .82, cobble: .78, tile: .22, plaster: .93, roof: .8, metal: .38, brass: .3, fabric: .95, paper: .9, leaf: .85, terrain: .95, paint: .52, rubber: .85 };
 const METAL: Record<string, number> = { metal: .45, brass: .75 };
-const NRM: Record<string, number> = { brick: 2.6, plank: 1.2, bark: 2.5, stone: 1.6, cobble: 3.2, plaster: .8, fabric: 1.0, leaf: 1.4, terrain: 1.6 };
+const NRM: Record<string, number> = { pave: 2.0, brick: 2.6, plank: 1.2, bark: 2.5, stone: 1.6, cobble: 3.2, plaster: .8, fabric: 1.0, leaf: 1.4, terrain: 1.6 };
 const SCALE: Record<string, number> = { terrain: .5, leaf: 1.5, tile: 1, roof: 1, paint: 1 };
 
 /** dress one GLB material in place; returns the replacement material */

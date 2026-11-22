@@ -589,7 +589,7 @@ def terrain(name, x0, x1, z0, z1, n, height, colour_fn, flat=(), skirt=True):
             row.append(bm.verts.new(L(x, y, z)))
         vs.append(row)
     for j in range(n):
-        for i in range(n): bm.faces.new((vs[j][i], vs[j][i + 1], vs[j + 1][i + 1], vs[j + 1][i]))
+        for i in range(n): bm.faces.new((vs[j][i], vs[j + 1][i], vs[j + 1][i + 1], vs[j][i + 1]))   # wound so normals face up
     me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
     for f in me.polygons: f.use_smooth = True
     o = _obj(name, me); o.data.materials.append(mat('terrain', '#ffffff', .95))

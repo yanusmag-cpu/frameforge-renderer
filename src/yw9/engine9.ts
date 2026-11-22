@@ -109,7 +109,7 @@ export class Engine9 extends Core {
       const mats = Array.isArray(m.material) ? m.material : [m.material];
       const out = mats.map(mt => surface(mt, this.env, (tag, hx, mesh) => {
         const sp = spec?.special?.[tag]; if (sp) return sp(mesh);
-        if (tag === 'screen') { fitUV(mesh.geometry); return new T.MeshStandardMaterial({ map: this.screenTex, emissiveMap: this.screenTex, emissive: new T.Color('#ffffff'), emissiveIntensity: 1.1, roughness: .4, name: mt.name }); }
+        if (tag === 'screen') { fitUV(mesh.geometry); return new T.MeshStandardMaterial({ map: this.screenTex, emissiveMap: this.screenTex, emissive: new T.Color('#ffffff'), emissiveIntensity: .55, roughness: .4, color: '#7f7f7f', name: mt.name }); }
         if (tag === 'board' || tag === 'map' || tag === 'sign') { fitUV(mesh.geometry);
           const c = document.createElement('canvas'); c.width = tag === 'sign' ? 512 : 1024; c.height = tag === 'sign' ? 128 : 560; const g = c.getContext('2d')!; g.fillStyle = hx; g.fillRect(0, 0, c.width, c.height); this.boardDraw?.(g, tag);
           const tx = new T.CanvasTexture(c); tx.colorSpace = T.SRGBColorSpace; tx.anisotropy = 8; return new T.MeshStandardMaterial({ map: tx, roughness: .85, name: mt.name }); }

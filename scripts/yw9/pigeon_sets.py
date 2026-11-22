@@ -67,11 +67,11 @@ def nose_cone(prefix='', cut=True, at=(0, 0, 0)):
     # interior: bulkheads, ribs, stringers
     for x in (0.05, 0.6, 1.3, 1.85):
         r = [rr for xx, rr in OGIVE if xx >= x][0] - .035
-        tube(f'{prefix}ring{int(x * 100)}', [P(x, r * math.cos(a * math.pi / 20), r * math.sin(a * math.pi / 20)) for a in range(41)], .02, mat('paint', '#e3b23c', .45))
-    cyl(f'{prefix}rearplate', P(0.03, 0, 0), .44, .02, ins, axis='x', verts=40)
+        tube(f'anim:{prefix}frame.ring{int(x * 100)}', [P(x, r * math.cos(a * math.pi / 20), r * math.sin(a * math.pi / 20)) for a in range(41)], .02, mat('paint', '#e3b23c', .45))
+    cyl(f'anim:{prefix}frame.rear', P(0.03, 0, 0), .44, .02, ins, axis='x', verts=40)
     for k in range(10):
         a = k * 2 * math.pi / 10
-        tube(f'{prefix}stringer{k}', [P(x, (r - .03) * math.cos(a), (r - .03) * math.sin(a)) for x, r in OGIVE[:8]], .008, dark)
+        tube(f'anim:{prefix}frame.str{k}', [P(x, (r - .03) * math.cos(a), (r - .03) * math.sin(a)) for x, r in OGIVE[:8]], .008, dark)
     # three bays: pigeon jacket (cloth sleeve), screen on a gimbal, pickup pads, tubes to the valve block
     for k in range(3):
         a = math.pi / 2 + k * 2 * math.pi / 3; y, z = math.cos(a) * .2, math.sin(a) * .2
@@ -420,9 +420,11 @@ def street():
         for sz in (-1, 1):
             # pavement blocks per quadrant + kerbs
             xa, xb = sorted((sx * rw / 2, sx * (rw / 2 + pw))); za, zb = sorted((sz * rw / 2, sz * 45))
-            stone_floor(xa, xb, za, zb, y=.15, base='#a29d93', s=.6, name=f'pave{sx}{sz}')
+            if sx > 0 and sz > 0: stone_floor(xa, xb, za, min(zb, 16), y=.15, base='#a29d93', s=.6, name=f'pave{sx}{sz}')
+            box(f'pavebase{sx}{sz}', ((xa + xb) / 2, .06, (za + zb) / 2), (xb - xa, .12, zb - za), mat('pave', '#a29d93', .85), bev=0)
             xa2, xb2 = sorted((sx * rw / 2, sx * 45)); za2, zb2 = sorted((sz * rw / 2, sz * (rw / 2 + pw)))
-            stone_floor(xa2, xb2, za2, zb2, y=.15, base='#a29d93', s=.6, name=f'pavb{sx}{sz}')
+            if sx > 0 and sz > 0: stone_floor(xa2, min(xb2, 16), za2, zb2, y=.15, base='#a29d93', s=.6, name=f'pavb{sx}{sz}')
+            box(f'pavbbase{sx}{sz}', ((xa2 + xb2) / 2, .06, (za2 + zb2) / 2), (xb2 - xa2, .12, zb2 - za2), mat('pave', '#a29d93', .85), bev=0)
             box(f'kerbz{sx}{sz}', (sx * rw / 2, .07, sz * (rw / 2 + 21)), (.22, .16, 42), km, bev=.02)
             box(f'kerbx{sx}{sz}', (sx * (rw / 2 + 21), .07, sz * rw / 2), (42, .16, .22), km, bev=.02)
     specs = [  # (x, z, w, d, floors, colour, plaster, roof, shopfront, sign colour, timber, facing)
