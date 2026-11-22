@@ -137,7 +137,8 @@ elif film == 'turk':
     put(A['magnets'] + .1, click(.06, 1500)); put(A['magnets'] + .5, click(.05, 1300))
     put(A['inn'] + .2, fire_burst(1.6, .08)); put(A['inn'] + 1.4, fire_burst(1.2, .06))      # the museum burns
     put(A['later'] + .3, paper(.6, .025))                                                     # pen on paper
-    keys(A['today'] + .3, A['today'] + 2.4, .025)                                             # people typing
+    keys(A['today'] + .3, 58.2, .022)                                                         # people typing at their screens
+    put(A['name'] + .6, clink(.06)); put(A['name'] + .65, thud(.05, 180))                     # the title lands like a chess move
 elif film == 'mail':
     A = dict(coat=w('coat', 1, 4.0), mailed=w('mailed', 1, 5.5), her=w('her', 2, 7.4), its=w("it's", 1, 11.3), year=w('year', 1, 14.2), rules=w('rules', 1, 19.6), very=w('very', 1, 22.6),
              sounds=w('sounds', 1, 27.7), may=w('may', 1, 29.5), letters=w('letters', 1, 32.3), guess=w('guess', 1, 35.1), clerk=w('clerk', 1, 37.0), see=w('see', 1, 39.0), under=w('under', 1, 43.5),
