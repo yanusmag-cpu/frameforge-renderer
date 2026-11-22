@@ -20,7 +20,7 @@ const NAVYC = '#1f2c48';
 const OFFICER: T7Look = { skin: '#efc19c', hair: '#3a2a1e', hairStyle: 'short', nose: 'long', head: { w: .92, h: 1.06, jaw: 1.05 }, top: NAVYC, topKind: 'jacket', trim: '#d9b44a', buttons: '#e2c25a', inner: '#f2ede2', tie: '#111', pants: NAVYC, boots: '#111', hat: 'driver', hatColor: NAVYC, beard: 'stache', beardColor: '#3a2a1e', eyes: '#3a4a5a' };
 const ADM1: T7Look = { skin: '#eab595', hair: '#e8e8e4', hairStyle: 'short', nose: 'round', head: { w: 1.12, jaw: 1.15, cheek: 1.15 }, top: NAVYC, topKind: 'jacket', trim: '#e2c25a', buttons: '#e2c25a', inner: '#f2ede2', tie: '#111', pants: NAVYC, boots: '#111', beard: 'full', beardColor: '#f0f0ec', build: 1.2, belly: 1.25, hat: 'driver', hatColor: NAVYC, eyes: '#4a5a6a' };
 const ADM2: T7Look = { skin: '#f0caa8', hair: '#9a9a96', hairStyle: 'swept', nose: 'hook', head: { w: .9, h: 1.1, jaw: .9 }, top: NAVYC, topKind: 'jacket', trim: '#e2c25a', buttons: '#e2c25a', inner: '#f2ede2', tie: '#111', pants: NAVYC, boots: '#111', glasses: true, eyes: '#4a5a6a' };
-const PYKE: T7Look = { skin: '#f0c8a8', hair: '#2a2018', hairStyle: 'curly', nose: 'long', head: { w: .9, h: 1.1, jaw: .92 }, top: '#7a6048', topKind: 'suit', inner: '#efe6d2', tie: '#5a2a2a', pants: '#5a4838', boots: '#2a2018', glasses: true, beard: 'stubble', beardColor: '#2a2018', eyes: '#3a4a3a' };
+const PYKE: T7Look = { skin: '#f0c8a8', hair: '#2a2018', hairStyle: 'swept', nose: 'long', head: { w: .9, h: 1.1, jaw: 1.05 }, top: '#7a6048', topKind: 'suit', inner: '#efe6d2', tie: '#5a2a2a', pants: '#5a4838', boots: '#2a2018', glasses: true, beard: 'full', beardColor: '#2a2018', eyes: '#3a4a3a' };
 const SIL: T7Look = { skin: '#1e1e24', hair: '#1e1e24', hairStyle: 'bald', nose: 'round', head: { w: 1.15, jaw: 1.2, cheek: 1.2 }, top: '#1e1e24', topKind: 'coat', pants: '#1e1e24', boots: '#1e1e24', build: 1.25, belly: 1.35 };
 const pose = (p: Partial<Pose>, t = 0, amt = 1, seed = 3): Pose => ({ ...STAND, ...idle(t, seed, amt), ...p });
 const act = (id: string, look: T7Look, pos: V3, p: Pose, face: ReturnType<typeof expr>, t: number, o: Partial<ActorState> = {}): ActorState =>
@@ -74,7 +74,7 @@ const tracer = (a: V3, b: V3, k: number): Sprite[] => { if (k <= 0 || k >= 1) re
 type Shot = { t0: number; t1: number; f: (t: number, k: number) => Partial<Frame9> };
 function timeline(): Shot[] {
   const T = { fires: w('fires', 1, 2.0), shatters: w('shatters', 1, 3.6), then: w('then', 1, 4.3), fires2: w('fires', 2, 5.0), bounces: w('bounces', 1, 6.6), because: w('because', 1, 9.0),
-    war: w('world', 1, 12.0), so: w('so', 1, 17.0), everyone: w('everyone', 1, 21.6), story: w('story', 1, 24.0), plan: w('plan', 2, 29.0), ship: w('ship', 1, 30.6), forty: w('forty', 1, 33.2),
+    war: w('world', 1, 12.0), so: w('so', 1, 17.0), everyone: w('everyone', 1, 21.6), story: w('story', 1, 24.0), plan: w('then', 2, 33.6), ship: w('ship', 1, 30.6), forty: w('40', 1, 38.0),
     see: w('see', 1, 35.4), torpedo: w('torpedo', 1, 42.0), actually: w('actually', 1, 47.6), tiny: w('tiny', 1, 52.0), then2: w('then', 3, 53.2), remains: w('remains', 1, 55.6) };
   return [
     // S1 — hook: low dolly along the floor past the officer to the two blocks; BANG, the plain ice block shatters (slow-mo)
@@ -158,7 +158,7 @@ function timeline(): Shot[] {
     } },
     // S10 — "Torpedo hole? Just pump in seawater and let it freeze!": hull close-up: a hole, seawater pours in, frost seals it
     { t0: T.torpedo, t1: T.actually, f: (t, k) => {
-      const c = rig([{ t: T.torpedo, pos: [-40, 9, 95], look: [-10, 8, 46], fov: 40 }, { t: T.actually, pos: [-28, 10, 78], look: [-10, 8, 46], fov: 34 }], t);
+      const c = rig([{ t: T.torpedo, pos: [-24, 6.5, 66], look: [-10, 8, 46], fov: 38 }, { t: T.actually, pos: [-18, 7.5, 58], look: [-10, 8, 46], fov: 34 }], t);
       const hole: V3 = [-10, 8, 46.5]; const fr = ss(.45, .9, k); const S: Sprite[] = [];
       S.push({ p: hole, s: 3.2, rot: 0, c: [.05, .08, .1], a: .95 * (1 - fr), kind: 0, seed: .2, age: 0 });
       for (let i = 0; i < 18; i++) { const a = (t * .9 + i / 18) % 1; if (k < .2 || k > .7) continue; S.push({ p: [hole[0] + (hsh(i) - .5) * 2, hole[1] + 4 - a * 4, hole[2] + .5 + a * .3], s: .9, rot: hsh(i) * 6, c: [.7, .9, 1], a: .5 * (1 - a), kind: 0, seed: hsh(i), age: a }); }

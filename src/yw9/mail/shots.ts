@@ -21,7 +21,7 @@ const MOM: T7Look = { skin: '#f0c8a8', hair: '#6a4024', hairStyle: 'bun', nose: 
 const DAD: T7Look = { skin: '#e2b48e', hair: '#5a3a22', hairStyle: 'side', nose: 'long', top: '#5a4a32', topKind: 'overalls', inner: '#c8d4e0', pants: '#3a4a6a', boots: '#2a1e14', hat: 'flatcap', hatColor: '#4a3a2a', beard: 'stache', beardColor: '#5a3a22', sleeves: 'rolled' };
 const CLERK: T7Look = { skin: '#f0c8a8', hair: '#3a2a1e', hairStyle: 'short', nose: 'round', top: '#2a3040', topKind: 'waistcoat', inner: '#f2ede2', tie: '#1a1a1a', pants: '#2a2a32', boots: '#121010', hat: 'driver', hatColor: '#2a3040', sleeves: 'rolled', beard: 'stache', beardColor: '#3a2a1e' };
 const CARRIER: T7Look = { skin: '#e2b48e', hair: '#6a5038', hairStyle: 'short', nose: 'hook', top: '#4a5a6a', topKind: 'coat', buttons: '#c9a24a', inner: '#e8e2d4', pants: '#3a4450', boots: '#1e1814', hat: 'driver', hatColor: '#3a4450', beard: 'full', beardColor: '#6a5038' };
-const BABY: T7Look = { skin: '#f6d8c0', hair: '#c8a070', hairStyle: 'bald', nose: 'button', head: { w: 1.2, h: 1.1, cheek: 1.2 }, top: '#f2ece0', topKind: 'dress', inner: '#f2ece0', pants: '#f2ece0', boots: '#f2ece0', skirt: true };
+const BABY: T7Look = { skin: '#f6d8c0', hair: '#c8a070', hairStyle: 'bald', nose: 'button', head: { w: 1.2, h: 1.1, cheek: 1.2 }, top: '#e8c8a0', topKind: 'dress', inner: '#f2ece0', pants: '#e8c8a0', boots: '#e8c8a0', skirt: true };
 const PMG: T7Look = { skin: '#eab595', hair: '#d8d4cc', hairStyle: 'swept', nose: 'long', head: { w: .95, h: 1.05, jaw: 1.05 }, top: '#1e1e24', topKind: 'suit', inner: '#f4efe4', tie: '#6a2a2a', pants: '#1e1e24', boots: '#121010', glasses: true, eyes: '#3a4a5a' };
 const EDNA: T7Look = { ...MAY, hair: '#d0a050', hairStyle: 'curly', top: '#3f6a8a', hat: 'none' };
 const pose = (p: Partial<Pose>, t = 0, amt = 1, seed = 3): Pose => ({ ...STAND, ...idle(t, seed, amt), ...p });
@@ -74,7 +74,7 @@ function timeline(): Shot[] {
     // S2 — "...she's about to be mailed. Like a package!": she's stacked among parcels on the depot platform, shrugging
     { t0: T.coat, t1: T.her, f: (t, k) => {
       const c = rig([{ t: T.coat, pos: [-14.2, 1.7, 7.6], look: [-15.8, 1.35, 4.6], fov: 40 }, { t: T.her, pos: [-14.9, 1.55, 6.6], look: [-15.8, 1.4, 4.6], fov: 34 }], t);
-      return { ...LINE, cam: c, props: [{ id: 'tag', pos: [-15.8, 1.72, 4.75], scale: .72 }],
+      return { ...LINE, cam: c, props: [{ id: 'tag', pos: [-15.8, 1.58, 4.75], scale: .72 }],
         actors: [kid('may', MAY, [-15.8, 1.0, 4.65], pose({ turn: -.15, handA: [-.9, -2.0], handB: [.9, -2.0], shapeA: 'open', shapeB: 'open', headTilt: .12 * Math.sin(k * 6) }, t, .4), expr('confused', 'amused', ss(.5, .9, k)), t)],
         overlay: chip('📦 LIKE A PACKAGE!', 210, ss(T.mailed - .1, T.mailed + .3, t), '#ff9a4a') };
     } },
@@ -119,9 +119,9 @@ function timeline(): Shot[] {
     } },
     // S8 — "It sounds like a joke. It wasn't.": May sits on a mail sack in the car and gives us a dead-serious look
     { t0: T.sounds, t1: T.may, f: (t, k) => {
-      const c = rig([{ t: T.sounds, pos: [3.4, 1.0, -.2], look: [2.4, .75, .75], fov: 38 }, { t: T.may, pos: [2.95, .9, .1], look: [2.4, .8, .75], fov: 30 }], t);
-      return { ...CAR, cam: c, props: [{ id: 'tag', pos: [2.4, .78, .86], scale: .72 }],
-        actors: [kid('may', MAY, [2.4, .35, .78], pose({ turn: -.2, crouch: .5, kneeUp: true, handA: [-.4, -1.4], handB: [.4, -1.4] }, t, .3), k < .45 ? expr('amused', 'laugh', .4) : expr('determined', 'confident', .5), t)] };
+      const c = rig([{ t: T.sounds, pos: [-1.2, 1.05, -.7], look: [.4, .7, .25], fov: 38 }, { t: T.may, pos: [-.5, .95, -.3], look: [.4, .75, .25], fov: 30 }], t);
+      return { ...CAR, cam: c, props: [{ id: 'tag', pos: [.4, .62, .33], scale: .72 }],
+        actors: [kid('may', MAY, [.4, .2, .25], pose({ turn: -.2, crouch: .5, kneeUp: true, handA: [-.4, -1.4], handB: [.4, -1.4] }, t, .3), k < .45 ? expr('amused', 'laugh', .4) : expr('determined', 'confident', .5), t)] };
     } },
     // S9 — "May rode in the mail car of a train...": tracking alongside the train through the hills, parallax trees, steam
     { t0: T.may, t1: T.letters, f: (t) => {
@@ -149,7 +149,7 @@ function timeline(): Shot[] {
       const tk = (tt: number) => ss(tt, tt + .25, t); const rows = [['UNDER 50 LB', T.under], ['STAMPED', T.stamped], ['ADDRESSED', T.addressed]];
       const card = `<div style="position:absolute;left:120px;top:300px;font-family:Inter;font-weight:900;font-size:54px;line-height:1.4;-webkit-text-stroke:7px #1a120c;paint-order:stroke fill">${rows.map(([s_, tt]) => `<div style="opacity:${tk(tt as number)};color:#fff">${s_} <span style="color:#7dff9a">✓</span></div>`).join('')}</div>`;
       const ms = ss(T.so, T.so + .5, t);
-      return { ...LINE, cam: c, props: [{ id: 'scale', pos: sp, nodes: { needle: { rot: [0, 0, needle] } } }, { id: 'tag', pos: [sp[0], sp[1] + .9, sp[2] + .12], scale: .72 }],
+      return { ...LINE, cam: c, props: [{ id: 'scale', pos: sp, nodes: { needle: { rot: [0, 0, needle] } } }, { id: 'tag', pos: [sp[0], sp[1] + .78, sp[2] + .12], scale: .72 }],
         actors: [kid('may', MAY, [sp[0], sp[1] + .21, sp[2] + .05], pose({ turn: .0, handA: [-.45, -1.5], handB: [.45, -1.5], headTilt: Math.sin(t * 2) * .05 }, t, .3), expr('curious', 'happy', ms), t)],
         overlay: ms > .01 ? card + chip('= LEGALLY MAIL ✉', 1080, ms, '#7dff9a') : card };
     } },

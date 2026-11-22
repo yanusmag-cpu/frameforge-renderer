@@ -41,7 +41,7 @@ const LAB: Base = { set: 'lab', sun: { dir: [-1, .5, .1], color: '#fff0d8', i: 1
   grade: { ao: .9, aoRadius: .4, aoTint: [.4, .32, .55], sat: 1.12, contrast: 1.08, lift: [.035, .025, .055], gain: [1.05, 1.0, .93], bloom: .3, bloomTh: 1.3, vignette: .3 } };
 const HUT: Base = { set: 'hut', sun: { dir: [0, .3, 1], color: '#eef2f4', i: 1.0, focus: [0, 1, 0], size: 4 }, hemi: { sky: '#c8ccd0', ground: '#5a5650', i: 1.0 }, fill: { color: '#ffe0b8', i: .4 }, bg: '#101214',
   beams: [{ p: [0, 1.75, -1.6], dir: [0, -.35, 1], w: 1.5, h: .25, len: 3, c: [.92, .96, 1], i: .7 }], dust: { box: [[-2, .3, -1.6], [2, 2.5, 1.6]], i: .6 },
-  lights: [{ p: [1.4, 2.0, -1.2], c: [1, .76, .45], i: 2.6, d: 4 }], fog: { color: '#2a2a2c', density: .03 },
+  lights: [{ p: [-1.6, 2.0, -1.2], c: [1, .76, .45], i: 2.6, d: 4 }], fog: { color: '#2a2a2c', density: .03 },
   grade: { ao: .9, aoRadius: .35, aoTint: [.36, .34, .56], sat: 1.08, contrast: 1.1, lift: [.035, .03, .06], gain: [1.04, 1.0, .95], bloom: .3, bloomTh: 1.25, vignette: .34 } };
 const RADAR: Base = { set: 'radar', sky: { top: '#1e2a5a', mid: '#7a5a8a', bot: '#f0905a', sun: [-.9, .06, -.3] as V3, sunC: '#ff9a50', clouds: .45, cloudC: '#c07a7a' }, sun: { dir: [-.9, .12, -.3], color: '#ff9a60', i: 1.8, focus: [0, 0, 0], size: 90 },
   hemi: { sky: '#8a7aa8', ground: '#3a4a30', i: .7 }, fog: { color: '#9a7a8a', density: .004 }, grade: { ao: .6, aoRadius: 1.0, aoTint: [.3, .3, .6], sat: 1.12, contrast: 1.08, lift: [.035, .025, .07], gain: [1.06, .98, .92], bloom: .4, bloomTh: 1.15, vignette: .3 } };
@@ -50,11 +50,11 @@ const ONLY_PLANE: Record<string, NodeOv> = { wave: { vis: false } };
 const ONLY_WAVES: Record<string, NodeOv> = { bomber: { vis: false } };
 /** a formation of bombers (the props model) heading toward the camera's side of the Channel along -x→+x */
 function formation(t: number, x0: number, sp: number, z0: number, y0: number): PropF[] {
-  return [0, 1, 2, 3, 4].map(i => ({ id: 'props', pos: [x0 + t * sp - Math.abs(i - 2) * 6, y0 + Math.sin(t * 1.3 + i) * .4 + (i % 2) * 1.5, z0 + (i - 2) * 7] as V3, rot: [Math.sin(t + i) * .05, 0, 0] as V3, scale: 1.2, nodes: ONLY_PLANE }));
+  return [0, 1, 2, 3, 4].map(i => ({ id: i ? `props#${i}` : 'props', pos: [x0 + t * sp - Math.abs(i - 2) * 6, y0 + Math.sin(t * 1.3 + i) * .4 + (i % 2) * 1.5, z0 + (i - 2) * 7] as V3, rot: [Math.sin(t + i) * .05, 0, 0] as V3, scale: 1.2, nodes: ONLY_PLANE }));
 }
 /** incoming wavefronts heading for the 200 ft wall (+z), then a glow converging on the microphone */
 function waves(t: number, u: number): { props: PropF[]; sprites: Sprite[] } {
-  const props: PropF[] = [0, 1].map(i => ({ id: 'props', pos: [0, -2.6, -10 + ((u * 2 + i * .5) % 1) * 46] as V3, scale: 2.6, nodes: ONLY_WAVES }));
+  const props: PropF[] = [0, 1].map(i => ({ id: i ? 'props#w1' : 'props', pos: [0, -2.6, -10 + ((u * 2 + i * .5) % 1) * 46] as V3, scale: 2.6, nodes: ONLY_WAVES }));
   const S: Sprite[] = [];
   for (let i = 0; i < 24; i++) { const a = (t * .7 + hsh(i)) % 1; const sx = (hsh(i + 1) - .5) * 50; S.push({ p: [lerp(sx, 0, a), 3.2 + (1 - a) * 3 * hsh(i + 2), lerp(41, 31, a)], s: .25 + a * .35, rot: 0, c: [1.6, 1.3, .6], a: a * .9, kind: 2, seed: .2, age: 0 }); }
   S.push({ p: [0, 3.25, 31], s: 1.6 + Math.sin(t * 8) * .3, rot: 0, c: [1.8, 1.4, .6], a: .8, kind: 2, seed: .5, age: 0 });
@@ -65,7 +65,7 @@ type Shot = { t0: number; t1: number; f: (t: number, k: number) => Partial<Frame
 function timeline(): Shot[] {
   const T = { they: w('they', 1, 4.2), listen: w('listen', 1, 7.1), planes: w('planes', 1, 8.1), back: w('back', 1, 9.1), radar: w('radar', 1, 13.6), so: w('so', 1, 15.2), tucker: w('tucker', 1, 16.5), if: w('if', 1, 17.9), hear: w('hear', 1, 19.9),
     it: w('it', 1, 20.6), but: w('but', 2, 23.9), a20: w('20', 1, 26.6), a30: w('30', 1, 28.0), and: w('and', 2, 28.7), f200: w('200', 1, 31.0), you: w('you', 2, 32.5), gathers: w('gathers', 1, 36.3), where: w('where', 1, 39.2),
-    a: w('listener', 1, 40.7) - .2, before: w('before', 1, 42.8), in: w('in', 2, 44.4), warning: w('warning', 1, 46.7), butp: w('but', 3, 47.2), shorter: w('shorter', 1, 50.6), then: w('then', 2, 51.3), silent: w('silent', 1, 53.5), yet: w('yet', 1, 54.1), dung: w('dungeness', 1, 55.3) };
+    a: w('listener', 1, 40.7) - .2, before: w('before', 1, 42.8), in: w('in', 2, 44.4), warning: w('warning', 1, 46.7), butp: w('but', 3, 47.2), shorter: w('shorter', 1, 50.6), then: w('then', 2, 51.3), silent: w('silent', 1, 53.5), yet: w('yet', 2, 54.1), dung: w('dungeness', 1, 55.3) };
   return [
     // S1 — dawn drone over the Channel toward the shingle: three huge concrete shapes stare out to sea; crane down
     { t0: 0, t1: T.they, f: (t) => {
@@ -103,7 +103,7 @@ function timeline(): Shot[] {
     // S6 — "It sounds ridiculous, right? Listening for planes with a wall?": an army officer stares up at the 200 ft wall
     { t0: T.it, t1: T.but, f: (t) => {
       const c = rig([{ t: T.it, pos: [-3.2, 1.4, 27.5], look: [-1.0, 3.0, 38], fov: 44 }, { t: T.but, pos: [-2.4, 1.2, 28.8], look: [-.8, 3.6, 38], fov: 40 }], t);
-      return { ...DENGE, cam: c, actors: [act('off', OFFICER, [-1.2, .9, 31.0], pose({ turn: .1, back: .4, handA: [-.9, -1.9], handB: [.9, -1.9], shapeA: 'open', shapeB: 'open', headLift: .3 }, t, .4), expr('suspicious', 'amused', Math.sin(t * 2) * .5 + .5), t)],
+      return { ...DENGE, cam: c, actors: [act('off', OFFICER, [-2.0, .9, 32.5], pose({ turn: .1, back: .4, handA: [-.9, -1.9], handB: [.9, -1.9], shapeA: 'open', shapeB: 'open', headLift: .3 }, t, .4), expr('suspicious', 'amused', Math.sin(t * 2) * .5 + .5), t)],
         overlay: chip('…WITH A WALL?', 210, ss(T.it + 1.2, T.it + 1.6, t), '#ff9a4a') };
     } },
     // S7 — "But they kept building them bigger. A 20-foot dish. A 30-foot dish.": low lateral dolly across the shingle, the

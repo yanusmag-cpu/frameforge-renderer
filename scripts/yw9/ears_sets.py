@@ -14,7 +14,7 @@ import kit9
 
 OUT = kit9.ROOT / 'public/yw9-ears'
 reset()
-CON = '#c9c2b2'
+CON = '#bdbcb4'
 
 
 def con(c=CON, r=.9): return mat('concrete', c, r)
@@ -49,24 +49,42 @@ def dish(name, cx, cy, cz, D, depth, t=.35, m=None, seg=28, ring=10):
     o = kit9._obj(name, me); o.data.materials.append(m); return o
 
 
+def holed_plate(name, cx, cy, z, W, H, a, th, m=None, seg=32):
+    """a W x H concrete slab (front face at z, extending th toward +z) with a round hole of radius a through it"""
+    m = m or con(); bm = bmesh.new(); F = []; B = []; CF = []; CB = []
+    for j in range(seg):
+        ang = 2 * math.pi * j / seg; ca, sa = math.cos(ang), math.sin(ang)
+        k = min(W / 2 / max(1e-6, abs(ca)), H / 2 / max(1e-6, abs(sa)))
+        for lst, zz, rx, ry in ((F, z, ca * k, sa * k), (B, z + th, ca * k, sa * k), (CF, z, ca * a, sa * a), (CB, z + th, ca * a, sa * a)):
+            lst.append(bm.verts.new(L(cx + rx, cy + ry, zz)))
+    for j in range(seg):
+        n = (j + 1) % seg
+        bm.faces.new((CF[j], CF[n], F[n], F[j])); bm.faces.new((CB[j], B[j], B[n], CB[n]))
+        bm.faces.new((F[j], F[n], B[n], B[j])); bm.faces.new((CF[j], CB[j], CB[n], CF[n]))
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free(); o = kit9._obj(name, me); o.data.materials.append(m); return o
+
+
 def mirror20(x, z):
     """20 ft mirror: dish set into a squat inclined concrete block on a plinth, facing the sea (-z)"""
-    box('m20.plinth', (x, .4, z + 1.2), (8.0, .8, 5.0), con('#bdb5a4'), bev=.05)
-    box('m20.block', (x, 3.6, z + 1.6), (7.4, 5.8, 3.2), con(), bev=.06, rot=(.18, 0, 0))
-    for s in (-1, 1): box(f'm20.wing{s}', (x + s * 3.9, 2.4, z + 1.8), (.6, 3.6, 3.6), con('#c2bba9'), bev=.04, rot=(.18, 0, 0), taper=.25)
-    dish('m20.dish', x, 3.9, z - .05, 6.1, 1.3, m=con('#d4cdbd'))
+    box('m20.plinth', (x, .4, z + 1.2), (8.0, .8, 5.0), con('#b0afa6'), bev=.05)
+    holed_plate('m20.face', x, 3.9, z, 7.4, 6.6, 3.05, .5)
+    dish('m20.dish', x, 3.9, z + .02, 6.1, 1.3, m=con('#c8c7c0'))
+    box('m20.block', (x, 3.4, z + 2.4), (7.4, 6.2, 2.2), con(), bev=.06)
+    for s in (-1, 1): box(f'm20.wing{s}', (x + s * 3.9, 2.4, z + 1.8), (.6, 3.6, 3.6), con('#b4b3aa'), bev=.04, taper=.25)
     tube('m20.pipe', [(x, 3.9, z + 1.2), (x, 1.0, z + 2.6), (x, .3, z + 3.6)], .06, mat('metal', '#5a5e62', .5, .6))
 
 
 def mirror30(x, z):
     """30 ft mirror: tall dish in a vertical slab braced by sloping buttresses, a forecourt where the trumpet stood"""
-    box('m30.slab', (x, 5.2, z + .8), (11.0, 10.4, 1.8), con(), bev=.06)
+    holed_plate('m30.face', x, 5.6, z, 11.0, 9.6, 4.55, .6)
+    box('m30.lower', (x, .4, z + .8), (11.0, .8, 1.8), con(), bev=.04)
+    box('m30.slab', (x, 5.2, z + 2.3), (11.0, 10.4, 1.4), con(), bev=.06)
     for k, s in enumerate((-1, -.35, .35, 1)):
-        box(f'm30.butt{k}', (x + s * 5.0, 3.0, z + 3.2), (.7, 6.0, 4.0), con('#c2bba9'), bev=.04, rot=(-.55, 0, 0), taper=.6)
-    dish('m30.dish', x, 5.6, z - .1, 9.1, 1.7, m=con('#d4cdbd'))
-    box('m30.court', (x, .1, z - 3.0), (10.0, .2, 5.0), con('#b8b09f'), bev=.03)
+        box(f'm30.butt{k}', (x + s * 5.0, 3.0, z + 3.2), (.7, 6.0, 4.0), con('#b4b3aa'), bev=.04, rot=(-.55, 0, 0), taper=.6)
+    dish('m30.dish', x, 5.6, z + .02, 9.1, 1.7, m=con('#c8c7c0'))
+    box('m30.court', (x, .1, z - 3.0), (10.0, .2, 5.0), con('#a8a79e'), bev=.03)
     cyl('m30.post', (x, 2.2, z - 4.4), .07, 4.4, mat('metal', '#4f5458', .5, .6), verts=10)
-    box('m30.ladder', (x + .9, 4.0, z + .1), (.5, 7.0, .06), mat('metal', '#6a6e72', .5, .6), bev=.01)
 
 
 def wall200(x, z):
@@ -75,14 +93,14 @@ def wall200(x, z):
     Rr, span, Hh = 46.0, 61.0, 8.0; th = span / Rr; n = 30; cz = z - Rr + 3.0
     for i in range(n):
         a = -th / 2 + th * (i + .5) / n; px, pz = x + math.sin(a) * Rr, cz + math.cos(a) * Rr
-        box(f'w200.seg{i}', (px, Hh / 2, pz), (span / n + .08, Hh, 1.0), con('#cfc8b8' if i % 2 else '#c9c2b2'), bev=.02, rot=(.09, -a, 0))
-        box(f'w200.cap{i}', (px, Hh + .1, pz + .1), (span / n + .1, .25, 1.3), con('#bdb5a4'), bev=.02, rot=(0, -a, 0))
-        if i % 3 == 0: box(f'w200.rib{i}', (x + math.sin(a) * (Rr + 1.6), 2.6, cz + math.cos(a) * (Rr + 1.6)), (.5, 5.2, 2.6), con('#bfb8a7'), bev=.03, rot=(-.35, -a, 0), taper=.5)
+        box(f'w200.seg{i}', (px, Hh / 2, pz), (span / n + .08, Hh, 1.0), con('#c4c3bb' if i % 2 else '#c9c2b2'), bev=.02, rot=(.09, -a, 0))
+        box(f'w200.cap{i}', (px, Hh + .1, pz + .1), (span / n + .1, .25, 1.3), con('#b0afa6'), bev=.02, rot=(0, -a, 0))
+        if i % 3 == 0: box(f'w200.rib{i}', (x + math.sin(a) * (Rr + 1.6), 2.6, cz + math.cos(a) * (Rr + 1.6)), (.5, 5.2, 2.6), con('#b2b1a8'), bev=.03, rot=(-.35, -a, 0), taper=.5)
     for s in (-1, 1):
         a = s * th / 2; px, pz = x + math.sin(a) * Rr, cz + math.cos(a) * Rr
         box(f'w200.wing{s}', (px + s * 1.2, Hh / 2 - .5, pz - 2.0), (1.0, Hh - 1, 4.5), con(), bev=.04, rot=(0, -a + s * .35, 0))
-    box('w200.court', (x, .05, z - 5.5), (58.0, .1, 11.0), con('#b8b09f'), bev=0)
-    box('w200.room', (x, 1.2, z + 3.6), (5.0, 2.4, 3.0), con('#bdb5a4'), bev=.04)
+    box('w200.court', (x, .05, z - 5.5), (58.0, .1, 11.0), con('#a8a79e'), bev=0)
+    box('w200.room', (x, 1.2, z + 3.6), (5.0, 2.4, 3.0), con('#b0afa6'), bev=.04)
     box('w200.door', (x, 1.0, z + 2.08), (.95, 1.9, .06), mat('paint', '#3f5a48', .6), bev=.01)
     cyl('w200.pole', (x, 1.6, z - 9.0), .06, 3.2, mat('metal', '#4f5458', .5, .6), verts=10)
     cyl('w200.mic', (x, 3.25, z - 9.0), .16, .3, mat('metal', '#2e3236', .3, .8), verts=16, axis='z')
@@ -151,7 +169,7 @@ def lab():
         sphere(f'vglow{k}', (2.4 + k * .2, 1.02, -1.9), .025, mat('emit', '#ffb070', .2, emit=3.0))
     box('oscbox', (2.8, 1.15, -1.5), (.5, .45, .45), mat('plank', '#3a2a1e', .5), bev=.02)
     text_plane('oscscreen', (2.8, 1.2, -1.27), .26, .2, mat('screen', '#2a5a3a', .3))
-    dish('modeldish', -2.6, 1.4, -1.4, .9, .22, t=.06, m=con('#d4cdbd'))
+    dish('modeldish', -2.6, 1.4, -1.4, .9, .22, t=.06, m=con('#c8c7c0'))
     cyl('modelstand', (-2.6, .5, -1.0), .05, 1.0, mat('plank', '#5a3a22', .6), verts=8)
     chair('lstool', 1.4, -.6, face=3.1, col='#5a3a22', seat='#5a3a22')
     desk_lamp('llamp', 2.9, .9, -1.95, shade='#2f5f4a', lit=4)
@@ -177,7 +195,7 @@ def hut():
     box('hlog', (.0, .99, z0 + .6), (.36, .02, .26), mat('paper', '#efe6cf', .9), bev=.002, rot=(.12, .1, 0))
     cyl('hmug', (.9, 1.04, z0 + .55), .05, .1, mat('paint', '#e8e8e2', .3), verts=14)
     chair('hchair', 0, z0 + 1.25, face=3.14, col='#5a3a22', seat='#5a3a22')
-    lantern('hlamp', (1.4, 2.2, z0 + .5), lit=2.0)
+    lantern('hlamp', (-1.6, 2.2, z0 + .5), lit=2.0)
     cyl('hclock', (x1 - .11, 2.0, .4), .16, .04, mat('paint', '#f4ecd8', .5), axis='x', verts=28)
 
 

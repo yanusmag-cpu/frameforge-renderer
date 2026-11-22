@@ -58,7 +58,7 @@ function rays(t: number, n: number, a: number): Sprite[] {
 type Shot = { t0: number; t1: number; f: (t: number, k: number) => Partial<Frame9> };
 function timeline(): Shot[] {
   const T = { and: w('and', 1, 4.2), wig: w('wiggling', 1, 5.8), this: w('this', 2, 7.7), from: w('from', 1, 10.0), youd: w("you'd", 1, 14.7), look: w('look', 1, 17.2), and2: w('and', 2, 18.7), kids: w('kids', 1, 21.5), parents: w('parents', 1, 25.8),
-    but: w('but', 1, 28.2), between: w('between', 1, 29.9), tube: w('tube', 1, 31.1), thin: w('thin', 1, 31.8), one: w('one', 2, 33.6), you: w('you', 1, 35.2), sun: w('sunbathing', 1, 36.2), staff: w('and', 3, 40.0), worst: w('worst', 1, 44.5),
+    but: w('but', 1, 28.2), between: w('between', 1, 29.9), tube: w('tube', 1, 31.1), thin: w('thin', 1, 31.8), one: w('one', 2, 33.6), you: w('you', 1, 35.2), sun: w('sunbathing', 1, 36.2), staff: w('and', 4, 40.0), worst: w('worst', 1, 44.5),
     in: w('in', 3, 47.5), penn: w('pennsylvania', 1, 49.1), ban: w('ban', 1, 50.7), by: w('by', 1, 51.5), s34: w('34', 1, 53.0), so: w('so', 2, 54.2), fired: w('fired', 1, 58.8) };
   const kidOn = (t: number, look = 0, o: Partial<ActorState> = {}) => kid('kid', KID, KIDON, pose({ turn: 0, back: .15, lean: .25 + look * .2, headTilt: .35 + look * .1, handA: [-.45, -1.9], handB: [.45, -1.9], shapeA: 'grip', shapeB: 'grip' }, t, .3), expr('amazed', 'laugh', Math.sin(t * 2) * .5 + .5), t, o);
   const mom = (t: number, p: V3 = [SC[0] - 1.0, 0, SC[2] + .4], f = expr('curious')) => act('mom', MOM, p, pose({ turn: .6, lean: .15, handB: [.6, -2.0], shapeB: 'hold' }, t, .4), f, t);

@@ -194,7 +194,7 @@ export class Engine9 extends Core {
     await this.load();
     for (const [k, r] of this.roots) { const on = k === F.set || !!F.also?.includes(k); r.visible = on; const gr = this.grass.get(k); if (gr) gr.visible = on; if (on) this.applyNodes(k, (F as Frame9 & { setNodes?: Record<string, NodeOv> }).setNodes); }
     for (const p of this.props.values()) p.visible = false;
-    for (const pf of F.props ?? []) { const p = this.props.get(pf.id); if (!p || pf.vis === false) continue; p.visible = true; p.position.set(...pf.pos); p.rotation.set(...(pf.rot ?? [0, 0, 0])); p.scale.setScalar(pf.scale ?? 1); this.applyNodes(pf.id, pf.nodes); }
+    for (const pf of F.props ?? []) { if (!this.props.has(pf.id) && pf.id.includes('#')) { const b = this.props.get(pf.id.split('#')[0]); if (b) { const cl = b.clone(true); this.scene.add(cl); this.props.set(pf.id, cl); this.index(pf.id, cl); } } const p = this.props.get(pf.id); if (!p || pf.vis === false) continue; p.visible = true; p.position.set(...pf.pos); p.rotation.set(...(pf.rot ?? [0, 0, 0])); p.scale.setScalar(pf.scale ?? 1); this.applyNodes(pf.id, pf.nodes); }
     this.windU.value = F.t * (F.wind ?? 1);
     const sk = F.sky; this.sky.visible = !!sk; if (sk) { (this.skyU.top.value as T.Color).set(sk.top); (this.skyU.mid.value as T.Color).set(sk.mid); (this.skyU.bot.value as T.Color).set(sk.bot);
       if (sk.sun) (this.skyU.sun.value as T.Vector3).set(...sk.sun).normalize(); (this.skyU.sunC.value as T.Color).set(sk.sunC ?? '#fff1c8'); this.skyU.clouds.value = sk.clouds ?? .5; (this.skyU.cloudC.value as T.Color).set(sk.cloudC ?? '#ffffff'); this.skyU.t.value = F.t; }
