@@ -49,16 +49,16 @@ def nose_cone(prefix='', cut=True, at=(0, 0, 0)):
     sh = lathe(f'anim:{prefix}shell', [(ox + x, r) for x, r in OGIVE], steel)
     for o in [sh]: o.location = L(0, oy, oz)
     if cut:
-        sc = lathe(f'anim:{prefix}shellcut', [(ox + x, r) for x, r in OGIVE], steel, seg=40, a0=math.radians(115), a1=math.radians(115 + 250))
+        sc = lathe(f'anim:{prefix}cut', [(ox + x, r) for x, r in OGIVE], steel, seg=40, a0=math.radians(115), a1=math.radians(115 + 250))
         sc.location = L(0, oy, oz)
         # red cut edges (technical cutaway look)
         for a in (115, 365):
             ar = math.radians(a)
             pts = [(ox + x, oy + r * math.cos(ar) * .985, oz + r * math.sin(ar) * .985) for x, r in OGIVE]
-            tube(f'anim:{prefix}cutedge{a}', pts, .014, red)
+            tube(f'anim:{prefix}cut.edge{a}', pts, .014, red)
     # panel rings + rivets on the full shell
     for x, r in [(0.02, .475), (0.6, .46), (1.3, .366), (1.85, .196)]:
-        cyl(f'anim:{prefix}shellring{x}', P(x, 0, 0), r + .006, .03, dark, axis='x', verts=48)
+        cyl(f'anim:{prefix}shell.ring{int(x * 100)}', P(x, 0, 0), r + .006, .03, dark, axis='x', verts=48)
     # nose lens ports (three, in a triangle) — the pigeons' windows on the target
     for k in range(3):
         a = math.pi / 2 + k * 2 * math.pi / 3; y, z = math.cos(a) * .12, math.sin(a) * .12
@@ -499,12 +499,16 @@ def navy():
 
 
 # ================================================================ BUILD
-build_set(OUT / 'lab.glb', 'lab', lab)
-build_set(OUT / 'war.glb', 'war', war)
-build_set(OUT / 'range.glb', 'range', range_set)
-build_set(OUT / 'coast.glb', 'coast', coast)
-build_set(OUT / 'street.glb', 'street', street)
-build_set(OUT / 'navy.glb', 'navy', navy)
-build_set(OUT / 'cone.glb', 'cone', nose_cone, joinable=True)
-build_set(OUT / 'glider.glb', 'glider', glider, joinable=True)
-print('ALL ASSETS DONE')
+def main():
+    build_set(OUT / 'lab.glb', 'lab', lab)
+    build_set(OUT / 'war.glb', 'war', war)
+    build_set(OUT / 'range.glb', 'range', range_set)
+    build_set(OUT / 'coast.glb', 'coast', coast)
+    build_set(OUT / 'street.glb', 'street', street)
+    build_set(OUT / 'navy.glb', 'navy', navy)
+    build_set(OUT / 'cone.glb', 'cone', nose_cone, joinable=True)
+    build_set(OUT / 'glider.glb', 'glider', glider, joinable=True)
+    print('ALL ASSETS DONE')
+
+
+guarded(main)

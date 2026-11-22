@@ -21,7 +21,9 @@ def srgb2lin(c): return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 
 
 
 def rgb(h):
-    h = h.lstrip('#'); return tuple(int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))
+    h = h.lstrip('#')
+    if len(h) == 3: h = ''.join(c * 2 for c in h)
+    return tuple(int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))
 
 
 def mat(tag, hexc, rough=0.7, metal=0.0, emit=0.0):
@@ -226,12 +228,24 @@ def export(path, objs):
     print('exported', path, len(objs), 'objects', flush=True)
 
 
+def guarded(main):
+    """run the build; print every traceback line with an 'Error:' prefix so the CI log filter shows where it failed"""
+    import traceback
+    try: main()
+    except Exception:
+        for l in traceback.format_exc().splitlines(): print('Error:', l, flush=True)
+        raise
+
+
 def build_set(path, name, fn, joinable=True, keep=()):
     """run fn() inside a fresh collection; join everything except objects whose name starts with a prefix in keep
     (animated parts stay separate and keep their names, e.g. 'anim:hatch'). Returns nothing; writes the GLB."""
     group(name); fn()
     objs = finish(list(COLL.objects))
     animated = [o for o in objs if any(o.name.startswith(k) for k in keep) or o.name.startswith('anim:')]
+    for o in animated:   # pivot at the part's own centre so the engine can swing/slide it naturally
+        bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o
+        bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
     static = [o for o in objs if o not in animated]
     if joinable: static = join(static, name)
     export(path, static + animated)
