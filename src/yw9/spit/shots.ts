@@ -68,13 +68,13 @@ function timeline(): Shot[] {
       const c = rig([{ t: T.in, pos: [0, 3.6, 3.2], look: [0, 1.0, -2.2], fov: 48 }, { t: T.so, pos: [.4, 1.7, 2.2], look: [.6, 1.2, -1.8], fov: 44 }], t, { easing: ease.inOut });
       const hand = t * 1.2; const tired = ss(T.somebody, T.so, t);
       return { ...KIT, cam: c, props: [mech(0, { jack: hand })], sprites: fire(t),
-        actors: [act('boy', BOY, [2.2, 0, -1.7], pose({ turn: -.7, crouch: .25, handA: [-.75 + Math.cos(hand * 3) * .12, -2.1 + Math.sin(hand * 3) * .12], shapeA: 'grip', lean: .15 + tired * .1, headTilt: tired * .25 }, t, .3), tired < .5 ? expr('determined') : expr('exhausted'), t, { res: 1400 }),
-          act('cook', COOK, [-1.7, 0, -1.2], pose({ turn: .6, handB: [.8, -2.3], shapeB: 'hold' }, t, .4), expr('focused', 'smirk', .3), t)],
+        actors: [act('boy', BOY, [1.3, 0, -1.4], pose({ turn: -.7, crouch: .25, handA: [-.75 + Math.cos(hand * 3) * .12, -2.1 + Math.sin(hand * 3) * .12], shapeA: 'grip', lean: .15 + tired * .1, headTilt: tired * .25 }, t, .3), tired < .5 ? expr('determined') : expr('exhausted'), t, { res: 1400 }),
+          act('cook', COOK, [-.9, 0, -.9], pose({ turn: .6, handB: [.8, -2.3], shapeB: 'hold' }, t, .4), expr('focused', 'smirk', .3), t)],
         overlay: chip(t < T.somebody ? 'IRON SPIT • OPEN FIRE' : '😩 TURNING FOR HOURS', 210, ss(T.in + .3, T.in + .7, t)) };
     } },
     // S3 — "So they used a dog.": the boy grins; the dog hops up into the wheel and the treads start to roll
     { t0: T.so, t1: T.see, f: (t) => {
-      const c = rig([{ t: T.so, pos: [4.3, 1.9, -1.1], look: [2.9, 1.9, -2.7], fov: 46 }, { t: T.see, pos: [4.3, 2.4, -2.4], look: [2.95, 2.4, -2.75], fov: 42 }], t);
+      const c = rig([{ t: T.so, pos: [3.6, 1.8, .3], look: [2.9, 1.9, -2.6], fov: 46 }, { t: T.see, pos: [3.7, 2.35, -.6], look: [2.95, 2.35, -2.75], fov: 42 }], t);
       const hop = ss(T.so + .1, T.so + .7, t); const run = ss(T.so + .7, T.so + 1.0, t);
       const dp: V3 = [2.95, lerp(1.0, 2.235, hop) + Math.sin(hop * Math.PI) * .35, lerp(-1.9, -2.75, hop)];
       return { ...KIT, cam: c, props: [mech((t - T.so - .7) * RATE * run)], sprites: fire(t),
@@ -85,7 +85,7 @@ function timeline(): Shot[] {
     // that motion down to a pulley on the spit": the walls fade to a clean cutaway; glowing pulses run wheel → chain →
     // spit, each part lighting up on its word
     { t0: T.see, t1: T.there, f: (t) => {
-      const th = t * RATE; const c = rig([{ t: T.see, pos: [4.6, 2.2, .8], look: [1.6, 1.9, -2.5], fov: 44 }, { t: T.chain, pos: [4.0, 1.9, .2], look: [2.4, 1.9, -2.5], fov: 40 }, { t: T.there, pos: [2.2, 1.5, .9], look: [.6, 1.3, -2.3], fov: 40 }], t, { easing: ease.inOut });
+      const th = t * RATE; const c = rig([{ t: T.see, pos: [4.1, 2.3, .9], look: [1.6, 1.9, -2.5], fov: 44 }, { t: T.chain, pos: [3.8, 1.9, .5], look: [2.4, 1.9, -2.5], fov: 40 }, { t: T.there, pos: [2.2, 1.5, .9], look: [.6, 1.3, -2.3], fov: 40 }], t, { easing: ease.inOut });
       const S: Sprite[] = [...fire(t, 14)]; const pulse = (t * .9) % 1; const glow = ss(T.chain - .2, T.chain + .2, t);
       for (let i = 0; i < 5; i++) { const u = (pulse + i / 5) % 1; S.push({ p: [2.57, lerp(WC[1], SPIT[1], u), lerp(WC[2] + .14, SPIT[2] + .16, u)], s: .1, rot: 0, c: [1.6, 1.4, .5], a: glow * .9, kind: 2, seed: .2, age: 0 }); }
       const lab = t < T.turns ? '① DOG WALKS' : t < T.chain ? '② WHEEL TURNS' : t < T.roast ? '③ CHAIN CARRIES IT DOWN' : '④ PULLEY SPINS THE SPIT';
@@ -95,7 +95,7 @@ function timeline(): Shot[] {
     // of the dog in its wheel, then it hops out for a rest by the hearth ("kitchens often kept two, so they could take turns")
     { t0: T.there, t1: T.then, f: (t) => {
       const out = ss(T.kitchens + .2, T.kitchens + 1.2, t);
-      const c = out < .05 ? rig([{ t: T.there, pos: [3.95, 2.4, -2.75], look: [2.95, 2.4, -2.75], fov: 40 }, { t: T.kitchens, pos: [3.75, 2.38, -2.75], look: [2.95, 2.38, -2.75], fov: 36 }], t) : { pos: [3.4, 1.0, .4] as V3, look: [1.6, .3, -1.6] as V3, fov: 42 };
+      const c = out < .05 ? rig([{ t: T.there, pos: [3.7, 2.5, -1.3], look: [2.95, 2.35, -2.75], fov: 40 }, { t: T.kitchens, pos: [3.55, 2.45, -1.55], look: [2.95, 2.35, -2.75], fov: 36 }], t) : { pos: [3.4, 1.0, .4] as V3, look: [1.6, .3, -1.6] as V3, fov: 42 };
       const A = out < .05 ? [dog(IN_WHEEL, { mode: 'run', run: t * 11, mood: 'keen' }, t, { shadow: false, contact: 0 })] : [dog([1.4, 0, -1.6], { mode: 'rest', mood: 'sleepy' }, t, { contact: .5 }), dog([2.95, 2.235, -2.75], { mode: 'run', run: t * 11, mood: 'keen' }, t, { id: 'dog2', shadow: false, contact: 0 })];
       return { ...KIT, cam: c, props: [mech((t - T.there) * RATE)], sprites: fire(t), actors: A,
         overlay: chip(t < T.kitchens ? 'THE TURNSPIT DOG' : '2 DOGS • TAKING TURNS', 210, ss(T.there + .4, T.there + .8, t), '#ffd23f') };
@@ -103,7 +103,7 @@ function timeline(): Shot[] {
     // S6 — "Then cheap clockwork roasting jacks came along, and by around 1900 the breed had disappeared": the new
     // clockwork jack whirs (fly-fan spinning, weight sinking), the spit turns with no dog; the wheel stands still
     { t0: T.then, t1: T.only, f: (t) => {
-      const j = (t - T.then) * 1.6; const c = rig([{ t: T.then, pos: [-1.4, 2.4, -.6], look: [-2.55, 2.0, -2.3], fov: 36 }, { t: T.only, pos: [-.4, 1.9, .8], look: [-1.0, 1.4, -2.3], fov: 42 }], t, { easing: ease.inOut });
+      const j = (t - T.then) * 1.6; const c = rig([{ t: T.then, pos: [-3.5, 2.2, -.5], look: [-2.55, 1.9, -2.3], fov: 38 }, { t: T.only, pos: [-.4, 1.9, .8], look: [-1.0, 1.4, -2.3], fov: 42 }], t, { easing: ease.inOut });
       const m = mech(0, { jack: j }); m.nodes['jack-weight'] = { pos: [0, -(t - T.then) * .03, 0] };
       return { ...KIT, cam: c, props: [m], sprites: fire(t), actors: [dog([-1.4, 0, -.9], { mode: 'rest', mood: 'happy' }, t, { contact: .5 })], overlay: chip(t < T.then + 2.6 ? '⚙️ CLOCKWORK ROASTING JACK' : 'BY ~1900: NO MORE TURNSPITS', 210, ss(T.then + .2, T.then + .6, t), t < T.then + 2.6 ? '#7fd3ff' : '#ff9a4a') };
     } },

@@ -332,8 +332,8 @@ def spit_props():
         for k in range(4): box(f'anim:wheel@spoke{s}{k}', (WX + s * .2, WY, WZ), (.03, R * 2, .04), wood, bev=0, rot=(k * .785, 0, 0))
     cyl('anim:wheel@axle', (WX, WY, WZ), .04, .7, iron, axis='x', verts=10)
     cyl('anim:wheel@pulley', (WX - .38, WY, WZ), .14, .05, iron, axis='x', verts=24)
-    box('wheel.bracket', (WX + .38, WY, WZ), (.06, .2, .2), iron, bev=.01)
-    box('wheel.wallpost', (WX + .45, WY - .3, WZ), (.08, 1.4, .1), mat('bark', '#4a3122', .8), bev=.01)
+    box('wheel.arm', (WX - .5, WY, WZ - .42), (.07, .07, .86), iron, bev=.01)   # wall arm from behind, clear of the camera side
+    box('wheel.plate', (WX - .5, WY, WZ - .86), (.2, .3, .04), iron, bev=.01)
     SX, SY, SZ = 0.0, 1.15, -2.3
     cyl('anim:spit@rod', (SX + .3, SY, SZ), .02, 5.2, iron, axis='x', verts=8)
     blob('anim:spit@roast', (SX, SY, SZ), .3, mat('paint', '#a8542a', .45), sc=(1.6, .85, .85), sub=3, rough=.06, seed=4)
