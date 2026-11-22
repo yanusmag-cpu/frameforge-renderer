@@ -1,44 +1,44 @@
 {
- "duration_s": 56.56,
- "words": 182,
- "words_per_s": 3.279,
- "longest_gap_s": 0.37,
- "active_pct": 81.7,
+ "duration_s": 58.4,
+ "words": 189,
+ "words_per_s": 3.296,
+ "longest_gap_s": 0.35,
+ "active_pct": 83.1,
  "passages": [
   {
    "file": "/tmp/takes/p0_1.wav",
-   "heard": "This scientist is sliding a live pigeon into the nose of a bomb, and no, he's not getting  rid of it.  He wants the pigeon to fly it!",
+   "heard": "This scientist is sliding a live pigeon into the nose of a bomb, and no, he's not getting  rid of it.  He actually wants the pigeon to fly it.",
    "wer": 0.0,
-   "mos": 4.472,
-   "range_st": 15.14
+   "mos": 4.437,
+   "range_st": 14.82
   },
   {
-   "file": "/tmp/takes/p1_0.wav",
+   "file": "/tmp/takes/p1_1.wav",
    "heard": "It's World War II, and bombs keep missing their targets.  So a psychologist named B.F. Skinner shows up with a plan and a box full of pigeons.  The officials think it's a joke, but they give him $25,000 anyway.",
    "wer": 0.119,
-   "mos": 4.51,
-   "range_st": 11.98
+   "mos": 4.498,
+   "range_st": 10.8
   },
   {
-   "file": "/tmp/takes/p2_1.wav",
-   "heard": "Here's the trick.  A lens in the nose shows the target on a little screen, and the pigeon pecks right at it.  If the bomb drifts, the picture slides, the pigeon chases it, and every peck steers it  back.  One pigeon peck ten thousand times in 45 minutes!",
-   "wer": 0.061,
-   "mos": 4.367,
-   "range_st": 17.16
-  },
-  {
-   "file": "/tmp/takes/p3_2.wav",
-   "heard": "But what if a pigeon gets confused?  Easy, put in three.  You see, it's like asking three friends for directions.  If two point the same way, you go that way.",
-   "wer": 0.0,
+   "file": "/tmp/takes/p2_2.wav",
+   "heard": "Here's the trick.  A lens in the nose shows the target on a little screen, and the pigeon pecks right at it.  If the bomb drifts, the picture slides, the pigeon chases it, and every peck steers it  back.  One single pigeon pecked 10,000 times in 45 minutes.",
+   "wer": 0.08,
    "mos": 4.465,
-   "range_st": 12.96
+   "range_st": 12.22
   },
   {
-   "file": "/tmp/takes/p4_1.wav",
-   "heard": "The officials were amused, not impressed, and in 1944, it was canceled.  But after the war, the Navy brought the pigeons back.  It ran until 1953, when electronics finally got as good as a pigeon.",
-   "wer": 0.026,
-   "mos": 4.513,
-   "range_st": 12.19
+   "file": "/tmp/takes/p3_0.wav",
+   "heard": "But what if a pigeon gets confused?  Easy.  Just put in three.  You see, it's like asking three friends for directions.  If two of them point the same way, you go that way.",
+   "wer": 0.0,
+   "mos": 4.5,
+   "range_st": 14.94
+  },
+  {
+   "file": "/tmp/takes/p4_0.wav",
+   "heard": "The officials were amused, not impressed, and in 1944 it was cancelled.  But after the war, the navy brought the pigeons back.  And it kept running until 1953 when electronics finally got as good as a pigeon.",
+   "wer": 0.0,
+   "mos": 4.481,
+   "range_st": 8.54
   }
  ]
 }
