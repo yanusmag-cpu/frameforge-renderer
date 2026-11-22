@@ -1,44 +1,44 @@
 {
- "duration_s": 60.45,
- "words": 182,
- "words_per_s": 3.064,
+ "duration_s": 57.68,
+ "words": 175,
+ "words_per_s": 3.091,
  "longest_gap_s": 0.36,
- "active_pct": 83.5,
+ "active_pct": 84.9,
  "passages": [
   {
    "file": "/tmp/takes/p0_1.wav",
-   "heard": "This little girl has 53 cents worth of stamps stuck to her coat, and she's about to be  mailed like a package.  Her parents are sending her to her grandparents, 73 miles away.",
+   "heard": "This little girl has 53 cents worth of stamps stuck to her coat, and she's about to be mailed.  Like a package her parents are sending her to her grandparents 73 miles away.",
    "wer": 0.143,
-   "mos": 4.488,
-   "range_st": 12.52
+   "mos": 4.502,
+   "range_st": 12.26
   },
   {
-   "file": "/tmp/takes/p1_2.wav",
-   "heard": "It's 1914 in Idaho.  A year earlier, America started a brand new parcel post service, and people noticed something.  The rules never actually said you couldn't mail a person.  The very first baby was carried by a mailman to his grandma's house for 15 cents.",
-   "wer": 0.022,
-   "mos": 4.494,
-   "range_st": 14.34
+   "file": "/tmp/takes/p1_0.wav",
+   "heard": "It's 1914 in Idaho, a year earlier, America launched parcel post and people noticed something.  The rules never actually said you couldn't mail a person.  The very first baby was carried by a mailman to his grandma's house for 15 cents.",
+   "wer": 0.024,
+   "mos": 4.481,
+   "range_st": 13.3
   },
   {
    "file": "/tmp/takes/p2_1.wav",
-   "heard": "It sounds like a joke.  It wasn't.  May rode in the mail car of a train, right next to the letters and parcels, all the way  through the hills of Idaho, and guess who was looking after her?  The mail clerk on board was her relative.",
+   "heard": "It sounds like a joke.  It wasn't.  May rode in the mail car of a train, right next to the letters and parcels, through the  hills of Idaho, and guess who was looking after her?  The mail clerk on board was her relative.",
    "wer": 0.0,
-   "mos": 4.458,
-   "range_st": 13.83
+   "mos": 4.482,
+   "range_st": 13.22
   },
   {
-   "file": "/tmp/takes/p3_2.wav",
-   "heard": "You see, to the post office.  She was just a very heavy parcel,  under the weight limit, stamped and addressed.  So, legally, she was male.",
-   "wer": 0.04,
-   "mos": 4.5,
-   "range_st": 13.64
+   "file": "/tmp/takes/p3_0.wav",
+   "heard": "You see, to the post office, she was just a very heavy parcel, under the weight limit,  stamped, and addressed, so, legally, she was mail.",
+   "wer": 0.0,
+   "mos": 4.479,
+   "range_st": 11.2
   },
   {
-   "file": "/tmp/takes/p4_2.wav",
-   "heard": "When the postmaster general heard about it, he banned mailing people.  But the next year, another little girl still rode a mail train, 720 miles.  Her postage?  Just 15 cents.",
+   "file": "/tmp/takes/p4_1.wav",
+   "heard": "When the postmaster general heard about it, he banned mailing people, but the next year,  another little girl still rode a mail train, 720 miles, her postage, just 15 cents.",
    "wer": 0.152,
    "mos": 4.494,
-   "range_st": 14.3
+   "range_st": 13.66
   }
  ]
 }
