@@ -1,0 +1,83 @@
++ sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /opt/hostedtoolcache/CodeQL
++ df -h /
++ tail -1
+/dev/root       145G   43G  102G  30% /
++ nproc
+4
++ free -g
++ head -2
+               total        used        free      shared  buff/cache   available
+Mem:              15           1          10           0           4          14
++ python3 -m pip install -q --user --break-system-packages uv
++ export PATH=/home/runner/.local/bin:/home/runner/work/_temp/blender-4.2.3-linux-x64:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ PATH=/home/runner/.local/bin:/home/runner/work/_temp/blender-4.2.3-linux-x64:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ git clone -q --depth 1 --branch v1.2.0 https://github.com/tarepan/SpeechMOS /tmp/SpeechMOS
+Note: switching to 'ed25eacbfa42b99156c36ebec67a733b5dbb9b79'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
++ uv venv -q --seed -p 3.12 /tmp/v
++ VIRTUAL_ENV=/tmp/v
++ uv pip install -q --python /tmp/v/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu
++ VIRTUAL_ENV=/tmp/v
++ uv pip install -q --python /tmp/v/bin/python qwen-tts
++ /tmp/v/bin/python /tmp/qwen_gen.py
+/bin/sh: 1: sox: not found
+SoX could not be found!
+
+    If you do not have SoX, proceed here:
+     - - - http://sox.sourceforge.net/ - - -
+
+    If you do (or think that you should) have SoX, double-check your
+    path variables.
+    
+[0;93m2026-11-22 01:32:40.189353695 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+
+********
+Warning: flash-attn is not installed. Will only run the manual PyTorch version. Please install flash-attn for faster inference.
+********
+ 
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:00<00:00,  4.85it/s]Fetching 4 files: 100%|██████████| 4/4 [01:54<00:00, 28.54s/it]Fetching 4 files: 100%|██████████| 4/4 [01:54<00:00, 28.54s/it]
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+gen qwen-1 {'gen_s': 130.6, 'sr': 24000}
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+gen qwen-2 {'gen_s': 115.8, 'sr': 24000}
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+gen ctl-plain {'gen_s': 31.7, 'sr': 24000}
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+gen ctl-emo {'gen_s': 28.7, 'sr': 24000}
++ uv venv -q --seed -p 3.11 /tmp/e
++ VIRTUAL_ENV=/tmp/e
++ uv pip install -q --python /tmp/e/bin/python torch torchaudio --index-url https://download.pytorch.org/whl/cpu
++ VIRTUAL_ENV=/tmp/e
++ uv pip install -q --python /tmp/e/bin/python transformers==4.57.1 librosa faster-whisper soundfile
++ for f in /tmp/raw_*.wav
++ cp /tmp/raw_ctl-emo.wav public/yw9-lab-qwen/
++ for f in /tmp/raw_*.wav
++ cp /tmp/raw_ctl-plain.wav public/yw9-lab-qwen/
++ for f in /tmp/raw_*.wav
++ cp /tmp/raw_qwen-1.wav public/yw9-lab-qwen/
++ for f in /tmp/raw_*.wav
++ cp /tmp/raw_qwen-2.wav public/yw9-lab-qwen/
++ /tmp/e/bin/python /tmp/ev.py
+/tmp/e/lib/python3.11/site-packages/torch/nn/utils/weight_norm.py:145: FutureWarning: `torch.nn.utils.weight_norm` is deprecated in favor of `torch.nn.utils.parametrizations.weight_norm`.
+  WeightNorm.apply(module, name, dim)
+Downloading: "https://github.com/tarepan/SpeechMOS/releases/download/v1.0.0/utmos22_strong_step7459_v1.pt" to /home/runner/.cache/torch/hub/checkpoints/utmos22_strong_step7459_v1.pt
+  0%|          | 0.00/392M [00:00<?, ?B/s]  5%|▌         | 20.1M/392M [00:00<00:03, 116MB/s]  8%|▊         | 31.2M/392M [00:00<00:03, 114MB/s] 11%|█         | 42.6M/392M [00:00<00:03, 116MB/s] 14%|█▎        | 53.8M/392M [00:00<00:03, 115MB/s] 17%|█▋        | 64.8M/392M [00:00<00:03, 94.8MB/s] 22%|██▏       | 88.0M/392M [00:00<00:02, 137MB/s]  26%|██▌       | 102M/392M [00:00<00:02, 110MB/s]  30%|███       | 118M/392M [00:01<00:02, 124MB/s] 34%|███▎      | 131M/392M [00:01<00:02, 108MB/s] 37%|███▋      | 147M/392M [00:01<00:02, 120MB/s] 41%|████      | 160M/392M [00:04<00:15, 16.0MB/s] 46%|████▌     | 180M/392M [00:04<00:09, 24.3MB/s] 51%|█████     | 200M/392M [00:04<00:05, 34.4MB/s] 54%|█████▍    | 212M/392M [00:04<00:04, 39.6MB/s] 59%|█████▊    | 230M/392M [00:04<00:03, 52.9MB/s] 62%|██████▏   | 242M/392M [00:04<00:02, 61.7MB/s] 66%|██████▌   | 258M/392M [00:04<00:01, 76.6MB/s] 69%|██████▉   | 272M/392M [00:05<00:01, 80.7MB/s] 72%|███████▏  | 284M/392M [00:05<00:01, 80.3MB/s] 77%|███████▋  | 300M/392M [00:05<00:01, 77.1MB/s] 82%|████████▏ | 320M/392M [00:05<00:00, 94.3MB/s] 86%|████████▌ | 336M/392M [00:05<00:00, 109MB/s]  89%|████████▉ | 349M/392M [00:05<00:00, 110MB/s] 92%|█████████▏| 361M/392M [00:06<00:00, 79.4MB/s] 97%|█████████▋| 380M/392M [00:06<00:00, 90.6MB/s]100%|██████████| 392M/392M [00:06<00:00, 65.6MB/s]
+qwen-1 {'kind': 'main', 'dur_s': 18.97, 'words_per_s': 2.79, 'wer': 0.0, 'heard': "Okay, so picture this. A scientist is sliding a live pigeon into the nose of a bomb.  Wait, what? Why would anyone do that? Here's the crazy part. He's not getting rid of the pigeon.  The pigeon is the pilot. It's going to peck at a tiny screen and steer the bomb itself.", 'utmos': 4.35, 'arousal': 0.79, 'dominance': 0.803, 'valence': 0.216, 'median_hz': 218.8, 'pitch_range_st': 8.67, 'loud_range_db': 16.12, 'longest_gap_raw_s': np.float64(0.71), 'gaps_shortened': 7, 'gen_s': 130.6, 'sr': 24000}
+qwen-2 {'kind': 'main', 'dur_s': 18.06, 'words_per_s': 2.93, 'wer': 0.0, 'heard': "Okay, so picture this. A scientist is sliding a live pigeon into the nose of a bomb.  Wait, what? Why would anyone do that? Here's the crazy part. He's not getting rid of the pigeon.  The pigeon is the pilot. It's going to peck at a tiny screen and steer the bomb itself.", 'utmos': 4.462, 'arousal': 0.781, 'dominance': 0.79, 'valence': 0.253, 'median_hz': 216.3, 'pitch_range_st': 14.3, 'loud_range_db': 17.46, 'longest_gap_raw_s': np.float64(0.54), 'gaps_shortened': 2, 'gen_s': 115.8, 'sr': 24000}
+ctl-plain {'kind': 'plain', 'dur_s': 4.6, 'words_per_s': 2.39, 'wer': 0.0, 'heard': "Wait, he wants the pigeon to fly the bomb?  That's insane!", 'utmos': 4.359, 'arousal': 0.487, 'dominance': 0.595, 'valence': 0.09, 'median_hz': 114.6, 'pitch_range_st': 6.55, 'loud_range_db': 15.24, 'longest_gap_raw_s': np.float64(0.62), 'gaps_shortened': 1, 'gen_s': 31.7, 'sr': 24000}
+ctl-emo {'kind': 'emo', 'dur_s': 4.58, 'words_per_s': 2.4, 'wer': 0.0, 'heard': "Wait. He wants the pigeon to fly the bomb? That's insane!", 'utmos': 3.632, 'arousal': 0.916, 'dominance': 0.906, 'valence': 0.017, 'median_hz': 271.0, 'pitch_range_st': 12.3, 'loud_range_db': 18.84, 'longest_gap_raw_s': np.float64(0.43), 'gaps_shortened': 0, 'gen_s': 28.7, 'sr': 24000}
