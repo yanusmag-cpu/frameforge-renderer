@@ -158,14 +158,8 @@ function timeline(): Shot[] {
         actors: [0, 1, 2].map(i => bird(`b${i}`, bay(i), { sock: true, mood: (['keen', 'sleepy', 'confused'] as const)[i], dir: 1, blink: blinkAt(t, i), peck: i === 0 ? peckCycle(t, 1.3) * .3 : 0 }, t, { contact: 0, scale: PB, shadow: false })),
         overlay: chip('LENS → SCREEN', 210, ss(T.trick + 1.4, T.trick + 1.8, t) * (1 - ss(T.pecks - .3, T.pecks, t)), '#7fd3ff') };
     } },
-    // S8 — pigeon's-eye view: the glowing screen fills the frame (ship, coastline, crosshair); the pigeon's head pecks in
-    { t0: T.pecks, t1: T.drifts, f: (t, _k) => {
-      const c = rig([{ t: T.pecks, pos: [.71, 1.3, .2], look: [.95, 1.3, .2], fov: 50 }, { t: T.drifts, pos: [.73, 1.3, .2], look: [.95, 1.3, .2], fov: 46 }], t);
-      const pk = peckCycle(t, 2.2);
-      return { ...XRAY, cam: c, screen: { dx: 0, dy: 0, t, zoom: 1.3, pecks: Math.floor((t - T.pecks) * 2.2) },
-        props: [{ id: 'cone', pos: XC, nodes: { shell: { vis: false }, hatch: { vis: false }, frame: { vis: false } } }],
-        overlay: chip("PIGEON'S VIEW", 210, 1, '#7fd3ff') + beak(pk) };
-    } },
+    // S8 — pigeon's-eye view: through the nose lens, diving at the real freighter; the beak pecks at the target
+    { t0: T.pecks, t1: T.drifts, f: (t, k) => { const pk = peckCycle(t, 2.2); return pov(t, k * .3, 0, pk, chip("PIGEON'S VIEW", 210, 1, '#7fd3ff')); } },
     // S9 — "If the bomb drifts...": chase cam behind the glide bomb over the coast; it drifts, the fins kick, it corrects
     { t0: T.drifts, t1: T.one, f: (t, _k) => {
       const u = at(t, T.drifts, T.one); const drift = Math.sin(clamp(u * 1.6) * Math.PI) * 9 * (1 - ss(.55, 1, u));
@@ -175,19 +169,17 @@ function timeline(): Shot[] {
       return { ...COAST, cam: c, props: [{ id: 'glider', pos: P, rot: [drift * .02, .84 + drift * .015, -.31 + fin * .4], nodes: { g_fin0: { rot: [0, 0, fin] }, g_fin1: { rot: [fin, 0, 0] } } }],
         overlay: u < .5 ? chip('DRIFTING OFF TARGET', 210, ss(.1, .2, u) * (1 - ss(.42, .5, u)), '#ff7a59') : chip('PECK… PECK… BACK ON TARGET', 210, ss(.55, .62, u), '#7dff9a') };
     } },
-    // S10 — "One single pigeon pecked TEN THOUSAND times in forty-five minutes!": hyper-pecking at the screen + counter
+    // S10 — "One single pigeon pecked TEN THOUSAND times in forty-five minutes!": hyper-pecking through the lens + counter
     { t0: T.one, t1: T.but, f: (t, k) => {
-      const c = rig([{ t: T.one, pos: [.71, 1.3, .2], look: [.95, 1.3, .2], fov: 50 }, { t: T.but, pos: [.74, 1.3, .2], look: [.95, 1.3, .2], fov: 44 }], t);
       const rate = lerp(2.5, 7, k); const pk = peckCycle(t, rate); const n = Math.round(ease.in(k) * 10000);
-      return { ...XRAY, cam: c, screen: { dx: 0, dy: 0, t, zoom: 1.3, pecks: 10 + Math.floor(k * 60), lock: .8 }, shake: .002 * k,
-        props: [{ id: 'cone', pos: XC, nodes: { shell: { vis: false }, hatch: { vis: false }, frame: { vis: false } } }],
-        overlay: beak(pk) + `<div style="position:absolute;left:0;width:1080px;top:250px;text-align:center;font-family:Inter;font-weight:900;color:#fff;-webkit-text-stroke:8px #121212;paint-order:stroke fill;text-shadow:0 8px 24px rgba(0,0,0,.5)">
-          <div style="font-size:150px;color:#ffd23f">${n.toLocaleString('en-US')}</div><div style="font-size:52px;letter-spacing:3px">PECKS • 45 MINUTES</div></div>` };
+      const F = pov(t, .5 + k * .4, 0, pk, `<div style="position:absolute;left:0;width:1080px;top:250px;text-align:center;font-family:Inter;font-weight:900;color:#fff;-webkit-text-stroke:8px #121212;paint-order:stroke fill;text-shadow:0 8px 24px rgba(0,0,0,.5)">
+          <div style="font-size:150px;color:#ffd23f">${n.toLocaleString('en-US')}</div><div style="font-size:52px;letter-spacing:3px">PECKS • 45 MINUTES</div></div>`);
+      return { ...F, shake: .002 * k };
     } },
     // S11 — "But what if a pigeon gets confused? Easy. Just put in three!": the shell melts away to the bare frame; orbit
     // reveals all three bays: keen, sleepy, confused
     { t0: T.but, t1: T.see, f: (t, _k) => {
-      const c = rig([{ t: T.but, pos: [-.55, 1.45, 1.05], look: [.6, 1.27, .02], fov: 34 }, { t: T.see, pos: [-.85, 1.6, .5], look: [.62, 1.26, 0], fov: 30 }], t);
+      const c = rig([{ t: T.but, pos: [.2, 1.5, 1.15], look: [.55, 1.3, 0], fov: 36 }, { t: T.see, pos: [.65, 1.45, 1.05], look: [.55, 1.3, 0], fov: 34 }], t);
       const three = ss(T.but + 1.6, T.but + 2.0, t);
       return { ...XRAY, cam: c, screen: { dx: .05, dy: 0, t, zoom: 1.2 },
         props: [{ id: 'cone', pos: XC, nodes: { shell: { vis: false }, cut: { vis: false }, hatch: { vis: false }, frame: { vis: false }, jacket0: { vis: false }, jacket1: { vis: false }, jacket2: { vis: false } } }],
@@ -251,6 +243,14 @@ function timeline(): Shot[] {
 const XRAY: Base = { set: 'none', sky: { top: '#16223c', mid: '#24365a', bot: '#3a2f52', clouds: 0, sun: [.4, .8, .5], sunC: '#000000' }, bg: '#101826', sun: { dir: [.4, .8, .5], color: '#ffe9cc', i: 2.6, focus: [1, 1.3, 0], size: 4 }, hemi: { sky: '#9fb8e8', ground: '#4a3a58', i: 1.4 }, fill: { color: '#cfe6ff', i: .9 },
   lights: [{ p: [1.0, 1.9, .9], c: [1, .85, .65], i: 2.4, d: 4 }, { p: [-.6, 1.0, -1.2], c: [.45, .7, 1], i: 2.6, d: 4 }],
   fog: { color: '#1a2540', density: .04 }, grade: { ao: .8, aoRadius: .2, aoTint: [.3, .34, .55], sat: 1.15, contrast: 1.08, lift: [.02, .03, .07], gain: [1.03, 1.0, .97], bloom: .22, bloomTh: 1.6, vignette: .3 } };
+/** the pigeon's-eye view: from the bomb's nose diving at the real freighter, with an etched reticle and the pecking beak */
+function pov(t: number, u: number, drift: number, pk: number, extra = ''): Partial<Frame9> {
+  const ship: V3 = [42, 2, -70]; const P: V3 = [lerp(-20, 18, u) + drift * 3, lerp(70, 42, u), lerp(10, -30, u)];
+  const c = { pos: P, look: [ship[0] + drift * 6, ship[1], ship[2]] as V3, fov: 34 };
+  const ret = `<svg style="position:absolute;left:0;top:0" width="1080" height="1920"><g stroke="rgba(20,30,40,.65)" stroke-width="7" fill="none"><circle cx="540" cy="960" r="210"/><path d="M540 560 V880 M540 1040 V1360 M140 960 H460 M620 960 H940"/></g>
+    <circle cx="540" cy="960" r="560" fill="none" stroke="rgba(8,14,24,.85)" stroke-width="420"/></svg>`;
+  return { ...COAST, cam: c, fog: { color: '#c4daec', density: .0016 }, overlay: ret + beak(pk) + extra, grade: { ...COAST.grade, vignette: .4 } };
+}
 /** cartoon beak pecking up into the pigeon's-eye view */
 function beak(pk: number) { const y = 1920 - pk * 760; return `<svg style="position:absolute;left:0;top:0" width="1080" height="1920"><g transform="translate(540 ${y.toFixed(0)})"><path d="M-150,260 L0,-60 L150,260 Z" fill="#3e3f46" stroke="#16181f" stroke-width="14" stroke-linejoin="round"/><path d="M-60,200 L0,40 L60,200" fill="none" stroke="#5a5c66" stroke-width="10"/></g></svg>`; }
 function cone(_t: number, o: { hatch: number }): PropF {

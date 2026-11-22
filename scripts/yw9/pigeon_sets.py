@@ -81,7 +81,7 @@ def nose_cone(prefix='', cut=True, at=(0, 0, 0)):
         for j in range(4):
             b = j * math.pi / 2; box(f'{prefix}pad{k}{j}', P(.935, y + math.cos(b) * .1, z + math.sin(b) * .1), (.02, .03, .03), mat('rubber', '#2a2a2a', .9), bev=.004)
         tube(f'{prefix}hose{k}', [P(.9, y, z), P(.6, y * .4, z * .4 - .02), P(.25, 0, 0)], .012, mat('rubber', '#3a2f2a', .8))
-        box(f'{prefix}bay{k}', P(.5, y * 1.12, z * 1.12), (.6, .02, .2), ins, bev=.004, rot=(a, 0, 0))
+        box(f'anim:{prefix}frame.bay{k}', P(.5, y * 1.12, z * 1.12), (.6, .02, .2), ins, bev=.004, rot=(a, 0, 0))
     box(f'{prefix}valve', P(.22, 0, 0), (.2, .22, .22), brass, bev=.02)
     for j in range(6): cyl(f'{prefix}valvebolt{j}', P(.33, math.cos(j) * .08, math.sin(j) * .08), .012, .02, dark, axis='x', verts=8)
     # top hatch (opens for the pigeon) — hinged at x=.3

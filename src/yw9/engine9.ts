@@ -100,7 +100,7 @@ export class Engine9 extends Core {
         vec4 mv = modelViewMatrix * vec4(p, 1.); vA = .35 + .65 * fract(r.x * 13.7 + t * .2); gl_PointSize = clamp(9. * px / -mv.z, .8, 2.6 * px); gl_Position = projectionMatrix * mv; }`,
       fragmentShader: `uniform float a; varying float vA; void main(){ float d = length(gl_PointCoord - .5); gl_FragColor = vec4(vec3(1., .9, .7) * a * vA * .55 * smoothstep(.5, .1, d), 1.); }` }));
     this.dust.frustumCulled = false; this.dust.visible = false; this.dust.renderOrder = 9; this.scene.add(this.dust);
-    this.screenCv.width = 512; this.screenCv.height = 512; this.screenTex = new T.CanvasTexture(this.screenCv); this.screenTex.colorSpace = T.SRGBColorSpace;
+    this.screenCv.width = 1024; this.screenCv.height = 1024; this.screenTex = new T.CanvasTexture(this.screenCv); this.screenTex.colorSpace = T.SRGBColorSpace;
   }
 
   private dress(root: T.Object3D, spec?: SetSpec) {
@@ -171,7 +171,7 @@ export class Engine9 extends Core {
   }
   /** the pigeon's view on the nose-cone screen: sea, coastline and the target ship; shifts as the bomb drifts, peck marks */
   private drawScreen(s: ScreenF) {
-    const g = this.screenCv.getContext('2d')!, W = 512; const z = s.zoom ?? 1; const R = rng(3);
+    const g = this.screenCv.getContext('2d')!, W = 512; const z = s.zoom ?? 1; const R = rng(3); g.setTransform(2, 0, 0, 2, 0, 0);
     g.fillStyle = '#2b7894'; g.fillRect(0, 0, W, W);
     g.save(); g.translate(W / 2 + s.dx * W, W / 2 + s.dy * W); g.scale(z, z);
     for (let i = 0; i < 60; i++) { g.strokeStyle = `rgba(255,255,255,${.08 + R() * .1})`; g.lineWidth = 2; const x = (R() - .5) * W * 2, y = (R() - .5) * W * 2; g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + 15, y - 6, x + 30 + R() * 20, y); g.stroke(); }
