@@ -31,7 +31,7 @@ const walk = (t: number, sp = 1) => { const p = t * 5.2 * sp; return { footA: [-
 type Base = Partial<Frame9>;
 const SHOP: Base = { set: 'shop', sun: { dir: [.2, .5, 1], color: '#fff2dc', i: 1.6, focus: [0, 1, 0], size: 7 }, hemi: { sky: '#f2e6d0', ground: '#8e4a3a', i: 1.15 }, fill: { color: '#ffe8cc', i: .5 }, bg: '#140c0a',
   beams: [-3, 2.4].map(x => ({ p: [x, 2.0, 3.9] as V3, dir: [-.05, -.4, -1] as V3, w: 2.0, h: 2.2, len: 6, c: [1, .93, .8] as [number, number, number], i: .55 })), dust: { box: [[-4.5, .3, -3.6], [4.5, 3, 3.6]], i: .5 },
-  lights: [-3, 0, 3].map(x => ({ p: [x, 2.6, -.5] as V3, c: [1, .85, .6] as [number, number, number], i: 2.4, d: 6 })), fog: { color: '#4a3020', density: .02 },
+  lights: [...[-3, 0, 3].map(x => ({ p: [x, 2.6, -.5] as V3, c: [1, .85, .6] as [number, number, number], i: 2.4, d: 6 })), { p: [-.4, 1.9, .6], c: [1, .9, .75], i: 2.2, d: 3.5 }, { p: [2.0, 1.4, -2.2], c: [.7, .85, 1], i: 1.6, d: 3 }], fog: { color: '#4a3020', density: .02 },
   grade: { ao: .9, aoRadius: .4, aoTint: [.42, .34, .56], sat: 1.18, contrast: 1.07, lift: [.04, .03, .055], gain: [1.05, 1.0, .93], bloom: .3, bloomTh: 1.3, vignette: .28 } };
 const NIGHT: Base = { ...SHOP, sun: { dir: [.2, .5, 1], color: '#8aa0d8', i: .5, focus: [0, 1, 0], size: 7 }, hemi: { sky: '#4a5a8a', ground: '#2a1a18', i: .6 }, fill: { color: '#8affb0', i: .15 }, beams: [], dust: undefined,
   lights: [{ p: [.8, 1.6, -.6], c: [.5, 1, .6], i: 3.0, d: 4 }], fog: { color: '#101820', density: .04 }, grade: { ...SHOP.grade, sat: 1.25, lift: [.02, .035, .06], gain: [.96, 1.04, 1.0], bloom: .5, bloomTh: 1.0, vignette: .4 } };
@@ -40,14 +40,14 @@ const STREET: Base = { set: 'street', sky: { top: '#3f78c2', mid: '#9fc5e8', bot
 const XR: Base = { set: 'none', sky: { top: '#06140e', mid: '#0a2418', bot: '#103a24', clouds: 0, sun: [.4, .8, .5], sunC: '#000000' }, sun: { dir: [.4, .8, .6], color: '#e0f0e8', i: 1.6, focus: [0, .6, 0], size: 3 },
   hemi: { sky: '#a8e0c0', ground: '#2a3a30', i: 1.3 }, fill: { color: '#c0ffd8', i: .6 }, fog: { color: '#06140e', density: .05 }, lights: [{ p: [0, .25, .5], c: [.5, 1, .7], i: 3.0, d: 2 }, { p: [.8, 1.5, 1.2], c: [1, .9, .8], i: 2.4, d: 4 }],
   grade: { ao: .7, aoRadius: .2, aoTint: [.2, .4, .4], sat: 1.15, contrast: 1.1, lift: [.02, .04, .04], gain: [.98, 1.04, 1.0], bloom: .45, bloomTh: 1.05, vignette: .34 } };
-const POV: Base = { ...XR, lights: [], fog: undefined, grade: { ...XR.grade, bloom: .35, bloomTh: 1.2 } };
+const POV: Base = { ...XR, lights: [], fog: undefined, grade: { ...XR.grade, bloom: .12, bloomTh: 1.8, exposure: .85, vignette: .1 } };
 const STATE: Base = { set: 'state', sun: { dir: [.2, .7, .6], color: '#fff0dc', i: 1.4, focus: [0, 1, -2], size: 12 }, hemi: { sky: '#f2e6d0', ground: '#3a4f7a', i: 1.1 }, fill: { color: '#ffe8cc', i: .45 }, bg: '#140c0a',
   lights: [-5, 0, 5].map(x => ({ p: [x, 6.6, 1] as V3, c: [1, .86, .6] as [number, number, number], i: 4, d: 12 })), fog: { color: '#3a2a20', density: .015 },
   grade: { ao: .85, aoRadius: .5, aoTint: [.38, .32, .56], sat: 1.12, contrast: 1.08, lift: [.035, .025, .055], gain: [1.05, 1.0, .93], bloom: .3, bloomTh: 1.3, vignette: .3 } };
 
 const SC: V3 = [.8, 0, -1.0];          // the fluoroscope in the shop
 const KIDON: V3 = [SC[0], .1, SC[2] + .42];
-const ring = (k = 1) => `<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 46%, rgba(0,0,0,0) 0, rgba(0,0,0,0) ${300 * k}px, rgba(4,8,6,.96) ${330 * k}px)"></div>`;
+const ring = (k = 1.5) => `<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 0, rgba(0,0,0,0) ${300 * k}px, rgba(4,8,6,.96) ${330 * k}px)"></div>`;
 const scopeN = (o: { cut?: number; glow?: number; beam?: number; filt?: number } = {}): Record<string, NodeOv> => ({
   case: { op: o.cut ?? 1 }, hood: { vis: true }, tube: { glow: o.glow ?? 0 }, beam: { vis: (o.beam ?? 0) > .01, op: o.beam ?? 0 }, filter: { glow: o.filt ?? 0 }, foot: { vis: (o.cut ?? 1) < .99 } });
 function rays(t: number, n: number, a: number): Sprite[] {
@@ -72,7 +72,7 @@ function timeline(): Shot[] {
     // S2 — "staring down at his own wiggling toe bones!": the view down the viewer
     { t0: T.and, t1: T.this, f: (t) => {
       const z = 1.25 - at(t, T.and, T.this) * .2;
-      return { ...POV, cam: { pos: [0, 0, z], look: [0, 0, 0], fov: 46 }, props: [{ id: 'viewer', pos: [0, 0, 0] }], screen: { dx: t * 1.6, dy: 0, t, zoom: 1, lock: 1 }, overlay: ring() + chip('HIS OWN TOE BONES!', 210, ss(T.wig, T.wig + .3, t), '#7dff9a') };
+      return { ...POV, cam: { pos: [0, 0, z + .4], look: [0, 0, 0], fov: 46 }, props: [{ id: 'viewer', pos: [0, 0, 0] }], screen: { dx: t * 1.6, dy: 0, t, zoom: 1, lock: 1 }, overlay: ring() + chip('HIS OWN TOE BONES!', 210, ss(T.wig, T.wig + .3, t), '#7dff9a') };
     } },
     // S3 — "This was completely normal.": a sunny 1950s main street, cars, the shoe shop's sign; a family walks in
     { t0: T.this, t1: T.from, f: (t) => {
@@ -82,7 +82,7 @@ function timeline(): Shot[] {
     } },
     // S4 — "From the 1920s to the 1950s, lots of shoe shops had one of these.": slow orbit of the walnut cabinet, rim-lit
     { t0: T.from, t1: T.youd, f: (t, k) => {
-      const a = lerp(-.9, .6, ease.inOut(k)); const c = { pos: [SC[0] + Math.sin(a) * 2.0, 1.15, SC[2] + Math.cos(a) * 2.0] as V3, look: [SC[0], .8, SC[2]] as V3, fov: 38 };
+      const a = lerp(-.9, .6, ease.inOut(k)); const c = { pos: [SC[0] + Math.sin(a) * 3.3, 1.5, SC[2] + Math.cos(a) * 3.3] as V3, look: [SC[0], .75, SC[2]] as V3, fov: 38 };
       return { ...SHOP, cam: c, props: [{ id: 'scope', pos: SC, nodes: scopeN() }], overlay: chip('1920s → 1950s', 210, ss(T.from + .2, T.from + .6, t)) };
     } },
     // S5 — "You'd slide your feet into the slot at the bottom": floor-level close-up, the boy's shoes slide in
@@ -98,19 +98,19 @@ function timeline(): Shot[] {
       return { ...SHOP, cam: c, props: [{ id: 'scope', pos: SC, nodes: scopeN() }], actors: [kidOn(t, ss(T.look, T.look + .6, t))], overlay: chip('② LOOK IN THE VIEWER', 210, ss(T.look + .1, T.look + .4, t)) };
     } },
     // S7 — "and watch your bones move inside your new shoes": the view again, now with the shoe outline and a wiggle dance
-    { t0: T.and2, t1: T.kids, f: (t) => ({ ...POV, cam: { pos: [Math.sin(t * .7) * .05, 0, 1.15], look: [0, 0, 0], fov: 46 }, props: [{ id: 'viewer', pos: [0, 0, 0] }], screen: { dx: t * 2.4, dy: 0, t, zoom: 1.05, lock: 1 },
+    { t0: T.and2, t1: T.kids, f: (t) => ({ ...POV, cam: { pos: [Math.sin(t * .7) * .05, 0, 1.5], look: [0, 0, 0], fov: 46 }, props: [{ id: 'viewer', pos: [0, 0, 0] }], screen: { dx: t * 2.4, dy: 0, t, zoom: 1.05, lock: 1 },
       overlay: ring() + chip('③ WATCH YOUR BONES MOVE', 210, ss(T.and2 + .2, T.and2 + .5, t), '#7dff9a') }) },
     // S8 — "Kids loved it. They'd beg to go shoe shopping just to see their skeletons.": a girl drags her mum to the window
     { t0: T.kids, t1: T.parents, f: (t) => {
-      const u = at(t, T.kids, T.parents); const c = rig([{ t: T.kids, pos: [-2.5, 1.2, -4.0], look: [1, 1.4, -8.6], fov: 42 }, { t: T.parents, pos: [-1.2, 1.1, -5.0], look: [1, 1.4, -8.6], fov: 36 }], t);
+      const u = at(t, T.kids, T.parents); const c = rig([{ t: T.kids, pos: [-2.5, 1.2, -4.0], look: [-.6, 1.2, -7.6], fov: 42 }, { t: T.parents, pos: [-1.2, 1.1, -5.0], look: [-.2, 1.2, -7.6], fov: 36 }], t);
       return { ...STREET, cam: c, actors: [kid('k2', KID2, [lerp(-1.5, .6, u), .15, -7.6], pose({ turn: .6, lean: -.25, handB: [.9, -2.3], shapeB: 'point', handA: [-.8, -2.0], shapeA: 'grip', ...walk(t, 1.4) }, t, .3), expr('excited', 'laugh', .6), t),
         act('mom', MOM, [lerp(-2.6, -.4, u), .15, -7.4], pose({ turn: .6, lean: .2, handB: [.8, -2.0], shapeB: 'grip', ...walk(t, .9) }, t, .3), expr('amused', 'tired', .3), t)],
         overlay: chip('KIDS BEGGED TO GO!', 210, ss(T.kids + .5, T.kids + .9, t)) };
     } },
     // S9 — "Parents trusted it because it looked so scientific!": mum and the white-coated clerk peer into the side hoods
     { t0: T.parents, t1: T.but, f: (t) => {
-      const c = rig([{ t: T.parents, pos: [SC[0] - .2, 1.6, SC[2] + 2.2], look: [SC[0], 1.4, SC[2]], fov: 38 }, { t: T.but, pos: [SC[0] - .1, 1.55, SC[2] + 1.5], look: [SC[0], 1.45, SC[2]], fov: 34 }], t);
-      return { ...SHOP, cam: c, props: [{ id: 'scope', pos: SC, nodes: scopeN() }], actors: [kidOn(t), mom(t, [SC[0] - .6, 0, SC[2] - .15], expr('amazed', 'happy', .4)), clerk(t, [SC[0] + .6, 0, SC[2] - .15], expr('smug', 'confident', .5), [-.4, -2.6])],
+      const c = rig([{ t: T.parents, pos: [SC[0] - .2, 1.9, SC[2] + 3.4], look: [SC[0], 1.3, SC[2]], fov: 40 }, { t: T.but, pos: [SC[0] - .1, 1.8, SC[2] + 2.6], look: [SC[0], 1.35, SC[2]], fov: 36 }], t);
+      return { ...SHOP, cam: c, props: [{ id: 'scope', pos: SC, nodes: scopeN() }], actors: [kidOn(t), mom(t, [SC[0] - .9, 0, SC[2] + .3], expr('amazed', 'happy', .4)), clerk(t, [SC[0] + .9, 0, SC[2] + .3], expr('smug', 'confident', .5), [-.4, -2.6])],
         overlay: chip('🔬 SO SCIENTIFIC!', 210, ss(T.parents + .8, T.parents + 1.2, t)) };
     } },
     // S10 — "But here's the problem. Between your feet and the X-ray tube was a thin sheet of aluminium. About 1 mm.": the
@@ -138,10 +138,10 @@ function timeline(): Shot[] {
     } },
     // S13 — "Worst of all? It didn't even help shoes fit better.": the clerk does the old thumb-on-the-toe test; the boy shrugs
     { t0: T.worst, t1: T.in, f: (t) => {
-      const c = rig([{ t: T.worst, pos: [-2.6, 1.0, 2.2], look: [-2.2, .6, .5], fov: 38 }, { t: T.in, pos: [-2.4, .9, 1.7], look: [-2.2, .6, .5], fov: 32 }], t);
+      const c = rig([{ t: T.worst, pos: [-2.0, 1.45, 3.5], look: [2.1, .85, 1.3], fov: 34 }, { t: T.in, pos: [-1.4, 1.35, 3.3], look: [2.1, .85, 1.3], fov: 30 }], t);
       const sh = ss(T.worst + 1.4, T.worst + 1.8, t);
-      return { ...SHOP, cam: c, actors: [kid('kid', KID, [-2.2, .45, 1.1], pose({ turn: .1, crouch: .5, kneeUp: true, handA: [-.9 * sh - .4, -1.8 - sh * .5], handB: [.9 * sh + .4, -1.8 - sh * .5], shapeA: 'open', shapeB: 'open' }, t, .3), expr('confused', 'amused', sh), t),
-        act('clerk', CLERK, [-2.0, 0, .45], pose({ turn: -.4, crouch: 1.2, kneeUp: true, lean: .35, handA: [-.5, -.8], shapeA: 'thumb' }, t, .3), expr('focused'), t)],
+      return { ...SHOP, cam: c, actors: [kid('kid', KID, [1.8, 0, 1.4], pose({ turn: -.2, handA: [-.9 * sh - .4, -1.8 - sh * .5], handB: [.9 * sh + .4, -1.8 - sh * .5], shapeA: 'open', shapeB: 'open' }, t, .3), expr('confused', 'amused', sh), t),
+        act('clerk', CLERK, [2.45, 0, 1.45], pose({ turn: -.6, crouch: 1.2, kneeUp: true, lean: .35, handA: [-.5, -.8], shapeA: 'thumb' }, t, .3), expr('focused'), t)],
         overlay: chip('BETTER FIT? ✗ NOPE', 210, ss(T.worst + 1.2, T.worst + 1.6, t), '#ff5a4a') };
     } },
     // S14 — "In 1957, Pennsylvania became the first state to ban them.": the state chamber; the gavel falls on "ban"

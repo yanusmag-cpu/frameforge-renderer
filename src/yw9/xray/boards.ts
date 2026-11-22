@@ -16,12 +16,12 @@ export function xrayBoards(g: CanvasRenderingContext2D, tag: string) {
  *  s.dx = toe wiggle phase, s.zoom = how bright the screen glows, s.lock = 1 shows the shoe outline */
 export function xrayScreen(g: CanvasRenderingContext2D, s: ScreenF, W: number) {
   const gl = s.zoom ?? 1; const bgr = g.createRadialGradient(W / 2, W / 2, 30, W / 2, W / 2, W * .7);
-  bgr.addColorStop(0, `rgba(${80 * gl},${210 * gl},${120 * gl},1)`); bgr.addColorStop(1, `rgba(${10 * gl},${70 * gl},${40 * gl},1)`); g.fillStyle = bgr; g.fillRect(0, 0, W, W);
+  bgr.addColorStop(0, `rgba(${30 * gl},${120 * gl},${70 * gl},1)`); bgr.addColorStop(1, `rgba(${6 * gl},${40 * gl},${24 * gl},1)`); g.fillStyle = bgr; g.fillRect(0, 0, W, W);
   for (let i = 0; i < 400; i++) { const x = (i * 97.3 + s.t * 300) % W, y = (i * 57.1 + s.t * 170) % W; g.fillStyle = `rgba(200,255,210,${.05 + (i % 5) * .02})`; g.fillRect(x, y, 2, 2); }
   for (const side of [-1, 1]) {
     const cx = W / 2 + side * 110;
     if (s.lock) { g.fillStyle = 'rgba(10,50,25,.55)'; g.beginPath(); g.ellipse(cx, W * .52, 82, 225, side * .05, 0, 7); g.fill(); }
-    g.fillStyle = 'rgba(30,110,60,.55)'; g.beginPath(); g.ellipse(cx, W * .55, 66, 200, side * .05, 0, 7); g.fill();     // flesh
+    g.fillStyle = 'rgba(70,170,100,.5)'; g.beginPath(); g.ellipse(cx, W * .55, 66, 200, side * .05, 0, 7); g.fill();     // flesh
     g.fillStyle = 'rgba(225,255,230,.95)'; g.strokeStyle = 'rgba(240,255,240,.9)'; g.lineCap = 'round';
     g.beginPath(); g.ellipse(cx + side * 6, W * .84, 34, 48, 0, 0, 7); g.fill();                                           // heel
     g.beginPath(); g.ellipse(cx, W * .7, 40, 34, 0, 0, 7); g.fill();                                                         // ankle bones
