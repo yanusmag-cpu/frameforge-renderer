@@ -248,6 +248,18 @@ def build_set(path, name, fn, joinable=True, keep=()):
     import time; t0 = time.time(); group(name); fn(); n0 = len(COLL.objects)
     objs = finish(list(COLL.objects)); print(f'exported-progress {name}: {n0} objects built+baked in {time.time() - t0:.0f}s', flush=True)
     animated = [o for o in objs if any(o.name.startswith(k) for k in keep) or o.name.startswith('anim:')]
+    # opt-in rigid assemblies: every 'anim:<group>@<part>' piece is joined into one object named 'anim:<group>' so it
+    # turns/slides as a single body about its own centre (wheels, spits, a whole bathing machine)
+    groups = {}
+    for o in animated:
+        if '@' in o.name: groups.setdefault(o.name.split('@')[0], []).append(o)
+    for gname, parts in groups.items():
+        bpy.ops.object.select_all(action='DESELECT')
+        for o in parts: o.select_set(True)
+        bpy.context.view_layer.objects.active = parts[0]
+        if len(parts) > 1: bpy.ops.object.join()
+        j = bpy.context.view_layer.objects.active; j.name = gname
+        animated = [o for o in animated if o not in parts] + [j]
     for o in animated:   # pivot at the part's own centre so the engine can swing/slide it naturally
         bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o
         bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')

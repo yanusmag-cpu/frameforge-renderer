@@ -234,12 +234,12 @@ def machine(name, x, y, z, stripes='#c43d33', rot=0.0, hood=True):
     cyl(f'{name}.pole', P(.9, 3.8, .7), .025, 1.4, mat('plank', '#5a3a22', .6), verts=6)
     if hood:
         for k in range(4):
-            box(f'anim:hood.h{k}', P(-1.3 - k * .45, 2.2, 0), (.04, 1.8 - k * .1, 1.9), mat('fabric', '#f4f0e6', .9), bev=0, rot=(0, rot, 0))
-        box('anim:hood.top', P(-1.95, 3.1, 0), (1.5, .03, 1.9), mat('fabric', '#f4f0e6', .9), bev=0, rot=(0, rot, 0)) if name == 'hero' else None
+            box(f'anim:hood@h{k}', P(-1.3 - k * .45, 2.2, 0), (.04, 1.8 - k * .1, 1.9), mat('fabric', '#f4f0e6', .9), bev=0, rot=(0, rot, 0))
+        box('anim:hood@top', P(-1.95, 3.1, 0), (1.5, .03, 1.9), mat('fabric', '#f4f0e6', .9), bev=0, rot=(0, rot, 0)) if name.startswith('anim') else None
 
 
 def bath_props():
-    machine('hero', 0, 0, 0, stripes='#e05a4a')
+    machine('anim:mach@', 0, 0, 0, stripes='#e05a4a')
     box('anim:flag', (.9, 4.4, .7), (.5, .32, .02), mat('fabric', '#2f6a9a', .9), bev=0)
     horse()
 
@@ -248,18 +248,18 @@ def horse():
     """stylised draught horse (~1.6 m at the shoulder) facing +x, standing at local x=3.6; legs anim:leg{k} (pivot at
     the hip/shoulder thanks to the bounds-centre origin -> we offset them so the swing reads), tail, harness + traces"""
     hx = 3.8; m = mat('paint', '#8a5a36', .6); dk = mat('paint', '#3a2618', .6)
-    blob('anim:horse.body', (hx, 1.45, 0), .9, m, sc=(1.45, .62, .55), sub=3, rough=.02, seed=2)
-    blob('anim:horse.neck', (hx + 1.05, 1.95, 0), .5, m, sc=(.6, 1.0, .45), sub=2, rough=.02, seed=3)
-    blob('anim:horse.head', (hx + 1.45, 2.3, 0), .38, m, sc=(1.25, .6, .55), sub=2, rough=.02, seed=4)
+    blob('anim:horse@body', (hx, 1.45, 0), .9, m, sc=(1.45, .62, .55), sub=3, rough=.02, seed=2)
+    blob('anim:horse@neck', (hx + 1.05, 1.95, 0), .5, m, sc=(.6, 1.0, .45), sub=2, rough=.02, seed=3)
+    blob('anim:horse@head', (hx + 1.45, 2.3, 0), .38, m, sc=(1.25, .6, .55), sub=2, rough=.02, seed=4)
     for s in (-1, 1):
-        blob(f'anim:horse.ear{s}', (hx + 1.3, 2.62, s * .1), .07, m, sc=(.6, 1.6, .5), sub=1, rough=0)
-        sphere(f'anim:horse.eye{s}', (hx + 1.62, 2.38, s * .19), .045, dk)
-    blob('anim:horse.mane', (hx + .95, 2.15, 0), .35, dk, sc=(.9, 1.1, .2), sub=2, rough=.15, seed=5)
-    blob('anim:horse.tail', (hx - 1.35, 1.35, 0), .25, dk, sc=(.5, 1.4, .3), sub=2, rough=.2, seed=6)
+        blob(f'anim:horse@ear{s}', (hx + 1.3, 2.62, s * .1), .07, m, sc=(.6, 1.6, .5), sub=1, rough=0)
+        sphere(f'anim:horse@eye{s}', (hx + 1.62, 2.38, s * .19), .045, dk)
+    blob('anim:horse@mane', (hx + .95, 2.15, 0), .35, dk, sc=(.9, 1.1, .2), sub=2, rough=.15, seed=5)
+    blob('anim:horse@tail', (hx - 1.35, 1.35, 0), .25, dk, sc=(.5, 1.4, .3), sub=2, rough=.2, seed=6)
     for k, (lx, lz) in enumerate([(.85, .25), (.85, -.25), (-.85, .25), (-.85, -.25)]):
         cyl(f'anim:leg{k}', (hx + lx, .55, lz), .11, 1.1, m, verts=10)
         cyl(f'anim:leg{k}.hoof', (hx + lx, .05, lz), .14, .12, dk, verts=10)
-    box('anim:horse.collar', (hx + .85, 1.75, 0), (.25, .7, .75), mat('fabric', '#5a2a1e', .8), bev=.08)
+    box('anim:horse@collar', (hx + .85, 1.75, 0), (.25, .7, .75), mat('fabric', '#5a2a1e', .8), bev=.08)
     for s in (-1, 1): tube(f'trace{s}', [(hx + .8, 1.5, s * .45), (2.3, 1.2, s * .7), (1.15, 1.0, s * .8)], .025, mat('fabric', '#3a2618', .8), verts=6)
 
 
@@ -315,22 +315,22 @@ def spit_props():
     WX, WY, WZ, R = 2.95, 2.75, -2.75, .55
     for k in range(16):    # tread slats
         a = k / 16 * 6.283
-        box(f'anim:wheel.s{k}', (WX, WY + math.sin(a) * R, WZ + math.cos(a) * R), (.4, .05, .2), wood, bev=.005, rot=(-a, 0, 0))
+        box(f'anim:wheel@s{k}', (WX, WY + math.sin(a) * R, WZ + math.cos(a) * R), (.4, .05, .2), wood, bev=.005, rot=(-a, 0, 0))
     for s in (-1, 1):
         for k in range(24):
             a = k / 24 * 6.283; b = (k + 1) / 24 * 6.283
-            box(f'anim:wheel.rim{s}{k}', (WX + s * .2, WY + math.sin((a + b) / 2) * (R + .03), WZ + math.cos((a + b) / 2) * (R + .03)), (.04, .06, R * .27), wood, bev=0, rot=(-(a + b) / 2, 0, 0))
-        for k in range(4): box(f'anim:wheel.spoke{s}{k}', (WX + s * .2, WY, WZ), (.03, R * 2, .04), wood, bev=0, rot=(k * .785, 0, 0))
-    cyl('anim:wheel.axle', (WX, WY, WZ), .04, .7, iron, axis='x', verts=10)
-    cyl('anim:wheel.pulley', (WX - .38, WY, WZ), .14, .05, iron, axis='x', verts=24)
+            box(f'anim:wheel@rim{s}{k}', (WX + s * .2, WY + math.sin((a + b) / 2) * (R + .03), WZ + math.cos((a + b) / 2) * (R + .03)), (.04, .06, R * .27), wood, bev=0, rot=(-(a + b) / 2, 0, 0))
+        for k in range(4): box(f'anim:wheel@spoke{s}{k}', (WX + s * .2, WY, WZ), (.03, R * 2, .04), wood, bev=0, rot=(k * .785, 0, 0))
+    cyl('anim:wheel@axle', (WX, WY, WZ), .04, .7, iron, axis='x', verts=10)
+    cyl('anim:wheel@pulley', (WX - .38, WY, WZ), .14, .05, iron, axis='x', verts=24)
     box('wheel.bracket', (WX + .38, WY, WZ), (.06, .2, .2), iron, bev=.01)
     box('wheel.wallpost', (WX + .45, WY - .3, WZ), (.08, 1.4, .1), mat('bark', '#4a3122', .8), bev=.01)
     SX, SY, SZ = 0.0, 1.15, -2.3
-    cyl('anim:spit.rod', (SX + .3, SY, SZ), .02, 5.2, iron, axis='x', verts=8)
-    blob('anim:spit.roast', (SX, SY, SZ), .3, mat('paint', '#a8542a', .45), sc=(1.6, .85, .85), sub=3, rough=.06, seed=4)
-    for k in range(4): blob(f'anim:spit.fat{k}', (SX - .3 + k * .2, SY + .2, SZ + .1), .06, mat('paint', '#e8b070', .3), sc=(1.2, .5, 1), sub=1, rough=0)
-    cyl('anim:spit.pulley', (WX - .38, SY, SZ), .16, .05, iron, axis='x', verts=24)
-    box('anim:spit.crank', (SX + 1.85, SY, SZ + .06), (.03, .03, .14), iron, bev=0)
+    cyl('anim:spit@rod', (SX + .3, SY, SZ), .02, 5.2, iron, axis='x', verts=8)
+    blob('anim:spit@roast', (SX, SY, SZ), .3, mat('paint', '#a8542a', .45), sc=(1.6, .85, .85), sub=3, rough=.06, seed=4)
+    for k in range(4): blob(f'anim:spit@fat{k}', (SX - .3 + k * .2, SY + .2, SZ + .1), .06, mat('paint', '#e8b070', .3), sc=(1.2, .5, 1), sub=1, rough=0)
+    cyl('anim:spit@pulley', (WX - .38, SY, SZ), .16, .05, iron, axis='x', verts=24)
+    box('anim:spit@crank', (SX + 1.85, SY, SZ + .06), (.03, .03, .14), iron, bev=0)
     # chain: two straight runs between the pulleys (link boxes), drawn separately so the shots can scroll them
     for side in (-1, 1):
         y0, z0_ = WY, WZ + side * .14; y1, z1_ = SY, SZ + side * .16
@@ -343,7 +343,7 @@ def spit_props():
     # a cord, the fly (governor) fan on top, and its own pulley driving the spit from the other end
     jx, jy, jz = -2.55, 2.0, -2.3; br = mat('brass', '#c9a24a', .3, .85)
     box('anim:jack.box', (jx, jy, jz), (.34, .3, .26), br, bev=.02); box('anim:jack.bracket', (jx, jy - .22, jz - .1), (.4, .05, .4), iron, bev=.01)
-    for k in range(4): box(f'anim:jack.fan.f{k}', (jx, jy + .3, jz), (.3, .02, .06), br, bev=0, rot=(0, k * .785, 0))
+    for k in range(4): box(f'anim:jackfan@f{k}', (jx, jy + .3, jz), (.3, .02, .06), br, bev=0, rot=(0, k * .785, 0))
     cyl('anim:jack.spindle', (jx, jy + .22, jz), .012, .16, iron, verts=6)
     tube('anim:jack.cord', [(jx + .1, jy - .15, jz), (jx + .1, .9, jz)], .006, mat('fabric', '#c8a868', .9), verts=4)
     cyl('anim:jack.weight', (jx + .1, .8, jz), .07, .22, iron, verts=14)
@@ -351,12 +351,12 @@ def spit_props():
     tube('anim:jack.belt', [(jx + .05, jy - .1, jz), (-2.3, SY + .12, SZ)], .008, mat('fabric', '#5a3a22', .8), verts=4)
     # museum display case (shown only in the last shot): wooden plinth, painted blue backdrop, glass front, flowers
     cx, cy, cz = 0.0, 0.0, 6.0
-    box('anim:case.plinth', (cx, .45, cz), (1.0, .9, .7), mat('plank', '#5a3018', .5), bev=.02)
-    box('anim:case.back', (cx, 1.25, cz - .32), (.96, .7, .04), mat('paint', '#6a9ad0', .7), bev=0)
-    box('anim:case.glass', (cx, 1.25, cz + .33), (.98, .72, .01), mat('glass', '#e8f0f4', .03), bev=0)
-    for s_ in (-1, 1): box(f'anim:case.side{s_}', (cx + s_ * .49, 1.25, cz), (.02, .72, .68), mat('glass', '#e8f0f4', .03), bev=0)
-    box('anim:case.top', (cx, 1.62, cz), (1.0, .04, .7), mat('plank', '#5a3018', .5), bev=.01)
-    for k in range(5): sphere(f'anim:case.fl{k}', (cx - .35 + k * .17, 1.0 + (k % 2) * .08, cz - .25), .03, mat('paint', ['#e8405a', '#f2d24a', '#f6f1e2', '#c95a8f', '#e8405a'][k], .5))
+    box('anim:case@plinth', (cx, .45, cz), (1.0, .9, .7), mat('plank', '#5a3018', .5), bev=.02)
+    box('anim:case@back', (cx, 1.25, cz - .32), (.96, .7, .04), mat('paint', '#6a9ad0', .7), bev=0)
+    box('anim:case@glass', (cx, 1.25, cz + .33), (.98, .72, .01), mat('glass', '#e8f0f4', .03), bev=0)
+    for s_ in (-1, 1): box(f'anim:case@side{s_}', (cx + s_ * .49, 1.25, cz), (.02, .72, .68), mat('glass', '#e8f0f4', .03), bev=0)
+    box('anim:case@top', (cx, 1.62, cz), (1.0, .04, .7), mat('plank', '#5a3018', .5), bev=.01)
+    for k in range(5): sphere(f'anim:case@fl{k}', (cx - .35 + k * .17, 1.0 + (k % 2) * .08, cz - .25), .03, mat('paint', ['#e8405a', '#f2d24a', '#f6f1e2', '#c95a8f', '#e8405a'][k], .5))
 
 
 def turnspit_dog():
@@ -364,15 +364,15 @@ def turnspit_dog():
     sized to stand inside the wheel (local origin at the wheel bottom)"""
     WX, WY, WZ = 2.95, 2.75 - .52, -2.75
     c = mat('paint', '#c8843a', .6); w = mat('paint', '#f2e8d8', .6); dk = mat('paint', '#2a1e18', .5)
-    blob('anim:dog.body', (WX, WY + .22, WZ), .2, c, sc=(.7, .65, 1.6), sub=3, rough=.02, seed=7)
-    blob('anim:dog.belly', (WX, WY + .17, WZ), .16, w, sc=(.6, .5, 1.4), sub=2, rough=0, seed=8)
-    blob('anim:dog.head', (WX, WY + .37, WZ + .32), .12, c, sc=(.95, .9, 1.1), sub=2, rough=0, seed=9)
-    blob('anim:dog.snout', (WX, WY + .33, WZ + .43), .06, w, sc=(.8, .7, 1.1), sub=1, rough=0)
-    sphere('anim:dog.nose', (WX, WY + .35, WZ + .49), .02, dk)
+    blob('anim:dog@body', (WX, WY + .22, WZ), .2, c, sc=(.7, .65, 1.6), sub=3, rough=.02, seed=7)
+    blob('anim:dog@belly', (WX, WY + .17, WZ), .16, w, sc=(.6, .5, 1.4), sub=2, rough=0, seed=8)
+    blob('anim:dog@head', (WX, WY + .37, WZ + .32), .12, c, sc=(.95, .9, 1.1), sub=2, rough=0, seed=9)
+    blob('anim:dog@snout', (WX, WY + .33, WZ + .43), .06, w, sc=(.8, .7, 1.1), sub=1, rough=0)
+    sphere('anim:dog@nose', (WX, WY + .35, WZ + .49), .02, dk)
     for s in (-1, 1):
-        sphere(f'anim:dog.eye{s}', (WX + s * .05, WY + .41, WZ + .42), .016, dk)
-        blob(f'anim:dog.ear{s}', (WX + s * .1, WY + .4, WZ + .3), .06, mat('paint', '#8a5426', .6), sc=(.4, 1.2, .8), sub=1, rough=0, seed=s + 20)
-    blob('anim:dog.tail', (WX, WY + .38, WZ - .32), .05, c, sc=(.5, 1.6, .5), sub=1, rough=0, seed=12)
+        sphere(f'anim:dog@eye{s}', (WX + s * .05, WY + .41, WZ + .42), .016, dk)
+        blob(f'anim:dog@ear{s}', (WX + s * .1, WY + .4, WZ + .3), .06, mat('paint', '#8a5426', .6), sc=(.4, 1.2, .8), sub=1, rough=0, seed=s + 20)
+    blob('anim:dog@tail', (WX, WY + .38, WZ - .32), .05, c, sc=(.5, 1.6, .5), sub=1, rough=0, seed=12)
     for k, (dx, dz) in enumerate([(.08, .2), (-.08, .2), (.08, -.2), (-.08, -.2)]):
         cyl(f'anim:dleg{k}', (WX + dx, WY + .07, WZ + dz), .035, .14, c, verts=8)
 
@@ -418,11 +418,11 @@ def lick_props():
     for s in (-1, 1): tube(f'bar.handle{s}', [(-.8, 1.1, s * .35), (-1.6, 1.0, s * .38)], .025, mat('plank', '#6a4a2e', .7), verts=6)
     cyl('bar.leg', (-.7, .4, 0), .03, .8, mat('plank', '#6a4a2e', .7), verts=6)
     for k in range(6): glass(f'bar.g{k}', .55 - k * .2, 1.33, .3, s=1.0)
-    glass('anim:hero', 0, 0, 0, s=5.0, scoop=True)
+    glass('anim:hero@', 0, 0, 0, s=5.0, scoop=True)
     # Agnes Marshall's cornet (shown at 2x for the reveal): baked cone with a lattice and a scoop on top
-    cyl('anim:cone.c', (0, 1.6, 2.0), .004, .26, mat('paint', '#d8a050', .6), verts=24, r2=.07)
-    for k in range(6): box(f'anim:cone.l{k}', (0, 1.6, 2.0), (.005, .26, .145), mat('paint', '#b8803a', .6), bev=0, rot=(0, k * .52, .27))
-    blob('anim:cone.ice', (0, 1.77, 2.0), .075, mat('paint', '#f6e8c8', .6), sc=(1, .85, 1), sub=3, rough=.08, seed=5)
+    cyl('anim:cone@c', (0, 1.6, 2.0), .004, .26, mat('paint', '#d8a050', .6), verts=24, r2=.07)
+    for k in range(6): box(f'anim:cone@l{k}', (0, 1.6, 2.0), (.005, .26, .145), mat('paint', '#b8803a', .6), bev=0, rot=(0, k * .52, .27))
+    blob('anim:cone@ice', (0, 1.77, 2.0), .075, mat('paint', '#f6e8c8', .6), sc=(1, .85, 1), sub=3, rough=.08, seed=5)
 
 
 def glass(name, x, y, z, s=1.0, scoop=False):
