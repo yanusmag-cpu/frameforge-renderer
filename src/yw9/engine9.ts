@@ -38,7 +38,7 @@ const BLADE = (() => {   // one grass clump: 4 curved tapered blades (12 tris), 
 export class Engine9 extends Core {
   roots = new Map<string, T.Object3D>(); props = new Map<string, T.Object3D>(); anim = new Map<string, Map<string, T.Object3D[]>>();
   grass = new Map<string, T.Object3D>(); windU = { value: 0 }; sky: T.Mesh; skyU: Record<string, { value: unknown }>;
-  sea: T.Mesh; seaU: Record<string, { value: unknown }>; beams: T.Mesh[] = []; dust: T.Points; dustU = { t: { value: 0 }, a: { value: 0 }, lo: { value: new T.Vector3() }, hi: { value: new T.Vector3() } };
+  sea: T.Mesh; seaU: Record<string, { value: unknown }>; beams: T.Mesh[] = []; dust: T.Points; dustU = { t: { value: 0 }, a: { value: 0 }, px: { value: 1 }, lo: { value: new T.Vector3() }, hi: { value: new T.Vector3() } };
   screenCv = document.createElement('canvas'); screenTex: T.CanvasTexture; signTex: T.CanvasTexture | null = null; loaded = false;
   constructor(cv: HTMLCanvasElement, w: number, h: number, public base: string, public sets: SetSpec[], public propList: { id: string; glb: string }[],
               public boardDraw?: (g: CanvasRenderingContext2D, tag: string) => void) {
@@ -93,12 +93,12 @@ export class Engine9 extends Core {
       const b = new T.Mesh(g, m); b.visible = false; b.renderOrder = 8; this.beams.push(b); this.scene.add(b);
     }
     // floating dust motes (lit specks drifting through the shafts)
-    const N = 900, dp = new Float32Array(N * 3), R = rng(7); for (let i = 0; i < N * 3; i++) dp[i] = R();
+    const N = 420, dp = new Float32Array(N * 3), R = rng(7); for (let i = 0; i < N * 3; i++) dp[i] = R();
     const dg = new T.BufferGeometry(); dg.setAttribute('position', new T.BufferAttribute(dp, 3));
     this.dust = new T.Points(dg, new T.ShaderMaterial({ transparent: true, depthWrite: false, blending: T.AdditiveBlending, uniforms: this.dustU,
-      vertexShader: `uniform float t; uniform vec3 lo, hi; varying float vA; void main(){ vec3 r = position; vec3 p = lo + (hi - lo) * fract(r + vec3(sin(t * .07 + r.y * 9.) * .02, t * .006 * (r.x + .3), cos(t * .05 + r.z * 7.) * .02));
-        vec4 mv = modelViewMatrix * vec4(p, 1.); vA = .4 + .6 * fract(r.x * 13.7 + t * .2); gl_PointSize = clamp(55. / -mv.z, 1., 6.); gl_Position = projectionMatrix * mv; }`,
-      fragmentShader: `uniform float a; varying float vA; void main(){ float d = length(gl_PointCoord - .5); gl_FragColor = vec4(vec3(1., .9, .7) * a * vA * smoothstep(.5, .1, d), 1.); }` }));
+      vertexShader: `uniform float t, px; uniform vec3 lo, hi; varying float vA; void main(){ vec3 r = position; vec3 p = lo + (hi - lo) * fract(r + vec3(sin(t * .07 + r.y * 9.) * .02, t * .006 * (r.x + .3), cos(t * .05 + r.z * 7.) * .02));
+        vec4 mv = modelViewMatrix * vec4(p, 1.); vA = .35 + .65 * fract(r.x * 13.7 + t * .2); gl_PointSize = clamp(9. * px / -mv.z, .8, 2.6 * px); gl_Position = projectionMatrix * mv; }`,
+      fragmentShader: `uniform float a; varying float vA; void main(){ float d = length(gl_PointCoord - .5); gl_FragColor = vec4(vec3(1., .9, .7) * a * vA * .55 * smoothstep(.5, .1, d), 1.); }` }));
     this.dust.frustumCulled = false; this.dust.visible = false; this.dust.renderOrder = 9; this.scene.add(this.dust);
     this.screenCv.width = 512; this.screenCv.height = 512; this.screenTex = new T.CanvasTexture(this.screenCv); this.screenTex.colorSpace = T.SRGBColorSpace;
   }
@@ -201,7 +201,7 @@ export class Engine9 extends Core {
     this.sea.visible = !!F.sea; if (F.sea) { this.seaU.t.value = F.t; (this.seaU.c1.value as T.Color).set(F.sea.c1); (this.seaU.c2.value as T.Color).set(F.sea.c2); }
     this.beams.forEach((b, i) => { const B = F.beams?.[i]; b.visible = !!B; if (!B) return; b.position.set(...B.p); b.lookAt(B.p[0] + B.dir[0], B.p[1] + B.dir[1], B.p[2] + B.dir[2]); b.scale.set(B.w, B.h, B.len);
       const u = (b.material as T.ShaderMaterial).uniforms; (u.c.value as T.Color).setRGB(...B.c); u.i.value = B.i; u.t.value = F.t; });
-    this.dust.visible = !!F.dust; if (F.dust) { this.dustU.t.value = F.t; this.dustU.a.value = F.dust.i; this.dustU.lo.value.set(...F.dust.box[0]); this.dustU.hi.value.set(...F.dust.box[1]); }
+    this.dust.visible = !!F.dust; this.dustU.px.value = this.h / 1920; if (F.dust) { this.dustU.t.value = F.t; this.dustU.a.value = F.dust.i; this.dustU.lo.value.set(...F.dust.box[0]); this.dustU.hi.value.set(...F.dust.box[1]); }
     if (F.screen) this.drawScreen(F.screen);
     await this.frameBase(F); this.sky.position.copy(this.cam.position); (this.seaU.camP.value as T.Vector3).copy(this.cam.position);
     this.draw(F, frame);

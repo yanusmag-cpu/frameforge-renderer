@@ -44,8 +44,8 @@ def nose_cone(prefix='', cut=True, at=(0, 0, 0)):
     gimbals, pneumatic pickups and valve block; separate shell (full) and shellcut (cutaway) for the x-ray shots."""
     ox, oy, oz = at
     P = lambda x, y, z: (ox + x, oy + y, oz + z)
-    steel = mat('metal', '#7d8790', .38, .85); dark = mat('metal', '#3d4247', .5, .7); brass = mat('brass', '#c79a45', .3, .9)
-    red = mat('paint', '#c8402e', .45)
+    steel = mat('paint', '#7f8a57', .55); dark = mat('metal', '#4a4f55', .5, .5); brass = mat('brass', '#d2a64e', .3, .9)
+    red = mat('paint', '#d8452f', .45); ins = mat('paint', '#c9cfd3', .5)
     sh = lathe(f'anim:{prefix}shell', [(ox + x, r) for x, r in OGIVE], steel)
     for o in [sh]: o.location = L(0, oy, oz)
     if cut:
@@ -65,9 +65,10 @@ def nose_cone(prefix='', cut=True, at=(0, 0, 0)):
         cyl(f'{prefix}lensrim{k}', P(1.98, y, z), .07, .05, brass, axis='x', verts=24)
         cyl(f'{prefix}lens{k}', P(2.0, y, z), .055, .03, mat('glass', '#a7d8ef', .05), axis='x', verts=24)
     # interior: bulkheads, ribs, stringers
-    for x in (0.05, 0.9, 1.55):
-        r = [rr for xx, rr in OGIVE if xx >= x][0] - .03
-        cyl(f'{prefix}bulk{x}', P(x, 0, 0), r, .025, mat('metal', '#9aa3aa', .45, .6), axis='x', verts=40)
+    for x in (0.05, 0.6, 1.3, 1.85):
+        r = [rr for xx, rr in OGIVE if xx >= x][0] - .035
+        tube(f'{prefix}ring{int(x * 100)}', [P(x, r * math.cos(a * math.pi / 20), r * math.sin(a * math.pi / 20)) for a in range(41)], .02, mat('paint', '#e3b23c', .45))
+    cyl(f'{prefix}rearplate', P(0.03, 0, 0), .44, .02, ins, axis='x', verts=40)
     for k in range(10):
         a = k * 2 * math.pi / 10
         tube(f'{prefix}stringer{k}', [P(x, (r - .03) * math.cos(a), (r - .03) * math.sin(a)) for x, r in OGIVE[:8]], .008, dark)
@@ -80,7 +81,7 @@ def nose_cone(prefix='', cut=True, at=(0, 0, 0)):
         for j in range(4):
             b = j * math.pi / 2; box(f'{prefix}pad{k}{j}', P(.92, y + math.cos(b) * .1, z + math.sin(b) * .1), (.02, .03, .03), mat('rubber', '#2a2a2a', .9), bev=.004)
         tube(f'{prefix}hose{k}', [P(.9, y, z), P(.6, y * .4, z * .4 - .02), P(.25, 0, 0)], .012, mat('rubber', '#3a2f2a', .8))
-        box(f'{prefix}bay{k}', P(.5, y * 1.12, z * 1.12), (.6, .02, .2), mat('metal', '#8f989f', .45, .6), bev=.004, rot=(a, 0, 0))
+        box(f'{prefix}bay{k}', P(.5, y * 1.12, z * 1.12), (.6, .02, .2), ins, bev=.004, rot=(a, 0, 0))
     box(f'{prefix}valve', P(.22, 0, 0), (.2, .22, .22), brass, bev=.02)
     for j in range(6): cyl(f'{prefix}valvebolt{j}', P(.33, math.cos(j) * .08, math.sin(j) * .08), .012, .02, dark, axis='x', verts=8)
     # top hatch (opens for the pigeon) — hinged at x=.3
@@ -90,7 +91,7 @@ def nose_cone(prefix='', cut=True, at=(0, 0, 0)):
 
 def glider():
     """Pelican-style glide bomb carrying the cone: fuselage, wing, tail fins (animated), all in its own frame (nose +x)"""
-    steel = mat('paint', '#8a9199', .45); dark = mat('metal', '#3d4247', .5, .7); yel = mat('paint', '#e3b23c', .5)
+    steel = mat('paint', '#7f8a57', .55); dark = mat('metal', '#4a4f55', .5, .5); yel = mat('paint', '#e3b23c', .5)
     lathe('anim:g_nose', [(2.2 + x, r) for x, r in OGIVE], steel)
     lathe('g_body', [(-1.6, .3), (-1.0, .44), (0, .47), (1.2, .47), (2.2, .47)], steel)
     cyl('g_band', (2.0, 0, 0), .478, .08, yel, axis='x', verts=48); cyl('g_band2', (-.6, 0, 0), .45, .06, yel, axis='x', verts=48)
@@ -125,6 +126,8 @@ def lab():
         box('postcap', (x, H - .35, -1.2), (.5, .14, .5), tm, bev=.02)
     for z in (-3.0, -1.2, .8, 2.8): box('beam', (0, H - .2, z), (W, .3, .24), tm, bev=.025)
     box('beamlong', (-3, H - .48, 0), (.22, .22, D), tm, bev=.02); box('beamlong', (3, H - .48, 0), (.22, .22, D), tm, bev=.02)
+    box('lab.ceiling', (0, H + .06, 0), (W, .12, D), mat('plank', '#8a6644', .7), bev=0)
+    for x in range(-5, 6): box('lab.joist', (x, H - .06, 0), (.12, .14, D), tm, bev=.01)
     # pendant lamps
     for i, (x, z) in enumerate([(-1.6, -.4), (1.6, -.4), (0, 2.2)]):
         cyl(f'pend{i}.cord', (x, H - .9, z), .006, 1.1, mat('rubber', '#222', .8), verts=6)
@@ -209,7 +212,7 @@ def war():
     for k in range(4):
         x = -1.65 + k * 1.1
         chair(f'chairN{k}', x, -.55, face=0, col='#3e2414', seat='#6b2a22'); chair(f'chairS{k}', x, 1.35, face=math.pi, col='#3e2414', seat='#6b2a22')
-    for k, x in enumerate((-1.4, 0, 1.4)): desk_lamp(f'wlamp{k}', x, .79, .15, shade='#2c6a48', lit=5)
+    for k, x in enumerate((-1.95, -.55, .55, 1.95)): desk_lamp(f'wlamp{k}', x, .79, -.05, shade='#2c6a48', lit=5)
     rr = random.Random(8)
     for k in range(10):
         box(f'paper{k}', (rr.uniform(-1.9, 1.9), .795, rr.uniform(-.1, .9)), (.21, .003, .3), mat('paper', '#f3ecda', .9), bev=0, rot=(0, rr.uniform(-.5, .5), 0))
@@ -223,6 +226,8 @@ def war():
     box('anim:cheque', (-1.3, .797, .1), (.26, .004, .12), mat('paper', '#e3edd6', .9), bev=0)
     box('runner', (0, .005, .4), (5.6, .01, 2.6), mat('fabric', '#7a2a24', .95), bev=0)
     box('runnerb', (0, .006, .4), (5.4, .01, 2.4), mat('fabric', '#8f3a2c', .95), bev=0)
+    box('war.ceiling', (0, H + .06, 0), (W, .12, D), mat('plaster', '#efe6d0', .9), bev=0)
+    for x in (-3.0, 0.0, 3.0): box('war.coffer', (x, H - .05, 0), (.2, .1, D), mat('paint', '#e6dcc4', .5), bev=.02)
     # cabinets, clock, ceiling lights, side table with globe
     for k in range(2): box(f'wcab{k}', (x1 - .5, .65, -2.6 + k * .75), (.6, 1.3, .7), mat('paint', '#5a5f58', .5), bev=.015)
     cyl('clock', (x0 + .17, 2.6, 1.2), .28, .05, mat('paint', '#f4ecd8', .5), axis='x', verts=36); cyl('clockrim', (x0 + .16, 2.6, 1.2), .31, .04, mat('brass', '#b8903e', .3, .9), axis='x', verts=36)
@@ -499,7 +504,8 @@ def navy():
     box('anim:console', (-4.6, 1.15, 1.6), (1.1, 2.3, .8), mat('metal', '#4e5a60', .4, .6), bev=.03)
     for k in range(12):
         cyl(f'anim:console.tube{k}', (-4.95 + (k % 6) * .14, 1.55 + (k // 6) * .35, 2.02), .04, .18, mat('emit', '#ffb066', .2, emit=4), verts=12)
-    for k in range(2): cyl(f'ceilN{k}', (-2 + k * 4, H - .1, 0), .5, .08, mat('emit', '#eef4ff', .2, emit=3), verts=24)
+    box('navy.ceiling', (0, H + .06, 0), (W, .12, D), mat('plaster', '#f1f1ea', .9), bev=0)
+    for k in range(2): box(f'ceilN{k}', (-2 + k * 4, H - .06, 0), (.5, .08, 2.4), mat('emit', '#eef4ff', .2, emit=3), bev=.01)
 
 
 # ================================================================ BUILD

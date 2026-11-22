@@ -109,7 +109,7 @@ const SURF: Record<string, (b: number[], seed: number) => Draw> = {
 };
 SURF.brass = SURF.metal; SURF.rubber = SURF.paint;
 const ROUGH: Record<string, number> = { brick: .92, plank: .58, bark: .9, stone: .82, cobble: .78, tile: .22, plaster: .93, roof: .8, metal: .38, brass: .3, fabric: .95, paper: .9, leaf: .85, terrain: .95, paint: .52, rubber: .85 };
-const METAL: Record<string, number> = { metal: .75, brass: .9 };
+const METAL: Record<string, number> = { metal: .45, brass: .75 };
 const NRM: Record<string, number> = { brick: 2.6, plank: 1.2, bark: 2.5, stone: 1.6, cobble: 3.2, plaster: .8, fabric: 1.0, leaf: 1.4, terrain: 1.6 };
 const SCALE: Record<string, number> = { terrain: .5, leaf: 1.5, tile: 1, roof: 1, paint: 1 };
 
