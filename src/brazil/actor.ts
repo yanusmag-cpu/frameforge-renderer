@@ -45,7 +45,7 @@ export class Actor {
     const geo = new T.PlaneGeometry(VW * UNIT, VH * UNIT); geo.translate((VB.x0 + VW / 2) * UNIT, -(VB.y0 + VH / 2) * UNIT, 0);
     this.mesh = new T.Mesh(geo, this.mat); this.mesh.castShadow = true; this.mesh.receiveShadow = false;
     this.mesh.customDepthMaterial = new T.MeshDepthMaterial({ depthPacking: T.RGBADepthPacking, map: this.tex, alphaTest: .5 });
-    this.mesh.renderOrder = 2; scene.add(this.mesh);
+    this.mesh.renderOrder = 2; this.mesh.userData.cutout = true; scene.add(this.mesh);
     this.blob = new T.Mesh(new T.PlaneGeometry(1, 1), new T.MeshBasicMaterial({ map: blobTex(), transparent: true, depthWrite: false, toneMapped: false }));
     this.blob.rotation.x = -Math.PI / 2; this.blob.renderOrder = 1; scene.add(this.blob);
   }

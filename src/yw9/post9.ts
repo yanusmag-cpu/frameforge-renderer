@@ -1,5 +1,7 @@
 // YunoWorld v9 cinematic post: HDR scene -> screen-space ambient occlusion (tinted, so contact shadows are coloured,
-// never black) -> controlled bloom -> depth of field -> ACES -> grade (lift/gain, saturation, contrast), vignette, grain.
+// never black) -> controlled bloom -> depth of field -> ACES -> grade (lift/gain, saturation, contrast), vignette.
+// Clean-image rules: no film grain, no chromatic fringe, and the SSAO sampling pattern is a fixed 4x4 interleave that the
+// two blur passes average away completely (a per-pixel random rotation left a speckled, mesh-like texture on every surface).
 // Same interface as brazil/post.ts so Core.draw() can use it unchanged.
 import * as T from 'three';
 import { DEFAULT_GRADE, type Grade } from '../brazil/post.ts';
@@ -22,6 +24,15 @@ const blur = new T.ShaderMaterial({ uniforms: { t: { value: null }, d: { value: 
   fragmentShader: `uniform sampler2D t; uniform vec2 d; varying vec2 vUv;
   void main(){ vec3 c = texture2D(t, vUv).rgb * .227; c += (texture2D(t, vUv + d * 1.385).rgb + texture2D(t, vUv - d * 1.385).rgb) * .316;
   c += (texture2D(t, vUv + d * 3.231).rgb + texture2D(t, vUv - d * 3.231).rgb) * .07; gl_FragColor = vec4(c, 1.); }` });
+// depth-aware (bilateral) blur for the occlusion buffer: averages the sampling pattern away without bleeding across
+// silhouettes, so outlines stay crisp with no dark halo
+const aoBlur = new T.ShaderMaterial({ uniforms: { t: { value: null }, tD: { value: null }, d: { value: new T.Vector2() }, near: { value: .1 }, far: { value: 500 } }, vertexShader: VS,
+  fragmentShader: `uniform sampler2D t, tD; uniform vec2 d; uniform float near, far; varying vec2 vUv;
+  float lin(float z){ return near * far / (far - z * (far - near)); }
+  void main(){ float z0 = lin(texture2D(tD, vUv).r); float s = 0., w = 0.;
+    for (int i = -4; i <= 4; i++) { vec2 uv = vUv + d * float(i); float z = lin(texture2D(tD, uv).r);
+      float k = exp(-float(i * i) / 12.) * exp(-abs(z - z0) / (z0 * .03 + .02) * 3.); s += texture2D(t, uv).r * k; w += k; }
+    gl_FragColor = vec4(vec3(s / max(w, 1e-4)), 1.); }` });
 const copy = new T.ShaderMaterial({ uniforms: { t: { value: null } }, vertexShader: VS, fragmentShader: 'uniform sampler2D t; varying vec2 vUv; void main(){ gl_FragColor = texture2D(t, vUv); }' });
 // depth-only SSAO at half resolution (view-space reconstruction, 16 spiral taps, range-checked so silhouettes don't halo)
 const ssao = new T.ShaderMaterial({
@@ -34,7 +45,7 @@ const ssao = new T.ShaderMaterial({
     float d0 = texture2D(tD, vUv).r; if (d0 >= .99999) { gl_FragColor = vec4(1.); return; }
     vec3 p = vp(vUv); vec2 px = 1. / res;
     vec3 dx = vp(vUv + vec2(px.x, 0.)) - p, dy = vp(vUv + vec2(0., px.y)) - p; vec3 n = normalize(cross(dx, dy));
-    float rs = radius / (-p.z * th * 2.); float ao = 0.; float a = fract(sin(dot(vUv * res, vec2(12.9898, 78.233))) * 43758.5453) * 6.283;
+    float rs = radius / (-p.z * th * 2.); float ao = 0.; vec2 ip = mod(floor(vUv * res), 4.); float a = (mod(ip.x + ip.y * 4. + mod(ip.y, 2.) * 2., 16.) / 16.) * 6.283;
     for (int i = 0; i < 16; i++) {
       float k = (float(i) + .5) / 16.; float ang = a + float(i) * 2.399; vec2 o = vec2(cos(ang), sin(ang) * aspect) * rs * k;
       vec3 q = vp(vUv + o); vec3 v = q - p; float L = length(v);
@@ -42,20 +53,19 @@ const ssao = new T.ShaderMaterial({
     }
     ao = clamp(1. - ao / 16. * 2.1, 0., 1.); gl_FragColor = vec4(vec3(ao), 1.); }` });
 const final = new T.ShaderMaterial({
-  uniforms: { tS: { value: null }, tB1: { value: null }, tB2: { value: null }, tB3: { value: null }, tD: { value: null }, tSoft: { value: null }, tAO: { value: null },
+  uniforms: { tS: { value: null }, tB1: { value: null }, tB2: { value: null }, tB3: { value: null }, tD: { value: null }, tSoft: { value: null }, tAO: { value: null }, tAD: { value: null },
     exposure: { value: 1 }, bloom: { value: .3 }, sat: { value: 1 }, contrast: { value: 1 }, lift: { value: new T.Vector3() }, gain: { value: new T.Vector3(1, 1, 1) },
     vignette: { value: .3 }, grain: { value: .03 }, seed: { value: 0 }, focus: { value: 6 }, aperture: { value: 0 }, near: { value: .1 }, far: { value: 500 },
     fade: { value: 0 }, flash: { value: 0 }, whip: { value: 0 }, whipDir: { value: new T.Vector2(1, 0) }, ca: { value: .001 }, aspect: { value: .5625 },
     ao: { value: 0 }, aoTint: { value: new T.Vector3(.34, .3, .52) } },
   vertexShader: VS,
-  fragmentShader: `uniform sampler2D tS, tB1, tB2, tB3, tD, tSoft, tAO; uniform float exposure, bloom, sat, contrast, vignette, grain, seed, focus, aperture, near, far, fade, flash, whip, ca, aspect, ao;
+  fragmentShader: `uniform sampler2D tS, tB1, tB2, tB3, tD, tSoft, tAO, tAD; uniform float exposure, bloom, sat, contrast, vignette, grain, seed, focus, aperture, near, far, fade, flash, whip, ca, aspect, ao;
   uniform vec3 lift, gain, aoTint; uniform vec2 whipDir; varying vec2 vUv;
   float lin(float d){ return near * far / (far - d * (far - near)); }
   vec3 aces(vec3 x){ return clamp((x * (2.51 * x + .03)) / (x * (2.43 * x + .59) + .14), 0., 1.); }
-  float h(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233)) + seed) * 43758.5453); }
   vec3 scene(vec2 uv){
     vec2 o = (uv - .5) * ca; vec3 c = vec3(texture2D(tS, uv + o).r, texture2D(tS, uv).g, texture2D(tS, uv - o).b); c = (c.r == c.r && c.g == c.g && c.b == c.b) ? min(c, vec3(64.)) : vec3(0.);
-    if (ao > 0.) { float a = texture2D(tAO, uv).r; a = mix(1., a, ao); c *= mix(aoTint, vec3(1.), a); }
+    if (ao > 0.) { float a = texture2D(tAO, uv).r; float zm = lin(texture2D(tD, uv).r), za = lin(texture2D(tAD, uv).r); a = mix(a, 1., smoothstep(.02, .06, (za - zm) / za)); a = mix(1., a, ao); c *= mix(aoTint, vec3(1.), a); }
     if (aperture > 0.) { float z = lin(texture2D(tD, uv).r); float coc = clamp(abs(z - focus) / max(z, .01) * aperture, 0., 1.); c = mix(c, texture2D(tSoft, uv).rgb, smoothstep(.0, .6, coc)); }
     return c; }
   void main(){
@@ -68,17 +78,16 @@ const final = new T.ShaderMaterial({
     c = (c - .5) * contrast + .5;
     c = c * gain + lift * (1. - c);
     vec2 v = (vUv - .5) * vec2(1., 1. / aspect * .5625); c *= 1. - vignette * smoothstep(.25, .95, dot(v, v) * 2.2);
-    c += (h(vUv * 1000.) - .5) * grain;
     c = mix(c, vec3(1.), flash); c = mix(c, vec3(0.), fade);
     gl_FragColor = vec4(pow(clamp(c, 0., 1.), vec3(1. / 2.2)), 1.);
   }` });
 
 export class Post9 {
   main: T.WebGLRenderTarget; half: T.WebGLRenderTarget; b: T.WebGLRenderTarget[] = []; tmp: T.WebGLRenderTarget[] = []; soft: T.WebGLRenderTarget; softTmp: T.WebGLRenderTarget;
-  ao: T.WebGLRenderTarget; aoTmp: T.WebGLRenderTarget;
+  ao: T.WebGLRenderTarget; aoTmp: T.WebGLRenderTarget; aoDepth: T.WebGLRenderTarget; cut: T.Object3D[] = [];
   constructor(public r: T.WebGLRenderer, public w: number, public h: number) {
     this.main = rt(w, h, 4, true);
-    this.half = rt(w >> 1, h >> 1); this.soft = rt(w >> 1, h >> 1); this.softTmp = rt(w >> 1, h >> 1); this.ao = rt(w >> 1, h >> 1); this.aoTmp = rt(w >> 1, h >> 1);
+    this.half = rt(w >> 1, h >> 1); this.soft = rt(w >> 1, h >> 1); this.softTmp = rt(w >> 1, h >> 1); this.ao = rt(w >> 1, h >> 1); this.aoTmp = rt(w >> 1, h >> 1); this.aoDepth = rt(w >> 1, h >> 1, 0, true);
     for (let i = 0; i < 3; i++) { const s = 2 << i; this.b.push(rt(Math.max(1, w / s / 2) | 0, Math.max(1, h / s / 2) | 0)); this.tmp.push(rt(Math.max(1, w / s / 2) | 0, Math.max(1, h / s / 2) | 0)); }
   }
   private pass(m: T.Material, to: T.WebGLRenderTarget | null) { quad.material = m; this.r.setRenderTarget(to); this.r.render(qs, qc); }
@@ -94,15 +103,21 @@ export class Post9 {
     if (g.aperture > 0) { copy.uniforms.t.value = this.main.texture; this.pass(copy, this.soft); this.blurInto(this.soft, this.softTmp, this.soft, 1.6); this.blurInto(this.soft, this.softTmp, this.soft, 2.6); }
     const aoK = g.ao ?? 0;
     if (aoK > 0) {
-      const s = ssao.uniforms; s.tD.value = this.main.depthTexture; s.near.value = cam.near; s.far.value = cam.far; s.th.value = Math.tan(T.MathUtils.degToRad(cam.fov) / 2);
+      // occlusion comes from the world only: the flat character cut-outs are hidden for this depth pass (no halo round them)
+      this.cut.length = 0; scene.traverse(o => { if (o.userData.cutout && o.visible) { this.cut.push(o); o.visible = false; } });
+      const au = r.shadowMap.autoUpdate; r.shadowMap.autoUpdate = false; r.setRenderTarget(this.aoDepth); r.clear(); r.render(scene, cam); r.shadowMap.autoUpdate = au;
+      for (const o of this.cut) o.visible = true;
+      const s = ssao.uniforms; s.tD.value = this.aoDepth.depthTexture; s.near.value = cam.near; s.far.value = cam.far; s.th.value = Math.tan(T.MathUtils.degToRad(cam.fov) / 2);
       s.aspect.value = this.w / this.h; s.radius.value = g.aoRadius ?? .45; s.res.value.set(this.ao.width, this.ao.height);
-      this.pass(ssao, this.ao); this.blurInto(this.ao, this.aoTmp, this.ao, 1.2);
+      this.pass(ssao, this.ao);
+      const b = aoBlur.uniforms; b.tD.value = this.aoDepth.depthTexture; b.near.value = cam.near; b.far.value = cam.far;
+      for (const rad of [1, 2]) { b.t.value = this.ao.texture; b.d.value.set(rad / this.ao.width, 0); this.pass(aoBlur, this.aoTmp); b.t.value = this.aoTmp.texture; b.d.value.set(0, rad / this.ao.height); this.pass(aoBlur, this.ao); }
     }
     const u = final.uniforms;
-    u.tS.value = this.main.texture; u.tD.value = this.main.depthTexture; u.tSoft.value = this.soft.texture; u.tB1.value = this.b[0].texture; u.tB2.value = this.b[1].texture; u.tB3.value = this.b[2].texture; u.tAO.value = this.ao.texture;
+    u.tS.value = this.main.texture; u.tD.value = this.main.depthTexture; u.tSoft.value = this.soft.texture; u.tB1.value = this.b[0].texture; u.tB2.value = this.b[1].texture; u.tB3.value = this.b[2].texture; u.tAO.value = this.ao.texture; u.tAD.value = this.aoDepth.depthTexture;
     u.exposure.value = g.exposure; u.bloom.value = g.bloom; u.sat.value = g.sat; u.contrast.value = g.contrast; u.lift.value.set(...g.lift); u.gain.value.set(...g.gain);
-    u.vignette.value = g.vignette; u.grain.value = g.grain; u.seed.value = (frame * 7.13) % 100; u.focus.value = g.focus; u.aperture.value = g.aperture; u.near.value = cam.near; u.far.value = cam.far;
-    u.fade.value = g.fade; u.flash.value = g.flash; u.whip.value = g.whip; u.whipDir.value.set(...g.whipDir); u.ca.value = g.ca; u.aspect.value = this.w / this.h;
+    u.vignette.value = g.vignette; u.grain.value = 0; u.seed.value = (frame * 7.13) % 100; u.focus.value = g.focus; u.aperture.value = g.aperture; u.near.value = cam.near; u.far.value = cam.far;
+    u.fade.value = g.fade; u.flash.value = g.flash; u.whip.value = g.whip; u.whipDir.value.set(...g.whipDir); u.ca.value = 0; u.aspect.value = this.w / this.h;
     u.ao.value = aoK; const tnt = g.aoTint ?? [.34, .3, .52]; u.aoTint.value.set(...tnt);
     this.pass(final, null);
   }

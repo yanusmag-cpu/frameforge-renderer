@@ -23,5 +23,8 @@
  "soundtrackLUFS": -14,
  "silentTailSeconds": 2.0,
  "outputFilename": "YunoWorld_Britains_Giant_Concrete_Ears.mp4",
- "timeoutMs": 300000
+ "timeoutMs": 300000,
+ "imageFormat": "png",
+ "crf": 15,
+ "x264Preset": "slow"
 }
