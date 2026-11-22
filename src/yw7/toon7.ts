@@ -21,7 +21,7 @@ export type T7Look = {
   top: string; topKind: 'jacket' | 'shirt' | 'waistcoat' | 'coat' | 'dress' | 'overalls' | 'suit';
   inner?: string; trim?: string; tie?: string; buttons?: string; apron?: string;
   pants: string; boots: string; belt?: string; sleeves?: 'long' | 'rolled';
-  hat?: 'flatcap' | 'helmet' | 'bowler' | 'boater' | 'driver' | 'bonnet' | 'diver' | 'none'; hatColor?: string; lamp?: boolean;
+  hat?: 'flatcap' | 'helmet' | 'bowler' | 'boater' | 'driver' | 'bonnet' | 'diver' | 'bicorne' | 'none'; hatColor?: string; lamp?: boolean;
   beard?: 'stache' | 'full' | 'stubble' | 'chops'; beardColor?: string; glasses?: boolean; soot?: number; age?: number;
   skirt?: boolean;
 };
@@ -280,7 +280,7 @@ export function toon7(p: Pose, L: T7Look, o: T7Opts): { svg: string; j: Joints }
     mutton: `M${-W * 1.02} .25 L${-W * 1.03} -.1 C${-W * 1.05} ${-Hh * .7} ${-W * .7} ${-Hh * .85} ${-W * .45} ${-Hh * .8} L${-W * .7} -.25 L${-W * .82} .25Z M${W * 1.02} .25 L${W * 1.03} -.1 C${W * 1.05} ${-Hh * .7} ${W * .7} ${-Hh * .85} ${W * .45} ${-Hh * .8} L${W * .7} -.25 L${W * .82} .25Z`,
   };
   const hp2 = hairPaths[L.hairStyle] ?? '';
-  const covered = L.hat === 'diver' || L.hat === 'helmet' || L.hat === 'bowler' || L.hat === 'driver' || L.hat === 'flatcap' || L.hat === 'boater' || L.hat === 'bonnet';
+  const covered = L.hat === 'bicorne' || L.hat === 'diver' || L.hat === 'helmet' || L.hat === 'bowler' || L.hat === 'driver' || L.hat === 'flatcap' || L.hat === 'boater' || L.hat === 'bonnet';
   if (hp2 && (!covered || L.hairStyle === 'long' || L.hairStyle === 'mutton' || L.hairStyle === 'bun')) hg += `<path d="${hp2}" fill="${grad(defs, id, hc, 60, .72)}" stroke="${INK}" stroke-width="${LW}" stroke-linejoin="round" transform="translate(${n(X)} 0)"/><path d="M${n(-W * .5 + X)} ${n(-Hh * .98)} q.25 -.1 .5 -.02 M${n(-W * .2 + X)} ${n(-Hh * .86)} q.2 -.07 .38 0" stroke="${tone(hc, '#ffffff', .35)}" stroke-width=".025" fill="none" opacity=".7"/>`;
   else if (hp2 && covered) hg += `<path d="M${-W * 1.0} -.12 L${-W * .94} .2 L${-W * .82} -.12Z M${W * 1.0} -.12 L${W * .94} .2 L${W * .82} -.12Z" fill="${hairD}"/>`;
   const hcol = L.hatColor ?? '#4a4038'; const hgr = grad(defs, id, hcol, 50, .7);
@@ -290,6 +290,9 @@ export function toon7(p: Pose, L: T7Look, o: T7Opts): { svg: string; j: Joints }
       + (L.lamp ? `<path d="M${n(ht * .3 - .11)} ${n(-Hh * 1.12)} h.22 v.18 h-.22Z" fill="#b8b2a4" stroke="${INK}" stroke-width="${LI}"/><circle cx="${n(ht * .3)}" cy="${n(-Hh * 1.03)}" r=".07" fill="#fff2c0" stroke="${INK}" stroke-width="${LI}"/>` : ''); break;
     case 'bowler': hg += `<path d="M${-W * 1.18} ${-Hh * .66} Q0 ${-Hh * .82} ${W * 1.18} ${-Hh * .66} Q0 ${-Hh * .5} ${-W * 1.18} ${-Hh * .66}Z" fill="${shade(hcol, .85)}" stroke="${INK}" stroke-width="${LW}"/><path d="M${-W * .78} ${-Hh * .7} C${-W * .8} ${-Hh * 1.55} ${W * .8} ${-Hh * 1.55} ${W * .78} ${-Hh * .7}Z" fill="${hgr}" stroke="${INK}" stroke-width="${LW}"/><path d="M${-W * .78} ${-Hh * .78} Q0 ${-Hh * .86} ${W * .78} ${-Hh * .78}" stroke="#1a1612" stroke-width=".07" fill="none"/>`; break;
     case 'boater': hg += `<path d="M${-W * 1.4} ${-Hh * .7} Q0 ${-Hh * .86} ${W * 1.4} ${-Hh * .7} Q0 ${-Hh * .58} ${-W * 1.4} ${-Hh * .7}Z" fill="${hgr}" stroke="${INK}" stroke-width="${LW}"/><path d="M${-W * .75} ${-Hh * .74} L${-W * .72} ${-Hh * 1.22} Q0 ${-Hh * 1.3} ${W * .72} ${-Hh * 1.22} L${W * .75} ${-Hh * .74}Z" fill="${hgr}" stroke="${INK}" stroke-width="${LW}"/><path d="M${-W * .74} ${-Hh * .84} L${W * .74} ${-Hh * .84}" stroke="#2a3a6a" stroke-width=".09"/>`; break;
+    case 'bicorne': hg += `<path d="M${n(-W * 1.9)} ${n(-Hh * .62)} Q${n(-W * 1.2)} ${n(-Hh * 1.9)} 0 ${n(-Hh * 1.72)} Q${n(W * 1.2)} ${n(-Hh * 1.9)} ${n(W * 1.9)} ${n(-Hh * .62)} Q0 ${n(-Hh * 1.0)} ${n(-W * 1.9)} ${n(-Hh * .62)}Z" fill="${hgr}" stroke="${INK}" stroke-width="${LW}" stroke-linejoin="round"/>`
+      + `<path d="M${n(-W * 1.75)} ${n(-Hh * .68)} Q0 ${n(-Hh * 1.08)} ${n(W * 1.75)} ${n(-Hh * .68)}" stroke="#d4a640" stroke-width=".05" fill="none"/>`
+      + `<circle cx="${n(W * .55)}" cy="${n(-Hh * 1.35)}" r=".13" fill="#2a4a8a" stroke="${INK}" stroke-width="${LI}"/><circle cx="${n(W * .55)}" cy="${n(-Hh * 1.35)}" r=".08" fill="#f4f0e6"/><circle cx="${n(W * .55)}" cy="${n(-Hh * 1.35)}" r=".04" fill="#c03030"/>`; break;
     case 'driver': hg += `<path d="M${-W * 1.02} ${-Hh * .55} L${-W * .95} ${-Hh * 1.15} Q0 ${-Hh * 1.3} ${W * .95} ${-Hh * 1.15} L${W * 1.02} ${-Hh * .55}Z" fill="${hgr}" stroke="${INK}" stroke-width="${LW}"/><path d="M${n(-W * .3 + ht * .3)} ${-Hh * .55} Q${n(ht * .4)} ${-Hh * .35} ${n(W * .9 + ht * .4)} ${-Hh * .52}Z" fill="#1a1a1a" stroke="${INK}" stroke-width="${LI}"/>`; break;
     case 'diver': { const R0 = Math.max(W, Hh) * 1.5, Rw = Math.max(W, Hh) * 1.02, cy = -Hh * .12; const cg = grad(defs, id, hcol, 35, .62);
       hg += `<path d="M${n(-R0)} ${n(cy)} a${n(R0)} ${n(R0)} 0 1 0 ${n(R0 * 2)} 0 a${n(R0)} ${n(R0)} 0 1 0 ${n(-R0 * 2)} 0Z M${n(-Rw)} ${n(cy)} a${n(Rw)} ${n(Rw)} 0 1 0 ${n(Rw * 2)} 0 a${n(Rw)} ${n(Rw)} 0 1 0 ${n(-Rw * 2)} 0Z" fill="${cg}" fill-rule="evenodd" stroke="${INK}" stroke-width="${LW}"/>`

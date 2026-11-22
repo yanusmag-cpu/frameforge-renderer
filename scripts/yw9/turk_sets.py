@@ -146,8 +146,8 @@ def turk():
     train (anim gears), chessboard with pieces (anim, individually), and the turbaned figure seated behind it: robe, torso,
     head (anim, turns), glass eyes, moustache, turban, left arm (anim) with an open hand"""
     wm = mat('plank', '#5a3018', .5); gm = mat('brass', GOLD, .3)
-    box('cab', (0, .45, 0), (1.2, .78, .6), wm, bev=.015)
-    box('cabtop', (0, .855, 0), (1.26, .04, .66), mat('plank', '#4a2612', .45), bev=.01)
+    box('anim:cab', (0, .45, 0), (1.2, .78, .6), wm, bev=.015)
+    box('anim:cabtop', (0, .855, 0), (1.26, .04, .66), mat('plank', '#4a2612', .45), bev=.01)
     for y in (.08, .835): box(f'cabtrim{y}', (0, y, .305), (1.22, .03, .02), gm, bev=.005)
     for k, x in enumerate((-.4, 0, .4)):
         box(f'anim:door{k}', (x, .52, .31), (.38, .5, .02), mat('plank', '#6a3a1e', .5), bev=.006)
