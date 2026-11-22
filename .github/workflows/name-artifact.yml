@@ -9,7 +9,7 @@ on:
         description: Artifact/file name to publish it as (e.g. YunoWorld_01_Kids_By_Mail.mp4)
         required: true
 permissions:
-  contents: read
+  contents: write   # preserved releases are drafts, which only a write token can see
 jobs:
   publish:
     runs-on: ubuntu-24.04
@@ -24,8 +24,10 @@ jobs:
           echo "$TAG" | grep -Eq '^[a-z0-9][a-z0-9.-]{1,60}$' && echo "$NAME" | grep -Eq '^YunoWorld_[0-9]{2}_[A-Za-z0-9_]+\.mp4$' || { echo 'Invalid input'; exit 1; }
       - name: Fetch the film from its release
         run: |
-          mkdir -p out && gh release download "$TAG" -R "$GITHUB_REPOSITORY" -p '*.mp4' -D dl
-          f=$(ls dl/*.mp4 | grep -v probe | head -1); mv "$f" "out/$NAME"
+          mkdir -p out
+          id=$(gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" -q ".[]|select(.tag_name==\"$TAG\")|.assets[]|select(.name|endswith(\".mp4\"))|.id" | head -1)
+          test -n "$id" || { echo "No MP4 in release $TAG"; exit 1; }
+          gh api -H 'Accept: application/octet-stream' "repos/$GITHUB_REPOSITORY/releases/assets/$id" > "out/$NAME"
           ffprobe -v error -show_entries format=duration:stream=codec_name,width,height -of csv=p=0 "out/$NAME"
       - uses: actions/upload-artifact@v4
         with:
