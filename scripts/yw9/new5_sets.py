@@ -420,7 +420,7 @@ def lick_props():
     for k in range(6): glass(f'bar.g{k}', .55 - k * .2, 1.33, .3, s=1.0)
     glass('anim:hero', 0, 0, 0, s=5.0, scoop=True)
     # Agnes Marshall's cornet (shown at 2x for the reveal): baked cone with a lattice and a scoop on top
-    cyl('anim:cone.c', (0, 1.6, 2.0), .07, .26, mat('paint', '#d8a050', .6), verts=24, r2=.004)
+    cyl('anim:cone.c', (0, 1.6, 2.0), .004, .26, mat('paint', '#d8a050', .6), verts=24, r2=.07)
     for k in range(6): box(f'anim:cone.l{k}', (0, 1.6, 2.0), (.005, .26, .145), mat('paint', '#b8803a', .6), bev=0, rot=(0, k * .52, .27))
     blob('anim:cone.ice', (0, 1.77, 2.0), .075, mat('paint', '#f6e8c8', .6), sc=(1, .85, 1), sub=3, rough=.08, seed=5)
 
